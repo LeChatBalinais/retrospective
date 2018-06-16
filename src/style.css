@@ -1,0 +1,16 @@
+.augmented-video{
+    position: relative;
+}
+
+.main-video{
+    width: 640px;
+    height: 360px;
+}
+
+.augmentation{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 640px;
+    height: 360px;
+}
