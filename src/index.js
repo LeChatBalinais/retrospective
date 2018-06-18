@@ -1,6 +1,7 @@
 // import { TweenMax, TweenLite } from 'gsap';
 import './style.css';
 import AugmentedVideoPlayer from './augmented-video-player/AugmentedVideoPlayer';
+import AugmentedVideoEditor from './augmented-video-player/AugmentedVideoEditor';
 import AugmentedVideo from './augmented-video-player/AugmentedVideo';
 
 window.onload = () => {
@@ -45,7 +46,11 @@ window.onload = () => {
   });
 
   player.source = source;
-  app.appendChild(player.player);
+
+  const editor = new AugmentedVideoEditor();
+  editor.source = source;
+
+  app.appendChild(editor.player);
 
   player.play();
 };
