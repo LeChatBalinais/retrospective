@@ -88,7 +88,6 @@ class AugmentedVideoPlayer {
 
   update = () => {
     const { currentTime } = this.mainVideo;
-
     this.tags.forEach(tag => {
       if (currentTime >= tag.start && currentTime <= tag.start + tag.duration) {
         if (tag.element.style.display === 'none') {

@@ -1,4 +1,3 @@
-// import { TweenMax, TweenLite } from 'gsap';
 import './style.css';
 import AugmentedVideoPlayer from './augmented-video-player/AugmentedVideoPlayer';
 import AugmentedVideoEditor from './augmented-video-player/AugmentedVideoEditor';
@@ -7,50 +6,34 @@ import AugmentedVideo from './augmented-video-player/AugmentedVideo';
 window.onload = () => {
   const app = document.getElementById('app');
 
-  const player = new AugmentedVideoPlayer();
-
-  const source = new AugmentedVideo('http://localhost:3000/video');
-
-  source.addTag({
-    id: '534526',
-    start: 1,
-    duration: 10,
-    initialPosition: { x: 10, y: 10 },
-    path: [
-      { x: 0, y: 0 },
-      { x: 100, y: 0 },
-      { x: 100, y: 100 },
-      { x: 0, y: 100 },
-      { x: 0, y: 0 },
-      { x: 100, y: 0 },
-      { x: 100, y: 100 },
-      { x: 0, y: 100 }
-    ]
-  });
-
-  source.addTag({
-    id: '53526',
-    start: 1,
-    duration: 10,
-    initialPosition: { x: 110, y: 110 },
-    path: [
-      { x: 0, y: 0 },
-      { x: 100, y: 0 },
-      { x: 100, y: 100 },
-      { x: 0, y: 100 },
-      { x: 0, y: 0 },
-      { x: 100, y: 0 },
-      { x: 100, y: 100 },
-      { x: 0, y: 100 }
-    ]
-  });
-
-  player.source = source;
-
   const editor = new AugmentedVideoEditor();
-  editor.source = source;
+  editor.source = new AugmentedVideo('http://localhost:3000/video');
+
+  editor.onTagCreated = path => {
+    const newPath = path.map((point, index, array) => ({
+      x: point.x - array[0].x,
+      y: point.y - array[0].y
+    }));
+
+    const player = new AugmentedVideoPlayer();
+
+    const source = new AugmentedVideo('http://localhost:3000/video');
+
+    source.addTag({
+      id: '534526',
+      start: path[0].time,
+      duration: path[path.length - 1].time - path[0].time,
+      initialPosition: { x: path[0].x, y: path[0].y },
+      path: newPath
+    });
+
+    app.removeChild(editor.player);
+    app.appendChild(player.player);
+    player.source = source;
+    player.play();
+  };
 
   app.appendChild(editor.player);
-
-  player.play();
+  // editor.do();
+  // editor.init();
 };
