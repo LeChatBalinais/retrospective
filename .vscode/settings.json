@@ -3,5 +3,6 @@
   "prettier.singleQuote": true,
   "flow.useNPMPackagedFlow": false,
   "javascript.validate.enable": false,
-  "flow.runOnEdit": false
+  "flow.runOnEdit": false,
+  "editor.formatOnSave": true
 }

@@ -1,4 +1,5 @@
 import { TweenLite, TweenMax } from 'gsap';
+import Video from './video';
 
 class AugmentedVideoPlayer {
   constructor() {
@@ -14,9 +15,7 @@ class AugmentedVideoPlayer {
     this.augmentationContainer = document.createElement('div');
     this.augmentationContainer.setAttribute('class', 'augmentation-container');
 
-    this.mainVideo = document.createElement('video');
-    this.mainVideo.setAttribute('class', 'main-video');
-    this.mainVideo.setAttribute('autoplay', 'true');
+    this.video = new Video();
 
     this.augmentation = document.createElementNS(
       'http://www.w3.org/2000/svg',
@@ -27,14 +26,14 @@ class AugmentedVideoPlayer {
     this.player.appendChild(this.videoContainer);
     this.player.appendChild(this.augmentationContainer);
 
-    this.videoContainer.appendChild(this.mainVideo);
+    this.videoContainer.appendChild(this.video.el);
 
     this.augmentationContainer.appendChild(this.augmentation);
   }
 
   set source(augmentedVideo) {
     this.augmentedVideo = augmentedVideo;
-    this.mainVideo.src = this.augmentedVideo.videoSrc;
+    this.video.src = this.augmentedVideo.videoSrc;
 
     this.tags = this.augmentedVideo.tags.map(tagInfo =>
       this.createTag(tagInfo)
@@ -77,17 +76,17 @@ class AugmentedVideoPlayer {
   }
 
   play() {
-    this.mainVideo.play();
+    this.video.play();
     TweenLite.ticker.addEventListener('tick', this.update);
   }
 
   pause() {
-    this.mainVideo.pause();
+    this.video.pause();
     TweenLite.ticker.removeEventListener('tick', this.update);
   }
 
   update = () => {
-    const { currentTime } = this.mainVideo;
+    const { currentTime } = this.video;
     this.tags.forEach(tag => {
       if (currentTime >= tag.start && currentTime <= tag.start + tag.duration) {
         if (tag.element.style.display === 'none') {
