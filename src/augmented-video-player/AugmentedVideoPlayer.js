@@ -1,6 +1,6 @@
 import { TweenLite, TweenMax } from 'gsap';
 import Video from './video';
-import Svg from './svg';
+import Augmentation from './augmentation';
 
 class AugmentedVideoPlayer {
   constructor() {
@@ -12,7 +12,7 @@ class AugmentedVideoPlayer {
 
     this.video = new Video();
 
-    this.augmentation = new Svg();
+    this.augmentation = new Augmentation();
 
     this.player.appendChild(this.video.el);
     this.player.appendChild(this.augmentation.el);
