@@ -1,0 +1,131 @@
+diff --git a/src/augmented-video-player/AugmentedVideoPlayer.js b/src/augmented-video-player/AugmentedVideoPlayer.js
+index 2bbbe3f..78e4640 100644
+--- a/src/augmented-video-player/AugmentedVideoPlayer.js
++++ b/src/augmented-video-player/AugmentedVideoPlayer.js
+@@ -1,5 +1,6 @@
+ import { TweenLite, TweenMax } from 'gsap';
+ import Video from './video';
++import Svg from './svg';
+ 
+ class AugmentedVideoPlayer {
+   constructor() {
+@@ -9,26 +10,12 @@ class AugmentedVideoPlayer {
+     this.player = document.createElement('div');
+     this.player.setAttribute('class', 'augmented-video');
+ 
+-    this.videoContainer = document.createElement('div');
+-    this.videoContainer.setAttribute('class', 'video-container');
+-
+-    this.augmentationContainer = document.createElement('div');
+-    this.augmentationContainer.setAttribute('class', 'augmentation-container');
+-
+     this.video = new Video();
+ 
+-    this.augmentation = document.createElementNS(
+-      'http://www.w3.org/2000/svg',
+-      'svg'
+-    );
+-    this.augmentation.setAttribute('class', 'augmentation');
+-
+-    this.player.appendChild(this.videoContainer);
+-    this.player.appendChild(this.augmentationContainer);
+-
+-    this.videoContainer.appendChild(this.video.el);
++    this.augmentation = new Svg();
+ 
+-    this.augmentationContainer.appendChild(this.augmentation);
++    this.player.appendChild(this.video.el);
++    this.player.appendChild(this.augmentation.el);
+   }
+ 
+   set source(augmentedVideo) {
+@@ -46,7 +33,7 @@ class AugmentedVideoPlayer {
+       'circle'
+     );
+ 
+-    element.setAttribute('class', `tag-${tagInfo.id}`);
++    element.setAttributeNS(null, 'class', `tag-${tagInfo.id}`);
+     element.setAttributeNS(null, 'cx', tagInfo.initialPosition.x);
+     element.setAttributeNS(null, 'cy', tagInfo.initialPosition.y);
+     element.setAttributeNS(null, 'r', 10);
+@@ -68,7 +55,7 @@ class AugmentedVideoPlayer {
+     const element = AugmentedVideoPlayer.createTagElement(tagInfo);
+ 
+     element.style.display = 'block';
+-    this.augmentation.appendChild(element);
++    this.augmentation.el.appendChild(element);
+ 
+     const tween = AugmentedVideoPlayer.createTagTween(tagInfo, element);
+ 
+diff --git a/src/augmented-video-player/svg-component.js b/src/augmented-video-player/svg-component.js
+new file mode 100644
+index 0000000..f965d84
+--- /dev/null
++++ b/src/augmented-video-player/svg-component.js
+@@ -0,0 +1,19 @@
++class SvgComponent {
++  createEl() {
++    if (!this.tag || !this.attributes) return undefined;
++
++    const el = document.createElementNS('http://www.w3.org/2000/svg', this.tag);
++
++    Object.keys(this.attributes).forEach(key => {
++      if (
++        this.attributes &&
++        Object.prototype.hasOwnProperty.call(this.attributes, key)
++      )
++        el.setAttributeNS(null, key, this.attributes[key]);
++    });
++
++    return el;
++  }
++}
++
++export default SvgComponent;
+diff --git a/src/augmented-video-player/svg.js b/src/augmented-video-player/svg.js
+new file mode 100644
+index 0000000..e762357
+--- /dev/null
++++ b/src/augmented-video-player/svg.js
+@@ -0,0 +1,14 @@
++import SvgComponent from './svg-component';
++
++class Svg extends SvgComponent {
++  constructor() {
++    super();
++
++    this.tag = 'svg';
++    this.attributes = { class: 'augmentation' };
++
++    this.el = this.createEl();
++  }
++}
++
++export default Svg;
+diff --git a/src/augmented-video-player/tag.js b/src/augmented-video-player/tag.js
+new file mode 100644
+index 0000000..56aafce
+--- /dev/null
++++ b/src/augmented-video-player/tag.js
+@@ -0,0 +1,21 @@
++import SvgComponent from './svg-component';
++
++class Tag extends SvgComponent {
++  constructor(id, initialPosition) {
++    super();
++
++    this.id = id;
++    this.tag = 'circle';
++    this.attributes = {
++      class: `tag-${this.id}`,
++      cx: initialPosition.x,
++      cy: initialPosition.y,
++      r: 10,
++      fill: 'red'
++    };
++
++    this.el = this.createEl();
++  }
++}
++
++export default Tag;

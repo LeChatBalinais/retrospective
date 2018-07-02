@@ -1,5 +1,6 @@
 import { TweenLite, TweenMax } from 'gsap';
 import Video from './video';
+import Svg from './svg';
 
 class AugmentedVideoPlayer {
   constructor() {
@@ -9,26 +10,12 @@ class AugmentedVideoPlayer {
     this.player = document.createElement('div');
     this.player.setAttribute('class', 'augmented-video');
 
-    this.videoContainer = document.createElement('div');
-    this.videoContainer.setAttribute('class', 'video-container');
-
-    this.augmentationContainer = document.createElement('div');
-    this.augmentationContainer.setAttribute('class', 'augmentation-container');
-
     this.video = new Video();
 
-    this.augmentation = document.createElementNS(
-      'http://www.w3.org/2000/svg',
-      'svg'
-    );
-    this.augmentation.setAttribute('class', 'augmentation');
+    this.augmentation = new Svg();
 
-    this.player.appendChild(this.videoContainer);
-    this.player.appendChild(this.augmentationContainer);
-
-    this.videoContainer.appendChild(this.video.el);
-
-    this.augmentationContainer.appendChild(this.augmentation);
+    this.player.appendChild(this.video.el);
+    this.player.appendChild(this.augmentation.el);
   }
 
   set source(augmentedVideo) {
@@ -46,7 +33,7 @@ class AugmentedVideoPlayer {
       'circle'
     );
 
-    element.setAttribute('class', `tag-${tagInfo.id}`);
+    element.setAttributeNS(null, 'class', `tag-${tagInfo.id}`);
     element.setAttributeNS(null, 'cx', tagInfo.initialPosition.x);
     element.setAttributeNS(null, 'cy', tagInfo.initialPosition.y);
     element.setAttributeNS(null, 'r', 10);
@@ -68,7 +55,7 @@ class AugmentedVideoPlayer {
     const element = AugmentedVideoPlayer.createTagElement(tagInfo);
 
     element.style.display = 'block';
-    this.augmentation.appendChild(element);
+    this.augmentation.el.appendChild(element);
 
     const tween = AugmentedVideoPlayer.createTagTween(tagInfo, element);
 
