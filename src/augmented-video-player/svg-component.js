@@ -1,4 +1,6 @@
-class SvgComponent {
+import Component from './component';
+
+class SvgComponent extends Component {
   createEl() {
     if (!this.tag || !this.attributes) return undefined;
 
@@ -11,6 +13,8 @@ class SvgComponent {
       )
         el.setAttributeNS(null, key, this.attributes[key]);
     });
+
+    this.children.forEach(child => el.appendChild(child.el));
 
     return el;
   }

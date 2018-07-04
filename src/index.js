@@ -1,6 +1,6 @@
 import './style.css';
-import AugmentedVideoPlayer from './augmented-video-player/AugmentedVideoPlayer';
-import AugmentedVideoEditor from './augmented-video-player/AugmentedVideoEditor';
+import AugmentedVideoPlayer from './augmented-video-player/augmented-video-player';
+import AugmentedVideoEditor from './augmented-video-player/augmented-video-editor';
 import AugmentedVideo from './augmented-video-player/AugmentedVideo';
 
 window.onload = () => {
@@ -27,13 +27,11 @@ window.onload = () => {
       path: newPath
     });
 
-    app.removeChild(editor.player);
-    app.appendChild(player.player);
+    app.removeChild(editor.el);
+    app.appendChild(player.el);
     player.source = source;
     player.play();
   };
 
-  app.appendChild(editor.player);
-  // editor.do();
-  // editor.init();
+  app.appendChild(editor.el);
 };

@@ -5,7 +5,7 @@ class Video extends Component {
     super();
 
     this.tag = 'video';
-    this.attributes = { class: 'main-video', autoplay: 'true' };
+    this.attributes = { class: 'main-video' };
 
     this.el = this.createEl();
   }

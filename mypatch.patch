@@ -1,131 +1,769 @@
+diff --git a/mypatch.patch b/mypatch.patch
+deleted file mode 100644
+index f255d90..0000000
+--- a/mypatch.patch
++++ /dev/null
+@@ -1,131 +0,0 @@
+-diff --git a/src/augmented-video-player/AugmentedVideoPlayer.js b/src/augmented-video-player/AugmentedVideoPlayer.js
+-index 2bbbe3f..78e4640 100644
+---- a/src/augmented-video-player/AugmentedVideoPlayer.js
+-+++ b/src/augmented-video-player/AugmentedVideoPlayer.js
+-@@ -1,5 +1,6 @@
+- import { TweenLite, TweenMax } from 'gsap';
+- import Video from './video';
+-+import Svg from './svg';
+- 
+- class AugmentedVideoPlayer {
+-   constructor() {
+-@@ -9,26 +10,12 @@ class AugmentedVideoPlayer {
+-     this.player = document.createElement('div');
+-     this.player.setAttribute('class', 'augmented-video');
+- 
+--    this.videoContainer = document.createElement('div');
+--    this.videoContainer.setAttribute('class', 'video-container');
+--
+--    this.augmentationContainer = document.createElement('div');
+--    this.augmentationContainer.setAttribute('class', 'augmentation-container');
+--
+-     this.video = new Video();
+- 
+--    this.augmentation = document.createElementNS(
+--      'http://www.w3.org/2000/svg',
+--      'svg'
+--    );
+--    this.augmentation.setAttribute('class', 'augmentation');
+--
+--    this.player.appendChild(this.videoContainer);
+--    this.player.appendChild(this.augmentationContainer);
+--
+--    this.videoContainer.appendChild(this.video.el);
+-+    this.augmentation = new Svg();
+- 
+--    this.augmentationContainer.appendChild(this.augmentation);
+-+    this.player.appendChild(this.video.el);
+-+    this.player.appendChild(this.augmentation.el);
+-   }
+- 
+-   set source(augmentedVideo) {
+-@@ -46,7 +33,7 @@ class AugmentedVideoPlayer {
+-       'circle'
+-     );
+- 
+--    element.setAttribute('class', `tag-${tagInfo.id}`);
+-+    element.setAttributeNS(null, 'class', `tag-${tagInfo.id}`);
+-     element.setAttributeNS(null, 'cx', tagInfo.initialPosition.x);
+-     element.setAttributeNS(null, 'cy', tagInfo.initialPosition.y);
+-     element.setAttributeNS(null, 'r', 10);
+-@@ -68,7 +55,7 @@ class AugmentedVideoPlayer {
+-     const element = AugmentedVideoPlayer.createTagElement(tagInfo);
+- 
+-     element.style.display = 'block';
+--    this.augmentation.appendChild(element);
+-+    this.augmentation.el.appendChild(element);
+- 
+-     const tween = AugmentedVideoPlayer.createTagTween(tagInfo, element);
+- 
+-diff --git a/src/augmented-video-player/svg-component.js b/src/augmented-video-player/svg-component.js
+-new file mode 100644
+-index 0000000..f965d84
+---- /dev/null
+-+++ b/src/augmented-video-player/svg-component.js
+-@@ -0,0 +1,19 @@
+-+class SvgComponent {
+-+  createEl() {
+-+    if (!this.tag || !this.attributes) return undefined;
+-+
+-+    const el = document.createElementNS('http://www.w3.org/2000/svg', this.tag);
+-+
+-+    Object.keys(this.attributes).forEach(key => {
+-+      if (
+-+        this.attributes &&
+-+        Object.prototype.hasOwnProperty.call(this.attributes, key)
+-+      )
+-+        el.setAttributeNS(null, key, this.attributes[key]);
+-+    });
+-+
+-+    return el;
+-+  }
+-+}
+-+
+-+export default SvgComponent;
+-diff --git a/src/augmented-video-player/svg.js b/src/augmented-video-player/svg.js
+-new file mode 100644
+-index 0000000..e762357
+---- /dev/null
+-+++ b/src/augmented-video-player/svg.js
+-@@ -0,0 +1,14 @@
+-+import SvgComponent from './svg-component';
+-+
+-+class Svg extends SvgComponent {
+-+  constructor() {
+-+    super();
+-+
+-+    this.tag = 'svg';
+-+    this.attributes = { class: 'augmentation' };
+-+
+-+    this.el = this.createEl();
+-+  }
+-+}
+-+
+-+export default Svg;
+-diff --git a/src/augmented-video-player/tag.js b/src/augmented-video-player/tag.js
+-new file mode 100644
+-index 0000000..56aafce
+---- /dev/null
+-+++ b/src/augmented-video-player/tag.js
+-@@ -0,0 +1,21 @@
+-+import SvgComponent from './svg-component';
+-+
+-+class Tag extends SvgComponent {
+-+  constructor(id, initialPosition) {
+-+    super();
+-+
+-+    this.id = id;
+-+    this.tag = 'circle';
+-+    this.attributes = {
+-+      class: `tag-${this.id}`,
+-+      cx: initialPosition.x,
+-+      cy: initialPosition.y,
+-+      r: 10,
+-+      fill: 'red'
+-+    };
+-+
+-+    this.el = this.createEl();
+-+  }
+-+}
+-+
+-+export default Tag;
 diff --git a/src/augmented-video-player/AugmentedVideoPlayer.js b/src/augmented-video-player/AugmentedVideoPlayer.js
-index 2bbbe3f..78e4640 100644
+deleted file mode 100644
+index f3730fb..0000000
 --- a/src/augmented-video-player/AugmentedVideoPlayer.js
-+++ b/src/augmented-video-player/AugmentedVideoPlayer.js
++++ /dev/null
+@@ -1,92 +0,0 @@
+-import { TweenLite, TweenMax } from 'gsap';
+-import Video from './video';
+-import Augmentation from './augmentation';
+-
+-class AugmentedVideoPlayer {
+-  constructor() {
+-    this.augmentedVideo = {};
+-    this.tags = [];
+-
+-    this.player = document.createElement('div');
+-    this.player.setAttribute('class', 'augmented-video');
+-
+-    this.video = new Video();
+-
+-    this.augmentation = new Augmentation();
+-
+-    this.player.appendChild(this.video.el);
+-    this.player.appendChild(this.augmentation.el);
+-  }
+-
+-  set source(augmentedVideo) {
+-    this.augmentedVideo = augmentedVideo;
+-    this.video.src = this.augmentedVideo.videoSrc;
+-
+-    this.tags = this.augmentedVideo.tags.map(tagInfo =>
+-      this.createTag(tagInfo)
+-    );
+-  }
+-
+-  static createTagElement(tagInfo) {
+-    const element = document.createElementNS(
+-      'http://www.w3.org/2000/svg',
+-      'circle'
+-    );
+-
+-    element.setAttributeNS(null, 'class', `tag-${tagInfo.id}`);
+-    element.setAttributeNS(null, 'cx', tagInfo.initialPosition.x);
+-    element.setAttributeNS(null, 'cy', tagInfo.initialPosition.y);
+-    element.setAttributeNS(null, 'r', 10);
+-    element.setAttributeNS(null, 'fill', 'red');
+-    return element;
+-  }
+-
+-  static createTagTween(tagInfo, element) {
+-    return TweenMax.to(element, tagInfo.duration, {
+-      bezier: {
+-        values: tagInfo.path,
+-        curviness: 0
+-      },
+-      paused: true
+-    });
+-  }
+-
+-  createTag(tagInfo) {
+-    const element = AugmentedVideoPlayer.createTagElement(tagInfo);
+-
+-    element.style.display = 'block';
+-    this.augmentation.el.appendChild(element);
+-
+-    const tween = AugmentedVideoPlayer.createTagTween(tagInfo, element);
+-
+-    return { ...tagInfo, element, tween };
+-  }
+-
+-  play() {
+-    this.video.play();
+-    TweenLite.ticker.addEventListener('tick', this.update);
+-  }
+-
+-  pause() {
+-    this.video.pause();
+-    TweenLite.ticker.removeEventListener('tick', this.update);
+-  }
+-
+-  update = () => {
+-    const { currentTime } = this.video;
+-    this.tags.forEach(tag => {
+-      if (currentTime >= tag.start && currentTime <= tag.start + tag.duration) {
+-        if (tag.element.style.display === 'none') {
+-          const { element } = tag;
+-          element.style.display = 'block';
+-        }
+-        tag.tween.progress((currentTime - tag.start) / tag.duration);
+-      } else if (tag.element.style.display === 'block') {
+-        const { element } = tag;
+-        element.style.display = 'none';
+-      }
+-    });
+-  };
+-}
+-
+-export default AugmentedVideoPlayer;
+diff --git a/src/augmented-video-player/augmentation.js b/src/augmented-video-player/augmentation.js
+index 67eae9a..8dc76c7 100644
+--- a/src/augmented-video-player/augmentation.js
++++ b/src/augmented-video-player/augmentation.js
 @@ -1,5 +1,6 @@
- import { TweenLite, TweenMax } from 'gsap';
- import Video from './video';
-+import Svg from './svg';
+ import SvgComponent from './svg-component';
+-import Tag from './tag';
++import AnimatedTag from './tags/animated-tag';
++import DraggableTag from './tags/draggable-tag';
  
- class AugmentedVideoPlayer {
+ class Augmentation extends SvgComponent {
    constructor() {
-@@ -9,26 +10,12 @@ class AugmentedVideoPlayer {
-     this.player = document.createElement('div');
-     this.player.setAttribute('class', 'augmented-video');
+@@ -11,15 +12,25 @@ class Augmentation extends SvgComponent {
+     this.el = this.createEl();
+   }
+ 
+-  set tags(tags) {
+-    this.tags = tags.map(tagInfo => this.addTag(tagInfo));
++  set tagInfos(tagInfos) {
++    this.tags = tagInfos.map(tagInfo => {
++      const tag = Augmentation.createTag(tagInfo);
++      this.el.appendChild(tag.el);
++      return tag;
++    });
+   }
+ 
+-  AddTag(tagInfo) {
+-    const tag = new Tag(tagInfo.id, tagInfo.initialPosition);
++  createDraggableTag(tagInfo) {
++    this.dragTag = new DraggableTag(tagInfo);
++    this.el.appendChild(this.dragTag.el);
++  }
++
++  update = currentTime => {
++    this.tags.forEach(tag => tag.update(currentTime));
++  };
+ 
+-    this.el.appendChild(tag.el);
+-    return tag;
++  static createTag(tagInfo) {
++    return new AnimatedTag(tagInfo);
+   }
+ }
+ 
+diff --git a/src/augmented-video-player/AugmentedVideoEditor.js b/src/augmented-video-player/augmented-video-editor.js
+similarity index 57%
+rename from src/augmented-video-player/AugmentedVideoEditor.js
+rename to src/augmented-video-player/augmented-video-editor.js
+index 968b151..dba7292 100644
+--- a/src/augmented-video-player/AugmentedVideoEditor.js
++++ b/src/augmented-video-player/augmented-video-editor.js
+@@ -1,50 +1,101 @@
+ import { Draggable } from 'gsap/Draggable';
++import Component from './component';
++import Video from './video';
++
++class AugmentedVideoPlayer extends Component {
++  static createTagElement(position) {
++    const element = document.createElementNS(
++      'http://www.w3.org/2000/svg',
++      'circle'
++    );
++
++    element.setAttribute('class', 'tag-handle');
++    element.setAttributeNS(null, 'cx', position.x);
++    element.setAttributeNS(null, 'cy', position.y);
++    element.setAttributeNS(null, 'r', 10);
++    element.setAttributeNS(null, 'fill', 'red');
++    return element;
++  }
+ 
+-class AugmentedVideoPlayer {
+   constructor() {
++    super();
++    this.tag = 'div';
++    this.attributes = {
++      class: 'augmented-video'
++    };
++
+     this.augmentedVideo = {};
+ 
+-    this.player = document.createElement('div');
+-    this.player.setAttribute('class', 'augmented-video');
++    this.video = new Video();
++    this.children.push(this.video);
  
 -    this.videoContainer = document.createElement('div');
 -    this.videoContainer.setAttribute('class', 'video-container');
--
++    this.el = this.createEl();
+ 
 -    this.augmentationContainer = document.createElement('div');
 -    this.augmentationContainer.setAttribute('class', 'augmentation-container');
--
-     this.video = new Video();
++    this.video.el.onclick = this.do;
++  }
+ 
+-    this.mainVideo = document.createElement('video');
+-    this.mainVideo.setAttribute('class', 'main-video');
++  onPress = () => {
++    this.video.play();
++    this.path = [
++      {
++        time: this.video.currentTime,
++        x: this.tagHandle.getBoundingClientRect().left,
++        y: this.tagHandle.getBoundingClientRect().top
++      }
++    ];
++  };
  
 -    this.augmentation = document.createElementNS(
 -      'http://www.w3.org/2000/svg',
 -      'svg'
 -    );
 -    this.augmentation.setAttribute('class', 'augmentation');
--
++  onRelease = () => {
++    this.video.pause();
+ 
 -    this.player.appendChild(this.videoContainer);
 -    this.player.appendChild(this.augmentationContainer);
--
--    this.videoContainer.appendChild(this.video.el);
-+    this.augmentation = new Svg();
++    this.path.push({
++      time: this.video.currentTime,
++      x: this.tagHandle.getBoundingClientRect().left,
++      y: this.tagHandle.getBoundingClientRect().top
++    });
+ 
+-    this.videoContainer.appendChild(this.mainVideo);
++    if (this.onTagCrtd) this.onTagCrtd(this.path);
++    this.path = [];
++  };
  
 -    this.augmentationContainer.appendChild(this.augmentation);
-+    this.player.appendChild(this.video.el);
-+    this.player.appendChild(this.augmentation.el);
++  onDrag = () => {
++    this.path.push({
++      time: this.video.currentTime,
++      x: this.tagHandle.getBoundingClientRect().left,
++      y: this.tagHandle.getBoundingClientRect().top
++    });
++  };
+ 
+-    this.augmentationContainer.onClick = () => {};
++  set source(augmentedVideo) {
++    this.augmentedVideo = augmentedVideo;
++    this.video.src = this.augmentedVideo.videoSrc;
++  }
+ 
+-    this.augmentation.onclick = this.do;
++  set onTagCreated(onTagCreated) {
++    this.onTagCrtd = onTagCreated;
++  }
++
++  init() {
++    Draggable.create(this.tagHandle, {
++      bounds: '.augmentation',
++      onPress: this.onPress,
++      onRelease: this.onRelease,
++      onDrag: this.onDrag,
++      onClick: e => {
++        e.stopPropagation();
++      }
++    });
    }
  
-   set source(augmentedVideo) {
-@@ -46,7 +33,7 @@ class AugmentedVideoPlayer {
-       'circle'
+   do = e => {
+-    this.augmentationContainer.removeChild(this.augmentation);
+     this.augmentation = document.createElementNS(
+       'http://www.w3.org/2000/svg',
+       'svg'
      );
+     this.augmentation.setAttribute('class', 'augmentation');
  
--    element.setAttribute('class', `tag-${tagInfo.id}`);
-+    element.setAttributeNS(null, 'class', `tag-${tagInfo.id}`);
-     element.setAttributeNS(null, 'cx', tagInfo.initialPosition.x);
-     element.setAttributeNS(null, 'cy', tagInfo.initialPosition.y);
-     element.setAttributeNS(null, 'r', 10);
-@@ -68,7 +55,7 @@ class AugmentedVideoPlayer {
-     const element = AugmentedVideoPlayer.createTagElement(tagInfo);
+-    this.augmentationContainer.appendChild(this.augmentation);
++    this.el.appendChild(this.augmentation);
  
-     element.style.display = 'block';
--    this.augmentation.appendChild(element);
-+    this.augmentation.el.appendChild(element);
+-    console.log('helloWorld');
+     this.tagHandle = AugmentedVideoPlayer.createTagElement({
+       x: e.clientX,
+       y: e.clientY
+@@ -55,41 +106,6 @@ class AugmentedVideoPlayer {
+     this.augmentation.removeEventListener('click', this.do);
+   };
  
-     const tween = AugmentedVideoPlayer.createTagTween(tagInfo, element);
+-  init() {
+-    Draggable.create(this.tagHandle, {
+-      bounds: 'svg',
+-      onPress: this.onPress,
+-      onRelease: this.onRelease,
+-      onDrag: this.onDrag,
+-      onClick: e => {
+-        e.stopPropagation();
+-      }
+-    });
+-  }
+-
+-  set source(augmentedVideo) {
+-    this.augmentedVideo = augmentedVideo;
+-    this.mainVideo.src = this.augmentedVideo.videoSrc;
+-  }
+-
+-  set onTagCreated(onTagCreated) {
+-    this.onTagCrtd = onTagCreated;
+-  }
+-
+-  static createTagElement(position) {
+-    const element = document.createElementNS(
+-      'http://www.w3.org/2000/svg',
+-      'circle'
+-    );
+-
+-    element.setAttribute('class', 'tag-handle');
+-    element.setAttributeNS(null, 'cx', position.x);
+-    element.setAttributeNS(null, 'cy', position.y);
+-    element.setAttributeNS(null, 'r', 10);
+-    element.setAttributeNS(null, 'fill', 'red');
+-    return element;
+-  }
+-
+   createTag() {
+     const element = AugmentedVideoPlayer.createTagElement();
  
-diff --git a/src/augmented-video-player/svg-component.js b/src/augmented-video-player/svg-component.js
+@@ -98,34 +114,6 @@ class AugmentedVideoPlayer {
+ 
+     return { element };
+   }
+-
+-  onPress = () => {
+-    console.log('onPress');
+-    this.mainVideo.play();
+-    this.path = [
+-      {
+-        time: this.mainVideo.currentTime,
+-        x: this.tagHandle.getBoundingClientRect().left,
+-        y: this.tagHandle.getBoundingClientRect().top
+-      }
+-    ];
+-  };
+-
+-  onRelease = () => {
+-    console.log('onRelease');
+-    this.mainVideo.pause();
+-    if (this.onTagCrtd) this.onTagCrtd(this.path);
+-    this.path = [];
+-  };
+-
+-  onDrag = () => {
+-    console.log('onDrag');
+-    this.path.push({
+-      time: this.mainVideo.currentTime,
+-      x: this.tagHandle.getBoundingClientRect().left,
+-      y: this.tagHandle.getBoundingClientRect().top
+-    });
+-  };
+ }
+ 
+ export default AugmentedVideoPlayer;
+diff --git a/src/augmented-video-player/augmented-video-player.js b/src/augmented-video-player/augmented-video-player.js
 new file mode 100644
-index 0000000..f965d84
+index 0000000..be1c3cb
 --- /dev/null
-+++ b/src/augmented-video-player/svg-component.js
-@@ -0,0 +1,19 @@
-+class SvgComponent {
-+  createEl() {
-+    if (!this.tag || !this.attributes) return undefined;
++++ b/src/augmented-video-player/augmented-video-player.js
+@@ -0,0 +1,41 @@
++import { TweenLite } from 'gsap';
++import Video from './video';
++import Augmentation from './augmentation';
++import Component from './component';
 +
-+    const el = document.createElementNS('http://www.w3.org/2000/svg', this.tag);
-+
-+    Object.keys(this.attributes).forEach(key => {
-+      if (
-+        this.attributes &&
-+        Object.prototype.hasOwnProperty.call(this.attributes, key)
-+      )
-+        el.setAttributeNS(null, key, this.attributes[key]);
-+    });
-+
-+    return el;
-+  }
-+}
-+
-+export default SvgComponent;
-diff --git a/src/augmented-video-player/svg.js b/src/augmented-video-player/svg.js
-new file mode 100644
-index 0000000..e762357
---- /dev/null
-+++ b/src/augmented-video-player/svg.js
-@@ -0,0 +1,14 @@
-+import SvgComponent from './svg-component';
-+
-+class Svg extends SvgComponent {
++class AugmentedVideoPlayer extends Component {
 +  constructor() {
 +    super();
 +
-+    this.tag = 'svg';
-+    this.attributes = { class: 'augmentation' };
++    this.tag = 'div';
++    this.attributes = {
++      class: 'augmented-video'
++    };
++
++    this.video = new Video();
++    this.children.push(this.video);
++    this.augmentation = new Augmentation();
++    this.children.push(this.augmentation);
 +
 +    this.el = this.createEl();
 +  }
++  set source(augmentedVideo) {
++    this.augmentedVideo = augmentedVideo;
++    this.video.src = this.augmentedVideo.videoSrc;
++    this.augmentation.tagInfos = this.augmentedVideo.tags;
++  }
++
++  play() {
++    this.video.play();
++    TweenLite.ticker.addEventListener('tick', this.update);
++  }
++
++  pause() {
++    this.video.pause();
++    TweenLite.ticker.removeEventListener('tick', this.update);
++  }
++
++  update = () => this.augmentation.update(this.video.currentTime);
 +}
 +
-+export default Svg;
++export default AugmentedVideoPlayer;
+diff --git a/src/augmented-video-player/component.js b/src/augmented-video-player/component.js
+index 2a8d45c..2900d99 100644
+--- a/src/augmented-video-player/component.js
++++ b/src/augmented-video-player/component.js
+@@ -1,4 +1,9 @@
+ class Component {
++  constructor() {
++    this.augmentedVideo = {};
++    this.tags = [];
++    this.children = [];
++  }
+   createEl() {
+     if (!this.tag || !this.attributes) return undefined;
+ 
+@@ -12,6 +17,8 @@ class Component {
+         el.setAttribute(key, this.attributes[key]);
+     });
+ 
++    this.children.forEach(child => el.appendChild(child.el));
++
+     return el;
+   }
+ }
+diff --git a/src/augmented-video-player/svg-component.js b/src/augmented-video-player/svg-component.js
+index f965d84..415e996 100644
+--- a/src/augmented-video-player/svg-component.js
++++ b/src/augmented-video-player/svg-component.js
+@@ -1,4 +1,6 @@
+-class SvgComponent {
++import Component from './component';
++
++class SvgComponent extends Component {
+   createEl() {
+     if (!this.tag || !this.attributes) return undefined;
+ 
+@@ -12,6 +14,8 @@ class SvgComponent {
+         el.setAttributeNS(null, key, this.attributes[key]);
+     });
+ 
++    this.children.forEach(child => el.appendChild(child.el));
++
+     return el;
+   }
+ }
 diff --git a/src/augmented-video-player/tag.js b/src/augmented-video-player/tag.js
+deleted file mode 100644
+index 56aafce..0000000
+--- a/src/augmented-video-player/tag.js
++++ /dev/null
+@@ -1,21 +0,0 @@
+-import SvgComponent from './svg-component';
+-
+-class Tag extends SvgComponent {
+-  constructor(id, initialPosition) {
+-    super();
+-
+-    this.id = id;
+-    this.tag = 'circle';
+-    this.attributes = {
+-      class: `tag-${this.id}`,
+-      cx: initialPosition.x,
+-      cy: initialPosition.y,
+-      r: 10,
+-      fill: 'red'
+-    };
+-
+-    this.el = this.createEl();
+-  }
+-}
+-
+-export default Tag;
+diff --git a/src/augmented-video-player/tags/animated-tag.js b/src/augmented-video-player/tags/animated-tag.js
 new file mode 100644
-index 0000000..56aafce
+index 0000000..69ef6ba
 --- /dev/null
-+++ b/src/augmented-video-player/tag.js
-@@ -0,0 +1,21 @@
-+import SvgComponent from './svg-component';
++++ b/src/augmented-video-player/tags/animated-tag.js
+@@ -0,0 +1,33 @@
++import TweenMax from 'gsap';
++import Tag from './tag';
++
++class AnimatedTag extends Tag {
++  constructor(tagInfo) {
++    super(tagInfo);
++    this.el.style.display = 'block';
++
++    this.tween = TweenMax.to(this.el, tagInfo.duration, {
++      bezier: {
++        values: tagInfo.path,
++        curviness: 0
++      },
++      paused: true
++    });
++  }
++
++  update(currentTime) {
++    if (
++      currentTime >= this.start &&
++      currentTime <= this.start + this.duration
++    ) {
++      if (this.el.style.display === 'none') {
++        this.el.style.display = 'block';
++      }
++      this.tween.progress((currentTime - this.start) / this.duration);
++    } else if (this.el.style.display === 'block') {
++      this.el.style.display = 'none';
++    }
++  }
++}
++
++export default AnimatedTag;
+diff --git a/src/augmented-video-player/tags/draggable-tag.js b/src/augmented-video-player/tags/draggable-tag.js
+new file mode 100644
+index 0000000..5a68067
+--- /dev/null
++++ b/src/augmented-video-player/tags/draggable-tag.js
+@@ -0,0 +1,45 @@
++import Draggable from 'gsap/Draggable';
++import Tag from './tag';
++
++class DraggableTag extends Tag {
++  constructor(tagInfo) {
++    super(tagInfo);
++
++    Draggable.create(this.el, {
++      bounds: '.augmentation',
++      onPress: this.onPress,
++      onRelease: this.onRelease,
++      onDrag: this.onDrag,
++      onClick: e => {
++        e.stopPropagation();
++      }
++    });
++  }
++
++  onPress = () => {
++    this.video.play();
++    this.path = [
++      {
++        time: this.video.currentTime,
++        x: this.tagHandle.getBoundingClientRect().left,
++        y: this.tagHandle.getBoundingClientRect().top
++      }
++    ];
++  };
++
++  onRelease = () => {
++    this.video.pause();
++    if (this.onTagCrtd) this.onTagCrtd(this.path);
++    this.path = [];
++  };
++
++  onDrag = () => {
++    this.path.push({
++      time: this.video.currentTime,
++      x: this.tagHandle.getBoundingClientRect().left,
++      y: this.tagHandle.getBoundingClientRect().top
++    });
++  };
++}
++
++export default DraggableTag;
+diff --git a/src/augmented-video-player/tags/tag.js b/src/augmented-video-player/tags/tag.js
+new file mode 100644
+index 0000000..7c513a0
+--- /dev/null
++++ b/src/augmented-video-player/tags/tag.js
+@@ -0,0 +1,24 @@
++import SvgComponent from '../svg-component';
 +
 +class Tag extends SvgComponent {
-+  constructor(id, initialPosition) {
++  constructor(tagInfo) {
 +    super();
 +
-+    this.id = id;
 +    this.tag = 'circle';
 +    this.attributes = {
-+      class: `tag-${this.id}`,
-+      cx: initialPosition.x,
-+      cy: initialPosition.y,
++      class: `tag-${tagInfo.id}`,
++      cx: tagInfo.initialPosition.x,
++      cy: tagInfo.initialPosition.y,
 +      r: 10,
 +      fill: 'red'
 +    };
++
++    this.id = tagInfo.id;
++    this.start = tagInfo.start;
++    this.duration = tagInfo.duration;
 +
 +    this.el = this.createEl();
 +  }
 +}
 +
 +export default Tag;
+diff --git a/src/augmented-video-player/video.js b/src/augmented-video-player/video.js
+index fb345c7..4c41c39 100644
+--- a/src/augmented-video-player/video.js
++++ b/src/augmented-video-player/video.js
+@@ -5,7 +5,7 @@ class Video extends Component {
+     super();
+ 
+     this.tag = 'video';
+-    this.attributes = { class: 'main-video', autoplay: 'true' };
++    this.attributes = { class: 'main-video' };
+ 
+     this.el = this.createEl();
+   }
+diff --git a/src/index.js b/src/index.js
+index c410b6f..473560e 100644
+--- a/src/index.js
++++ b/src/index.js
+@@ -1,6 +1,6 @@
+ import './style.css';
+-import AugmentedVideoPlayer from './augmented-video-player/AugmentedVideoPlayer';
+-import AugmentedVideoEditor from './augmented-video-player/AugmentedVideoEditor';
++import AugmentedVideoPlayer from './augmented-video-player/augmented-video-player';
++import AugmentedVideoEditor from './augmented-video-player/augmented-video-editor';
+ import AugmentedVideo from './augmented-video-player/AugmentedVideo';
+ 
+ window.onload = () => {
+@@ -27,13 +27,11 @@ window.onload = () => {
+       path: newPath
+     });
+ 
+-    app.removeChild(editor.player);
+-    app.appendChild(player.player);
++    app.removeChild(editor.el);
++    app.appendChild(player.el);
+     player.source = source;
+     player.play();
+   };
+ 
+-  app.appendChild(editor.player);
+-  // editor.do();
+-  // editor.init();
++  app.appendChild(editor.el);
+ };

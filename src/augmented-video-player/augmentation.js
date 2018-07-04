@@ -1,5 +1,6 @@
 import SvgComponent from './svg-component';
-import Tag from './tag';
+import AnimatedTag from './tags/animated-tag';
+import DraggableTag from './tags/draggable-tag';
 
 class Augmentation extends SvgComponent {
   constructor() {
@@ -11,15 +12,25 @@ class Augmentation extends SvgComponent {
     this.el = this.createEl();
   }
 
-  set tags(tags) {
-    this.tags = tags.map(tagInfo => this.addTag(tagInfo));
+  set tagInfos(tagInfos) {
+    this.tags = tagInfos.map(tagInfo => {
+      const tag = Augmentation.createTag(tagInfo);
+      this.el.appendChild(tag.el);
+      return tag;
+    });
   }
 
-  AddTag(tagInfo) {
-    const tag = new Tag(tagInfo.id, tagInfo.initialPosition);
+  createDraggableTag(tagInfo) {
+    this.dragTag = new DraggableTag(tagInfo);
+    this.el.appendChild(this.dragTag.el);
+  }
 
-    this.el.appendChild(tag.el);
-    return tag;
+  update = currentTime => {
+    this.tags.forEach(tag => tag.update(currentTime));
+  };
+
+  static createTag(tagInfo) {
+    return new AnimatedTag(tagInfo);
   }
 }
 
