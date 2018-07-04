@@ -20,8 +20,8 @@ class Augmentation extends SvgComponent {
     });
   }
 
-  createDraggableTag(tagInfo) {
-    this.dragTag = new DraggableTag(tagInfo);
+  createDraggableTag(tagInfo, pushCallback, releaseCallback) {
+    this.dragTag = new DraggableTag(tagInfo, pushCallback, releaseCallback);
     this.el.appendChild(this.dragTag.el);
   }
 

@@ -2,8 +2,11 @@ import Draggable from 'gsap/Draggable';
 import Tag from './tag';
 
 class DraggableTag extends Tag {
-  constructor(tagInfo) {
+  constructor(tagInfo, pressCallback, releaseCallback) {
     super(tagInfo);
+
+    this.pressCallback = pressCallback;
+    this.releaseCallback = releaseCallback;
 
     Draggable.create(this.el, {
       bounds: '.augmentation',
@@ -17,7 +20,6 @@ class DraggableTag extends Tag {
   }
 
   onPress = () => {
-    this.video.play();
     this.path = [
       {
         time: this.video.currentTime,
@@ -25,12 +27,16 @@ class DraggableTag extends Tag {
         y: this.tagHandle.getBoundingClientRect().top
       }
     ];
+    if (this.pressCallback) this.pressCallback();
   };
 
   onRelease = () => {
-    this.video.pause();
-    if (this.onTagCrtd) this.onTagCrtd(this.path);
-    this.path = [];
+    this.path.push({
+      time: this.video.currentTime,
+      x: this.tagHandle.getBoundingClientRect().left,
+      y: this.tagHandle.getBoundingClientRect().top
+    });
+    if (this.releaseCallback) this.releaseCallback();
   };
 
   onDrag = () => {
