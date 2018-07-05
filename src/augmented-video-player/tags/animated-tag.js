@@ -4,11 +4,17 @@ import Tag from './tag';
 class AnimatedTag extends Tag {
   constructor(tagInfo) {
     super(tagInfo);
-    this.el.style.display = 'block';
 
-    this.tween = TweenMax.to(this.el, tagInfo.duration, {
+    this.duration = tagInfo.duration;
+    this.path = tagInfo.path;
+    this.el.style.display = 'block';
+  }
+
+  onParentConnected(parent) {
+    Tag.prototype.onParentConnected.call(this, parent);
+    this.tween = TweenMax.to(this.el, this.duration, {
       bezier: {
-        values: tagInfo.path,
+        values: this.path,
         curviness: 0
       },
       paused: true

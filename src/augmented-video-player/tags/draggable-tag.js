@@ -2,14 +2,18 @@ import Draggable from 'gsap/Draggable';
 import Tag from './tag';
 
 class DraggableTag extends Tag {
-  constructor(tagInfo, pressCallback, releaseCallback) {
+  constructor(tagInfo, pressCallback, releaseCallback, dragCallback) {
     super(tagInfo);
 
     this.pressCallback = pressCallback;
     this.releaseCallback = releaseCallback;
+    this.dragCallback = dragCallback;
+  }
 
+  onParentConnected(parent) {
+    Tag.prototype.onParentConnected.call(this, parent);
     Draggable.create(this.el, {
-      bounds: '.augmentation',
+      bounds: parent.el,
       onPress: this.onPress,
       onRelease: this.onRelease,
       onDrag: this.onDrag,
@@ -20,31 +24,27 @@ class DraggableTag extends Tag {
   }
 
   onPress = () => {
-    this.path = [
-      {
-        time: this.video.currentTime,
-        x: this.tagHandle.getBoundingClientRect().left,
-        y: this.tagHandle.getBoundingClientRect().top
-      }
-    ];
-    if (this.pressCallback) this.pressCallback();
+    if (this.pressCallback)
+      this.pressCallback(
+        this.el.getBoundingClientRect().left,
+        this.el.getBoundingClientRect().top
+      );
   };
 
   onRelease = () => {
-    this.path.push({
-      time: this.video.currentTime,
-      x: this.tagHandle.getBoundingClientRect().left,
-      y: this.tagHandle.getBoundingClientRect().top
-    });
-    if (this.releaseCallback) this.releaseCallback();
+    if (this.releaseCallback)
+      this.releaseCallback(
+        this.el.getBoundingClientRect().left,
+        this.el.getBoundingClientRect().top
+      );
   };
 
   onDrag = () => {
-    this.path.push({
-      time: this.video.currentTime,
-      x: this.tagHandle.getBoundingClientRect().left,
-      y: this.tagHandle.getBoundingClientRect().top
-    });
+    if (this.dragCallback)
+      this.dragCallback(
+        this.el.getBoundingClientRect().left,
+        this.el.getBoundingClientRect().top
+      );
   };
 }
 

@@ -1,8 +1,9 @@
 class Component {
   constructor() {
-    this.augmentedVideo = {};
+    this.augmentedVideo = undefined;
     this.tags = [];
     this.children = [];
+    this.parent = undefined;
   }
   createEl() {
     if (!this.tag || !this.attributes) return undefined;
@@ -20,6 +21,16 @@ class Component {
     this.children.forEach(child => el.appendChild(child.el));
 
     return el;
+  }
+
+  connectChild(child) {
+    this.el.appendChild(child.el);
+    child.onParentConnected(this);
+  }
+
+  onParentConnected(parent) {
+    this.parent = parent;
+    console.log(parent);
   }
 }
 

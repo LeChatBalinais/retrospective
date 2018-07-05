@@ -14,15 +14,20 @@ class Augmentation extends SvgComponent {
 
   set tagInfos(tagInfos) {
     this.tags = tagInfos.map(tagInfo => {
-      const tag = Augmentation.createTag(tagInfo);
-      this.el.appendChild(tag.el);
+      const tag = new AnimatedTag(tagInfo);
+      this.connectChild(tag);
       return tag;
     });
   }
 
-  createDraggableTag(tagInfo, pushCallback, releaseCallback) {
-    this.dragTag = new DraggableTag(tagInfo, pushCallback, releaseCallback);
-    this.el.appendChild(this.dragTag.el);
+  createDraggableTag(tagInfo, pressCallback, releaseCallback, dragCallback) {
+    this.dragTag = new DraggableTag(
+      tagInfo,
+      pressCallback,
+      releaseCallback,
+      dragCallback
+    );
+    this.connectChild(this.dragTag);
   }
 
   update = currentTime => {

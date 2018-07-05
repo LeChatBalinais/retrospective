@@ -1,6 +1,6 @@
 import './style.css';
 import AugmentedVideoPlayer from './augmented-video-player/augmented-video-player';
-import AugmentedVideoEditor from './augmented-video-player/editor';
+import AugmentedVideoEditor from './augmented-video-player/augmented-video-editor';
 import AugmentedVideo from './augmented-video-player/AugmentedVideo';
 
 window.onload = () => {

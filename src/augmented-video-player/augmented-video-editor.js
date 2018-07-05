@@ -1,22 +1,9 @@
-import { Draggable } from 'gsap/Draggable';
 import Component from './component';
 import Video from './video';
+import Augmentation from './augmentation';
+import SeekBar from './controls/seek-bar';
 
 class AugmentedVideoPlayer extends Component {
-  static createTagElement(position) {
-    const element = document.createElementNS(
-      'http://www.w3.org/2000/svg',
-      'circle'
-    );
-
-    element.setAttribute('class', 'tag-handle');
-    element.setAttributeNS(null, 'cx', position.x);
-    element.setAttributeNS(null, 'cy', position.y);
-    element.setAttributeNS(null, 'r', 10);
-    element.setAttributeNS(null, 'fill', 'red');
-    return element;
-  }
-
   constructor() {
     super();
     this.tag = 'div';
@@ -34,40 +21,19 @@ class AugmentedVideoPlayer extends Component {
     this.video.el.onclick = this.do;
   }
 
-  onPress = () => {
-    this.video.play();
-    this.path = [
-      {
-        time: this.video.currentTime,
-        x: this.tagHandle.getBoundingClientRect().left,
-        y: this.tagHandle.getBoundingClientRect().top
-      }
-    ];
-  };
-
-  onRelease = () => {
-    this.video.pause();
-
-    this.path.push({
-      time: this.video.currentTime,
-      x: this.tagHandle.getBoundingClientRect().left,
-      y: this.tagHandle.getBoundingClientRect().top
-    });
-
-    if (this.onTagCrtd) this.onTagCrtd(this.path);
-    this.path = [];
-  };
-
-  onDrag = () => {
-    this.path.push({
-      time: this.video.currentTime,
-      x: this.tagHandle.getBoundingClientRect().left,
-      y: this.tagHandle.getBoundingClientRect().top
-    });
-  };
-
   set source(augmentedVideo) {
     this.augmentedVideo = augmentedVideo;
+
+    this.video.el.addEventListener('durationchange', () => {
+      console.log(this.video.duraiton);
+      this.seekBar = new SeekBar(this.video.duraiton, time => {
+        this.video.currentTime = time;
+      });
+      this.children.push(this.seekBar);
+
+      this.connectChild(this.seekBar);
+    });
+
     this.video.src = this.augmentedVideo.videoSrc;
   }
 
@@ -75,45 +41,46 @@ class AugmentedVideoPlayer extends Component {
     this.onTagCrtd = onTagCreated;
   }
 
-  init() {
-    Draggable.create(this.tagHandle, {
-      bounds: '.augmentation',
-      onPress: this.onPress,
-      onRelease: this.onRelease,
-      onDrag: this.onDrag,
-      onClick: e => {
-        e.stopPropagation();
-      }
-    });
-  }
-
   do = e => {
-    this.augmentation = document.createElementNS(
-      'http://www.w3.org/2000/svg',
-      'svg'
+    this.augmentation = new Augmentation();
+    this.children.push(this.augmentation);
+
+    this.el.appendChild(this.augmentation.el);
+
+    this.augmentation.createDraggableTag(
+      {
+        id: 'handle',
+        initialPosition: { x: e.clientX, y: e.clientY }
+      },
+      (x, y) => {
+        this.video.play();
+        this.path = [
+          {
+            time: this.video.currentTime,
+            x,
+            y
+          }
+        ];
+      },
+      (x, y) => {
+        this.video.pause();
+        this.path.push({
+          time: this.video.currentTime,
+          x,
+          y
+        });
+        if (this.onTagCrtd) this.onTagCrtd(this.path);
+      },
+      (x, y) => {
+        this.path.push({
+          time: this.video.currentTime,
+          x,
+          y
+        });
+      }
     );
-    this.augmentation.setAttribute('class', 'augmentation');
-
-    this.el.appendChild(this.augmentation);
-
-    this.tagHandle = AugmentedVideoPlayer.createTagElement({
-      x: e.clientX,
-      y: e.clientY
-    });
-
-    this.augmentation.appendChild(this.tagHandle);
-    this.init();
-    this.augmentation.removeEventListener('click', this.do);
+    this.video.el.removeEventListener('click', this.do);
   };
-
-  createTag() {
-    const element = AugmentedVideoPlayer.createTagElement();
-
-    element.style.display = 'block';
-    this.augmentation.appendChild(element);
-
-    return { element };
-  }
 }
 
 export default AugmentedVideoPlayer;
