@@ -2,6 +2,7 @@ import { TweenLite } from 'gsap';
 import Video from './video';
 import Augmentation from './augmentation';
 import Component from './component';
+import SeekBar from './controls/seek-bar';
 
 class AugmentedVideoPlayer extends Component {
   constructor() {
@@ -20,9 +21,17 @@ class AugmentedVideoPlayer extends Component {
     this.el = this.createEl();
   }
   set source(augmentedVideo) {
-    this.augmentedVideo = augmentedVideo;
-    this.video.src = this.augmentedVideo.videoSrc;
-    this.augmentation.tagInfos = this.augmentedVideo.tags;
+    this.video.el.addEventListener('durationchange', () => {
+      this.seekBar = new SeekBar(this.video.duration, time => {
+        this.video.currentTime = time;
+      });
+      this.children.push(this.seekBar);
+
+      this.connectChild(this.seekBar);
+    });
+
+    this.video.src = augmentedVideo.videoSrc;
+    this.augmentation.tagInfos = augmentedVideo.tags;
   }
 
   play() {
@@ -35,7 +44,10 @@ class AugmentedVideoPlayer extends Component {
     TweenLite.ticker.removeEventListener('tick', this.update);
   }
 
-  update = () => this.augmentation.update(this.video.currentTime);
+  update = () => {
+    this.augmentation.update(this.video.currentTime);
+    this.seekBar.update(this.video.currentTime);
+  };
 }
 
 export default AugmentedVideoPlayer;

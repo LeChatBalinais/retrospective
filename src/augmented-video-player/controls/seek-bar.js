@@ -5,22 +5,23 @@ class SeekBar extends Component {
     super();
 
     this.tag = 'input';
-    this.duration = duration;
 
     this.attributes = {
       type: 'range',
       min: 0,
-      max: 100,
-      value: '1',
+      max: duration,
+      value: '0',
       class: 'seek-bar'
     };
 
     this.el = this.createEl();
     this.el.oninput = function ons() {
-      console.log(duration);
-      console.log(this.value);
-      onSeek((this.value * duration) / 100);
+      onSeek(this.value);
     };
+  }
+
+  update(currentTime) {
+    this.el.value = currentTime;
   }
 }
 

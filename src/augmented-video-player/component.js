@@ -30,7 +30,6 @@ class Component {
 
   onParentConnected(parent) {
     this.parent = parent;
-    console.log(parent);
   }
 }
 

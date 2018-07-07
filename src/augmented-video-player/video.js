@@ -30,7 +30,7 @@ class Video extends Component {
   }
 
   pause() {
-    this.el.play();
+    this.el.pause();
   }
 }
 
