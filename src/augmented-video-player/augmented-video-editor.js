@@ -82,21 +82,34 @@ class AugmentedVideoPlayer extends Component {
         });
       }
     );
+
+    this.augmentation.createUniTag({
+      id: '534526',
+      initialPosition: { x: 100, y: 100 }
+    });
   };
 
   play() {
     this.video.play();
     TweenLite.ticker.addEventListener('tick', this.update);
+    this.augmentation.uniTag.makeAnimated(
+      [{ x: 0, y: 0 }, { x: 0, y: 50 }, { x: 0, y: 100 }, { x: 0, y: 200 }],
+      20,
+      0,
+      this.video.currentTime
+    );
   }
 
   pause() {
     this.video.pause();
     TweenLite.ticker.removeEventListener('tick', this.update);
+    this.augmentation.uniTag.makeDraggable();
   }
 
   update = () => {
     this.augmentation.update(this.video.currentTime);
     this.seekBar.update(this.video.currentTime);
+    this.augmentation.uniTag.update(this.video.currentTime);
   };
 }
 

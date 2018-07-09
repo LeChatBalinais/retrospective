@@ -11,7 +11,7 @@ class AnimatedTag extends Tag {
   }
 
   onParentConnected(parent) {
-    Tag.prototype.onParentConnected.call(this, parent);
+    super.onParentConnected(parent);
     this.tween = TweenMax.to(this.el, this.duration, {
       bezier: {
         values: this.path,

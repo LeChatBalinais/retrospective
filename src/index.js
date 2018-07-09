@@ -11,11 +11,20 @@ window.onload = () => {
   app.appendChild(editor.el);
 
   const button = document.createElement('button');
-  button.innerHTML = 'Do Something';
+  button.innerHTML = 'play';
 
   button.addEventListener('click', () => {
     editor.play();
   });
 
   app.appendChild(button);
+
+  const pauseButton = document.createElement('button');
+  pauseButton.innerHTML = 'pause';
+
+  pauseButton.addEventListener('click', () => {
+    editor.pause();
+  });
+
+  app.appendChild(pauseButton);
 };

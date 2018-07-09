@@ -11,7 +11,7 @@ class DraggableTag extends Tag {
   }
 
   onParentConnected(parent) {
-    Tag.prototype.onParentConnected.call(this, parent);
+    super.onParentConnected(parent);
     Draggable.create(this.el, {
       bounds: parent.el,
       onPress: this.onPress,

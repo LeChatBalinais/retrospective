@@ -1,6 +1,7 @@
 import SvgComponent from './svg-component';
 import AnimatedTag from './tags/animated-tag';
 import DraggableTag from './tags/draggable-tag';
+import UniversalTag from './tags/universal-tag';
 
 class Augmentation extends SvgComponent {
   constructor() {
@@ -18,6 +19,11 @@ class Augmentation extends SvgComponent {
       this.connectChild(tag);
       return tag;
     });
+  }
+
+  createUniTag(tagInfo) {
+    this.uniTag = new UniversalTag(tagInfo);
+    this.connectChild(this.uniTag);
   }
 
   createDraggableTag(tagInfo, pressCallback, releaseCallback, dragCallback) {
