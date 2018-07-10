@@ -50,7 +50,6 @@ class UniversalTag extends Tag {
         this.el.style.display = 'block';
       }
       this.tween.progress((currentTime - this.start) / this.duration);
-      console.log('dsd');
     } else if (this.el.style.display === 'block') {
       this.el.style.display = 'none';
     }
