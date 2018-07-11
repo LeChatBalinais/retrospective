@@ -14,7 +14,7 @@ class SeekBar extends Component {
       class: 'seek-bar'
     };
 
-    this.el = this.createEl();
+    this.initEl();
     this.el.oninput = function ons() {
       onSeek(this.value);
     };

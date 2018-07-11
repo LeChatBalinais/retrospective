@@ -1,13 +1,14 @@
 import Component from './component';
 
 class Video extends Component {
-  constructor() {
-    super();
+  // eslint-disable-next-line class-methods-use-this
+  get tag() {
+    return 'video';
+  }
 
-    this.tag = 'video';
-    this.attributes = { class: 'main-video' };
-
-    this.initEl();
+  // eslint-disable-next-line class-methods-use-this
+  get attributes() {
+    return { class: 'main-video' };
   }
 
   get currentTime() {

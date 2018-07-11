@@ -13,14 +13,13 @@ class AugmentedVideoPlayer extends Component {
       class: 'augmented-video'
     };
 
-    this.video = new Video();
-    this.children.push(this.video);
-    this.augmentation = new Augmentation();
-    this.children.push(this.augmentation);
+    this.addChildComponent((this.video = new Video()));
+    this.addChildComponent((this.augmentation = new Augmentation()));
 
-    this.el = this.createEl();
+    this.initEl();
 
-    this.augmentation.el.onclick = this.do;
+    const onc = 'onclick';
+    this.el[onc] = this.do;
   }
 
   set source(augmentedVideo) {
@@ -38,7 +37,8 @@ class AugmentedVideoPlayer extends Component {
   }
 
   do = e => {
-    this.augmentation.el.onclick = undefined;
+    const onc = 'onclick';
+    this.el[onc] = undefined;
     this.augmentation.createDraggableTag(
       {
         id: 'handle',

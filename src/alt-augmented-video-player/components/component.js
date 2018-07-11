@@ -1,9 +1,8 @@
 class Component {
   constructor() {
-    this.augmentedVideo = undefined;
-    this.tags = [];
     this.children = [];
     this.parent = undefined;
+    this.initEl();
   }
   initEl() {
     if (!this.tag || !this.attributes) return;
@@ -18,26 +17,28 @@ class Component {
         this.el.setAttribute(key, this.attributes[key]);
     });
 
-    this.children.forEach(child => this.el.appendChild(child.el));
+    Object.keys(this.eventHandlers).forEach(key => {
+      if (
+        this.eventHandlers &&
+        Object.prototype.hasOwnProperty.call(this.eventHandlers, key)
+      )
+        this.el[key] = this.attributes[key];
+    });
   }
 
-  addChildComponent(component) {
-    this.children.push(component);
-  }
-
-  connectChild(child) {
+  addChildComponent(child) {
     this.children.push(child);
     this.el.appendChild(child.el);
     child.onParentConnected(this);
   }
 
-  connectComponentEl(component) {
-    this.el.appendChild(component.el);
-    component.onParentConnected(this);
+  onAddedToParent(parent) {
+    this.parent = parent;
   }
 
-  onParentConnected(parent) {
-    this.parent = parent;
+  // eslint-disable-next-line class-methods-use-this
+  get eventHandlers() {
+    return {};
   }
 }
 

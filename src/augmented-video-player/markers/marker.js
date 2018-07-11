@@ -1,6 +1,6 @@
 import SvgComponent from '../svg-component';
 
-class Tag extends SvgComponent {
+class Marker extends SvgComponent {
   constructor(tagInfo) {
     super();
 
@@ -21,4 +21,4 @@ class Tag extends SvgComponent {
   }
 }
 
-export default Tag;
+export default Marker;

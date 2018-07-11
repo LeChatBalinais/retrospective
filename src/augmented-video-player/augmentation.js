@@ -10,7 +10,7 @@ class Augmentation extends SvgComponent {
     this.tag = 'svg';
     this.attributes = { class: 'augmentation' };
 
-    this.el = this.createEl();
+    this.initEl();
   }
 
   set tagInfos(tagInfos) {
