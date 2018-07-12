@@ -11,7 +11,7 @@ class SvgComponent extends Component {
         this.attributes &&
         Object.prototype.hasOwnProperty.call(this.attributes, key)
       )
-        this.el.setAttributeNS(key, this.attributes[key]);
+        this.el.setAttributeNS(null, key, this.attributes[key]);
     });
 
     Object.keys(this.eventHandlers).forEach(key => {

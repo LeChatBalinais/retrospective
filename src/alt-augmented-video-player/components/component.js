@@ -27,13 +27,23 @@ class Component {
   }
 
   addChildComponent(child) {
-    this.children.push(child);
+    this.children = [...this.children, child];
     this.el.appendChild(child.el);
-    child.onParentConnected(this);
+    child.onAddedToParent(this);
+  }
+
+  removeChildComponent(child) {
+    this.el.removeChild(child.el);
+    this.children = this.children.splice(this.children.indexOf(child), 1);
+    this.onRemovedFromParent();
   }
 
   onAddedToParent(parent) {
     this.parent = parent;
+  }
+
+  onRemovedFromParent() {
+    this.parent = undefined;
   }
 
   // eslint-disable-next-line class-methods-use-this

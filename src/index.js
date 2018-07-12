@@ -1,20 +1,22 @@
 import './style.css';
-import AugmentedVideoEditor from './augmented-video-player/augmented-video-editor';
-import AugmentedVideo from './augmented-video-player/AugmentedVideo';
+import AugmentedVideoPlayer from './alt-augmented-video-player/components/augmented-video-editor';
+// import AugmentedVideo from './augmented-video-player/AugmentedVideo';
 
 window.onload = () => {
   const app = document.getElementById('app');
 
-  const editor = new AugmentedVideoEditor();
-  editor.source = new AugmentedVideo('http://localhost:3000/video');
+  const player = new AugmentedVideoPlayer();
+  player.videoSource = 'http://localhost:3000/video';
 
-  app.appendChild(editor.el);
+  // player.source = new AugmentedVideo('http://localhost:3000/video');
+
+  app.appendChild(player.el);
 
   const button = document.createElement('button');
   button.innerHTML = 'play';
 
   button.addEventListener('click', () => {
-    editor.play();
+    player.play();
   });
 
   app.appendChild(button);
@@ -23,8 +25,17 @@ window.onload = () => {
   pauseButton.innerHTML = 'pause';
 
   pauseButton.addEventListener('click', () => {
-    editor.pause();
+    player.pause();
   });
 
   app.appendChild(pauseButton);
+
+  const addTagButton = document.createElement('button');
+  addTagButton.innerHTML = 'add tag';
+
+  addTagButton.addEventListener('click', () => {
+    player.startTagAddition();
+  });
+
+  app.appendChild(addTagButton);
 };

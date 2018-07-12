@@ -10,10 +10,6 @@ class Augmentation extends SvgComponent {
   get attributes() {
     return { class: 'augmentation' };
   }
-  // eslint-disable-next-line class-methods-use-this
-  get eventHandlers() {
-    return {};
-  }
 }
 
 export default Augmentation;
