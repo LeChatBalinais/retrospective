@@ -1,14 +1,13 @@
 import Draggable from 'gsap/Draggable';
 
-class Animation {
-  constructor(target, pressCallback, dragCallback, releaseCallback) {
+class Draggableness {
+  constructor(target, bounds, pressCallback, dragCallback, releaseCallback) {
     this.target = target.el;
     this.pressCallback = pressCallback;
     this.dragCallback = dragCallback;
     this.releaseCallback = releaseCallback;
-    this.target = target.el;
-    this.draggable = Draggable.create(this.el, {
-      bounds: this.target,
+    [this.draggable] = Draggable.create(this.target, {
+      bounds,
       onPress: this.onPress,
       onRelease: this.onRelease,
       onDrag: this.onDrag,
@@ -48,4 +47,4 @@ class Animation {
   }
 }
 
-export default Animation;
+export default Draggableness;

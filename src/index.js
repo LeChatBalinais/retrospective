@@ -1,5 +1,5 @@
 import './style.css';
-import AugmentedVideoPlayer from './alt-augmented-video-player/components/augmented-video-editor';
+import AugmentedVideoPlayer from './augmented-video-player/components/augmented-video-editor';
 // import AugmentedVideo from './augmented-video-player/AugmentedVideo';
 
 window.onload = () => {
@@ -34,7 +34,7 @@ window.onload = () => {
   addTagButton.innerHTML = 'add tag';
 
   addTagButton.addEventListener('click', () => {
-    player.startTagAddition();
+    player.addTag();
   });
 
   app.appendChild(addTagButton);

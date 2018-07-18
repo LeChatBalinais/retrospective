@@ -19,6 +19,10 @@ class Video extends Component {
     return this.el.duration;
   }
 
+  get paused() {
+    return this.el.paused;
+  }
+
   set currentTime(time) {
     this.el.currentTime = time;
   }

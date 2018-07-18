@@ -24,12 +24,7 @@ class Animation {
       currentTime >= this.start &&
       currentTime <= this.start + this.duration
     ) {
-      if (this.el.style.display === 'none') {
-        this.el.style.display = 'block';
-      }
       this.tween.progress((currentTime - this.start) / this.duration);
-    } else if (this.el.style.display === 'block') {
-      this.el.style.display = 'none';
     }
   }
 
