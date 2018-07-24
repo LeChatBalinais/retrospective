@@ -22,7 +22,7 @@ class Component {
         this.eventHandlers &&
         Object.prototype.hasOwnProperty.call(this.eventHandlers, key)
       )
-        this.el[key] = this.attributes[key];
+        this.el[key] = this.eventHandlers[key];
     });
   }
 

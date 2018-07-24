@@ -1,5 +1,5 @@
 import Draggableness from '../draggableness/draggableness';
-import Animation from '../animation/animation';
+// import Animation from '../animation/animation';
 
 class TagController {
   constructor(
@@ -15,7 +15,8 @@ class TagController {
     this.video = video;
     this.markersLayer = markersLayer;
     this.marker = marker;
-    [this.marker.position] = tag.pathWithFixedStep;
+
+    this.marker.initialPosition = tag.position;
     this.pressedCallback = pressedCallback;
     this.draggedCallback = draggedCallback;
     this.releasedCallback = releasedCallback;
@@ -35,18 +36,30 @@ class TagController {
     if (this.animation) this.animation.update(this.video.currentTime);
   }
 
+  seekTo(time) {
+    if (this.drag) {
+      this.marker.position = this.tag.positionByTime(time);
+    } else if (this.animation) {
+      this.animation.update(time);
+    }
+  }
+
   addAnimation() {
     if (this.tag.dragged) return;
     if (this.drag) {
       this.drag.kill();
       this.drag = undefined;
     }
+
+    this.marker.position = { x: 0, y: 0 };
+    console.log(this.tag.pathWithFixedStep);
+
     this.animation = new Animation(
       this.marker,
-      0,
-      20,
-      [{ x: 0, y: 0 }, { x: 100, y: 100 }],
-      this.video.currentTime
+      this.tag.start,
+      this.tag.duration,
+      this.tag.pathWithFixedStep
+      // this.video.currentTime
     );
   }
 
@@ -64,15 +77,18 @@ class TagController {
     );
   }
 
-  onDraggableMarkerPressed = () => {
+  onDraggableMarkerPressed = (x, y) => {
     this.tag.dragged = true;
+    this.tag.addToPath({ time: this.video.currentTime, x, y });
     if (this.pressedCallback) this.pressedCallback();
   };
-  onDraggableMarkerDragged = () => {
+  onDraggableMarkerDragged = (x, y) => {
+    this.tag.addToPath({ time: this.video.currentTime, x, y });
     if (this.draggedCallback) this.draggedCallback();
   };
-  onDraggableMarkerReleased = () => {
+  onDraggableMarkerReleased = (x, y) => {
     this.tag.dragged = false;
+    this.tag.addToPath({ time: this.video.currentTime, x, y });
     if (this.releasedCallback) this.releasedCallback();
   };
 }

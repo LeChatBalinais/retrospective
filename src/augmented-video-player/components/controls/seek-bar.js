@@ -1,23 +1,35 @@
 import Component from '../component';
 
 class SeekBar extends Component {
-  constructor(duration, onSeek) {
+  constructor(onSeek) {
     super();
+    this.onSeek = onSeek;
+  }
 
-    this.tag = 'input';
+  // eslint-disable-next-line class-methods-use-this
+  get tag() {
+    return 'input';
+  }
 
-    this.attributes = {
+  // eslint-disable-next-line class-methods-use-this
+  get attributes() {
+    return {
       type: 'range',
       min: 0,
-      max: duration,
       value: '0',
       class: 'seek-bar'
     };
+  }
 
-    this.initEl();
-    this.el.oninput = function ons() {
-      onSeek(this.value);
+  get eventHandlers() {
+    this.onInput = () => {
+      this.onSeek(this.el.value);
     };
+    return { oninput: this.onInput };
+  }
+
+  set duration(duration) {
+    this.el.max = duration;
   }
 
   update(currentTime) {

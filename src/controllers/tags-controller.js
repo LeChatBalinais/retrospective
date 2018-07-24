@@ -21,6 +21,10 @@ class TagsController {
     this.tagControllers.forEach(tagController => tagController.update());
   }
 
+  seekTo(time) {
+    this.tagControllers.forEach(tagController => tagController.seekTo(time));
+  }
+
   createMarker = tag => {
     const marker = new Marker();
     if (this.onMarkerAdded) this.onMarkerAdded(marker);
