@@ -4,19 +4,16 @@ class Animation {
   constructor(target, start, duration, path) {
     this.start = start;
     this.duration = duration;
-    this.target = target.el;
+    this.target = target;
 
-    this.tween = TweenMax.to(this.target, this.duration, {
+    this.tween = TweenMax.to(this.target.el, this.duration, {
+      startAt: { x: 0, y: 0 },
       bezier: {
         values: path,
-        curviness: 0
+        timeResolution: 0
       },
       paused: true
     });
-
-    // if (currentTime !== undefined) {
-    //   this.tween.seek(currentTime - this.start);
-    // }
   }
 
   update(currentTime) {
@@ -24,8 +21,13 @@ class Animation {
       currentTime >= this.start &&
       currentTime <= this.start + this.duration
     ) {
+      if (!this.target.visible) this.target.visible = true;
+
       this.tween.progress((currentTime - this.start) / this.duration);
+      return;
     }
+
+    if (this.target.visible) this.target.visible = false;
   }
 
   kill() {

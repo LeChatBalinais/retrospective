@@ -15,6 +15,11 @@ class Marker extends SvgComponent {
     };
   }
 
+  get visible() {
+    if (this.el.style.display === 'block') return true;
+    return false;
+  }
+
   set initialPosition(coordinates) {
     this.el.setAttributeNS(null, 'cx', coordinates.x);
     this.el.setAttributeNS(null, 'cy', coordinates.y);

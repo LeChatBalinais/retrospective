@@ -1,5 +1,5 @@
 import Draggableness from '../draggableness/draggableness';
-// import Animation from '../animation/animation';
+import Animation from '../animation/animation';
 
 class TagController {
   constructor(
@@ -17,6 +17,7 @@ class TagController {
     this.marker = marker;
 
     this.marker.initialPosition = tag.position;
+
     this.pressedCallback = pressedCallback;
     this.draggedCallback = draggedCallback;
     this.releasedCallback = releasedCallback;
@@ -33,7 +34,13 @@ class TagController {
   }
 
   update() {
-    if (this.animation) this.animation.update(this.video.currentTime);
+    if (this.animation) {
+      this.animation.update(this.video.currentTime);
+    } else if (this.drag) {
+      const { x } = this.drag.draggable;
+      const { y } = this.drag.draggable;
+      this.tag.addToPath({ time: this.video.currentTime, x, y });
+    }
   }
 
   seekTo(time) {
@@ -51,15 +58,11 @@ class TagController {
       this.drag = undefined;
     }
 
-    this.marker.position = { x: 0, y: 0 };
-    console.log(this.tag.pathWithFixedStep);
-
     this.animation = new Animation(
       this.marker,
       this.tag.start,
       this.tag.duration,
       this.tag.pathWithFixedStep
-      // this.video.currentTime
     );
   }
 
@@ -82,8 +85,7 @@ class TagController {
     this.tag.addToPath({ time: this.video.currentTime, x, y });
     if (this.pressedCallback) this.pressedCallback();
   };
-  onDraggableMarkerDragged = (x, y) => {
-    this.tag.addToPath({ time: this.video.currentTime, x, y });
+  onDraggableMarkerDragged = () => {
     if (this.draggedCallback) this.draggedCallback();
   };
   onDraggableMarkerReleased = (x, y) => {

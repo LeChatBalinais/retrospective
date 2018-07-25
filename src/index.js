@@ -1,14 +1,11 @@
 import './style.css';
 import AugmentedVideoPlayer from './augmented-video-player/components/augmented-video-editor';
-// import AugmentedVideo from './augmented-video-player/AugmentedVideo';
 
 window.onload = () => {
   const app = document.getElementById('app');
 
   const player = new AugmentedVideoPlayer();
   player.videoSource = 'http://localhost:3000/video';
-
-  // player.source = new AugmentedVideo('http://localhost:3000/video');
 
   app.appendChild(player.el);
 

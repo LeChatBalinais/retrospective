@@ -21,10 +21,9 @@ class Tag {
   }
 
   addToPath({ time, x, y }) {
-    this.path = [
-      ...this.path,
-      { time, x: x - this.position.x, y: y - this.position.y }
-    ];
+    if (this.path.length !== 0 && time === this.path[this.path.length - 1].time)
+      return;
+    this.path = [...this.path, { time, x, y }];
   }
 
   positionByTime(time) {
