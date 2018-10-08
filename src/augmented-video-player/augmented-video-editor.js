@@ -84,6 +84,11 @@ class AugmentedVideoPlayer extends Component {
     );
   };
 
+  update = () => {
+    this.augmentation.update(this.video.currentTime);
+    this.seekBar.update(this.video.currentTime);
+  };
+
   play() {
     this.video.play();
     TweenLite.ticker.addEventListener('tick', this.update);
@@ -93,11 +98,6 @@ class AugmentedVideoPlayer extends Component {
     this.video.pause();
     TweenLite.ticker.removeEventListener('tick', this.update);
   }
-
-  update = () => {
-    this.augmentation.update(this.video.currentTime);
-    this.seekBar.update(this.video.currentTime);
-  };
 }
 
 export default AugmentedVideoPlayer;

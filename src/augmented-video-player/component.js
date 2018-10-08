@@ -5,6 +5,7 @@ class Component {
     this.children = [];
     this.parent = undefined;
   }
+
   createEl() {
     if (!this.tag || !this.attributes) return undefined;
 

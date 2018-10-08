@@ -3,6 +3,7 @@ class AugmentedVideo {
     this.videoSrc = videoSrc;
     this.tags = [];
   }
+
   addTag(tag) {
     this.tags.push(tag);
   }

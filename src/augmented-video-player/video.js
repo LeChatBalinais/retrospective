@@ -21,6 +21,7 @@ class Video extends Component {
   set currentTime(time) {
     this.el.currentTime = time;
   }
+
   set src(val) {
     this.el.src = val;
   }

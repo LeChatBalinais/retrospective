@@ -1,8 +1,9 @@
 {
   "presets": [
-    "react",
+    "@babel/preset-react",
+    "@babel/preset-flow",
     [
-      "env",
+      "@babel/preset-env",
       {
         "targets": {
           "browsers": ["last 2 versions", "IE >= 9"]
@@ -14,8 +15,7 @@
   ],
   "plugins": [
     "react-hot-loader/babel",
-    "babel-plugin-transform-class-properties",
-    "transform-object-rest-spread"
+    "@babel/plugin-proposal-class-properties"
   ],
   "env": {
     "test": {
