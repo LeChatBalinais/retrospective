@@ -1,13 +1,14 @@
 import Component from './component';
 
 class Video extends Component {
-  constructor() {
-    super();
+  // eslint-disable-next-line class-methods-use-this
+  get tag() {
+    return 'video';
+  }
 
-    this.tag = 'video';
-    this.attributes = { class: 'main-video' };
-
-    this.el = this.createEl();
+  // eslint-disable-next-line class-methods-use-this
+  get attributes() {
+    return { class: 'main-video' };
   }
 
   get currentTime() {
@@ -16,6 +17,10 @@ class Video extends Component {
 
   get duration() {
     return this.el.duration;
+  }
+
+  get paused() {
+    return this.el.paused;
   }
 
   set currentTime(time) {

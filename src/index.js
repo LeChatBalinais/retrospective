@@ -1,21 +1,38 @@
 import './style.css';
-import AugmentedVideoEditor from './augmented-video-player/augmented-video-editor';
-import AugmentedVideo from './augmented-video-player/AugmentedVideo';
+import AugmentedVideoPlayer from './augmented-video-player/components/augmented-video-editor';
 
 window.onload = () => {
   const app = document.getElementById('app');
 
-  const editor = new AugmentedVideoEditor();
-  editor.source = new AugmentedVideo('http://localhost:3000/video');
+  const player = new AugmentedVideoPlayer();
+  player.videoSource = 'http://localhost:3000/video';
 
-  app.appendChild(editor.el);
+  app.appendChild(player.el);
 
   const button = document.createElement('button');
-  button.innerHTML = 'Do Something';
+  button.innerHTML = 'play';
 
   button.addEventListener('click', () => {
-    editor.play();
+    player.play();
   });
 
   app.appendChild(button);
+
+  const pauseButton = document.createElement('button');
+  pauseButton.innerHTML = 'pause';
+
+  pauseButton.addEventListener('click', () => {
+    player.pause();
+  });
+
+  app.appendChild(pauseButton);
+
+  const addTagButton = document.createElement('button');
+  addTagButton.innerHTML = 'add tag';
+
+  addTagButton.addEventListener('click', () => {
+    player.addTag();
+  });
+
+  app.appendChild(addTagButton);
 };
