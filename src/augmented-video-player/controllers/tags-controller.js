@@ -1,4 +1,4 @@
-import Marker from '../augmented-video-player/components/markers/marker';
+import Marker from '../components/markers/marker';
 import TagController from './tag-controller';
 
 class TagsController {

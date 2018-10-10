@@ -2,9 +2,9 @@ import { TweenLite } from 'gsap';
 import Component from './component';
 import Video from './video';
 import Augmentation from './augmentation';
-import TagsController from '../../controllers/tags-controller';
-import Tags from '../../state/augmentation-info';
-import Tag from '../../state/tag';
+import TagsController from '../controllers/tags-controller';
+import Tags from '../state/augmentation-info';
+import Tag from '../state/tag';
 import SeekBar from './controls/seek-bar';
 
 class AugmentedVideoPlayer extends Component {
