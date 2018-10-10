@@ -7,6 +7,7 @@ class Draggableness {
     this.dragCallback = dragCallback;
     this.releaseCallback = releaseCallback;
     [this.draggable] = Draggable.create(this.target, {
+      dragClickables: true,
       bounds,
       onPress: this.onPress,
       onRelease: this.onRelease,
