@@ -1,5 +1,8 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import store from '../store';
 import AugmentedVideoPlayer from '../augmented-video-player/components/augmented-video-editor';
+import ControlPanel from './ControlPanel';
 
 class App extends React.Component {
   componentDidMount() {
@@ -10,42 +13,47 @@ class App extends React.Component {
 
     app.appendChild(player.el);
 
-    const button = document.createElement('button');
-    button.innerHTML = 'play';
+    // const button = document.createElement('button');
+    // button.innerHTML = 'play';
 
-    button.addEventListener('click', () => {
-      player.play();
-    });
+    // button.addEventListener('click', () => {
+    //   player.play();
+    // });
 
-    app.appendChild(button);
+    // app.appendChild(button);
 
-    const pauseButton = document.createElement('button');
-    pauseButton.innerHTML = 'pause';
+    // const pauseButton = document.createElement('button');
+    // pauseButton.innerHTML = 'pause';
 
-    pauseButton.addEventListener('click', () => {
-      player.pause();
-    });
+    // pauseButton.addEventListener('click', () => {
+    //   player.pause();
+    // });
 
-    app.appendChild(pauseButton);
+    // app.appendChild(pauseButton);
 
-    const addTagButton = document.createElement('button');
-    addTagButton.innerHTML = 'add tag';
+    // const addTagButton = document.createElement('button');
+    // addTagButton.innerHTML = 'add tag';
 
-    addTagButton.addEventListener('click', () => {
-      player.addTag();
-    });
+    // addTagButton.addEventListener('click', () => {
+    //   player.addTag();
+    // });
 
-    app.appendChild(addTagButton);
+    // app.appendChild(addTagButton);
   }
 
   render() {
     return (
-      <div
-        className="app"
-        ref={div => {
-          this.div = div;
-        }}
-      />
+      <Provider store={store}>
+        <div>
+          <div
+            className="app"
+            ref={div => {
+              this.div = div;
+            }}
+          />
+          <ControlPanel />
+        </div>
+      </Provider>
     );
   }
 }
