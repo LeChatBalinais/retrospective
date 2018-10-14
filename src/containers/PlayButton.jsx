@@ -10,7 +10,7 @@ type Props = {
 };
 
 const PlayButtonContainer = ({ playback }: Props) => {
-  let caption = 'Pay';
+  let caption = 'Play';
 
   if (playback) caption = 'Pause';
 
