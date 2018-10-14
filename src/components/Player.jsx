@@ -10,7 +10,7 @@ type Props = {
 
 type State = {};
 
-class AugmentedVideoPlayerC extends React.Component<Props, State> {
+class Player extends React.Component<Props, State> {
   componentDidMount() {
     const app = this.div;
 
@@ -49,4 +49,4 @@ class AugmentedVideoPlayerC extends React.Component<Props, State> {
   }
 }
 
-export default AugmentedVideoPlayerC;
+export default Player;
