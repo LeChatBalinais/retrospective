@@ -2,6 +2,7 @@
 import React from 'react';
 import AugmentedVideoPlayer from '../augmented-video-player/components/augmented-video-editor';
 import ControlPanel from './ControlPanel';
+import VideoContainer from '../containers/VideoContainer';
 
 type Props = {
   playback: boolean,
@@ -43,6 +44,7 @@ class Player extends React.Component<Props, State> {
             this.div = div;
           }}
         />
+        <VideoContainer />
         <ControlPanel />
       </div>
     );
