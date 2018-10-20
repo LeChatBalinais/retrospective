@@ -8,7 +8,6 @@ type Props = {
 };
 
 function createOnChange(onSeek: number => void) {
-  console.log('hello');
   return (event: SyntheticInputEvent<EventTarget>) => {
     const value = parseInt(event.target.value, 10);
     onSeek(value);

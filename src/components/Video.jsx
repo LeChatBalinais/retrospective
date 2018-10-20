@@ -3,22 +3,39 @@
 import React from 'react';
 
 type Props = {
-  src: string,
-  playback: boolean
+  url: string,
+  playback: boolean,
+  currentTime: number,
+  onTimeUpdate: number => void,
+  onDurationChange: number => void
 };
 
 type State = {};
 
 class Video extends React.Component<Props, State> {
+  createOnTimeUpdate = (onTimeUpdate: number => void) => () => {
+    const { video: videoCached } = this;
+    if (videoCached) {
+      const { currentTime } = videoCached;
+      onTimeUpdate(currentTime);
+    }
+  };
+
+  createOnDurationChange = (onDurationChange: number => void) => () => {
+    const { video: videoCached } = this;
+    if (videoCached) {
+      const { duration } = videoCached;
+      onDurationChange(duration);
+    }
+  };
+
   video: ?HTMLVideoElement;
 
   render() {
     const {
       video: videoCached,
-      props: { src, playback }
+      props: { url, playback, currentTime, onTimeUpdate, onDurationChange }
     } = this;
-
-    console.log(src);
 
     if (videoCached) {
       if (playback) {
@@ -26,13 +43,17 @@ class Video extends React.Component<Props, State> {
       } else {
         videoCached.pause();
       }
+      if (videoCached.paused && currentTime)
+        videoCached.currentTime = currentTime;
     }
 
     return (
       <video
         className="main-video"
-        src={src}
+        src={url}
         type="video/mp4"
+        onTimeUpdate={this.createOnTimeUpdate(onTimeUpdate)}
+        onDurationChange={this.createOnDurationChange(onDurationChange)}
         ref={video => {
           this.video = video;
         }}

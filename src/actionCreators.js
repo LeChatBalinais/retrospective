@@ -1,7 +1,8 @@
 import {
   SET_PLAYBACK,
   SET_PLACE_NEW_TAG_MODE,
-  SET_CURRENT_TIME
+  SET_CURRENT_TIME,
+  SET_DURATION
 } from './actions';
 
 export function setPlayback(on) {
@@ -14,4 +15,8 @@ export function setPlaceNewTagMode(on) {
 
 export function setCurrentTime(currentTime) {
   return { type: SET_CURRENT_TIME, payload: currentTime };
+}
+
+export function setDuration(duration) {
+  return { type: SET_DURATION, payload: duration };
 }

@@ -5,14 +5,12 @@ import Augmentation from './augmentation';
 import TagsController from '../controllers/tags-controller';
 import Tags from '../state/augmentation-info';
 import Tag from '../state/tag';
-import SeekBar from './controls/seek-bar';
 
 class AugmentedVideoPlayer extends Component {
   constructor() {
     super();
     this.addChildComponent((this.video = new Video()));
     this.addChildComponent((this.markersLayer = new Augmentation()));
-    this.addChildComponent((this.seekBar = new SeekBar(this.seekTo)));
 
     this.tags = new Tags();
     this.tagsController = new TagsController(
@@ -36,9 +34,6 @@ class AugmentedVideoPlayer extends Component {
 
   set videoSource(videoSource) {
     this.video.src = videoSource;
-    setTimeout(() => {
-      this.seekBar.duration = this.video.duration;
-    }, 1000);
   }
 
   addMarkerToAugmentation = marker => {
@@ -52,7 +47,6 @@ class AugmentedVideoPlayer extends Component {
 
   update = () => {
     this.tagsController.update();
-    this.seekBar.update(this.video.currentTime);
   };
 
   addTag() {

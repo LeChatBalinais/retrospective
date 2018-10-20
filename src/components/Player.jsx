@@ -12,8 +12,13 @@ type Props = {
 type State = {};
 
 class Player extends React.Component<Props, State> {
+  constructor() {
+    super();
+    this.playback = false;
+  }
+
   componentDidMount() {
-    const app = this.div;
+    const app = this.divEl;
 
     const player = new AugmentedVideoPlayer();
     player.videoSource = 'http://localhost:3000/video';
@@ -22,6 +27,10 @@ class Player extends React.Component<Props, State> {
 
     this.player = player;
   }
+
+  divEl: ?HTMLDivElement;
+
+  playback: boolean;
 
   render() {
     if (this.player) {
@@ -41,7 +50,7 @@ class Player extends React.Component<Props, State> {
         <div
           className="app"
           ref={div => {
-            this.div = div;
+            this.divEl = div;
           }}
         />
         <VideoContainer />
