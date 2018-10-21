@@ -5,14 +5,16 @@ class TagController {
   constructor(
     tag,
     marker,
-    video,
+    currentTime,
+    playback,
     markersLayer,
     pressedCallback,
     draggedCallback,
     releasedCallback
   ) {
     this.tag = tag;
-    this.video = video;
+    this.currentTime = currentTime;
+    this.playback = playback;
     this.markersLayer = markersLayer;
     this.marker = marker;
 
@@ -22,10 +24,6 @@ class TagController {
     this.draggedCallback = draggedCallback;
     this.releasedCallback = releasedCallback;
 
-    this.setState(!this.video.paused);
-  }
-
-  setState(playback) {
     if (playback) {
       this.addAnimation();
     } else {
@@ -33,13 +31,23 @@ class TagController {
     }
   }
 
-  update() {
+  setState(playback) {
+    if (this.playback === playback) return;
+    if (playback) {
+      this.addAnimation();
+    } else {
+      this.addDraggableness();
+    }
+  }
+
+  update(currentTime) {
+    this.currentTime = currentTime;
     if (this.animation) {
-      this.animation.update(this.video.currentTime);
+      this.animation.update(this.currentTime);
     } else if (this.drag) {
       const { x } = this.drag.draggable;
       const { y } = this.drag.draggable;
-      this.tag.addToPath({ time: this.video.currentTime, x, y });
+      this.tag.addToPath({ time: this.currentTime, x, y });
     }
   }
 
@@ -82,7 +90,7 @@ class TagController {
 
   onDraggableMarkerPressed = (x, y) => {
     this.tag.dragged = true;
-    this.tag.addToPath({ time: this.video.currentTime, x, y });
+    this.tag.addToPath({ time: this.currentTime, x, y });
     if (this.pressedCallback) this.pressedCallback();
   };
 
@@ -92,7 +100,7 @@ class TagController {
 
   onDraggableMarkerReleased = (x, y) => {
     this.tag.dragged = false;
-    this.tag.addToPath({ time: this.video.currentTime, x, y });
+    this.tag.addToPath({ time: this.currentTime, x, y });
     if (this.releasedCallback) this.releasedCallback();
   };
 }

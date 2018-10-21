@@ -1,23 +1,36 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
+import store from '../store';
 import Player from '../components/Player';
+import { setPlaceNewTagMode } from '../actionCreators';
 
 type Props = {
   playback: boolean,
-  placeNewTagMode: boolean
+  placeNewTagMode: boolean,
+  currentTime: number,
+  onTagAdded: void => void
 };
 
-const PlayerContainer = ({ playback, placeNewTagMode }: Props) => (
-  <Player playback={playback} placeNewTagMode={placeNewTagMode} />
+const PlayerContainer = ({
+  playback,
+  currentTime,
+  placeNewTagMode,
+  onTagAdded
+}: Props) => (
+  <Player {...{ playback, currentTime, placeNewTagMode, onTagAdded }} />
 );
 
 const mapStateToProps = ({
-  superVideoState: { playback },
+  superVideoState: { playback, currentTime },
   editorState: { placeNewTagMode }
 }) => ({
   playback,
-  placeNewTagMode
+  currentTime,
+  placeNewTagMode,
+  onTagAdded: () => {
+    store.dispatch(setPlaceNewTagMode(false));
+  }
 });
 
 export default connect(mapStateToProps)(PlayerContainer);

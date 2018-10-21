@@ -2,9 +2,8 @@ import Marker from '../components/markers/marker';
 import TagController from './tag-controller';
 
 class TagsController {
-  constructor(tags, video, markersLayer, player) {
+  constructor(tags, markersLayer, player) {
     this.tags = tags;
-    this.video = video;
     this.markersLayer = markersLayer;
     this.tags.onTagAdded = this.createMarker;
     this.markers = [];
@@ -18,8 +17,10 @@ class TagsController {
     );
   }
 
-  update() {
-    this.tagControllers.forEach(tagController => tagController.update());
+  update(currentTime) {
+    this.tagControllers.forEach(tagController =>
+      tagController.update(currentTime)
+    );
   }
 
   seekTo(time) {
@@ -35,7 +36,8 @@ class TagsController {
       new TagController(
         tag,
         marker,
-        this.video,
+        this.currentTime,
+        this.playback,
         this.markersLayer,
         this.onTagPressed,
         this.onTagDragged,

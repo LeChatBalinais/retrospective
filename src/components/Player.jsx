@@ -6,44 +6,42 @@ import VideoContainer from '../containers/VideoContainer';
 
 type Props = {
   playback: boolean,
-  placeNewTagMode: boolean
+  placeNewTagMode: boolean,
+  currentTime: number,
+  onTagAdded: void => void
 };
 
 type State = {};
 
 class Player extends React.Component<Props, State> {
-  constructor() {
-    super();
-    this.playback = false;
-  }
-
   componentDidMount() {
     const app = this.divEl;
 
-    const player = new AugmentedVideoPlayer();
-    player.videoSource = 'http://localhost:3000/video';
+    const player = new AugmentedVideoPlayer(this.onTagAdded);
 
     app.appendChild(player.el);
 
     this.player = player;
   }
 
+  onTagAdded: void => void;
+
   divEl: ?HTMLDivElement;
 
-  playback: boolean;
+  player: any;
 
   render() {
+    const { onTagAdded } = this.props;
     if (this.player) {
-      const { playback, placeNewTagMode } = this.props;
-      if (playback) {
-        this.player.play();
-      } else {
-        this.player.pause();
-      }
+      const { playback, placeNewTagMode, currentTime } = this.props;
+      this.player.playback = playback;
+      this.player.update(currentTime);
       if (placeNewTagMode) {
         this.player.addTag();
       }
     }
+
+    this.onTagAdded = onTagAdded;
 
     return (
       <div>

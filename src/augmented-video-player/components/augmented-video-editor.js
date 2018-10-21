@@ -1,4 +1,3 @@
-import { TweenLite } from 'gsap';
 import Component from './component';
 import Video from './video';
 import Augmentation from './augmentation';
@@ -7,7 +6,7 @@ import Tags from '../state/augmentation-info';
 import Tag from '../state/tag';
 
 class AugmentedVideoPlayer extends Component {
-  constructor() {
+  constructor(onTagAdded) {
     super();
     this.addChildComponent((this.video = new Video()));
     this.addChildComponent((this.markersLayer = new Augmentation()));
@@ -15,11 +14,11 @@ class AugmentedVideoPlayer extends Component {
     this.tags = new Tags();
     this.tagsController = new TagsController(
       this.tags,
-      this.video,
       this.markersLayer,
       this
     );
     this.tagsController.onMarkerAdded = this.addMarkerToAugmentation;
+    this.onTagAdded = onTagAdded;
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -32,8 +31,8 @@ class AugmentedVideoPlayer extends Component {
     return { class: 'augmented-video' };
   }
 
-  set videoSource(videoSource) {
-    this.video.src = videoSource;
+  set playback(playback) {
+    this.tagsController.setState(playback);
   }
 
   addMarkerToAugmentation = marker => {
@@ -41,12 +40,11 @@ class AugmentedVideoPlayer extends Component {
   };
 
   seekTo = time => {
-    this.video.el.currentTime = time;
     this.tagsController.seekTo(time);
   };
 
-  update = () => {
-    this.tagsController.update();
+  update = currentTime => {
+    this.tagsController.update(currentTime);
   };
 
   addTag() {
@@ -63,18 +61,7 @@ class AugmentedVideoPlayer extends Component {
 
     this.removeChildComponent(this.additionLayer);
     this.additionLayer = undefined;
-  }
-
-  play() {
-    this.tagsController.setState(true);
-    TweenLite.ticker.addEventListener('tick', this.update);
-    this.video.play();
-  }
-
-  pause() {
-    this.tagsController.setState(false);
-    this.video.pause();
-    TweenLite.ticker.removeEventListener('tick', this.update);
+    this.onTagAdded();
   }
 }
 
