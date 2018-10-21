@@ -43,8 +43,7 @@ class Video extends React.Component<Props, State> {
       } else {
         videoCached.pause();
       }
-      if (videoCached.paused && currentTime)
-        videoCached.currentTime = currentTime;
+      if (!playback) videoCached.currentTime = currentTime;
     }
 
     return (
