@@ -4,7 +4,9 @@ import React from 'react';
 type Props = {
   duration: number,
   currentTime: number,
-  onSeek: number => void
+  onSeek: number => void,
+  onMouseDown: void => void,
+  onMouseUp: void => void
 };
 
 function createOnChange(onSeek: number => void) {
@@ -14,13 +16,21 @@ function createOnChange(onSeek: number => void) {
   };
 }
 
-const Button = ({ currentTime, duration, onSeek }: Props) => (
+const Button = ({
+  currentTime,
+  duration,
+  onSeek,
+  onMouseDown,
+  onMouseUp
+}: Props) => (
   <input
     type="range"
     min={0}
     max={duration}
     value={currentTime}
     onChange={createOnChange(onSeek)}
+    onMouseDown={onMouseDown}
+    onMouseUp={onMouseUp}
   />
 );
 export default Button;

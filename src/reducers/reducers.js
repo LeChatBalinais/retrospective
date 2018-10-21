@@ -2,13 +2,15 @@ import {
   SET_PLAYBACK,
   SET_PLACE_NEW_TAG_MODE,
   SET_CURRENT_TIME,
-  SET_DURATION
+  SET_DURATION,
+  SET_USER_SEEK
 } from '../actions';
 import DEFAULT_STATE from './default-state';
 import setPlayback from './set-playback';
 import setPlaceNewTagMode from './set-place-new-tag-mode';
 import setCurrentTime from './set-current-time';
 import setDuration from './set-duration';
+import setUserSeek from './set-user-seek';
 
 const rootReducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
@@ -24,6 +26,10 @@ const rootReducer = (state = DEFAULT_STATE, action) => {
     case SET_DURATION: {
       return setDuration(state, action);
     }
+    case SET_USER_SEEK: {
+      return setUserSeek(state, action);
+    }
+
     default:
       return state;
   }

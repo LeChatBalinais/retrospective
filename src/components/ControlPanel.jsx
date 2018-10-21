@@ -8,7 +8,6 @@ const Button = () => (
   <div>
     <PlayButton />
     <NewTagButton />
-
     <SeekBarContainer />
   </div>
 );

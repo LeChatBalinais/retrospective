@@ -24,9 +24,9 @@ const PlayerContainer = ({ playback, url, currentTime }: Props) => (
 );
 
 const mapStateToProps = ({
-  superVideoState: { playback, url, currentTime }
+  superVideoState: { playback, url, currentTime, userSeek }
 }) => ({
-  playback,
+  playback: playback && !userSeek,
   url,
   currentTime
 });
