@@ -46,15 +46,7 @@ class TagsController {
     ];
   };
 
-  onTagPressed = () => {
-    this.player.play();
-  };
-
   onTagDragged = () => {};
-
-  onTagReleased = () => {
-    this.player.pause();
-  };
 }
 
 export default TagsController;

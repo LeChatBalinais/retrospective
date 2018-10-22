@@ -23,7 +23,8 @@ class Animation {
     ) {
       if (!this.target.visible) this.target.visible = true;
 
-      this.tween.progress((currentTime - this.start) / this.duration);
+      if (Math.abs(currentTime - this.tween.time()) > 0.001);
+      this.tween.resume(currentTime);
       return;
     }
 

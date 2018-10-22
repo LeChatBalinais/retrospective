@@ -1,5 +1,4 @@
 import Component from './component';
-import Video from './video';
 import Augmentation from './augmentation';
 import TagsController from '../controllers/tags-controller';
 import Tags from '../state/augmentation-info';
@@ -8,7 +7,6 @@ import Tag from '../state/tag';
 class AugmentedVideoPlayer extends Component {
   constructor(onTagAdded) {
     super();
-    this.addChildComponent((this.video = new Video()));
     this.addChildComponent((this.markersLayer = new Augmentation()));
 
     this.tags = new Tags();

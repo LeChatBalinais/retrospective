@@ -4,6 +4,9 @@ import AugmentedVideoPlayer from '../augmented-video-player/components/augmented
 import ControlPanel from './ControlPanel';
 import VideoContainer from '../containers/VideoContainer';
 
+import store from '../store';
+import { setPlayback } from '../actionCreators';
+
 type Props = {
   playback: boolean,
   placeNewTagMode: boolean,
@@ -22,6 +25,13 @@ class Player extends React.Component<Props, State> {
     app.appendChild(player.el);
 
     this.player = player;
+
+    this.player.tagsController.onTagPressed = () => {
+      store.dispatch(setPlayback(true));
+    };
+    this.player.tagsController.onTagReleased = () => {
+      store.dispatch(setPlayback(false));
+    };
   }
 
   onTagAdded: void => void;
@@ -45,14 +55,14 @@ class Player extends React.Component<Props, State> {
 
     return (
       <div>
+        <VideoContainer />
+        <ControlPanel />
         <div
           className="app"
           ref={div => {
             this.divEl = div;
           }}
         />
-        <VideoContainer />
-        <ControlPanel />
       </div>
     );
   }

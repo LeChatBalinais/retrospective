@@ -33,6 +33,7 @@ class TagController {
 
   setState(playback) {
     if (this.playback === playback) return;
+    this.playback = playback;
     if (playback) {
       this.addAnimation();
     } else {
@@ -44,7 +45,7 @@ class TagController {
     this.currentTime = currentTime;
     if (this.animation) {
       this.animation.update(this.currentTime);
-    } else if (this.drag) {
+    } else if (this.drag && currentTime) {
       const { x } = this.drag.draggable;
       const { y } = this.drag.draggable;
       this.tag.addToPath({ time: this.currentTime, x, y });
