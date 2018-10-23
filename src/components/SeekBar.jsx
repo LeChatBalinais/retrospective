@@ -10,7 +10,7 @@ type Props = {
 };
 
 function createOnChange(onSeek: number => void) {
-  return (event: SyntheticInputEvent<EventTarget>) => {
+  return (event: SyntheticInputEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value, 10);
     onSeek(value);
   };
