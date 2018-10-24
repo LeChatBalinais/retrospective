@@ -3,7 +3,8 @@ import React from 'react';
 import AugmentedVideoPlayer from '../augmented-video-player/components/augmented-video-editor';
 import ControlPanel from './ControlPanel';
 import VideoContainer from '../containers/VideoContainer';
-import PlaceNewMarker from './PlaceNewMarker';
+import NewTagLayer from './NewTagLayer';
+import AugmentationContainer from '../containers/AugmentationContainer';
 
 import store from '../store';
 import { setPlayback } from '../actionCreators';
@@ -51,9 +52,7 @@ class Player extends React.Component<Props, State> {
       if (placeNewTagMode) {
         this.player.addTag();
         newTagComponent = (
-          <PlaceNewMarker
-            onClick={(x: number, y: number) => console.log(x, y)}
-          />
+          <NewTagLayer onClick={(x: number, y: number) => console.log(x, y)} />
         );
       }
     }
@@ -63,6 +62,7 @@ class Player extends React.Component<Props, State> {
     return (
       <div>
         <VideoContainer />
+        <AugmentationContainer />
         {newTagComponent}
         <ControlPanel />
         <div

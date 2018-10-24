@@ -11,10 +11,10 @@ function createOnClick(onClick: (number, number) => void) {
   };
 }
 
-const PlaceNewMarker = ({ onClick }: Props) => (
+const NewTagLayer = ({ onClick }: Props) => (
   <svg
     className="augmentation addition-layer"
     onClick={createOnClick(onClick)}
   />
 );
-export default PlaceNewMarker;
+export default NewTagLayer;
