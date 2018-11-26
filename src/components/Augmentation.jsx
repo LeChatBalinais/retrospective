@@ -10,7 +10,11 @@ const Augmentation = ({ tagIDs }: Props) => {
   const tagContainers = tagIDs.map(tagID => (
     <TagContainer {...{ key: tagID, tagID }} />
   ));
-  return <svg className="augmentation">{tagContainers}</svg>;
+  return (
+    <svg className="augmentation" id="bounds">
+      {tagContainers}
+    </svg>
+  );
 };
 
 export default Augmentation;

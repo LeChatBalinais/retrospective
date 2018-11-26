@@ -3,7 +3,7 @@ import React from 'react';
 import AugmentedVideoPlayer from '../augmented-video-player/components/augmented-video-editor';
 import ControlPanel from './ControlPanel';
 import VideoContainer from '../containers/VideoContainer';
-import NewTagLayer from './NewTagLayer';
+import NewTagLayerContainer from '../containers/NewTagLayerContainer';
 import AugmentationContainer from '../containers/AugmentationContainer';
 
 import store from '../store';
@@ -51,9 +51,7 @@ class Player extends React.Component<Props, State> {
       this.player.update(currentTime);
       if (placeNewTagMode) {
         this.player.addTag();
-        newTagComponent = (
-          <NewTagLayer onClick={(x: number, y: number) => console.log(x, y)} />
-        );
+        newTagComponent = <NewTagLayerContainer />;
       }
     }
 
