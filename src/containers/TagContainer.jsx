@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Tag from '../components/Tag';
 import store from '../store';
-import { setPlayback, setTagDragged } from '../actionCreators';
+import { setPlayback, setTagDragged, updateTagPath } from '../actionCreators';
 
 type Props = {
   tagID: number,
@@ -22,14 +22,16 @@ const TagContainer = ({ x, y, playback, dragged, tagID }: Props) => (
       dragged,
       playback,
       onDragBegin: (xCoor: number, yCoor: number) => {
-        console.log(xCoor, yCoor);
         store.dispatch(setTagDragged(tagID, true));
+        store.dispatch(updateTagPath(tagID, xCoor, yCoor));
         store.dispatch(setPlayback(true));
       },
-      onDrag: () => {},
+      onDrag: (xCoor: number, yCoor: number) => {
+        store.dispatch(updateTagPath(tagID, xCoor, yCoor));
+      },
       onDragEnd: (xCoor: number, yCoor: number) => {
-        console.log(xCoor, yCoor);
         store.dispatch(setPlayback(false));
+        store.dispatch(updateTagPath(tagID, xCoor, yCoor));
         store.dispatch(setTagDragged(tagID, false));
       }
     }}

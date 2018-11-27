@@ -5,7 +5,8 @@ import {
   SET_DURATION,
   SET_USER_SEEK,
   ADD_NEW_TAG,
-  SET_TAG_DRAGGED
+  SET_TAG_DRAGGED,
+  UPDATE_TAG_PATH
 } from '../actions';
 import DEFAULT_STATE from './default-state';
 import setPlayback from './set-playback';
@@ -15,6 +16,7 @@ import setDuration from './set-duration';
 import setUserSeek from './set-user-seek';
 import addNewTag from './add-new-tag';
 import setTagDragged from './set-tag-dragged';
+import updateTagPath from './update-tag-path';
 
 const rootReducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
@@ -38,6 +40,9 @@ const rootReducer = (state = DEFAULT_STATE, action) => {
     }
     case SET_TAG_DRAGGED: {
       return setTagDragged(state, action);
+    }
+    case UPDATE_TAG_PATH: {
+      return updateTagPath(state, action);
     }
     default:
       return state;

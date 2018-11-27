@@ -6,6 +6,8 @@ class Animation {
     this.duration = duration;
     this.target = target;
 
+    console.log(duration, path);
+
     this.tween = TweenMax.to(this.target.el, this.duration, {
       startAt: { x: 0, y: 0 },
       bezier: {

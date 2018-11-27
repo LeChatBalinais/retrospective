@@ -5,7 +5,8 @@ import {
   SET_DURATION,
   SET_USER_SEEK,
   ADD_NEW_TAG,
-  SET_TAG_DRAGGED
+  SET_TAG_DRAGGED,
+  UPDATE_TAG_PATH
 } from './actions';
 
 export function setPlayback(on) {
@@ -34,4 +35,8 @@ export function addNewTag(x, y) {
 
 export function setTagDragged(ID, dragged) {
   return { type: SET_TAG_DRAGGED, payload: { ID, dragged } };
+}
+
+export function updateTagPath(ID, x, y) {
+  return { type: UPDATE_TAG_PATH, payload: { ID, x, y } };
 }
