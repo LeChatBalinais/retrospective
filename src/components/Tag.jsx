@@ -34,7 +34,7 @@ class Tag extends React.Component<Props, State> {
 
     this.draggableness = new Draggableness(
       { el: circle },
-      null,
+      '#bounds',
       this.onDragBegin,
       this.onDrag,
       this.onDragEnd
