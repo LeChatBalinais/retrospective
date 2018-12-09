@@ -1,11 +1,24 @@
 // @flow
 import React from 'react';
-import Draggableness from '../augmented-video-player/draggableness/draggableness';
+import type {
+  TagInteractivity,
+  TagInteractivityProps
+} from '../tag-interactivity/tag-interactivity-type';
+import updateInteractivity from '../tag-interactivity/tag-interactivity';
+import {
+  DEFAULT_TAG_INTERACTIVITY_PROPS,
+  updateDraggable,
+  updateOnDragBegin,
+  updateOnDrag,
+  updateOnDragEnd
+} from '../tag-interactivity/tag-interactivity-props';
 
 type Props = {
   className: string,
   x: number,
   y: number,
+  offsetX: number,
+  offsetY: number,
   playback: boolean,
   dragged: boolean,
   onDragBegin: (number, number) => void,
@@ -16,59 +29,33 @@ type Props = {
 type State = {};
 
 class Tag extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+
+    this.interactivityProps = DEFAULT_TAG_INTERACTIVITY_PROPS;
+  }
+
   componentDidMount() {
-    const { updateInteractivnessOnMount } = this;
-    if (updateInteractivnessOnMount) updateInteractivnessOnMount();
+    this.interactivity = { draggable: undefined, animation: undefined };
+
+    this.interactivity = updateInteractivity(
+      this.prevInteractivityProps,
+      this.interactivityProps
+    )(this.interactivity);
   }
 
-  onDragBegin: ?(number, number) => void;
+  interactivity: ?TagInteractivity;
 
-  onDrag: ?(number, number) => void;
+  prevInteractivityProps: TagInteractivityProps;
 
-  onDragEnd: ?(number, number) => void;
-
-  makeDraggable = () => {
-    const { circle } = this;
-
-    if (!circle) return;
-
-    this.draggableness = new Draggableness(
-      { el: circle },
-      '#bounds',
-      this.onDragBegin,
-      this.onDrag,
-      this.onDragEnd
-    );
-  };
-
-  makeNondraggable = () => {
-    if (this.draggableness) this.draggableness.kill();
-    this.draggableness = undefined;
-  };
-
-  updateInteractivness(playback: boolean) {
-    const { draggableness, dragged } = this;
-
-    if (!draggableness && !playback) return this.makeDraggable;
-
-    if (this.draggableness && playback && !dragged)
-      return this.makeNondraggable;
-
-    return () => {};
-  }
-
-  circle: ?any;
-
-  draggableness: ?any;
-
-  dragged: boolean;
-
-  updateInteractivnessOnMount: ?() => void;
+  interactivityProps: TagInteractivityProps;
 
   render() {
     const {
       x,
       y,
+      offsetX,
+      offsetY,
       className,
       dragged,
       playback,
@@ -77,29 +64,41 @@ class Tag extends React.Component<Props, State> {
       onDragEnd
     } = this.props;
 
-    this.dragged = dragged;
+    this.prevInteractivityProps = this.interactivityProps;
 
-    if (!this.onDragBegin) this.onDragBegin = onDragBegin;
-    if (!this.onDrag) this.onDrag = onDrag;
-    if (!this.onDragEnd) this.onDragEnd = onDragEnd;
+    this.interactivityProps = updateOnDragEnd(
+      updateOnDrag(
+        updateOnDragBegin(
+          updateDraggable(this.interactivityProps, !playback || dragged),
+          onDragBegin
+        ),
+        onDrag
+      ),
+      onDragEnd
+    );
 
-    const updateInteractivness = this.updateInteractivness(playback);
-
-    if (!this.updateInteractivnessOnMount)
-      this.updateInteractivnessOnMount = updateInteractivness;
-    else if (updateInteractivness) updateInteractivness();
+    if (this.interactivity) {
+      this.interactivity = updateInteractivity(
+        this.prevInteractivityProps,
+        this.interactivityProps
+      )(this.interactivity);
+    }
 
     return (
       <circle
         cx={x}
         cy={y}
+        transform={`matrix(1,0,0,1,${offsetX},${offsetY})`}
         r={3}
         stroke="red"
         strokeWidth="3"
         fill="red"
         className={className}
         ref={circle => {
-          this.circle = circle;
+          this.interactivityProps = {
+            ...this.interactivityProps,
+            target: circle
+          };
         }}
       />
     );

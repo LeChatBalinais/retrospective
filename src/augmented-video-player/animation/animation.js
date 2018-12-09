@@ -6,8 +6,6 @@ class Animation {
     this.duration = duration;
     this.target = target;
 
-    console.log(duration, path);
-
     this.tween = TweenMax.to(this.target.el, this.duration, {
       startAt: { x: 0, y: 0 },
       bezier: {
@@ -25,8 +23,9 @@ class Animation {
     ) {
       if (!this.target.visible) this.target.visible = true;
 
-      if (Math.abs(currentTime - this.tween.time()) > 0.001);
-      this.tween.resume(currentTime);
+      if (Math.abs(currentTime - this.tween.time()) > 0.001) {
+        this.tween.resume(currentTime);
+      }
       return;
     }
 
