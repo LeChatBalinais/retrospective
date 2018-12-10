@@ -68,8 +68,16 @@ const updateAnimation = (
 
   if (prevState === newState) return newAnimation;
 
-  const { animation: prevExistance, target: prevTarget } = prevState;
-  const { animation: newExistance, target: newTarget } = newState;
+  const {
+    animation: prevExistance,
+    target: prevTarget,
+    currentTime: prevCurrentTime
+  } = prevState;
+  const {
+    animation: newExistance,
+    target: newTarget,
+    currentTime: newCurrentTime
+  } = newState;
 
   if (prevExistance !== newExistance) {
     const {
@@ -98,6 +106,13 @@ const updateAnimation = (
 
   if (newAnimation && prevTarget !== newTarget) newAnimation.target = newTarget;
 
+  if (
+    newAnimation &&
+    prevCurrentTime !== newCurrentTime &&
+    Math.abs(newCurrentTime - newAnimation.time()) > 0.01
+  ) {
+    newAnimation.resume(newCurrentTime);
+  }
   return newAnimation;
 };
 

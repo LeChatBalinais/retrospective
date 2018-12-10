@@ -3,6 +3,7 @@ import type { TagInteractivityProps } from './tag-interactivity-type';
 
 export const DEFAULT_TAG_INTERACTIVITY_PROPS = {
   target: undefined,
+  currentTime: 0,
   draggable: {
     exist: false,
     callbacks: {
@@ -18,6 +19,17 @@ export const DEFAULT_TAG_INTERACTIVITY_PROPS = {
   }
 };
 
+export const updateCurrentTime = (
+  prevState: TagInteractivityProps,
+  currentTime: number
+) => {
+  if (prevState.currentTime === currentTime) return prevState;
+  return {
+    ...prevState,
+    currentTime
+  };
+};
+
 export const updateDraggable = (
   prevState: TagInteractivityProps,
   draggable: boolean
@@ -28,6 +40,10 @@ export const updateDraggable = (
     draggable: {
       ...prevState.draggable,
       exist: draggable
+    },
+    animation: {
+      ...prevState.animation,
+      exist: !draggable
     }
   };
 };
@@ -79,6 +95,36 @@ export const updateOnDragEnd = (
         ...prevState.draggable.callbacks,
         onDragEnd
       }
+    }
+  };
+};
+
+export const updateDuration = (
+  prevState: TagInteractivityProps,
+  duration: number
+) => {
+  if (!prevState.animation.exist || prevState.animation.duration === duration)
+    return prevState;
+  return {
+    ...prevState,
+    animation: {
+      ...prevState.animation,
+      duration
+    }
+  };
+};
+
+export const updatePath = (
+  prevState: TagInteractivityProps,
+  path: Array<{ time: number, x: number, y: number }>
+) => {
+  if (!prevState.animation.exist || prevState.animation.path === path)
+    return prevState;
+  return {
+    ...prevState,
+    animation: {
+      ...prevState.animation,
+      path
     }
   };
 };

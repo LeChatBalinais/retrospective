@@ -13,6 +13,7 @@ export type TagDragCallbacks = {
 
 export type TagInteractivityProps = {
   target: ?any,
+  currentTime: number,
   draggable: {
     exist: boolean,
     callbacks: TagDragCallbacks

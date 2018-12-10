@@ -9,6 +9,9 @@ type Props = {
   tagID: number,
   x: number,
   y: number,
+  duration: number,
+  path: Array<{ time: number, x: number, y: number }>,
+  currentTime: number,
   dragged: boolean,
   playback: boolean,
   offsetX: number,
@@ -18,6 +21,9 @@ type Props = {
 const TagContainer = ({
   x,
   y,
+  duration,
+  path,
+  currentTime,
   playback,
   dragged,
   tagID,
@@ -29,6 +35,9 @@ const TagContainer = ({
       className: 'Tag',
       x,
       y,
+      duration,
+      path,
+      currentTime,
       dragged,
       playback,
       offsetX,
@@ -82,8 +91,14 @@ const mapStateToProps = (
     }
   }
 
+  let duration = 0;
+
+  if (path.length > 1) duration = path[path.length - 1].time - path[0].time;
+
   return {
     ...tag,
+    duration,
+    currentTime: currentTime - path[0].time,
     playback,
     offsetX,
     offsetY

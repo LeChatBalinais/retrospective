@@ -7,10 +7,13 @@ import type {
 import updateInteractivity from '../tag-interactivity/tag-interactivity';
 import {
   DEFAULT_TAG_INTERACTIVITY_PROPS,
+  updateCurrentTime,
   updateDraggable,
   updateOnDragBegin,
   updateOnDrag,
-  updateOnDragEnd
+  updateOnDragEnd,
+  updateDuration,
+  updatePath
 } from '../tag-interactivity/tag-interactivity-props';
 
 type Props = {
@@ -19,6 +22,9 @@ type Props = {
   y: number,
   offsetX: number,
   offsetY: number,
+  duration: number,
+  path: Array<{ time: number, x: number, y: number }>,
+  currentTime: number,
   playback: boolean,
   dragged: boolean,
   onDragBegin: (number, number) => void,
@@ -56,6 +62,9 @@ class Tag extends React.Component<Props, State> {
       y,
       offsetX,
       offsetY,
+      duration,
+      path,
+      currentTime,
       className,
       dragged,
       playback,
@@ -66,16 +75,26 @@ class Tag extends React.Component<Props, State> {
 
     this.prevInteractivityProps = this.interactivityProps;
 
+    this.interactivityProps = updateCurrentTime(
+      this.interactivityProps,
+      currentTime
+    );
+
+    this.interactivityProps = updateDraggable(
+      this.interactivityProps,
+      !playback || dragged
+    );
+    this.interactivityProps = updateOnDragBegin(
+      this.interactivityProps,
+      onDragBegin
+    );
+    this.interactivityProps = updateOnDrag(this.interactivityProps, onDrag);
     this.interactivityProps = updateOnDragEnd(
-      updateOnDrag(
-        updateOnDragBegin(
-          updateDraggable(this.interactivityProps, !playback || dragged),
-          onDragBegin
-        ),
-        onDrag
-      ),
+      this.interactivityProps,
       onDragEnd
     );
+    this.interactivityProps = updateDuration(this.interactivityProps, duration);
+    this.interactivityProps = updatePath(this.interactivityProps, path);
 
     if (this.interactivity) {
       this.interactivity = updateInteractivity(
@@ -84,11 +103,16 @@ class Tag extends React.Component<Props, State> {
       )(this.interactivity);
     }
 
+    let transform = {};
+
+    if (!playback && !dragged)
+      transform = { transform: `matrix(1,0,0,1,${offsetX},${offsetY})` };
+
     return (
       <circle
         cx={x}
         cy={y}
-        transform={`matrix(1,0,0,1,${offsetX},${offsetY})`}
+        {...transform}
         r={3}
         stroke="red"
         strokeWidth="3"
