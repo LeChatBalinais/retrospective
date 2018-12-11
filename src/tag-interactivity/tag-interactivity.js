@@ -1,10 +1,12 @@
 // @flow
 import Draggable from 'gsap/Draggable';
 import TweenMax from 'gsap';
-import type {
-  TagInteractivity,
-  TagInteractivityProps
-} from './tag-interactivity-type';
+import type { TagInteractivityProps } from './tag-interactivity-props';
+
+export type TagInteractivity = {
+  animation: ?any,
+  draggable: ?any
+};
 
 const updatedDraggable = (
   draggable: ?any,

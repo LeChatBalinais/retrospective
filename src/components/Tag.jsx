@@ -1,9 +1,6 @@
 // @flow
 import React from 'react';
-import type {
-  TagInteractivity,
-  TagInteractivityProps
-} from '../tag-interactivity/tag-interactivity-type';
+import type { TagInteractivity } from '../tag-interactivity/tag-interactivity';
 import updateInteractivity from '../tag-interactivity/tag-interactivity';
 import {
   DEFAULT_TAG_INTERACTIVITY_PROPS,
@@ -15,6 +12,7 @@ import {
   updateDuration,
   updatePath
 } from '../tag-interactivity/tag-interactivity-props';
+import type { TagInteractivityProps } from '../tag-interactivity/tag-interactivity-props';
 
 type Props = {
   className: string,

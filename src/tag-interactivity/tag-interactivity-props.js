@@ -1,5 +1,24 @@
 // @flow
-import type { TagInteractivityProps } from './tag-interactivity-type';
+
+export type TagDragCallbacks = {
+  onDragBegin: ?(number, number) => void,
+  onDrag: ?(number, number) => void,
+  onDragEnd: ?(number, number) => void
+};
+
+export type TagInteractivityProps = {
+  target: ?any,
+  currentTime: number,
+  draggable: {
+    exist: boolean,
+    callbacks: TagDragCallbacks
+  },
+  animation: {
+    exist: boolean,
+    duration: number,
+    path: Array<{ time: number, x: number, y: number }>
+  }
+};
 
 export const DEFAULT_TAG_INTERACTIVITY_PROPS = {
   target: undefined,
