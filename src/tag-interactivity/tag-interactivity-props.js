@@ -53,7 +53,11 @@ export const updateDraggable = (
   prevState: TagInteractivityProps,
   draggable: boolean
 ) => {
-  if (prevState.draggable.exist === draggable) return prevState;
+  if (
+    prevState.draggable.exist === draggable &&
+    prevState.animation.exist === !draggable
+  )
+    return prevState;
   return {
     ...prevState,
     draggable: {

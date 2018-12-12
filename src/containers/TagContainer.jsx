@@ -61,7 +61,7 @@ const TagContainer = ({
 );
 
 const mapStateToProps = (
-  { tags: { byID }, superVideoState: { playback, currentTime } },
+  { tags: { byID }, superVideoState: { playback, currentTime, userSeek } },
   { tagID }
 ) => {
   const tag = byID[tagID];
@@ -99,7 +99,7 @@ const mapStateToProps = (
     ...tag,
     duration,
     currentTime: currentTime - path[0].time,
-    playback,
+    playback: playback && !userSeek,
     offsetX,
     offsetY
   };
