@@ -103,7 +103,6 @@ const updateAnimation = (
         paused: true
       });
     }
-    return newAnimation;
   }
 
   if (newAnimation && prevTarget !== newTarget) newAnimation.target = newTarget;

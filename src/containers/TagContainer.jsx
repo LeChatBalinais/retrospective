@@ -53,7 +53,8 @@ const TagContainer = ({
       },
       onDragEnd: (xCoor: number, yCoor: number) => {
         store.dispatch(setPlayback(false));
-        store.dispatch(updateTagPath(tagID, xCoor, yCoor));
+        console.log(xCoor, yCoor);
+        // store.dispatch(updateTagPath(tagID, xCoor, yCoor));
         store.dispatch(setTagDragged(tagID, false));
       }
     }}
