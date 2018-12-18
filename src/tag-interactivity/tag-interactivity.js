@@ -1,6 +1,6 @@
 // @flow
 import Draggable from 'gsap/Draggable';
-import TweenMax from 'gsap';
+import { TimelineLite } from 'gsap';
 import type { TagInteractivityProps } from './tag-interactivity-props';
 
 export type TagInteractivity = {
@@ -82,11 +82,7 @@ const updateAnimation = (
   } = newState;
 
   if (prevExistance !== newExistance) {
-    const {
-      exist: newIsAnimated,
-      duration: newDuration,
-      path: newPath
-    } = newExistance;
+    const { exist: newIsAnimated, path: newPath } = newExistance;
 
     if (newAnimation) {
       newAnimation.kill();
@@ -94,14 +90,14 @@ const updateAnimation = (
     }
 
     if (newIsAnimated) {
-      newAnimation = TweenMax.to(newTarget, newDuration, {
-        startAt: { x: 0, y: 0 },
-        bezier: {
-          values: newPath,
-          timeResolution: 0
-        },
-        paused: true
-      });
+      newAnimation = new TimelineLite({ paused: true, tweens: [] });
+
+      for (let i = 0; i < newPath.length - 1; i += 1)
+        newAnimation.to(newTarget, newPath[i + 1].time - newPath[i].time, {
+          // startAt: { x: 0 + newPath[i].x, y: 0 + newPath[i].y },
+          x: newPath[i + 1].x,
+          y: newPath[i + 1].y
+        });
     }
   }
 
