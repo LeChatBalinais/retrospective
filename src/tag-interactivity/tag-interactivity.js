@@ -39,13 +39,13 @@ const updatedDraggable = (
       [newDraggable] = Draggable.create(newTarget, {
         dragClickables: true,
         bounds: '#bounds',
-        onPress: (pointerEvent: PointerEvent) => {
+        onPress: (pointerEvent: any) => {
           if (onPress) onPress(pointerEvent.clientX, pointerEvent.clientY);
         },
-        onRelease: (pointerEvent: PointerEvent) => {
+        onRelease: (pointerEvent: any) => {
           if (onRelease) onRelease(pointerEvent.clientX, pointerEvent.clientY);
         },
-        onDrag: (pointerEvent: PointerEvent) => {
+        onDrag: (pointerEvent: any) => {
           if (onDrag) onDrag(pointerEvent.clientX, pointerEvent.clientY);
         },
         onClick: e => {
