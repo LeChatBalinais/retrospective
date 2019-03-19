@@ -1,3 +1,4 @@
+import io from 'socket.io-client';
 import {
   SET_PLAYBACK,
   SET_PLACE_NEW_TAG_MODE,
@@ -8,6 +9,8 @@ import {
   SET_TAG_DRAGGED,
   UPDATE_TAG_PATH
 } from './actions';
+
+const socket = io('http://localhost:4000');
 
 export function setPlayback(on) {
   return { type: SET_PLAYBACK, payload: on };
@@ -39,4 +42,14 @@ export function setTagDragged(ID, dragged) {
 
 export function updateTagPath(ID, x, y) {
   return { type: UPDATE_TAG_PATH, payload: { ID, x, y } };
+}
+
+export function addNewTagToServer(x, y) {
+  return dispatch => {
+    socket.emit('chat message', 'hello');
+    socket.once('chat message', msg => {
+      console.log(msg);
+      dispatch(addNewTag(x, y));
+    });
+  };
 }
