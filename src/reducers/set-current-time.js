@@ -1,4 +1,9 @@
-const setCurrentTime = (state, action) => {
+// @flow
+
+import type { State } from './default-state';
+import type { SetCurrentTimeAction } from '../actions';
+
+const setCurrentTime = (state: State, action: SetCurrentTimeAction): State => {
   const { payload: currentTime } = action;
   return {
     ...state,

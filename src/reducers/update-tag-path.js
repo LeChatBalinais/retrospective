@@ -1,4 +1,9 @@
-const updateTagPath = (state, action) => {
+// @flow
+
+import type { State } from './default-state';
+import type { UpdateTagPathAction } from '../actions';
+
+const updateTagPath = (state: State, action: UpdateTagPathAction): State => {
   const {
     payload: { ID, x, y }
   } = action;
