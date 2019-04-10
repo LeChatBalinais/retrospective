@@ -8,10 +8,13 @@ import {
   SET_USER_SEEK,
   ADD_NEW_TAG,
   SET_TAG_DRAGGED,
-  UPDATE_TAG_PATH
+  UPDATE_TAG_PATH,
+  FETCH_ALL_VIDEO_MARKS
 } from './actions';
 
 import type { Action } from './actions';
+import type { Dispatch } from './store';
+import type { Tags } from './reducers/default-state';
 
 export function setPlayback(on: boolean): Action {
   return { type: SET_PLAYBACK, payload: on };
@@ -43,4 +46,20 @@ export function setTagDragged(ID: number, dragged: boolean): Action {
 
 export function updateTagPath(ID: number, x: number, y: number): Action {
   return { type: UPDATE_TAG_PATH, payload: { ID, x, y } };
+}
+export function fetchAllVideoMarks(markers: Tags): Action {
+  return { type: FETCH_ALL_VIDEO_MARKS, payload: { markers } };
+}
+
+export function fetchAllVideoMarksAsync(videoID: string) {
+  return (dispatch: Dispatch) => {
+    console.log(videoID);
+    fetch(`http://localhost:7000/markers`).then(response => {
+      response.json().then(data => {
+        const { tags: tagObject } = data;
+        const tags = (tagObject: Tags);
+        dispatch(fetchAllVideoMarks(tags));
+      });
+    });
+  };
 }

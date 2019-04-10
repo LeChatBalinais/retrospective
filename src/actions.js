@@ -1,5 +1,7 @@
 // @flow
 
+import type { Tags } from './reducers/default-state';
+
 export type SetPlaybackAction = { type: 'SET_PLAYBACK', payload: boolean };
 export type SetPlaceNewTagModeAction = {
   type: 'SET_PLACE_NEW_TAG_MODE',
@@ -23,6 +25,10 @@ export type UpdateTagPathAction = {
   type: 'UPDATE_TAG_PATH',
   payload: { ID: number, x: number, y: number }
 };
+export type FetchAllVideoMarks = {
+  type: 'FETCH_ALL_VIDEO_MARKS',
+  payload: { markers: Tags }
+};
 
 export type Action =
   | SetPlaybackAction
@@ -32,7 +38,8 @@ export type Action =
   | SetUserSeekAction
   | AddNewTagAction
   | SetTagDraggedAction
-  | UpdateTagPathAction;
+  | UpdateTagPathAction
+  | FetchAllVideoMarks;
 
 export const SET_PLAYBACK = 'SET_PLAYBACK';
 export const SET_PLACE_NEW_TAG_MODE = 'SET_PLACE_NEW_TAG_MODE';
@@ -42,3 +49,4 @@ export const SET_USER_SEEK = 'SET_USER_SEEK';
 export const ADD_NEW_TAG = 'ADD_NEW_TAG';
 export const SET_TAG_DRAGGED = 'SET_TAG_DRAGGED';
 export const UPDATE_TAG_PATH = 'UPDATE_TAG_PATH';
+export const FETCH_ALL_VIDEO_MARKS = 'FETCH_ALL_VIDEO_MARKS';

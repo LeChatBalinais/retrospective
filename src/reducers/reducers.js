@@ -8,7 +8,8 @@ import {
   SET_USER_SEEK,
   ADD_NEW_TAG,
   SET_TAG_DRAGGED,
-  UPDATE_TAG_PATH
+  UPDATE_TAG_PATH,
+  FETCH_ALL_VIDEO_MARKS
 } from '../actions';
 import DEFAULT_STATE from './default-state';
 import setPlayback from './set-playback';
@@ -19,6 +20,7 @@ import setUserSeek from './set-user-seek';
 import addNewTag from './add-new-tag';
 import setTagDragged from './set-tag-dragged';
 import updateTagPath from './update-tag-path';
+import updateAllTags from './update-all-tags';
 
 import type { State } from './default-state';
 import type { Action } from '../actions';
@@ -48,6 +50,9 @@ const rootReducer = (state: State = DEFAULT_STATE, action: Action) => {
     }
     case UPDATE_TAG_PATH: {
       return updateTagPath(state, action);
+    }
+    case FETCH_ALL_VIDEO_MARKS: {
+      return updateAllTags(state, action);
     }
     default:
       return state;

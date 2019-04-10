@@ -1,5 +1,20 @@
 // @flow
 
+export type Marker = {
+  +x: number,
+  +y: number,
+  +dragged: boolean,
+  +startTime: number,
+  +path: { +time: number, +x: number, +y: number }[]
+};
+
+export type Tags = {
+  +byID: {
+    +[tag_id: number]: Marker
+  },
+  +allIDs: number[]
+};
+
 export type State = {
   +superVideoState: {
     +duration: number,
@@ -11,18 +26,7 @@ export type State = {
   +editorState: {
     +placeNewTagMode: boolean
   },
-  +tags: {
-    +byID: {
-      +[tag_id: number]: {
-        +x: number,
-        +y: number,
-        +dragged: boolean,
-        +startTime: number,
-        +path: { +time: number, +x: number, +y: number }[]
-      }
-    },
-    +allIDs: number[]
-  }
+  +tags: Tags
 };
 
 const DEFAULT_STATE: State = {
