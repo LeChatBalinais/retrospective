@@ -16,7 +16,7 @@ export type TagInteractivityProps = {
   animation: {
     exist: boolean,
     duration: number,
-    path: Array<{ time: number, x: number, y: number }>
+    path: Array<{ +time: number, +x: number, +y: number }>
   }
 };
 
@@ -139,7 +139,7 @@ export const updateDuration = (
 
 export const updatePath = (
   prevState: TagInteractivityProps,
-  path: Array<{ time: number, x: number, y: number }>
+  path: Array<{ +time: number, +x: number, +y: number }>
 ) => {
   if (!prevState.animation.exist || prevState.animation.path === path)
     return prevState;

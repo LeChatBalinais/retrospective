@@ -4,13 +4,12 @@ import { connect } from 'react-redux';
 import Tag from '../components/Tag';
 import store from '../store';
 import { setPlayback, setTagDragged, updateTagPath } from '../actionCreators';
+import type { Marker as TagState } from '../types';
 
 type Props = {
   tagID: string,
-  x: number,
-  y: number,
+  tag: TagState,
   duration: number,
-  path: Array<{ time: number, x: number, y: number }>,
   currentTime: number,
   dragged: boolean,
   playback: boolean,
@@ -19,26 +18,21 @@ type Props = {
 };
 
 const TagContainer = ({
-  x,
-  y,
+  tag,
   duration,
-  path,
   currentTime,
   playback,
-  dragged,
   tagID,
   offsetX,
   offsetY
 }: Props) => (
   <Tag
     {...{
+      ...tag,
       className: 'Tag',
-      x,
-      y,
       duration,
-      path,
       currentTime,
-      dragged,
+      dragged: tag.dragged,
       playback,
       offsetX,
       offsetY,
@@ -97,7 +91,7 @@ const mapStateToProps = (
   if (path.length > 1) duration = path[path.length - 1].time - path[0].time;
 
   return {
-    ...tag,
+    tag,
     duration,
     currentTime: currentTime - path[0].time,
     playback: playback && !userSeek,

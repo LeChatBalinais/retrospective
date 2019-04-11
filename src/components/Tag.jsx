@@ -13,15 +13,13 @@ import {
   updatePath
 } from '../tag-interactivity/tag-interactivity-props';
 import type { TagInteractivityProps } from '../tag-interactivity/tag-interactivity-props';
+import type { Marker as TagState } from '../types';
 
-type Props = {
+export type Props = TagState & {
   className: string,
-  x: number,
-  y: number,
   offsetX: number,
   offsetY: number,
   duration: number,
-  path: Array<{ time: number, x: number, y: number }>,
   currentTime: number,
   playback: boolean,
   dragged: boolean,
