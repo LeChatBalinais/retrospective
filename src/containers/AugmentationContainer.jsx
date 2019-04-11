@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Augmentation from '../components/Augmentation';
 
 type Props = {
-  tagIDs: Array<number>
+  tagIDs: Array<string>
 };
 
 const AugmentationContainer = ({ tagIDs }: Props) => (

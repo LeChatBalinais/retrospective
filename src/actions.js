@@ -1,6 +1,6 @@
 // @flow
 
-import type { Tags } from './reducers/default-state';
+import type { Tags } from './state-types';
 
 export type SetPlaybackAction = { type: 'SET_PLAYBACK', payload: boolean };
 export type SetPlaceNewTagModeAction = {
@@ -19,11 +19,11 @@ export type AddNewTagAction = {
 };
 export type SetTagDraggedAction = {
   type: 'SET_TAG_DRAGGED',
-  payload: { ID: number, dragged: boolean }
+  payload: { ID: string, dragged: boolean }
 };
 export type UpdateTagPathAction = {
   type: 'UPDATE_TAG_PATH',
-  payload: { ID: number, x: number, y: number }
+  payload: { ID: string, x: number, y: number }
 };
 export type FetchAllVideoMarks = {
   type: 'FETCH_ALL_VIDEO_MARKS',

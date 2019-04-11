@@ -14,7 +14,7 @@ import {
 
 import type { Action } from './actions';
 import type { Dispatch } from './store';
-import type { Tags } from './reducers/default-state';
+import type { Tags } from './state-types';
 
 export function setPlayback(on: boolean): Action {
   return { type: SET_PLAYBACK, payload: on };
@@ -40,11 +40,11 @@ export function addNewTag(x: number, y: number): Action {
   return { type: ADD_NEW_TAG, payload: { x, y } };
 }
 
-export function setTagDragged(ID: number, dragged: boolean): Action {
+export function setTagDragged(ID: string, dragged: boolean): Action {
   return { type: SET_TAG_DRAGGED, payload: { ID, dragged } };
 }
 
-export function updateTagPath(ID: number, x: number, y: number): Action {
+export function updateTagPath(ID: string, x: number, y: number): Action {
   return { type: UPDATE_TAG_PATH, payload: { ID, x, y } };
 }
 export function fetchAllVideoMarks(markers: Tags): Action {

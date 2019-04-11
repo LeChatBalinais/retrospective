@@ -22,7 +22,7 @@ import setTagDragged from './set-tag-dragged';
 import updateTagPath from './update-tag-path';
 import updateAllTags from './update-all-tags';
 
-import type { State } from './default-state';
+import type { State } from '../state-types';
 import type { Action } from '../actions';
 
 const rootReducer = (state: State = DEFAULT_STATE, action: Action) => {

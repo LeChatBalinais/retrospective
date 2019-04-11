@@ -6,7 +6,7 @@ import store from '../store';
 import { setPlayback, setTagDragged, updateTagPath } from '../actionCreators';
 
 type Props = {
-  tagID: number,
+  tagID: string,
   x: number,
   y: number,
   duration: number,

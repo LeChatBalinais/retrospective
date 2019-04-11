@@ -1,6 +1,6 @@
 // @flow
 
-import type { State } from './default-state';
+import type { State } from '../state-types';
 import type { SetCurrentTimeAction } from '../actions';
 
 const setCurrentTime = (state: State, action: SetCurrentTimeAction): State => {

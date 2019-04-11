@@ -1,6 +1,6 @@
 // @flow
 
-import type { State } from './default-state';
+import type { State } from '../state-types';
 import type { AddNewTagAction } from '../actions';
 
 const addNewTag = (state: State, action: AddNewTagAction): State => {
@@ -8,7 +8,7 @@ const addNewTag = (state: State, action: AddNewTagAction): State => {
     payload: { x, y }
   } = action;
 
-  const newID = state.tags.allIDs.length;
+  const newID = state.tags.allIDs.length.toString();
 
   return {
     ...state,

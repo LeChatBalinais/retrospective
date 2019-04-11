@@ -3,7 +3,7 @@ import React from 'react';
 import TagContainer from '../containers/TagContainer';
 
 type Props = {
-  tagIDs: Array<number>
+  tagIDs: Array<string>
 };
 
 const Augmentation = ({ tagIDs }: Props) => {

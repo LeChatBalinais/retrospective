@@ -1,6 +1,6 @@
 // @flow
 
-import type { State } from './default-state';
+import type { State } from '../state-types';
 import type { SetPlaybackAction } from '../actions';
 
 const setPlayback = (state: State, action: SetPlaybackAction): State => {

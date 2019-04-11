@@ -1,33 +1,6 @@
 // @flow
 
-export type Marker = {
-  +x: number,
-  +y: number,
-  +dragged: boolean,
-  +startTime: number,
-  +path: { +time: number, +x: number, +y: number }[]
-};
-
-export type Tags = {
-  +byID: {
-    +[tag_id: number]: Marker
-  },
-  +allIDs: number[]
-};
-
-export type State = {
-  +superVideoState: {
-    +duration: number,
-    +playback: boolean,
-    +currentTime: number,
-    +url: string,
-    +userSeek: boolean
-  },
-  +editorState: {
-    +placeNewTagMode: boolean
-  },
-  +tags: Tags
-};
+import type { State } from '../state-types';
 
 const DEFAULT_STATE: State = {
   superVideoState: {

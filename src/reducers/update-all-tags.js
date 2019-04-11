@@ -1,6 +1,6 @@
 // @flow
 
-import type { State } from './default-state';
+import type { State } from '../state-types';
 import type { FetchAllVideoMarks } from '../actions';
 
 const setUserSeek = (state: State, action: FetchAllVideoMarks): State => {
