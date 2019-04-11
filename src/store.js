@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import type { Store as ReduxStore, Dispatch as ReduxDispatch } from 'redux';
 import reducer from './reducers/reducers';
 
-import type { State } from './state-types';
+import type { State } from './types';
 import type { Action } from './actions';
 
 export type Store = ReduxStore<State, Action>;

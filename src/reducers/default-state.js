@@ -1,6 +1,6 @@
 // @flow
 
-import type { State } from '../state-types';
+import type { State } from '../types';
 
 const DEFAULT_STATE: State = {
   superVideoState: {

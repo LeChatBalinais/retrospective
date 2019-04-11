@@ -1,6 +1,6 @@
 // @flow
 
-import type { State } from '../state-types';
+import type { State } from '../types';
 import type { SetDurationAction } from '../actions';
 
 const setDuration = (state: State, action: SetDurationAction): State => {

@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import type { Marker } from '../state-types';
+import type { Marker } from '../types';
 
 type Props = {
   ID: string,

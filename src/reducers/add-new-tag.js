@@ -1,6 +1,6 @@
 // @flow
 
-import type { State } from '../state-types';
+import type { State } from '../types';
 import type { AddNewTagAction } from '../actions';
 
 const addNewTag = (state: State, action: AddNewTagAction): State => {

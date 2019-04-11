@@ -2,7 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import TagRow from '../components/TagRow';
-import type { Marker } from '../state-types';
+import type { Marker } from '../types';
 
 type Props = {
   ID: string,

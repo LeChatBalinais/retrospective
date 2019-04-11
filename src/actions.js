@@ -1,6 +1,6 @@
 // @flow
 
-import type { Tags } from './state-types';
+import type { Tags } from './types';
 
 export type SetPlaybackAction = { type: 'SET_PLAYBACK', payload: boolean };
 export type SetPlaceNewTagModeAction = {

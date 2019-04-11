@@ -14,7 +14,7 @@ import {
 
 import type { Action } from './actions';
 import type { Dispatch } from './store';
-import type { Tags } from './state-types';
+import type { Tags } from './types';
 
 export function setPlayback(on: boolean): Action {
   return { type: SET_PLAYBACK, payload: on };
