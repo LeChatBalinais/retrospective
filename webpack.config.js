@@ -11,7 +11,7 @@ module.exports = {
     'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
-    './src/index.jsx'
+    './src/index.tsx'
   ],
 
   output: {
@@ -33,12 +33,12 @@ module.exports = {
     rules: [
       {
         enforce: 'pre',
-        test: /\.jsx?$/,
+        test: /\.tsx?$/,
         loader: 'eslint-loader',
         exclude: [/node_modules/, /public/]
       },
       {
-        test: /\.jsx?$/,
+        test: /\.(ts|tsx)?$/,
         loader: 'babel-loader',
         exclude: [/node_modules/, /public/]
       },
@@ -54,7 +54,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.ts', '.tsx']
   },
 
   plugins: [

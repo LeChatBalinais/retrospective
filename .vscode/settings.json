@@ -1,8 +1,11 @@
 {
   "files.eol": "\n",
   "prettier.singleQuote": true,
-  "flow.useNPMPackagedFlow": false,
-  "javascript.validate.enable": false,
-  "flow.runOnEdit": false,
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "eslint.validate": [
+    "typescript",
+    "typescriptreact",
+    "javascript",
+    "javascriptreact"
+  ]
 }
