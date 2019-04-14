@@ -1,12 +1,6 @@
-// @flow
 import React from 'react';
 
-type Props = {
-  caption: string,
-  onPress: void => void
-};
-
-const Button = ({ caption, onPress }: Props) => (
+const Button = ({ caption, onPress }) => (
   <button onClick={onPress} type="button">
     {caption}
   </button>

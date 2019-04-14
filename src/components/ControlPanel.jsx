@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import PlayButton from '../containers/PlayButton';
 import NewTagButton from '../containers/NewTagButton';

@@ -1,17 +1,12 @@
-// @flow
 import React from 'react';
 
-type Props = {
-  onClick: (number, number) => void
-};
-
-function createOnClick(onClick: (number, number) => void) {
-  return (event: SyntheticMouseEvent<any>) => {
+function createOnClick(onClick) {
+  return event => {
     onClick(event.clientX, event.clientY);
   };
 }
 
-const NewTagLayer = ({ onClick }: Props) => (
+const NewTagLayer = ({ onClick }) => (
   <svg
     className="augmentation addition-layer"
     onClick={createOnClick(onClick)}

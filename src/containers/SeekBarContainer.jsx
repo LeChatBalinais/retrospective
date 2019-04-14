@@ -1,16 +1,10 @@
-// @flow
 import React from 'react';
 import { connect } from 'react-redux';
 import store from '../store';
 import SeekBar from '../components/SeekBar';
 import { setCurrentTime, setUserSeek } from '../actionCreators';
 
-type Props = {
-  duration: number,
-  currentTime: number
-};
-
-function onSeek(currentTime: number) {
+function onSeek(currentTime) {
   store.dispatch(setCurrentTime(currentTime));
 }
 
@@ -22,7 +16,7 @@ function onMouseUp() {
   store.dispatch(setUserSeek(false));
 }
 
-const PlayButtonContainer = ({ duration, currentTime }: Props) => (
+const PlayButtonContainer = ({ duration, currentTime }) => (
   <SeekBar {...{ duration, currentTime, onMouseDown, onMouseUp, onSeek }} />
 );
 

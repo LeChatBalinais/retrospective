@@ -1,6 +1,4 @@
-// @flow
 import React from 'react';
-import type { TagInteractivity } from '../tag-interactivity/tag-interactivity';
 import updateInteractivity from '../tag-interactivity/tag-interactivity';
 import {
   DEFAULT_TAG_INTERACTIVITY_PROPS,
@@ -12,26 +10,9 @@ import {
   updateDuration,
   updatePath
 } from '../tag-interactivity/tag-interactivity-props';
-import type { TagInteractivityProps } from '../tag-interactivity/tag-interactivity-props';
-import type { Marker as TagState } from '../types';
 
-export type Props = TagState & {
-  className: string,
-  offsetX: number,
-  offsetY: number,
-  duration: number,
-  currentTime: number,
-  playback: boolean,
-  dragged: boolean,
-  onDragBegin: (number, number) => void,
-  onDrag: (number, number) => void,
-  onDragEnd: (number, number) => void
-};
-
-type State = {};
-
-class Tag extends React.Component<Props, State> {
-  constructor(props: Props) {
+class Tag extends React.Component {
+  constructor(props) {
     super(props);
 
     this.interactivityProps = DEFAULT_TAG_INTERACTIVITY_PROPS;
@@ -45,12 +26,6 @@ class Tag extends React.Component<Props, State> {
       this.interactivityProps
     )(this.interactivity);
   }
-
-  interactivity: ?TagInteractivity;
-
-  prevInteractivityProps: TagInteractivityProps;
-
-  interactivityProps: TagInteractivityProps;
 
   render() {
     const {

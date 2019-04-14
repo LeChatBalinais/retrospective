@@ -1,21 +1,8 @@
-// @flow
 import React from 'react';
 import { connect } from 'react-redux';
 import Tag from '../components/Tag';
 import store from '../store';
 import { setPlayback, setTagDragged, updateTagPath } from '../actionCreators';
-import type { Marker as TagState } from '../types';
-
-type Props = {
-  tagID: string,
-  tag: TagState,
-  duration: number,
-  currentTime: number,
-  dragged: boolean,
-  playback: boolean,
-  offsetX: number,
-  offsetY: number
-};
 
 const TagContainer = ({
   tag,
@@ -25,7 +12,7 @@ const TagContainer = ({
   tagID,
   offsetX,
   offsetY
-}: Props) => (
+}) => (
   <Tag
     {...{
       ...tag,
@@ -36,16 +23,16 @@ const TagContainer = ({
       playback,
       offsetX,
       offsetY,
-      onDragBegin: (xCoor: number, yCoor: number) => {
+      onDragBegin: (xCoor, yCoor) => {
         store.dispatch(setTagDragged(tagID, true));
         console.log(xCoor, yCoor);
         // store.dispatch(updateTagPath(tagID, xCoor, yCoor));
         store.dispatch(setPlayback(true));
       },
-      onDrag: (xCoor: number, yCoor: number) => {
+      onDrag: (xCoor, yCoor) => {
         store.dispatch(updateTagPath(tagID, xCoor, yCoor));
       },
-      onDragEnd: (xCoor: number, yCoor: number) => {
+      onDragEnd: (xCoor, yCoor) => {
         store.dispatch(setPlayback(false));
         console.log(xCoor, yCoor);
         store.dispatch(updateTagPath(tagID, xCoor, yCoor));

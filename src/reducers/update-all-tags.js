@@ -1,9 +1,4 @@
-// @flow
-
-import type { State } from '../types';
-import type { FetchAllVideoMarks } from '../actions';
-
-const setUserSeek = (state: State, action: FetchAllVideoMarks): State => {
+const setUserSeek = (state, action) => {
   const {
     payload: { markers }
   } = action;

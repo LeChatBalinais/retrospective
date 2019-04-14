@@ -1,5 +1,3 @@
-// @flow
-
 import {
   SET_PLAYBACK,
   SET_PLACE_NEW_TAG_MODE,
@@ -22,10 +20,7 @@ import setTagDragged from './set-tag-dragged';
 import updateTagPath from './update-tag-path';
 import updateAllTags from './update-all-tags';
 
-import type { State } from '../types';
-import type { Action } from '../actions';
-
-const rootReducer = (state: State = DEFAULT_STATE, action: Action) => {
+const rootReducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
     case SET_PLAYBACK: {
       return setPlayback(state, action);

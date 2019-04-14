@@ -1,18 +1,7 @@
-// @flow
 import Draggable from 'gsap/Draggable';
 import { TimelineLite } from 'gsap';
-import type { TagInteractivityProps } from './tag-interactivity-props';
 
-export type TagInteractivity = {
-  animation: ?any,
-  draggable: ?any
-};
-
-const updatedDraggable = (
-  draggable: ?any,
-  prevState: TagInteractivityProps,
-  newState: TagInteractivityProps
-) => {
+const updatedDraggable = (draggable, prevState, newState) => {
   let newDraggable = draggable;
 
   if (prevState === newState) return newDraggable;
@@ -39,13 +28,13 @@ const updatedDraggable = (
       [newDraggable] = Draggable.create(newTarget, {
         dragClickables: true,
         bounds: '#bounds',
-        onPress: (pointerEvent: any) => {
+        onPress: pointerEvent => {
           if (onPress) onPress(pointerEvent.clientX, pointerEvent.clientY);
         },
-        onRelease: (pointerEvent: any) => {
+        onRelease: pointerEvent => {
           if (onRelease) onRelease(pointerEvent.clientX, pointerEvent.clientY);
         },
-        onDrag: (pointerEvent: any) => {
+        onDrag: pointerEvent => {
           if (onDrag) onDrag(pointerEvent.clientX, pointerEvent.clientY);
         },
         onClick: e => {
@@ -61,11 +50,7 @@ const updatedDraggable = (
   return newDraggable;
 };
 
-const updateAnimation = (
-  animation: ?any,
-  prevState: TagInteractivityProps,
-  newState: TagInteractivityProps
-) => {
+const updateAnimation = (animation, prevState, newState) => {
   let newAnimation = animation;
 
   if (prevState === newState) return newAnimation;
@@ -113,10 +98,7 @@ const updateAnimation = (
   return newAnimation;
 };
 
-const updateInteractivity = (
-  prevState: TagInteractivityProps,
-  newState: TagInteractivityProps
-) => (prevInteractivity: TagInteractivity) => {
+const updateInteractivity = (prevState, newState) => prevInteractivity => {
   const { draggable, animation } = prevInteractivity;
 
   let newInteractivity = prevInteractivity;

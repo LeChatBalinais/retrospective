@@ -1,9 +1,4 @@
-// @flow
-
-import type { State } from '../types';
-import type { SetTagDraggedAction } from '../actions';
-
-const setTagDragged = (state: State, action: SetTagDraggedAction): State => {
+const setTagDragged = (state, action) => {
   const {
     payload: { ID, dragged }
   } = action;

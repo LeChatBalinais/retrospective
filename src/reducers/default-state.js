@@ -1,8 +1,4 @@
-// @flow
-
-import type { State } from '../types';
-
-const DEFAULT_STATE: State = {
+const DEFAULT_STATE = {
   superVideoState: {
     duration: 10,
     playback: false,

@@ -1,9 +1,4 @@
-// @flow
-
-import type { State } from '../types';
-import type { SetUserSeekAction } from '../actions';
-
-const setUserSeek = (state: State, action: SetUserSeekAction): State => {
+const setUserSeek = (state, action) => {
   const { payload: on } = action;
   return {
     ...state,

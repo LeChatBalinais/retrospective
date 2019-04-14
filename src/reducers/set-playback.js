@@ -1,9 +1,4 @@
-// @flow
-
-import type { State } from '../types';
-import type { SetPlaybackAction } from '../actions';
-
-const setPlayback = (state: State, action: SetPlaybackAction): State => {
+const setPlayback = (state, action) => {
   const { payload: on } = action;
   return {
     ...state,

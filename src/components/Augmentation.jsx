@@ -1,12 +1,7 @@
-// @flow
 import React from 'react';
 import TagContainer from '../containers/TagContainer';
 
-type Props = {
-  tagIDs: Array<string>
-};
-
-const Augmentation = ({ tagIDs }: Props) => {
+const Augmentation = ({ tagIDs }) => {
   const tagContainers = tagIDs.map(tagID => (
     <TagContainer {...{ key: tagID, tagID }} />
   ));

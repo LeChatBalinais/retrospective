@@ -1,23 +1,9 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-// @flow
+
 import React from 'react';
 import TweenMax from 'gsap';
 
-type Props = {
-  url: string,
-  playback: boolean,
-  currentTime: number,
-  onTimeUpdate: number => void,
-  onDurationChange: number => void
-};
-
-type State = {};
-
-class Video extends React.Component<Props, State> {
-  onTimeUpdate: number => void;
-
-  onTimeUpdateBinded: () => void;
-
+class Video extends React.Component {
   onTimeUpdatePrv() {
     const { video: videoCached } = this;
     if (videoCached) {
@@ -28,17 +14,13 @@ class Video extends React.Component<Props, State> {
 
   createOnTimeUpdate = () => this.onTimeUpdatePrv.bind(this);
 
-  createOnDurationChange = (onDurationChange: number => void) => () => {
+  createOnDurationChange = onDurationChange => () => {
     const { video: videoCached } = this;
     if (videoCached) {
       const { duration } = videoCached;
       onDurationChange(duration);
     }
   };
-
-  video: ?HTMLVideoElement;
-
-  currentTimeUpdating: ?boolean;
 
   render() {
     const {

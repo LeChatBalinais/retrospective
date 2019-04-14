@@ -1,25 +1,3 @@
-// @flow
-
-export type TagDragCallbacks = {
-  onDragBegin: ?(number, number) => void,
-  onDrag: ?(number, number) => void,
-  onDragEnd: ?(number, number) => void
-};
-
-export type TagInteractivityProps = {
-  target: ?any,
-  currentTime: number,
-  draggable: {
-    exist: boolean,
-    callbacks: TagDragCallbacks
-  },
-  animation: {
-    exist: boolean,
-    duration: number,
-    path: Array<{ +time: number, +x: number, +y: number }>
-  }
-};
-
 export const DEFAULT_TAG_INTERACTIVITY_PROPS = {
   target: undefined,
   currentTime: 0,
@@ -38,10 +16,7 @@ export const DEFAULT_TAG_INTERACTIVITY_PROPS = {
   }
 };
 
-export const updateCurrentTime = (
-  prevState: TagInteractivityProps,
-  currentTime: number
-) => {
+export const updateCurrentTime = (prevState, currentTime) => {
   if (prevState.currentTime === currentTime) return prevState;
   return {
     ...prevState,
@@ -49,10 +24,7 @@ export const updateCurrentTime = (
   };
 };
 
-export const updateDraggable = (
-  prevState: TagInteractivityProps,
-  draggable: boolean
-) => {
+export const updateDraggable = (prevState, draggable) => {
   if (
     prevState.draggable.exist === draggable &&
     prevState.animation.exist === !draggable
@@ -71,10 +43,7 @@ export const updateDraggable = (
   };
 };
 
-export const updateOnDragBegin = (
-  prevState: TagInteractivityProps,
-  onDragBegin: (number, number) => void
-) => {
+export const updateOnDragBegin = (prevState, onDragBegin) => {
   if (prevState.draggable.callbacks.onDragBegin) return prevState;
   return {
     ...prevState,
@@ -88,10 +57,7 @@ export const updateOnDragBegin = (
   };
 };
 
-export const updateOnDrag = (
-  prevState: TagInteractivityProps,
-  onDrag: (number, number) => void
-) => {
+export const updateOnDrag = (prevState, onDrag) => {
   if (prevState.draggable.callbacks.onDrag) return prevState;
   return {
     ...prevState,
@@ -105,10 +71,7 @@ export const updateOnDrag = (
   };
 };
 
-export const updateOnDragEnd = (
-  prevState: TagInteractivityProps,
-  onDragEnd: (number, number) => void
-) => {
+export const updateOnDragEnd = (prevState, onDragEnd) => {
   if (prevState.draggable.callbacks.onDragEnd) return prevState;
   return {
     ...prevState,
@@ -122,10 +85,7 @@ export const updateOnDragEnd = (
   };
 };
 
-export const updateDuration = (
-  prevState: TagInteractivityProps,
-  duration: number
-) => {
+export const updateDuration = (prevState, duration) => {
   if (!prevState.animation.exist || prevState.animation.duration === duration)
     return prevState;
   return {
@@ -137,10 +97,7 @@ export const updateDuration = (
   };
 };
 
-export const updatePath = (
-  prevState: TagInteractivityProps,
-  path: Array<{ +time: number, +x: number, +y: number }>
-) => {
+export const updatePath = (prevState, path) => {
   if (!prevState.animation.exist || prevState.animation.path === path)
     return prevState;
   return {

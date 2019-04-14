@@ -1,23 +1,16 @@
-// @flow
 import React from 'react';
 import { connect } from 'react-redux';
 import store from '../store';
 import Video from '../components/Video';
 import { setCurrentTime, setDuration } from '../actionCreators';
 
-type Props = {
-  playback: boolean,
-  url: string,
-  currentTime: number
-};
-
-const PlayerContainer = ({ playback, url, currentTime }: Props) => (
+const PlayerContainer = ({ playback, url, currentTime }) => (
   <Video
     {...{ playback, url, currentTime }}
-    onTimeUpdate={(videoCurrentTime: number) => {
+    onTimeUpdate={videoCurrentTime => {
       store.dispatch(setCurrentTime(videoCurrentTime));
     }}
-    onDurationChange={(duration: number) => {
+    onDurationChange={duration => {
       store.dispatch(setDuration(duration));
     }}
   />

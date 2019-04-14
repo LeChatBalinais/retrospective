@@ -1,11 +1,6 @@
 {
-  "extends": [
-    "plugin:flowtype/recommended",
-    "airbnb",
-    "prettier",
-    "prettier/react"
-  ],
-  "plugins": ["flowtype", "prettier"],
+  "extends": ["airbnb", "prettier", "prettier/react"],
+  "plugins": ["prettier"],
   "parserOptions": {
     "ecmaVersion": 2016,
     "sourceType": "module",
@@ -19,6 +14,7 @@
     "browser": true
   },
   "rules": {
-    "linebreak-style": "off"
+    "linebreak-style": "off",
+    "react/prop-types": 0
   }
 }

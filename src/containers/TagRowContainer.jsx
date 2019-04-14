@@ -1,17 +1,8 @@
-// @flow
 import React from 'react';
 import { connect } from 'react-redux';
 import TagRow from '../components/TagRow';
-import type { Marker } from '../types';
 
-type Props = {
-  ID: string,
-  tag: Marker
-};
-
-const AugmentationContainer = ({ ID, tag }: Props) => (
-  <TagRow {...{ ID, tag }} />
-);
+const AugmentationContainer = ({ ID, tag }) => <TagRow {...{ ID, tag }} />;
 
 const mapStateToProps = ({ tags: { byID } }, { ID }) => {
   return {

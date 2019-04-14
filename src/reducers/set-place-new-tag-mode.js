@@ -1,12 +1,4 @@
-// @flow
-
-import type { State } from '../types';
-import type { SetPlaceNewTagModeAction } from '../actions';
-
-const setPlaceNewTagMode = (
-  state: State,
-  action: SetPlaceNewTagModeAction
-): State => {
+const setPlaceNewTagMode = (state, action) => {
   const { payload: on } = action;
   return {
     ...state,

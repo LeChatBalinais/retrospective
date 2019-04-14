@@ -1,12 +1,7 @@
-// @flow
 import React from 'react';
 import TagRowContainer from '../containers/TagRowContainer';
 
-type Props = {
-  IDs: Array<string>
-};
-
-const TagTable = ({ IDs }: Props) => {
+const TagTable = ({ IDs }) => {
   const tagRowContainers = IDs.map(ID => (
     <TagRowContainer {...{ key: ID, ID }} />
   ));

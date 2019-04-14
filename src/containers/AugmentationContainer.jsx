@@ -1,15 +1,8 @@
-// @flow
 import React from 'react';
 import { connect } from 'react-redux';
 import Augmentation from '../components/Augmentation';
 
-type Props = {
-  tagIDs: Array<string>
-};
-
-const AugmentationContainer = ({ tagIDs }: Props) => (
-  <Augmentation {...{ tagIDs }} />
-);
+const AugmentationContainer = ({ tagIDs }) => <Augmentation {...{ tagIDs }} />;
 
 const mapStateToProps = ({
   superVideoState: { currentTime },

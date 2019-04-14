@@ -1,15 +1,10 @@
-// @flow
 import React from 'react';
 import { connect } from 'react-redux';
 import store from '../store';
 import Button from '../components/Button';
 import { setPlaceNewTagMode } from '../actionCreators';
 
-type Props = {
-  placeNewTagMode: boolean
-};
-
-const PlayButtonContainer = ({ placeNewTagMode }: Props) => {
+const PlayButtonContainer = ({ placeNewTagMode }) => {
   let caption = 'Place New Tag';
 
   if (placeNewTagMode) caption = 'X';

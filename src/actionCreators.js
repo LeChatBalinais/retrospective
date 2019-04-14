@@ -1,5 +1,3 @@
-// @flow
-
 import {
   SET_PLAYBACK,
   SET_PLACE_NEW_TAG_MODE,
@@ -12,52 +10,48 @@ import {
   FETCH_ALL_VIDEO_MARKS
 } from './actions';
 
-import type { Action } from './actions';
-import type { Dispatch } from './store';
-import type { Tags } from './types';
-
-export function setPlayback(on: boolean): Action {
+export function setPlayback(on) {
   return { type: SET_PLAYBACK, payload: on };
 }
 
-export function setPlaceNewTagMode(on: boolean): Action {
+export function setPlaceNewTagMode(on) {
   return { type: SET_PLACE_NEW_TAG_MODE, payload: on };
 }
 
-export function setCurrentTime(currentTime: number): Action {
+export function setCurrentTime(currentTime) {
   return { type: SET_CURRENT_TIME, payload: currentTime };
 }
 
-export function setDuration(duration: number): Action {
+export function setDuration(duration) {
   return { type: SET_DURATION, payload: duration };
 }
 
-export function setUserSeek(on: boolean): Action {
+export function setUserSeek(on) {
   return { type: SET_USER_SEEK, payload: on };
 }
 
-export function addNewTag(x: number, y: number): Action {
+export function addNewTag(x, y) {
   return { type: ADD_NEW_TAG, payload: { x, y } };
 }
 
-export function setTagDragged(ID: string, dragged: boolean): Action {
+export function setTagDragged(ID, dragged) {
   return { type: SET_TAG_DRAGGED, payload: { ID, dragged } };
 }
 
-export function updateTagPath(ID: string, x: number, y: number): Action {
+export function updateTagPath(ID, x, y) {
   return { type: UPDATE_TAG_PATH, payload: { ID, x, y } };
 }
-export function fetchAllVideoMarks(markers: Tags): Action {
+export function fetchAllVideoMarks(markers) {
   return { type: FETCH_ALL_VIDEO_MARKS, payload: { markers } };
 }
 
-export function fetchAllVideoMarksAsync(videoID: string) {
-  return (dispatch: Dispatch) => {
+export function fetchAllVideoMarksAsync(videoID) {
+  return dispatch => {
     console.log(videoID);
     fetch(`http://localhost:7000/markers`).then(response => {
       response.json().then(data => {
         const { tags: tagObject } = data;
-        const tags = (tagObject: Tags);
+        const tags = tagObject;
         dispatch(fetchAllVideoMarks(tags));
       });
     });

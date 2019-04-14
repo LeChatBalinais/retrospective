@@ -1,14 +1,6 @@
-// @flow
-
 import React from 'react';
-import type { Marker } from '../types';
 
-type Props = {
-  ID: string,
-  tag: Marker
-};
-
-const TagTable = ({ ID, tag }: Props) => {
+const TagTable = ({ ID, tag }) => {
   return (
     <tr>
       <th>{ID}</th>
