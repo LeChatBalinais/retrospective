@@ -5,10 +5,14 @@ import NewTagLayerContainer from '../containers/NewTagLayerContainer';
 import AugmentationContainer from '../containers/AugmentationContainer';
 import TagTableContainer from '../containers/TagTableContainer';
 
-class Player extends React.Component {
-  componentDidMount() {}
+interface Props {
+  placeNewTagMode: boolean;
+}
 
-  render() {
+class Player extends React.Component<Props, any> {
+  public componentDidMount() {}
+
+  public render() {
     const { placeNewTagMode } = this.props;
 
     let newTagComponent = null;

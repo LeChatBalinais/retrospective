@@ -11,14 +11,30 @@ import {
   updatePath
 } from '../tag-interactivity/tag-interactivity-props';
 
-class Tag extends React.Component {
-  constructor(props) {
+interface Props {
+  x: number;
+  y: number;
+  offsetX: number;
+  offsetY: number;
+  duration: number;
+  path: any;
+  currentTime: number;
+  className: string;
+  dragged: boolean;
+  playback: boolean;
+  onDragBegin(x: number, y: number): void;
+  onDrag(x: number, y: number): void;
+  onDragEnd(x: number, y: number): void;
+}
+
+class Tag extends React.Component<Props, any> {
+  public constructor(props) {
     super(props);
 
     this.interactivityProps = DEFAULT_TAG_INTERACTIVITY_PROPS;
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     this.interactivity = { draggable: undefined, animation: undefined };
 
     this.interactivity = updateInteractivity(
@@ -27,7 +43,13 @@ class Tag extends React.Component {
     )(this.interactivity);
   }
 
-  render() {
+  private interactivityProps: any;
+
+  private interactivity: any;
+
+  private prevInteractivityProps: any;
+
+  public render() {
     const {
       x,
       y,

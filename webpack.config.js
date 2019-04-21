@@ -33,12 +33,12 @@ module.exports = {
     rules: [
       {
         enforce: 'pre',
-        test: /\.tsx?$/,
+        test: /\.(t|j)sx?$/,
         loader: 'eslint-loader',
         exclude: [/node_modules/, /public/]
       },
       {
-        test: /\.(ts|tsx)?$/,
+        test: /\.(ts|tsx|js|jsx)?$/,
         loader: 'babel-loader',
         exclude: [/node_modules/, /public/]
       },
@@ -54,7 +54,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.ts', '.tsx']
+    extensions: ['.ts', '.tsx', '.js', '.jsx']
   },
 
   plugins: [

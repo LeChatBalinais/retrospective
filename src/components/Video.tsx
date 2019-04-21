@@ -1,10 +1,18 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 
 import React from 'react';
-import TweenMax from 'gsap';
+import { TweenMax } from 'gsap';
 
-class Video extends React.Component {
-  onTimeUpdatePrv() {
+interface Props {
+  url: any;
+  playback: any;
+  currentTime: any;
+  onTimeUpdate: any;
+  onDurationChange: any;
+}
+
+class Video extends React.Component<Props, any> {
+  private onTimeUpdatePrv() {
     const { video: videoCached } = this;
     if (videoCached) {
       const { currentTime } = videoCached;
@@ -12,9 +20,13 @@ class Video extends React.Component {
     }
   }
 
-  createOnTimeUpdate = () => this.onTimeUpdatePrv.bind(this);
+  private onTimeUpdateBinded: any;
 
-  createOnDurationChange = onDurationChange => () => {
+  private onTimeUpdate: any;
+
+  private createOnTimeUpdate = () => this.onTimeUpdatePrv.bind(this);
+
+  private createOnDurationChange = onDurationChange => () => {
     const { video: videoCached } = this;
     if (videoCached) {
       const { duration } = videoCached;
@@ -22,7 +34,11 @@ class Video extends React.Component {
     }
   };
 
-  render() {
+  private video: any;
+
+  private currentTimeUpdating: boolean;
+
+  public render() {
     const {
       video: videoCached,
       props: { url, playback, currentTime, onTimeUpdate, onDurationChange }
@@ -55,7 +71,6 @@ class Video extends React.Component {
       <video
         className="main-video"
         src={url}
-        type="video/mp4"
         onDurationChange={this.createOnDurationChange(onDurationChange)}
         ref={video => {
           this.video = video;
