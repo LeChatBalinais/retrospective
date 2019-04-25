@@ -1,0 +1,80 @@
+import { Dispatch, Action } from 'redux';
+import { ThunkAction } from 'redux-thunk';
+import {
+  SET_PLAYBACK,
+  SET_PLACE_NEW_TAG_MODE,
+  SET_CURRENT_TIME,
+  SET_DURATION,
+  SET_USER_SEEK,
+  ADD_NEW_TAG,
+  SET_TAG_DRAGGED,
+  UPDATE_TAG_PATH,
+  FETCH_ALL_VIDEO_MARKS
+} from './actions';
+
+import {
+  SetPlayback,
+  SetPlaceNewTagMode,
+  SetCurrentTime,
+  SetUserSeek,
+  SetDuration,
+  AddNewTag,
+  SetTagDragged,
+  UpdateTagPath,
+  FetchAllVideoMarks
+} from './types/action';
+import { Tags, State } from './types/state';
+
+export function setPlayback(on: boolean): SetPlayback {
+  return { type: SET_PLAYBACK, payload: on };
+}
+
+export function setPlaceNewTagMode(on: boolean): SetPlaceNewTagMode {
+  return { type: SET_PLACE_NEW_TAG_MODE, payload: on };
+}
+
+export function setCurrentTime(currentTime: number): SetCurrentTime {
+  return { type: SET_CURRENT_TIME, payload: currentTime };
+}
+
+export function setDuration(duration: number): SetDuration {
+  return { type: SET_DURATION, payload: duration };
+}
+
+export function setUserSeek(on: boolean): SetUserSeek {
+  return { type: SET_USER_SEEK, payload: on };
+}
+
+export function addNewTag(x: number, y: number): AddNewTag {
+  return { type: ADD_NEW_TAG, payload: { x, y } };
+}
+
+export function setTagDragged(ID: string, dragged: boolean): SetTagDragged {
+  return { type: SET_TAG_DRAGGED, payload: { ID, dragged } };
+}
+
+export function updateTagPath(ID: string, x: number, y: number): UpdateTagPath {
+  return { type: UPDATE_TAG_PATH, payload: { ID, x, y } };
+}
+export function fetchAllVideoMarks(markers: Tags): FetchAllVideoMarks {
+  return { type: FETCH_ALL_VIDEO_MARKS, payload: markers };
+}
+
+export function fetchAllVideoMarksAsync(
+  videoID: string
+): ThunkAction<void, State, null, FetchAllVideoMarks> {
+  return (dispatch: Dispatch): void => {
+    console.log(videoID);
+    fetch(`http://localhost:7000/markers`).then(
+      (response): void => {
+        response.json().then(
+          (data): void => {
+            const { tags: tagObject } = data;
+            const tags = tagObject;
+            dispatch(fetchAllVideoMarks(tags));
+          }
+        );
+      }
+    );
+  };
+}
