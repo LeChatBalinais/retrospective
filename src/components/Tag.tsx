@@ -1,5 +1,8 @@
 import React from 'react';
-import updateInteractivity from '../tag-interactivity/tag-interactivity';
+import {
+  Interactivity,
+  updateInteractivity
+} from '../tag-interactivity/tag-interactivity';
 import {
   DEFAULT_TAG_INTERACTIVITY_PROPS,
   updateCurrentTime,
@@ -8,7 +11,9 @@ import {
   updateOnDrag,
   updateOnDragEnd,
   updateDuration,
-  updatePath
+  updatePath,
+  InteractivityProps,
+  OnDragFunc
 } from '../tag-interactivity/tag-interactivity-props';
 
 interface Props {
@@ -17,24 +22,24 @@ interface Props {
   offsetX: number;
   offsetY: number;
   duration: number;
-  path: any;
+  path: { time: number; x: number; y: number }[];
   currentTime: number;
   className: string;
   dragged: boolean;
   playback: boolean;
-  onDragBegin(x: number, y: number): void;
-  onDrag(x: number, y: number): void;
-  onDragEnd(x: number, y: number): void;
+  onDragBegin: OnDragFunc;
+  onDrag: OnDragFunc;
+  onDragEnd: OnDragFunc;
 }
 
-class Tag extends React.Component<Props, any> {
-  public constructor(props) {
+class Tag extends React.Component<Props, {}> {
+  public constructor(props: Props) {
     super(props);
 
     this.interactivityProps = DEFAULT_TAG_INTERACTIVITY_PROPS;
   }
 
-  public componentDidMount() {
+  public componentDidMount(): void {
     this.interactivity = { draggable: undefined, animation: undefined };
 
     this.interactivity = updateInteractivity(
@@ -43,13 +48,13 @@ class Tag extends React.Component<Props, any> {
     )(this.interactivity);
   }
 
-  private interactivityProps: any;
+  private interactivityProps: InteractivityProps;
 
-  private interactivity: any;
+  private interactivity: Interactivity;
 
-  private prevInteractivityProps: any;
+  private prevInteractivityProps: InteractivityProps;
 
-  public render() {
+  public render(): JSX.Element {
     const {
       x,
       y,
@@ -111,7 +116,7 @@ class Tag extends React.Component<Props, any> {
         strokeWidth="3"
         fill="red"
         className={className}
-        ref={circle => {
+        ref={(circle: SVGCircleElement): void => {
           this.interactivityProps = {
             ...this.interactivityProps,
             target: circle

@@ -1,6 +1,11 @@
 import React from 'react';
 
-const Button = ({ caption, onPress }) => (
+interface Props {
+  caption: string;
+  onPress: () => void;
+}
+
+const Button = ({ caption, onPress }: Props): JSX.Element => (
   <button onClick={onPress} type="button">
     {caption}
   </button>

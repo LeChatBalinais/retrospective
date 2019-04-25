@@ -1,10 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import TagTable from '../components/TagTable';
+import { State } from '../types/state';
 
-const TagTableContainer = ({ IDs }) => <TagTable {...{ IDs }} />;
+interface Props {
+  IDs: string[];
+}
 
-const mapStateToProps = ({ tags: { allIDs: IDs } }) => {
+const TagTableContainer = ({ IDs }: Props): JSX.Element => (
+  <TagTable {...{ IDs }} />
+);
+
+const mapStateToProps = ({ tags: { allIDs: IDs } }: State): Props => {
   return { IDs };
 };
 

@@ -1,4 +1,7 @@
-const updateTagPath = (state, action) => {
+import { State } from '../types/state';
+import { UpdateTagPath } from '../types/action';
+
+const updateTagPath = (state: State, action: UpdateTagPath): State => {
   const {
     payload: { ID, x, y }
   } = action;

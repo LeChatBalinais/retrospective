@@ -1,13 +1,31 @@
 import React from 'react';
 
-function createOnChange(onSeek) {
-  return event => {
+type onSeekFunc = (currentTime: number) => void;
+
+interface Props {
+  currentTime: number;
+  duration: number;
+  onSeek: onSeekFunc;
+  onMouseDown: () => void;
+  onMouseUp: () => void;
+}
+
+function createOnChange(
+  onSeek: onSeekFunc
+): (event: React.ChangeEvent<HTMLInputElement>) => void {
+  return (event: React.ChangeEvent<HTMLInputElement>): void => {
     const value = parseInt(event.target.value, 10);
     onSeek(value);
   };
 }
 
-const Button = ({ currentTime, duration, onSeek, onMouseDown, onMouseUp }) => (
+const SeekBar = ({
+  currentTime,
+  duration,
+  onSeek,
+  onMouseDown,
+  onMouseUp
+}: Props): JSX.Element => (
   <input
     type="range"
     min={0}
@@ -18,4 +36,4 @@ const Button = ({ currentTime, duration, onSeek, onMouseDown, onMouseUp }) => (
     onMouseUp={onMouseUp}
   />
 );
-export default Button;
+export default SeekBar;

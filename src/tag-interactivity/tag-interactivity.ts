@@ -1,7 +1,21 @@
-import Draggable from 'gsap/Draggable';
+import { Draggable } from 'gsap/Draggable';
 import { TimelineLite } from 'gsap';
+import { InteractivityProps } from './tag-interactivity-props';
 
-const updatedDraggable = (draggable, prevState, newState) => {
+export interface Interactivity {
+  draggable: Draggable;
+  animation: TimelineLite;
+}
+
+type UpdateInteractivityFunc = (
+  prevInteractivity: Interactivity
+) => Interactivity;
+
+const updatedDraggable = (
+  draggable: Draggable,
+  prevState: InteractivityProps,
+  newState: InteractivityProps
+): Draggable => {
   let newDraggable = draggable;
 
   if (prevState === newState) return newDraggable;
@@ -28,16 +42,16 @@ const updatedDraggable = (draggable, prevState, newState) => {
       [newDraggable] = Draggable.create(newTarget, {
         dragClickables: true,
         bounds: '#bounds',
-        onPress: pointerEvent => {
+        onPress: (pointerEvent: PointerEvent): void => {
           if (onPress) onPress(pointerEvent.clientX, pointerEvent.clientY);
         },
-        onRelease: pointerEvent => {
+        onRelease: (pointerEvent: PointerEvent): void => {
           if (onRelease) onRelease(pointerEvent.clientX, pointerEvent.clientY);
         },
-        onDrag: pointerEvent => {
+        onDrag: (pointerEvent: PointerEvent): void => {
           if (onDrag) onDrag(pointerEvent.clientX, pointerEvent.clientY);
         },
-        onClick: e => {
+        onClick: (e: PointerEvent): void => {
           e.stopPropagation();
         }
       });
@@ -50,16 +64,16 @@ const updatedDraggable = (draggable, prevState, newState) => {
   return newDraggable;
 };
 
-const updateAnimation = (animation, prevState, newState) => {
+const updateAnimation = (
+  animation: TimelineLite,
+  prevState: InteractivityProps,
+  newState: InteractivityProps
+): TimelineLite => {
   let newAnimation = animation;
 
   if (prevState === newState) return newAnimation;
 
-  const {
-    animation: prevExistance,
-    target: prevTarget,
-    currentTime: prevCurrentTime
-  } = prevState;
+  const { animation: prevExistance, currentTime: prevCurrentTime } = prevState;
   const {
     animation: newExistance,
     target: newTarget,
@@ -86,8 +100,6 @@ const updateAnimation = (animation, prevState, newState) => {
     }
   }
 
-  if (newAnimation && prevTarget !== newTarget) newAnimation.target = newTarget;
-
   if (
     newAnimation &&
     prevCurrentTime !== newCurrentTime &&
@@ -98,7 +110,12 @@ const updateAnimation = (animation, prevState, newState) => {
   return newAnimation;
 };
 
-const updateInteractivity = (prevState, newState) => prevInteractivity => {
+export const updateInteractivity = (
+  prevState: InteractivityProps,
+  newState: InteractivityProps
+): UpdateInteractivityFunc => (
+  prevInteractivity: Interactivity
+): Interactivity => {
   const { draggable, animation } = prevInteractivity;
 
   let newInteractivity = prevInteractivity;
@@ -115,5 +132,3 @@ const updateInteractivity = (prevState, newState) => prevInteractivity => {
 
   return newInteractivity;
 };
-
-export default updateInteractivity;

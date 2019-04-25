@@ -1,8 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Tag from '../components/Tag';
+import TagState from '../types/tag';
 import store from '../store';
 import { setPlayback, setTagDragged, updateTagPath } from '../actionCreators';
+import { State } from '../types/state';
+
+interface Props {
+  tag?: TagState;
+  duration?: number;
+  currentTime?: number;
+  playback?: boolean;
+  tagID: string;
+  offsetX?: number;
+  offsetY?: number;
+}
 
 const TagContainer = ({
   tag,
@@ -12,7 +24,7 @@ const TagContainer = ({
   tagID,
   offsetX,
   offsetY
-}) => (
+}: Props): JSX.Element => (
   <Tag
     {...{
       ...tag,
@@ -23,16 +35,16 @@ const TagContainer = ({
       playback,
       offsetX,
       offsetY,
-      onDragBegin: (xCoor, yCoor) => {
+      onDragBegin: (xCoor: number, yCoor: number): void => {
         store.dispatch(setTagDragged(tagID, true));
         console.log(xCoor, yCoor);
         // store.dispatch(updateTagPath(tagID, xCoor, yCoor));
         store.dispatch(setPlayback(true));
       },
-      onDrag: (xCoor, yCoor) => {
+      onDrag: (xCoor: number, yCoor: number): void => {
         store.dispatch(updateTagPath(tagID, xCoor, yCoor));
       },
-      onDragEnd: (xCoor, yCoor) => {
+      onDragEnd: (xCoor: number, yCoor: number): void => {
         store.dispatch(setPlayback(false));
         console.log(xCoor, yCoor);
         store.dispatch(updateTagPath(tagID, xCoor, yCoor));
@@ -43,9 +55,12 @@ const TagContainer = ({
 );
 
 const mapStateToProps = (
-  { tags: { byID }, superVideoState: { playback, currentTime, userSeek } },
-  { tagID }
-) => {
+  {
+    tags: { byID },
+    superVideoState: { playback, currentTime, userSeek }
+  }: State,
+  { tagID }: Props
+): Props => {
   const tag = byID[tagID];
 
   const { path } = tag;
@@ -79,6 +94,7 @@ const mapStateToProps = (
 
   return {
     tag,
+    tagID,
     duration,
     currentTime: currentTime - path[0].time,
     playback: playback && !userSeek,

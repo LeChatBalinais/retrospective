@@ -9,10 +9,10 @@ interface Props {
   placeNewTagMode: boolean;
 }
 
-class Player extends React.Component<Props, any> {
-  public componentDidMount() {}
+class Player extends React.Component<Props, {}> {
+  public componentDidMount(): void {}
 
-  public render() {
+  public render(): JSX.Element {
     const { placeNewTagMode } = this.props;
 
     let newTagComponent = null;

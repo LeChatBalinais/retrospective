@@ -3,11 +3,11 @@ import PlayButton from '../containers/PlayButton';
 import NewTagButton from '../containers/NewTagButton';
 import SeekBarContainer from '../containers/SeekBarContainer';
 
-const Button = () => (
+const ControlPanel = (): JSX.Element => (
   <div>
     <PlayButton />
     <NewTagButton />
     <SeekBarContainer />
   </div>
 );
-export default Button;
+export default ControlPanel;

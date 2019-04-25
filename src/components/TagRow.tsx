@@ -1,6 +1,12 @@
 import React from 'react';
+import Tag from '../types/tag';
 
-const TagTable = ({ ID, tag }) => {
+interface Props {
+  ID: string;
+  tag: Tag;
+}
+
+const TagTable = ({ ID, tag }: Props): JSX.Element => {
   return (
     <tr>
       <th>{ID}</th>

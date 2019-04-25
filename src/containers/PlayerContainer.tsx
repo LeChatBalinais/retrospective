@@ -3,20 +3,21 @@ import { connect } from 'react-redux';
 import store from '../store';
 import Player from '../components/Player';
 import { setPlaceNewTagMode, fetchAllVideoMarksAsync } from '../actionCreators';
+import { State } from '../types/state';
 
 interface Props {
-  playback: any;
-  currentTime: any;
-  placeNewTagMode: any;
-  onTagAdded: any;
+  playback: boolean;
+  currentTime: number;
+  placeNewTagMode: boolean;
+  onTagAdded: () => void;
 }
 
-class PlayerContainer extends React.Component<Props, any> {
-  public componentDidMount() {
+class PlayerContainer extends React.Component<Props, {}> {
+  public componentDidMount(): void {
     store.dispatch(fetchAllVideoMarksAsync('hello'));
   }
 
-  public render() {
+  public render(): JSX.Element {
     const { playback, currentTime, placeNewTagMode, onTagAdded } = this.props;
     return (
       <Player {...{ playback, currentTime, placeNewTagMode, onTagAdded }} />
@@ -27,11 +28,11 @@ class PlayerContainer extends React.Component<Props, any> {
 const mapStateToProps = ({
   superVideoState: { playback, currentTime },
   editorState: { placeNewTagMode }
-}) => ({
+}: State): Props => ({
   playback,
   currentTime,
   placeNewTagMode,
-  onTagAdded: () => {
+  onTagAdded: (): void => {
     store.dispatch(setPlaceNewTagMode(false));
   }
 });

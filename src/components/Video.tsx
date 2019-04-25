@@ -3,44 +3,59 @@
 import React from 'react';
 import { TweenMax } from 'gsap';
 
+type OnTimeUpdate = (currentTime: number) => void;
+type OnDurationChangeFunc = (duration: number) => void;
+
 interface Props {
-  url: any;
-  playback: any;
-  currentTime: any;
-  onTimeUpdate: any;
-  onDurationChange: any;
+  url: string;
+  playback: boolean;
+  currentTime: number;
+  onTimeUpdate: OnTimeUpdate;
+  onDurationChange: OnDurationChangeFunc;
 }
 
-class Video extends React.Component<Props, any> {
-  private onTimeUpdatePrv() {
-    const { video: videoCached } = this;
+class Video extends React.Component<Props, {}> {
+  public constructor(props: Props) {
+    super(props);
+    this.video = React.createRef();
+  }
+
+  private onTimeUpdatePrv(): void {
+    const {
+      video: { current: videoCached }
+    } = this;
     if (videoCached) {
       const { currentTime } = videoCached;
       this.onTimeUpdate(currentTime);
     }
   }
 
-  private onTimeUpdateBinded: any;
+  private onTimeUpdateBinded: OnTimeUpdate;
 
-  private onTimeUpdate: any;
+  private onTimeUpdate: OnTimeUpdate;
 
-  private createOnTimeUpdate = () => this.onTimeUpdatePrv.bind(this);
+  private createOnTimeUpdate = (): OnTimeUpdate =>
+    this.onTimeUpdatePrv.bind(this);
 
-  private createOnDurationChange = onDurationChange => () => {
-    const { video: videoCached } = this;
+  private createOnDurationChange = (
+    onDurationChange: OnDurationChangeFunc
+  ): (() => void) => (): void => {
+    const {
+      video: { current: videoCached }
+    } = this;
     if (videoCached) {
       const { duration } = videoCached;
       onDurationChange(duration);
     }
   };
 
-  private video: any;
+  private video: React.RefObject<HTMLVideoElement>;
 
   private currentTimeUpdating: boolean;
 
-  public render() {
+  public render(): JSX.Element {
     const {
-      video: videoCached,
+      video: { current: videoCached },
       props: { url, playback, currentTime, onTimeUpdate, onDurationChange }
     } = this;
 
@@ -72,9 +87,7 @@ class Video extends React.Component<Props, any> {
         className="main-video"
         src={url}
         onDurationChange={this.createOnDurationChange(onDurationChange)}
-        ref={video => {
-          this.video = video;
-        }}
+        ref={this.video}
       />
     );
   }

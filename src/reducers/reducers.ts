@@ -19,8 +19,10 @@ import addNewTag from './add-new-tag';
 import setTagDragged from './set-tag-dragged';
 import updateTagPath from './update-tag-path';
 import updateAllTags from './update-all-tags';
+import { State } from '../types/state';
+import { Action } from '../types/action';
 
-const rootReducer = (state = DEFAULT_STATE, action) => {
+const rootReducer = (state: State = DEFAULT_STATE, action: Action): State => {
   switch (action.type) {
     case SET_PLAYBACK: {
       return setPlayback(state, action);

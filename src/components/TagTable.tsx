@@ -1,10 +1,14 @@
 import React from 'react';
 import TagRowContainer from '../containers/TagRowContainer';
 
-const TagTable = ({ IDs }) => {
-  const tagRowContainers = IDs.map(ID => (
-    <TagRowContainer {...{ key: ID, ID }} />
-  ));
+interface Props {
+  IDs: string[];
+}
+
+const TagTable = ({ IDs }: Props): JSX.Element => {
+  const tagRowContainers = IDs.map(
+    (ID: string): JSX.Element => <TagRowContainer {...{ key: ID, ID }} />
+  );
   return (
     <table>
       <tbody>{tagRowContainers}</tbody>

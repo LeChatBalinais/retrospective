@@ -5,7 +5,7 @@ import App from './components/App';
 import '../reset.css';
 import '../node_modules/regenerator-runtime/runtime';
 
-const renderApp = () => {
+const renderApp = (): void => {
   const app = document && document.getElementById('app');
   if (app) render(<App />, app);
 };
@@ -13,7 +13,10 @@ const renderApp = () => {
 renderApp();
 
 if (module.hot) {
-  module.hot.accept('./components/App', () => {
-    renderApp();
-  });
+  module.hot.accept(
+    './components/App',
+    (): void => {
+      renderApp();
+    }
+  );
 }

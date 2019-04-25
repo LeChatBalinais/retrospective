@@ -1,4 +1,7 @@
-const setTagDragged = (state, action) => {
+import { State } from '../types/state';
+import { SetTagDragged } from '../types/action';
+
+const setTagDragged = (state: State, action: SetTagDragged): State => {
   const {
     payload: { ID, dragged }
   } = action;

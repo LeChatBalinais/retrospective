@@ -9,5 +9,6 @@
     "jsx": "react",
     "typeRoots": ["node_modules/@types"]
   },
-  "include": ["./src/**/*"]
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules", "@types", "tmp", "build", "dist"]
 }

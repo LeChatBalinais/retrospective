@@ -1,4 +1,7 @@
-const addNewTag = (state, action) => {
+import { State } from '../types/state';
+import { AddNewTag } from '../types/action';
+
+const addNewTag = (state: State, action: AddNewTag): State => {
   const {
     payload: { x, y }
   } = action;

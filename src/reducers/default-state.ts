@@ -1,4 +1,6 @@
-const DEFAULT_STATE = {
+import { State } from '../types/state';
+
+const DEFAULT_STATE: State = {
   superVideoState: {
     duration: 10,
     playback: false,
