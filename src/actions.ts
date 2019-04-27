@@ -6,4 +6,4 @@ export const SET_USER_SEEK = 'SET_USER_SEEK';
 export const ADD_NEW_TAG = 'ADD_NEW_TAG';
 export const SET_TAG_DRAGGED = 'SET_TAG_DRAGGED';
 export const UPDATE_TAG_PATH = 'UPDATE_TAG_PATH';
-export const FETCH_ALL_VIDEO_MARKS = 'FETCH_ALL_VIDEO_MARKS';
+export const ADD_FETCHED_TAGS = 'ADD_FETCHED_TAGS';

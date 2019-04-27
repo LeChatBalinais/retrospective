@@ -6,14 +6,11 @@ const setTagDragged = (state: State, action: SetTagDragged): State => {
     payload: { ID, dragged }
   } = action;
 
-  const tag = state.tags.byID[ID];
+  const draggedTags = dragged ? [ID] : [];
 
   return {
     ...state,
-    tags: {
-      ...state.tags,
-      byID: { ...state.tags.byID, [ID]: { ...tag, dragged } }
-    }
+    draggedTags
   };
 };
 

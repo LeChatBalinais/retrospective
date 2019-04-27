@@ -32,7 +32,7 @@ const mapStateToProps = ({
 }: State): Props => ({
   playback: playback && !userSeek,
   url,
-  currentTime
+  currentTime: playback ? undefined : currentTime
 });
 
 export default connect(mapStateToProps)(PlayerContainer);

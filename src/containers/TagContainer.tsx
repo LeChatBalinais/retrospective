@@ -8,6 +8,7 @@ import { State } from '../types/state';
 
 interface Props {
   tag?: TagState;
+  tagDragged?: boolean;
   duration?: number;
   currentTime?: number;
   playback?: boolean;
@@ -18,6 +19,7 @@ interface Props {
 
 const TagContainer = ({
   tag,
+  tagDragged,
   duration,
   currentTime,
   playback,
@@ -31,7 +33,7 @@ const TagContainer = ({
       className: 'Tag',
       duration,
       currentTime,
-      dragged: tag.dragged,
+      dragged: tagDragged,
       playback,
       offsetX,
       offsetY,
@@ -57,7 +59,8 @@ const TagContainer = ({
 const mapStateToProps = (
   {
     tags: { byID },
-    superVideoState: { playback, currentTime, userSeek }
+    superVideoState: { playback, currentTime, userSeek },
+    draggedTags
   }: State,
   { tagID }: Props
 ): Props => {
@@ -94,6 +97,7 @@ const mapStateToProps = (
 
   return {
     tag,
+    tagDragged: draggedTags.includes(tagID),
     tagID,
     duration,
     currentTime: currentTime - path[0].time,

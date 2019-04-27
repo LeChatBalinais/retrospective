@@ -16,13 +16,13 @@ const addNewTag = (state: State, action: AddNewTag): State => {
         [newID]: {
           x,
           y,
-          dragged: false,
           startTime: state.superVideoState.currentTime,
           path: [{ time: state.superVideoState.currentTime, x: 0, y: 0 }]
         }
       },
       allIDs: [...state.tags.allIDs, newID]
-    }
+    },
+    localTags: [...state.localTags, newID]
   };
 };
 

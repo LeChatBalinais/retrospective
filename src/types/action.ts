@@ -34,8 +34,8 @@ export interface UpdateTagPath {
   type: 'UPDATE_TAG_PATH';
   payload: { ID: string; x: number; y: number };
 }
-export interface FetchAllVideoMarks {
-  type: 'FETCH_ALL_VIDEO_MARKS';
+export interface AddFetchedTags {
+  type: 'ADD_FETCHED_TAGS';
   payload: Tags;
 }
 
@@ -48,4 +48,4 @@ export type Action =
   | AddNewTag
   | SetTagDragged
   | UpdateTagPath
-  | FetchAllVideoMarks;
+  | AddFetchedTags;

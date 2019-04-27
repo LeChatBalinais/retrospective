@@ -9,7 +9,7 @@ type OnDurationChangeFunc = (duration: number) => void;
 interface Props {
   url: string;
   playback: boolean;
-  currentTime: number;
+  currentTime?: number;
   onTimeUpdate: OnTimeUpdate;
   onDurationChange: OnDurationChangeFunc;
 }
@@ -64,6 +64,8 @@ class Video extends React.Component<Props, {}> {
     if (!this.onTimeUpdateBinded) {
       this.onTimeUpdateBinded = this.createOnTimeUpdate();
     }
+
+    console.log(this.props);
 
     if (videoCached) {
       if (playback) {

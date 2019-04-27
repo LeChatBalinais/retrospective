@@ -1,4 +1,4 @@
-import { Dispatch, Action } from 'redux';
+import { Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import {
   SET_PLAYBACK,
@@ -9,7 +9,7 @@ import {
   ADD_NEW_TAG,
   SET_TAG_DRAGGED,
   UPDATE_TAG_PATH,
-  FETCH_ALL_VIDEO_MARKS
+  ADD_FETCHED_TAGS
 } from './actions';
 
 import {
@@ -21,7 +21,7 @@ import {
   AddNewTag,
   SetTagDragged,
   UpdateTagPath,
-  FetchAllVideoMarks
+  AddFetchedTags
 } from './types/action';
 import { Tags, State } from './types/state';
 
@@ -56,13 +56,13 @@ export function setTagDragged(ID: string, dragged: boolean): SetTagDragged {
 export function updateTagPath(ID: string, x: number, y: number): UpdateTagPath {
   return { type: UPDATE_TAG_PATH, payload: { ID, x, y } };
 }
-export function fetchAllVideoMarks(markers: Tags): FetchAllVideoMarks {
-  return { type: FETCH_ALL_VIDEO_MARKS, payload: markers };
+export function addFetchedTags(markers: Tags): AddFetchedTags {
+  return { type: ADD_FETCHED_TAGS, payload: markers };
 }
 
-export function fetchAllVideoMarksAsync(
+export function fetchVideoTagsAsync(
   videoID: string
-): ThunkAction<void, State, null, FetchAllVideoMarks> {
+): ThunkAction<void, State, null, AddFetchedTags> {
   return (dispatch: Dispatch): void => {
     console.log(videoID);
     fetch(`http://localhost:7000/markers`).then(
@@ -71,7 +71,7 @@ export function fetchAllVideoMarksAsync(
           (data): void => {
             const { tags: tagObject } = data;
             const tags = tagObject;
-            dispatch(fetchAllVideoMarks(tags));
+            dispatch(addFetchedTags(tags));
           }
         );
       }

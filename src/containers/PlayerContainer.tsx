@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import store from '../store';
 import Player from '../components/Player';
-import { setPlaceNewTagMode, fetchAllVideoMarksAsync } from '../actionCreators';
+import { setPlaceNewTagMode, fetchVideoTagsAsync } from '../actionCreators';
 import { State } from '../types/state';
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
 
 class PlayerContainer extends React.Component<Props, {}> {
   public componentDidMount(): void {
-    store.dispatch(fetchAllVideoMarksAsync('hello'));
+    store.dispatch(fetchVideoTagsAsync('hello'));
   }
 
   public render(): JSX.Element {
