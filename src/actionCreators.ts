@@ -21,9 +21,11 @@ import {
   AddNewTag,
   SetTagDragged,
   UpdateTagPath,
-  AddFetchedTags
+  AddFetchedTags,
+  Action
 } from './types/action';
 import { Tags, State } from './types/state';
+import Tag from './types/tag';
 
 export function setPlayback(on: boolean): SetPlayback {
   return { type: SET_PLAYBACK, payload: on };
@@ -56,6 +58,7 @@ export function setTagDragged(ID: string, dragged: boolean): SetTagDragged {
 export function updateTagPath(ID: string, x: number, y: number): UpdateTagPath {
   return { type: UPDATE_TAG_PATH, payload: { ID, x, y } };
 }
+
 export function addFetchedTags(markers: Tags): AddFetchedTags {
   return { type: ADD_FETCHED_TAGS, payload: markers };
 }
@@ -74,6 +77,50 @@ export function fetchVideoTagsAsync(
             dispatch(addFetchedTags(tags));
           }
         );
+      }
+    );
+  };
+}
+
+export function saveTagAsync(
+  tagID: string,
+  tag: Tag
+): ThunkAction<void, State, null, Action> {
+  return (dispatch: Dispatch<any>): void => {
+    fetch(`http://localhost:7000/addTag`, {
+      method: 'post',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ tagID, tag })
+    }).then(
+      (response): void => {
+        if (response.ok) {
+          dispatch(fetchVideoTagsAsync('hello'));
+          console.log('udpate');
+        }
+      }
+    );
+  };
+}
+
+export function deleteTagAsync(
+  ID: string
+): ThunkAction<void, State, null, Action> {
+  return (dispatch: Dispatch<any>): void => {
+    fetch(`http://localhost:7000/deleteTag`, {
+      method: 'post',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ ID })
+    }).then(
+      (response): void => {
+        if (response.ok) {
+          dispatch(fetchVideoTagsAsync('hello'));
+        }
       }
     );
   };

@@ -7,3 +7,4 @@ export const ADD_NEW_TAG = 'ADD_NEW_TAG';
 export const SET_TAG_DRAGGED = 'SET_TAG_DRAGGED';
 export const UPDATE_TAG_PATH = 'UPDATE_TAG_PATH';
 export const ADD_FETCHED_TAGS = 'ADD_FETCHED_TAGS';
+export const SAVE_TAG = 'SAVE_TAG';

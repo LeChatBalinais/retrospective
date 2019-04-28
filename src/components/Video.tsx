@@ -64,9 +64,6 @@ class Video extends React.Component<Props, {}> {
     if (!this.onTimeUpdateBinded) {
       this.onTimeUpdateBinded = this.createOnTimeUpdate();
     }
-
-    console.log(this.props);
-
     if (videoCached) {
       if (playback) {
         videoCached.play();

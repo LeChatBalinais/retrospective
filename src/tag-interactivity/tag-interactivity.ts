@@ -93,7 +93,6 @@ const updateAnimation = (
 
       for (let i = 0; i < newPath.length - 1; i += 1)
         newAnimation.to(newTarget, newPath[i + 1].time - newPath[i].time, {
-          // startAt: { x: 0 + newPath[i].x, y: 0 + newPath[i].y },
           x: newPath[i + 1].x,
           y: newPath[i + 1].y
         });

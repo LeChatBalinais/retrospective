@@ -1,4 +1,5 @@
 import { Tags } from './state';
+import Tag from './tag';
 
 export interface SetPlayback {
   type: 'SET_PLAYBACK';

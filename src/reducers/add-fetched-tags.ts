@@ -26,9 +26,14 @@ const addFetchedMarks = (state: State, action: AddFetchedTags): State => {
 
   const byID = { ...fetchedByID, ...localTagsByID };
 
+  const updatedLocalTags = localTags.filter(
+    (ID: string): boolean => !fetchedAllIDs.includes(ID)
+  );
+
   return {
     ...state,
-    tags: { byID, allIDs }
+    tags: { byID, allIDs },
+    localTags: updatedLocalTags
   };
 };
 

@@ -29,10 +29,14 @@ const PlayerContainer = ({
 
 const mapStateToProps = ({
   superVideoState: { playback, url, currentTime, userSeek }
-}: State): Props => ({
-  playback: playback && !userSeek,
-  url,
-  currentTime: playback ? undefined : currentTime
-});
+}: State): Props => {
+  const synthPlayback = playback && !userSeek;
+
+  return {
+    playback: synthPlayback,
+    url,
+    currentTime: synthPlayback ? undefined : currentTime
+  };
+};
 
 export default connect(mapStateToProps)(PlayerContainer);
