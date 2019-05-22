@@ -68,12 +68,14 @@ export function fetchVideoTagsAsync(
 ): ThunkAction<void, State, null, AddFetchedTags> {
   return (dispatch: Dispatch): void => {
     console.log(videoID);
-    fetch(`http://localhost:7000/markers`).then(
+    fetch(`http://localhost:9000/markers`).then(
       (response): void => {
         response.json().then(
           (data): void => {
+            console.log(data);
             const { tags: tagObject } = data;
             const tags = tagObject;
+            console.log(tags);
             dispatch(addFetchedTags(tags));
           }
         );
@@ -87,7 +89,7 @@ export function saveTagAsync(
   tag: Tag
 ): ThunkAction<void, State, null, Action> {
   return (dispatch: Dispatch<any>): void => {
-    fetch(`http://localhost:7000/addTag`, {
+    fetch(`http://localhost:9000/addTag`, {
       method: 'post',
       headers: {
         Accept: 'application/json',
@@ -109,7 +111,7 @@ export function deleteTagAsync(
   ID: string
 ): ThunkAction<void, State, null, Action> {
   return (dispatch: Dispatch<any>): void => {
-    fetch(`http://localhost:7000/deleteTag`, {
+    fetch(`http://localhost:9000/deleteTag`, {
       method: 'post',
       headers: {
         Accept: 'application/json',

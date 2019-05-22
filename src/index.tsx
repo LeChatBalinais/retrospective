@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import './style.css';
+import './style.scss';
 import App from './components/App';
 import '../reset.css';
 import '../node_modules/regenerator-runtime/runtime';
