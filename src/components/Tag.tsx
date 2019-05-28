@@ -107,22 +107,26 @@ class Tag extends React.Component<Props, {}> {
       transform = { transform: `matrix(1,0,0,1,${offsetX},${offsetY})` };
 
     return (
-      <circle
-        cx={x}
-        cy={y}
-        {...transform}
-        r={3}
-        stroke="red"
-        strokeWidth="3"
-        fill="red"
-        className={className}
-        ref={(circle: SVGCircleElement): void => {
-          this.interactivityProps = {
-            ...this.interactivityProps,
-            target: circle
-          };
-        }}
-      />
+      <svg className="marker">
+        <rect width="10px" height="10px" fill="red" />
+      </svg>
+
+      // <circle
+      //   cx={x}
+      //   cy={y}
+      //   {...transform}
+      //   r={3}
+      //   stroke="red"
+      //   strokeWidth="3"
+      //   fill="red"
+      //   className={className}
+      //   ref={(circle: SVGCircleElement): void => {
+      //     this.interactivityProps = {
+      //       ...this.interactivityProps,
+      //       target: circle
+      //     };
+      //   }}
+      // />
     );
   }
 }
