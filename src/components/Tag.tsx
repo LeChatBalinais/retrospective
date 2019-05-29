@@ -101,32 +101,27 @@ class Tag extends React.Component<Props, {}> {
       )(this.interactivity);
     }
 
-    let transform = {};
+    // if (!playback && !dragged)
+    //   transform = { transform: `matrix(1,0,0,1,${offsetX},${offsetY})` };
 
-    if (!playback && !dragged)
-      transform = { transform: `matrix(1,0,0,1,${offsetX},${offsetY})` };
+    const style = { top: `${y}%`, left: `${x}%` };
+    const composedClassName = `marker ${className}`;
 
     return (
-      <svg className="marker">
-        <rect width="10px" height="10px" fill="red" />
-      </svg>
-
-      // <circle
-      //   cx={x}
-      //   cy={y}
-      //   {...transform}
-      //   r={3}
-      //   stroke="red"
-      //   strokeWidth="3"
-      //   fill="red"
-      //   className={className}
-      //   ref={(circle: SVGCircleElement): void => {
-      //     this.interactivityProps = {
-      //       ...this.interactivityProps,
-      //       target: circle
-      //     };
-      //   }}
-      // />
+      <div
+        className={composedClassName}
+        style={style}
+        ref={(circle: HTMLDivElement): void => {
+          this.interactivityProps = {
+            ...this.interactivityProps,
+            target: circle
+          };
+        }}
+      >
+        <svg width="10px" height="10px">
+          <rect width="10px" height="10px" fill="red" />
+        </svg>
+      </div>
     );
   }
 }

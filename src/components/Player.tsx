@@ -24,8 +24,8 @@ class Player extends React.Component<Props, {}> {
             <VideoContainer />
             <AugmentationContainer />
             {newTagComponent}
-            <ControlPanel />
           </div>
+          <ControlPanel />
         </div>
       </div>
     );

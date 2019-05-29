@@ -6,14 +6,19 @@ interface Props {
 
 function createOnClick(
   onClick: (x: number, y: number) => void
-): (event: React.MouseEvent<SVGSVGElement>) => void {
-  return (event: React.MouseEvent<SVGSVGElement>): void => {
-    onClick(event.clientX, event.clientY);
+): (event: React.MouseEvent<HTMLDivElement>) => void {
+  return (event: React.MouseEvent<HTMLDivElement>): void => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    onClick(
+      ((event.clientX - rect.left) / rect.width) * 100,
+      ((event.clientY - rect.top) / rect.height) * 100
+    );
   };
 }
 
 const NewTagLayer = ({ onClick }: Props): JSX.Element => (
-  <svg
+  // eslint-disable-next-line
+  <div
     className="augmentation addition-layer"
     onClick={createOnClick(onClick)}
   />

@@ -11,6 +11,18 @@ type UpdateInteractivityFunc = (
   prevInteractivity: Interactivity
 ) => Interactivity;
 
+const getNormalizedLeftTopPos = (
+  pointerEvent: HTMLDivElement
+): { x: number; y: number } => {
+  const dragOnRect = pointerEvent.parentElement.getBoundingClientRect();
+  const draggedRect = pointerEvent.getBoundingClientRect();
+  const relativeX = draggedRect.left - dragOnRect.left;
+  const relativeY = draggedRect.top - dragOnRect.top;
+  const relativeNormalizedX = (relativeX / dragOnRect.width) * 100;
+  const relativeNormalizedY = (relativeY / dragOnRect.height) * 100;
+  return { x: relativeNormalizedX, y: relativeNormalizedY };
+};
+
 const updatedDraggable = (
   draggable: Draggable,
   prevState: InteractivityProps,
@@ -42,14 +54,17 @@ const updatedDraggable = (
       [newDraggable] = Draggable.create(newTarget, {
         dragClickables: true,
         bounds: '#bounds',
-        onPress: (pointerEvent: PointerEvent): void => {
-          if (onPress) onPress(pointerEvent.clientX, pointerEvent.clientY);
+        onPress: (pointerEvent: React.MouseEvent<HTMLDivElement>): void => {
+          const pos = getNormalizedLeftTopPos(newTarget);
+          if (onPress) onPress(pos.x, pos.y);
         },
-        onRelease: (pointerEvent: PointerEvent): void => {
-          if (onRelease) onRelease(pointerEvent.clientX, pointerEvent.clientY);
+        onRelease: (pointerEvent: React.MouseEvent<HTMLDivElement>): void => {
+          const pos = getNormalizedLeftTopPos(newTarget);
+          if (onRelease) onRelease(pos.x, pos.y);
         },
-        onDrag: (pointerEvent: PointerEvent): void => {
-          if (onDrag) onDrag(pointerEvent.clientX, pointerEvent.clientY);
+        onDrag: (pointerEvent: React.MouseEvent<HTMLDivElement>): void => {
+          const pos = getNormalizedLeftTopPos(newTarget);
+          if (onDrag) onDrag(pos.x, pos.y);
         },
         onClick: (e: PointerEvent): void => {
           e.stopPropagation();
@@ -93,8 +108,8 @@ const updateAnimation = (
 
       for (let i = 0; i < newPath.length - 1; i += 1)
         newAnimation.to(newTarget, newPath[i + 1].time - newPath[i].time, {
-          x: newPath[i + 1].x,
-          y: newPath[i + 1].y
+          left: `${newPath[i + 1].x}%`,
+          top: `${newPath[i + 1].y}%`
         });
     }
   }
