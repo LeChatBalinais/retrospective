@@ -12,9 +12,9 @@ const Augmentation = ({ tagIDs }: Props): JSX.Element => {
     )
   );
   return (
-    <svg className="augmentation" id="bounds">
+    <div className="augmentation" id="bounds">
       {tagContainers}
-    </svg>
+    </div>
   );
 };
 

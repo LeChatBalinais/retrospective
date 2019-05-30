@@ -12,25 +12,17 @@ const TagTable = ({ ID, tag, localTag, onPress }: Props): JSX.Element => {
   let buttonCol = null;
 
   if (localTag) {
-    buttonCol = (
-      <th>
-        <Button {...{ caption: 'Save', onPress }} />
-      </th>
-    );
+    buttonCol = <Button {...{ caption: 'Save', onPress }} />;
   } else {
-    buttonCol = (
-      <th>
-        <Button {...{ caption: 'Delete', onPress }} />
-      </th>
-    );
+    buttonCol = <Button {...{ caption: 'Delete', onPress }} />;
   }
   return (
-    <tr>
-      <th>{ID}</th>
-      <th>Start at: {tag.path[0].time}</th>
-      <th>End at: {tag.path[tag.path.length - 1].time}</th>
+    <div className="box">
+      <span>{ID} </span>
+      <span>Start at: {tag.path[0].time}</span>
+      <span>End at: {tag.path[tag.path.length - 1].time} </span>
       {buttonCol}
-    </tr>
+    </div>
   );
 };
 

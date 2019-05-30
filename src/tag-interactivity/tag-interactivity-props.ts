@@ -16,7 +16,7 @@ export interface AnimationProps {
 }
 
 export interface InteractivityProps {
-  target: Element;
+  target: HTMLDivElement;
   currentTime: number;
   draggable: DraggableProps;
   animation: AnimationProps;

@@ -9,11 +9,7 @@ const TagTable = ({ IDs }: Props): JSX.Element => {
   const tagRowContainers = IDs.map(
     (ID: string): JSX.Element => <TagRowContainer {...{ key: ID, ID }} />
   );
-  return (
-    <table>
-      <tbody>{tagRowContainers}</tbody>
-    </table>
-  );
+  return <div className="box markers-list">{tagRowContainers}</div>;
 };
 
 export default TagTable;
