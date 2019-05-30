@@ -101,10 +101,20 @@ class Tag extends React.Component<Props, {}> {
       )(this.interactivity);
     }
 
-    // if (!playback && !dragged)
-    //   transform = { transform: `matrix(1,0,0,1,${offsetX},${offsetY})` };
+    let style = {};
 
-    const style = { top: `${y}%`, left: `${x}%` };
+    if (!playback) {
+      if (!dragged) {
+        style = {
+          top: `${offsetY}%`,
+          left: `${offsetX}%`,
+          transform: `translate3d(0px,0px,0px)`
+        };
+      }
+    } else {
+      style = { top: `${y}%`, left: `${x}%` };
+    }
+
     const composedClassName = `marker ${className}`;
 
     return (

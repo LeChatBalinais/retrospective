@@ -14,7 +14,7 @@ const updateTagPath = (state: State, action: UpdateTagPath): State => {
   } = state;
 
   let { startTime } = tag;
-  const { path, x: startX, y: startY } = tag;
+  const { path } = tag;
 
   let newPath = path;
 
@@ -23,7 +23,7 @@ const updateTagPath = (state: State, action: UpdateTagPath): State => {
     newPath = [];
   }
 
-  newPath = [...newPath, { time: currentTime, x: x - startX, y: y - startY }];
+  newPath = [...newPath, { time: currentTime, x, y }];
 
   return {
     ...state,
