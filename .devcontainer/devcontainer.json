@@ -1,0 +1,7 @@
+{
+  "name": "Retrospective",
+  "dockerFile": "Dockerfile",
+  "appPort": 8080,
+  "extensions": ["dbaeumer.vscode-eslint"],
+  "postCreateCommand": "yarn install"
+}
