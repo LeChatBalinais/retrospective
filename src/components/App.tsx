@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import store from '../store';
 import Player from '../containers/PlayerContainer';
 import TagTableContainer from '../containers/TagTableContainer';
+import NewTagButton from '../containers/NewTagButton';
 
 const App = (): JSX.Element => (
   <Provider store={store}>
@@ -13,6 +14,7 @@ const App = (): JSX.Element => (
           <Player />
         </div>
         <div className="column is-4">
+          <NewTagButton />
           <TagTableContainer />
         </div>
       </div>

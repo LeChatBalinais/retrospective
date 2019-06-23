@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Interactivity,
   updateInteractivity
-} from '../tag-interactivity/tag-interactivity';
+} from '../interactivity/tag-interactivity';
 import {
   DEFAULT_TAG_INTERACTIVITY_PROPS,
   updateCurrentTime,
@@ -14,7 +14,7 @@ import {
   updatePath,
   InteractivityProps,
   OnDragFunc
-} from '../tag-interactivity/tag-interactivity-props';
+} from '../interactivity/tag-interactivity-props';
 
 interface Props {
   x: number;

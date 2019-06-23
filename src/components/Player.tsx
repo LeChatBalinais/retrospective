@@ -3,19 +3,20 @@ import ControlPanel from './ControlPanel';
 import VideoContainer from '../containers/VideoContainer';
 import NewTagLayerContainer from '../containers/NewTagLayerContainer';
 import AugmentationContainer from '../containers/AugmentationContainer';
+import SeekBar from './SeekBar';
 
 interface Props {
   placeNewTagMode: boolean;
 }
 
 class Player extends React.Component<Props, {}> {
-  public componentDidMount(): void {}
+  public componentDidMount(): void { }
 
   public render(): JSX.Element {
     const { placeNewTagMode } = this.props;
 
-    let newTagComponent = null;
-    if (placeNewTagMode) newTagComponent = <NewTagLayerContainer />;
+    let newTagLayerComponent = null;
+    if (placeNewTagMode) newTagLayerComponent = <NewTagLayerContainer />;
 
     return (
       <div>
@@ -23,8 +24,9 @@ class Player extends React.Component<Props, {}> {
           <div className="augmented-video">
             <VideoContainer />
             <AugmentationContainer />
-            {newTagComponent}
+            {newTagLayerComponent}
           </div>
+          <SeekBar />
           <ControlPanel />
         </div>
       </div>

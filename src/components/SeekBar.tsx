@@ -1,39 +1,18 @@
 import React from 'react';
+import SeekBarCurrentTimeSlider from '../containers/SeekBarCurrentTimeSlider';
 
-type onSeekFunc = (currentTime: number) => void;
 
-interface Props {
-  currentTime: number;
-  duration: number;
-  onSeek: onSeekFunc;
-  onMouseDown: () => void;
-  onMouseUp: () => void;
-}
 
-function createOnChange(
-  onSeek: onSeekFunc
-): (event: React.ChangeEvent<HTMLInputElement>) => void {
-  return (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const value = parseInt(event.target.value, 10);
-    onSeek(value);
-  };
-}
+const SeekBar = (): JSX.Element => (
 
-const SeekBar = ({
-  currentTime,
-  duration,
-  onSeek,
-  onMouseDown,
-  onMouseUp
-}: Props): JSX.Element => (
-  <input
-    type="range"
-    min={0}
-    max={duration}
-    value={currentTime}
-    onChange={createOnChange(onSeek)}
-    onMouseDown={onMouseDown}
-    onMouseUp={onMouseUp}
-  />
+    <div className="box seek-bar-box">
+        <div className="ribbon"></div>
+        <div id="seek-bounds" className="slider-ribbon">
+            <SeekBarCurrentTimeSlider />
+        </div>
+    </div>
+
+
+
 );
 export default SeekBar;

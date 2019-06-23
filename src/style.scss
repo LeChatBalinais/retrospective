@@ -46,3 +46,58 @@
   overflow-y: scroll;
   height: 70vh;
 }
+
+.seek-bar-box {
+  margin-top: 15px;
+}
+.ribbon {
+  border-radius: 3px;
+  background-color: lightblue;
+  height: 7px;
+}
+
+.slider-ribbon {
+  height: 14px;
+  position: relative;
+}
+
+.slider-marker-begin {
+  position: absolute;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-right: 7px solid transparent;
+
+  border-top: 14px solid #f00;
+}
+
+.slider-marker-begin {
+  position: absolute;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-right: 7px solid transparent;
+
+  border-top: 14px solid #f00;
+}
+
+.slider-marker-end {
+  position: absolute;
+  left: 70%;
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+
+  border-top: 14px solid #f00;
+}
+
+.slider-current-time {
+  position: absolute;
+  right: 70%;
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+
+  border-bottom: 14px solid blue;
+}
