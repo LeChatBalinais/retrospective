@@ -3,14 +3,14 @@ import ControlPanel from './ControlPanel';
 import VideoContainer from '../containers/VideoContainer';
 import NewTagLayerContainer from '../containers/NewTagLayerContainer';
 import AugmentationContainer from '../containers/AugmentationContainer';
-import SeekBar from './SeekBar';
+import SeekBar from '../containers/SeekBar';
 
 interface Props {
   placeNewTagMode: boolean;
 }
 
 class Player extends React.Component<Props, {}> {
-  public componentDidMount(): void { }
+  public componentDidMount(): void {}
 
   public render(): JSX.Element {
     const { placeNewTagMode } = this.props;

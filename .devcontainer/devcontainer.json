@@ -2,6 +2,9 @@
   "name": "Retrospective",
   "dockerFile": "Dockerfile",
   "appPort": 8080,
-  "extensions": ["dbaeumer.vscode-eslint", "prettier/prettier"],
+  "extensions": [
+    "dbaeumer.vscode-eslint",
+    "prettier.prettier"
+  ],
   "postCreateCommand": "yarn install"
 }

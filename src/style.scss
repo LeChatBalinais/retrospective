@@ -1,5 +1,13 @@
 @import '~bulma/bulma';
 
+body {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 .main-video {
   width: 100%;
   height: 100%;
@@ -50,25 +58,17 @@
 .seek-bar-box {
   margin-top: 15px;
 }
-.ribbon {
-  border-radius: 3px;
-  background-color: lightblue;
-  height: 7px;
-}
 
-.slider-ribbon {
-  height: 14px;
+.ribbon-container {
   position: relative;
 }
-
-.slider-marker-begin {
-  position: absolute;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-right: 7px solid transparent;
-
-  border-top: 14px solid #f00;
+.ribbon {
+  padding-left: 7px;
+  padding-right: 7px;
+  height: 14px;
+  border-radius: 3px;
+  background-color: lightblue;
+  cursor: pointer;
 }
 
 .slider-marker-begin {
@@ -93,11 +93,8 @@
 
 .slider-current-time {
   position: absolute;
-  right: 70%;
-  width: 0;
-  height: 0;
-  border-left: 7px solid transparent;
-  border-right: 7px solid transparent;
-
-  border-bottom: 14px solid blue;
+  background-color: darkblue;
+  top: 0%;
+  width: 14px;
+  height: 14px;
 }
