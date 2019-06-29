@@ -14,7 +14,7 @@ class SeekBarSlider extends React.Component<Props, {}> {
     const { className, position } = this.props;
 
     const style = {
-      left: `${position}%`
+      left: `calc(${position}% - 7px`
     };
 
     return <div {...{ className }} style={style} ref={this.setRef} />;

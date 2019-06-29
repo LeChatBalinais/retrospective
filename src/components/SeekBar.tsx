@@ -63,7 +63,9 @@ class SeekBar extends React.Component<Props, {}> {
             ref={this.setRef}
             onMouseDown={this.mouseDownListener}
           />
-          <SeekBarCurrentTimeSlider />
+          <div className="slider-container">
+            <SeekBarCurrentTimeSlider />
+          </div>
         </div>
       </div>
     );
