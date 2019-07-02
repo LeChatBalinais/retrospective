@@ -65,11 +65,16 @@ function createNewAnimation(
   size: Size
 ): TimelineLite {
   const animation = new TimelineLite({ paused: true, tweens: [] });
-  for (let i = 0; i < path.length - 1; i += 1)
+
+
+  for (let i = 0; i < path.length - 1; i += 1) {
+    // if (path[i + 1].time >= fromTime) {
     animation.to(target, path[i + 1].time - path[i].time, {
       left: `calc(${path[i + 1].x}% - ${size.width}px`,
       top: `calc(${path[i + 1].y}% - ${size.height}px`
     });
+    // }
+  }
   return animation;
 }
 
@@ -97,8 +102,6 @@ export const getUpdatedAnimation = (
 
   if (!newState) return updatedAnimation;
 
-  console.log(newState);
-
   const { target, targetSize, path, currentTime } = newState;
 
   if (!prevState) {
@@ -115,8 +118,7 @@ export const getUpdatedAnimation = (
       currentTime: prevCurrentTime
     } = prevState;
 
-    if (prevTarget !== target || prevPath !== path) {
-      console.log(prevTargetSize, targetSize);
+    if (prevTarget !== target || prevPath !== path || prevTargetSize !== targetSize) {
       updatedAnimation = createNewAnimation(target, path, targetSize);
     }
 

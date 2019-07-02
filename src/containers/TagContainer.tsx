@@ -27,33 +27,33 @@ const TagContainer = ({
   offsetX,
   offsetY
 }: Props): JSX.Element => (
-  <Tag
-    {...{
-      ...tag,
-      className: 'Tag',
-      duration,
-      currentTime,
-      dragged: tagDragged,
-      playback,
-      offsetX,
-      offsetY,
-      onDragBegin: (xCoor: number, yCoor: number): void => {
-        store.dispatch(setTagDragged(tagID, true));
-        console.log(xCoor, yCoor);
-        // store.dispatch(updateTagPath(tagID, xCoor, yCoor));
-        store.dispatch(setPlayback(true));
-      },
-      onDrag: (xCoor: number, yCoor: number): void => {
-        store.dispatch(updateTagPath(tagID, xCoor, yCoor));
-      },
-      onDragEnd: (xCoor: number, yCoor: number): void => {
-        store.dispatch(setPlayback(false));
-        store.dispatch(updateTagPath(tagID, xCoor, yCoor));
-        store.dispatch(setTagDragged(tagID, false));
-      }
-    }}
-  />
-);
+    <Tag
+      {...{
+        ...tag,
+        className: 'Tag',
+        duration,
+        currentTime,
+        dragged: tagDragged,
+        playback,
+        offsetX,
+        offsetY,
+        onDragBegin: (xCoor: number, yCoor: number): void => {
+          store.dispatch(setTagDragged(tagID, true));
+          console.log(xCoor, yCoor);
+          // store.dispatch(updateTagPath(tagID, xCoor, yCoor));
+          store.dispatch(setPlayback(true));
+        },
+        onDrag: (xCoor: number, yCoor: number): void => {
+          store.dispatch(updateTagPath(tagID, xCoor, yCoor));
+        },
+        onDragEnd: (xCoor: number, yCoor: number): void => {
+          store.dispatch(setPlayback(false));
+          store.dispatch(updateTagPath(tagID, xCoor, yCoor));
+          store.dispatch(setTagDragged(tagID, false));
+        }
+      }}
+    />
+  );
 
 const mapStateToProps = (
   {

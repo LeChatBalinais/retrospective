@@ -80,12 +80,12 @@ class Tag extends React.Component<Props, {}> {
     if (!playback) {
       if (!dragged) {
         style = {
-          top: `${offsetY}%`,
-          left: `${offsetX}%`
+          top: `calc(${offsetY}% - ${5}px)`,
+          left: `calc(${offsetX}% - ${5}px)`
         };
       }
     } else {
-      style = { top: `${y}%`, left: `${x}%` };
+      style = { top: `calc(${y}% - ${5}px`, left: `calc(${x}% - ${5}px` };
     }
 
     const composedClassName = `marker ${className}`;
