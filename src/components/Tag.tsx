@@ -1,20 +1,12 @@
 import React from 'react';
+import { TimelineLite } from 'gsap';
 import {
-  Interactivity,
-  updateInteractivity
-} from '../interactivity/tag-interactivity';
-import {
-  DEFAULT_TAG_INTERACTIVITY_PROPS,
-  updateCurrentTime,
-  updateDraggable,
-  updateOnDragBegin,
-  updateOnDrag,
-  updateOnDragEnd,
-  updateDuration,
-  updatePath,
-  InteractivityProps,
-  OnDragFunc
-} from '../interactivity/tag-interactivity-props';
+  DEFAULT_ANIMATION_PROPS,
+  AnimationProps,
+  getUpdatedAnimation,
+  getUpdatedAnimationProps,
+  getAnimationPropsWithUpdatedTarget
+} from '../interactivity/element-animation';
 
 interface Props {
   x: number;
@@ -27,32 +19,39 @@ interface Props {
   className: string;
   dragged: boolean;
   playback: boolean;
-  onDragBegin: OnDragFunc;
-  onDrag: OnDragFunc;
-  onDragEnd: OnDragFunc;
 }
 
 class Tag extends React.Component<Props, {}> {
   public constructor(props: Props) {
     super(props);
 
-    this.interactivityProps = DEFAULT_TAG_INTERACTIVITY_PROPS;
+    this.animationProps = DEFAULT_ANIMATION_PROPS;
+    this.animation = undefined;
   }
 
   public componentDidMount(): void {
-    this.interactivity = { draggable: undefined, animation: undefined };
-
-    this.interactivity = updateInteractivity(
-      this.prevInteractivityProps,
-      this.interactivityProps
-    )(this.interactivity);
+    this.animation = getUpdatedAnimation(
+      this.animation,
+      undefined,
+      this.animationProps
+    );
+    this.prevAnimationProps = this.animationProps;
   }
 
-  private interactivityProps: InteractivityProps;
+  public componentDidUpdate(): void {
+    this.animation = getUpdatedAnimation(
+      this.animation,
+      this.prevAnimationProps,
+      this.animationProps
+    );
+    this.prevAnimationProps = this.animationProps;
+  }
 
-  private interactivity: Interactivity;
+  private animationProps: AnimationProps;
 
-  private prevInteractivityProps: InteractivityProps;
+  private prevAnimationProps: AnimationProps;
+
+  private animation: TimelineLite;
 
   public render(): JSX.Element {
     const {
@@ -60,46 +59,21 @@ class Tag extends React.Component<Props, {}> {
       y,
       offsetX,
       offsetY,
-      duration,
       path,
       currentTime,
       className,
       dragged,
-      playback,
-      onDragBegin,
-      onDrag,
-      onDragEnd
+      playback
     } = this.props;
 
-    this.prevInteractivityProps = this.interactivityProps;
-
-    this.interactivityProps = updateCurrentTime(
-      this.interactivityProps,
-      currentTime
-    );
-
-    this.interactivityProps = updateDraggable(
-      this.interactivityProps,
-      !playback || dragged
-    );
-    this.interactivityProps = updateOnDragBegin(
-      this.interactivityProps,
-      onDragBegin
-    );
-    this.interactivityProps = updateOnDrag(this.interactivityProps, onDrag);
-    this.interactivityProps = updateOnDragEnd(
-      this.interactivityProps,
-      onDragEnd
-    );
-    this.interactivityProps = updateDuration(this.interactivityProps, duration);
-    this.interactivityProps = updatePath(this.interactivityProps, path);
-
-    if (this.interactivity) {
-      this.interactivity = updateInteractivity(
-        this.prevInteractivityProps,
-        this.interactivityProps
-      )(this.interactivity);
-    }
+    if (playback)
+      this.animationProps = getUpdatedAnimationProps(
+        this.animationProps,
+        { width: 5, height: 5 },
+        path,
+        currentTime
+      );
+    else this.animationProps = undefined;
 
     let style = {};
 
@@ -107,8 +81,7 @@ class Tag extends React.Component<Props, {}> {
       if (!dragged) {
         style = {
           top: `${offsetY}%`,
-          left: `${offsetX}%`,
-          transform: `translate3d(0px,0px,0px)`
+          left: `${offsetX}%`
         };
       }
     } else {
@@ -122,10 +95,10 @@ class Tag extends React.Component<Props, {}> {
         className={composedClassName}
         style={style}
         ref={(circle: HTMLDivElement): void => {
-          this.interactivityProps = {
-            ...this.interactivityProps,
-            target: circle
-          };
+          this.animationProps = getAnimationPropsWithUpdatedTarget(
+            this.animationProps,
+            circle
+          );
         }}
       >
         <svg width="10px" height="10px">

@@ -2,7 +2,7 @@ import { State } from '../types/state';
 
 const DEFAULT_STATE: State = {
   superVideoState: {
-    duration: 20,
+    duration: 29,
     playback: false,
     currentTime: 0,
     url: 'http://localhost:9000/video',
