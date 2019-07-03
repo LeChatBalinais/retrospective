@@ -9,15 +9,16 @@ import store from '../store';
 interface Props {
   ID: string;
   tag?: TagState;
-  localTag?: boolean;
+  isLocal?: boolean;
+  isCurrent?: boolean;
 }
 
 const onPress = (
   tagID: string,
   tag: TagState,
-  local: boolean
+  isLocal: boolean
 ): (() => void) => {
-  if (local)
+  if (isLocal)
     return (): void => {
       store.dispatch(saveTagAsync(tagID, tag));
     };
@@ -27,18 +28,26 @@ const onPress = (
   };
 };
 
-const AugmentationContainer = ({ ID, tag, localTag }: Props): JSX.Element => (
-  <TagRow {...{ ID, tag, localTag, onPress: onPress(ID, tag, localTag) }} />
+const AugmentationContainer = ({
+  ID,
+  tag,
+  isLocal,
+  isCurrent
+}: Props): JSX.Element => (
+  <TagRow
+    {...{ ID, tag, isLocal, isCurrent, onPress: onPress(ID, tag, isLocal) }}
+  />
 );
 
 const mapStateToProps = (
-  { tags: { byID }, localTags }: State,
+  { tags: { byID }, localTags, currentTag }: State,
   { ID }: Props
 ): Props => {
   return {
     ID,
     tag: byID[ID],
-    localTag: localTags.includes(ID)
+    isLocal: localTags.includes(ID),
+    isCurrent: ID === currentTag
   };
 };
 

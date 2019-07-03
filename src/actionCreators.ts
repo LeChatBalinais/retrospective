@@ -9,7 +9,8 @@ import {
   ADD_NEW_TAG,
   SET_TAG_DRAGGED,
   UPDATE_TAG_PATH,
-  ADD_FETCHED_TAGS
+  ADD_FETCHED_TAGS,
+  SET_CURRENT_TAG
 } from './actions';
 
 import {
@@ -22,6 +23,7 @@ import {
   SetTagDragged,
   UpdateTagPath,
   AddFetchedTags,
+  SetCurrentTag,
   Action
 } from './types/action';
 import { Tags, State } from './types/state';
@@ -61,6 +63,10 @@ export function updateTagPath(ID: string, x: number, y: number): UpdateTagPath {
 
 export function addFetchedTags(markers: Tags): AddFetchedTags {
   return { type: ADD_FETCHED_TAGS, payload: markers };
+}
+
+export function setCurrentTag(ID: string): SetCurrentTag {
+  return { type: SET_CURRENT_TAG, payload: ID };
 }
 
 export function fetchVideoTagsAsync(

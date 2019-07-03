@@ -40,6 +40,11 @@ export interface AddFetchedTags {
   payload: Tags;
 }
 
+export interface SetCurrentTag {
+  type: 'SET_CURRENT_TAG';
+  payload: string;
+}
+
 export type Action =
   | SetPlayback
   | SetPlaceNewTagMode
@@ -49,4 +54,5 @@ export type Action =
   | AddNewTag
   | SetTagDragged
   | UpdateTagPath
-  | AddFetchedTags;
+  | AddFetchedTags
+  | SetCurrentTag;

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Tag from '../components/Tag';
 import TagState from '../types/tag';
 import store from '../store';
-import { setPlayback, setTagDragged, updateTagPath } from '../actionCreators';
+import { setCurrentTag } from '../actionCreators';
 import { State } from '../types/state';
 
 interface Props {
@@ -27,33 +27,23 @@ const TagContainer = ({
   offsetX,
   offsetY
 }: Props): JSX.Element => (
-    <Tag
-      {...{
-        ...tag,
-        className: 'Tag',
-        duration,
-        currentTime,
-        dragged: tagDragged,
-        playback,
-        offsetX,
-        offsetY,
-        onDragBegin: (xCoor: number, yCoor: number): void => {
-          store.dispatch(setTagDragged(tagID, true));
-          console.log(xCoor, yCoor);
-          // store.dispatch(updateTagPath(tagID, xCoor, yCoor));
-          store.dispatch(setPlayback(true));
-        },
-        onDrag: (xCoor: number, yCoor: number): void => {
-          store.dispatch(updateTagPath(tagID, xCoor, yCoor));
-        },
-        onDragEnd: (xCoor: number, yCoor: number): void => {
-          store.dispatch(setPlayback(false));
-          store.dispatch(updateTagPath(tagID, xCoor, yCoor));
-          store.dispatch(setTagDragged(tagID, false));
-        }
-      }}
-    />
-  );
+  <Tag
+    {...{
+      ...tag,
+      className: 'Tag',
+      duration,
+      currentTime,
+      dragged: tagDragged,
+      playback,
+      offsetX,
+      offsetY,
+      onMouseDown: (): void => {
+        console.log('hello');
+        store.dispatch(setCurrentTag(tagID));
+      }
+    }}
+  />
+);
 
 const mapStateToProps = (
   {

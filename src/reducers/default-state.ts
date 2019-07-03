@@ -16,7 +16,8 @@ const DEFAULT_STATE: State = {
     allIDs: []
   },
   draggedTags: [],
-  localTags: []
+  localTags: [],
+  currentTag: undefined
 };
 
 export default DEFAULT_STATE;

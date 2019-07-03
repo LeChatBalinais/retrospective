@@ -1,7 +1,6 @@
 import React from 'react';
 import { TimelineLite } from 'gsap';
 import {
-  DEFAULT_ANIMATION_PROPS,
   AnimationProps,
   getUpdatedAnimation,
   getUpdatedAnimationProps,
@@ -19,14 +18,26 @@ interface Props {
   className: string;
   dragged: boolean;
   playback: boolean;
+  onMouseDown: () => void;
 }
 
 class Tag extends React.Component<Props, {}> {
   public constructor(props: Props) {
     super(props);
 
-    this.animationProps = DEFAULT_ANIMATION_PROPS;
+    this.animationProps = undefined;
     this.animation = undefined;
+
+    this.setRef = (element: HTMLDivElement): void => {
+      this.element = element;
+      this.elementSize = { width: 5, height: 5 };
+
+      this.animationProps = getAnimationPropsWithUpdatedTarget(
+        this.animationProps,
+        this.element,
+        this.elementSize
+      );
+    };
   }
 
   public componentDidMount(): void {
@@ -47,6 +58,12 @@ class Tag extends React.Component<Props, {}> {
     this.prevAnimationProps = this.animationProps;
   }
 
+  private setRef: (element: HTMLDivElement) => void;
+
+  private element: HTMLDivElement;
+
+  private elementSize: { width: number; height: number };
+
   private animationProps: AnimationProps;
 
   private prevAnimationProps: AnimationProps;
@@ -63,17 +80,22 @@ class Tag extends React.Component<Props, {}> {
       currentTime,
       className,
       dragged,
-      playback
+      playback,
+      onMouseDown
     } = this.props;
 
-    if (playback)
+    if (playback) {
       this.animationProps = getUpdatedAnimationProps(
         this.animationProps,
-        { width: 5, height: 5 },
         path,
         currentTime
       );
-    else this.animationProps = undefined;
+      this.animationProps = getAnimationPropsWithUpdatedTarget(
+        this.animationProps,
+        this.element,
+        this.elementSize
+      );
+    } else this.animationProps = undefined;
 
     let style = {};
 
@@ -91,15 +113,12 @@ class Tag extends React.Component<Props, {}> {
     const composedClassName = `marker ${className}`;
 
     return (
+      /* eslint-disable-next-line */
       <div
+        onMouseDown={onMouseDown}
         className={composedClassName}
         style={style}
-        ref={(circle: HTMLDivElement): void => {
-          this.animationProps = getAnimationPropsWithUpdatedTarget(
-            this.animationProps,
-            circle
-          );
-        }}
+        ref={this.setRef}
       >
         <svg width="10px" height="10px">
           <rect width="10px" height="10px" fill="red" />

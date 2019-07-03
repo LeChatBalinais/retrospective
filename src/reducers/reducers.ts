@@ -7,7 +7,8 @@ import {
   ADD_NEW_TAG,
   SET_TAG_DRAGGED,
   UPDATE_TAG_PATH,
-  ADD_FETCHED_TAGS
+  ADD_FETCHED_TAGS,
+  SET_CURRENT_TAG
 } from '../actions';
 import DEFAULT_STATE from './default-state';
 import setPlayback from './set-playback';
@@ -21,6 +22,7 @@ import updateTagPath from './update-tag-path';
 import addFetchedTags from './add-fetched-tags';
 import { State } from '../types/state';
 import { Action } from '../types/action';
+import setCurrentTag from './set-current-tag';
 
 const rootReducer = (state: State = DEFAULT_STATE, action: Action): State => {
   switch (action.type) {
@@ -50,6 +52,9 @@ const rootReducer = (state: State = DEFAULT_STATE, action: Action): State => {
     }
     case ADD_FETCHED_TAGS: {
       return addFetchedTags(state, action);
+    }
+    case SET_CURRENT_TAG: {
+      return setCurrentTag(state, action);
     }
     default:
       return state;

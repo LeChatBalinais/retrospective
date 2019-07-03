@@ -17,37 +17,29 @@ export interface AnimationProps {
   currentTime: number;
 }
 
-export const DEFAULT_ANIMATION_PROPS: AnimationProps = {
-  target: undefined,
-  targetSize: { width: 0, height: 0 },
-  path: [],
-  currentTime: 0
-};
-
 export function getAnimationPropsWithUpdatedTarget(
   animationProps: AnimationProps,
-  target: HTMLDivElement
+  target: HTMLDivElement,
+  targetSize: Size
 ): AnimationProps {
-  if (animationProps && target !== animationProps.target)
-    return { ...animationProps, target };
+  if (!animationProps || target !== animationProps.target) {
+    return { ...animationProps, target, targetSize };
+  }
 
   return animationProps;
 }
 
 export function getUpdatedAnimationProps(
   animationProps: AnimationProps,
-  targetSize: Size,
   path: SpaceTimePoint[],
   currentTime: number
 ): AnimationProps {
   if (
     !animationProps ||
-    targetSize.height !== animationProps.targetSize.height ||
-    targetSize.width !== animationProps.targetSize.width ||
     path !== animationProps.path ||
     currentTime !== animationProps.currentTime
   )
-    return { ...animationProps, targetSize, path, currentTime };
+    return { ...animationProps, path, currentTime };
 
   return animationProps;
 }
@@ -65,15 +57,11 @@ function createNewAnimation(
   size: Size
 ): TimelineLite {
   const animation = new TimelineLite({ paused: true, tweens: [] });
-
-
   for (let i = 0; i < path.length - 1; i += 1) {
-    // if (path[i + 1].time >= fromTime) {
     animation.to(target, path[i + 1].time - path[i].time, {
       left: `calc(${path[i + 1].x}% - ${size.width}px`,
       top: `calc(${path[i + 1].y}% - ${size.height}px`
     });
-    // }
   }
   return animation;
 }
@@ -104,6 +92,8 @@ export const getUpdatedAnimation = (
 
   const { target, targetSize, path, currentTime } = newState;
 
+  if (!target || !targetSize || !path) return updatedAnimation;
+
   if (!prevState) {
     updatedAnimation = createNewAnimation(target, path, targetSize);
     updatedAnimation = updatedAnimationToCurrentTime(
@@ -118,7 +108,11 @@ export const getUpdatedAnimation = (
       currentTime: prevCurrentTime
     } = prevState;
 
-    if (prevTarget !== target || prevPath !== path || prevTargetSize !== targetSize) {
+    if (
+      prevTarget !== target ||
+      prevPath !== path ||
+      prevTargetSize !== targetSize
+    ) {
       updatedAnimation = createNewAnimation(target, path, targetSize);
     }
 

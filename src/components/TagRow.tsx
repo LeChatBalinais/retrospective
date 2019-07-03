@@ -5,19 +5,32 @@ import Button from './Button';
 interface Props {
   ID: string;
   tag: Tag;
-  localTag: boolean;
+  isLocal: boolean;
+  isCurrent: boolean;
   onPress: () => void;
 }
-const TagTable = ({ ID, tag, localTag, onPress }: Props): JSX.Element => {
+const TagTable = ({
+  ID,
+  tag,
+  isLocal,
+  isCurrent,
+  onPress
+}: Props): JSX.Element => {
   let buttonCol = null;
 
-  if (localTag) {
+  if (isLocal) {
     buttonCol = <Button {...{ caption: 'Save', onPress }} />;
   } else {
     buttonCol = <Button {...{ caption: 'Delete', onPress }} />;
   }
+
+  let currentSign = null;
+
+  if (isCurrent) currentSign = <span>Current Tag: </span>;
+
   return (
     <div className="box">
+      {currentSign}
       <span>{ID} </span>
       <span>Start at: {tag.path[0].time}</span>
       <span>End at: {tag.path[tag.path.length - 1].time} </span>
