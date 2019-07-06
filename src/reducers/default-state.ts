@@ -15,7 +15,7 @@ const DEFAULT_STATE: State = {
     byID: {},
     allIDs: []
   },
-  draggedTags: [],
+  draggedTag: undefined,
   localTags: [],
   currentTag: undefined
 };

@@ -8,13 +8,15 @@ interface Props {
   isLocal: boolean;
   isCurrent: boolean;
   onPress: () => void;
+  onMouseDown: () => void;
 }
 const TagTable = ({
   ID,
   tag,
   isLocal,
   isCurrent,
-  onPress
+  onPress,
+  onMouseDown
 }: Props): JSX.Element => {
   let buttonCol = null;
 
@@ -24,13 +26,23 @@ const TagTable = ({
     buttonCol = <Button {...{ caption: 'Delete', onPress }} />;
   }
 
-  let currentSign = null;
+  let className = 'box';
 
-  if (isCurrent) currentSign = <span>Current Tag: </span>;
+  if (isCurrent) className = className.concat(' current-tag-row');
 
   return (
-    <div className="box">
-      {currentSign}
+    /* eslint-disable-next-line */
+    <div
+      {...{
+        className,
+        onMouseDown: (
+          event: React.MouseEvent<HTMLDivElement, MouseEvent>
+        ): void => {
+          event.stopPropagation();
+          onMouseDown();
+        }
+      }}
+    >
       <span>{ID} </span>
       <span>Start at: {tag.path[0].time}</span>
       <span>End at: {tag.path[tag.path.length - 1].time} </span>

@@ -1,9 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import TagRow from '../components/TagRow';
+import TagRowComponent from '../components/TagRow';
 import { State } from '../types/state';
 import TagState from '../types/tag';
-import { saveTagAsync, deleteTagAsync } from '../actionCreators';
+import {
+  saveTagAsync,
+  deleteTagAsync,
+  setCurrentTag,
+  seekToTag
+} from '../actionCreators';
 import store from '../store';
 
 interface Props {
@@ -28,14 +33,19 @@ const onPress = (
   };
 };
 
-const AugmentationContainer = ({
-  ID,
-  tag,
-  isLocal,
-  isCurrent
-}: Props): JSX.Element => (
-  <TagRow
-    {...{ ID, tag, isLocal, isCurrent, onPress: onPress(ID, tag, isLocal) }}
+const TagRow = ({ ID, tag, isLocal, isCurrent }: Props): JSX.Element => (
+  <TagRowComponent
+    {...{
+      ID,
+      tag,
+      isLocal,
+      isCurrent,
+      onPress: onPress(ID, tag, isLocal),
+      onMouseDown: (): void => {
+        store.dispatch(setCurrentTag(ID));
+        store.dispatch(seekToTag(ID));
+      }
+    }}
   />
 );
 
@@ -51,4 +61,4 @@ const mapStateToProps = (
   };
 };
 
-export default connect(mapStateToProps)(AugmentationContainer);
+export default connect(mapStateToProps)(TagRow);

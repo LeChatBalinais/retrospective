@@ -13,7 +13,7 @@ export interface State {
   };
 
   readonly tags: Tags;
-  readonly draggedTags: string[];
+  readonly draggedTag: string;
   readonly localTags: string[];
   readonly currentTag: string;
 }

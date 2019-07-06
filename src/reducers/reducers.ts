@@ -5,10 +5,11 @@ import {
   SET_DURATION,
   SET_USER_SEEK,
   ADD_NEW_TAG,
-  SET_TAG_DRAGGED,
+  SET_DRAGGED_TAG,
   UPDATE_TAG_PATH,
   ADD_FETCHED_TAGS,
-  SET_CURRENT_TAG
+  SET_CURRENT_TAG,
+  SEEK_TO_TAG
 } from '../actions';
 import DEFAULT_STATE from './default-state';
 import setPlayback from './set-playback';
@@ -17,12 +18,13 @@ import setCurrentTime from './set-current-time';
 import setDuration from './set-duration';
 import setUserSeek from './set-user-seek';
 import addNewTag from './add-new-tag';
-import setTagDragged from './set-tag-dragged';
+import setDraggedTag from './set-dragged-tag';
 import updateTagPath from './update-tag-path';
 import addFetchedTags from './add-fetched-tags';
 import { State } from '../types/state';
 import { Action } from '../types/action';
 import setCurrentTag from './set-current-tag';
+import seekToTag from './seek-to-tag';
 
 const rootReducer = (state: State = DEFAULT_STATE, action: Action): State => {
   switch (action.type) {
@@ -44,8 +46,8 @@ const rootReducer = (state: State = DEFAULT_STATE, action: Action): State => {
     case ADD_NEW_TAG: {
       return addNewTag(state, action);
     }
-    case SET_TAG_DRAGGED: {
-      return setTagDragged(state, action);
+    case SET_DRAGGED_TAG: {
+      return setDraggedTag(state, action);
     }
     case UPDATE_TAG_PATH: {
       return updateTagPath(state, action);
@@ -55,6 +57,9 @@ const rootReducer = (state: State = DEFAULT_STATE, action: Action): State => {
     }
     case SET_CURRENT_TAG: {
       return setCurrentTag(state, action);
+    }
+    case SEEK_TO_TAG: {
+      return seekToTag(state, action);
     }
     default:
       return state;

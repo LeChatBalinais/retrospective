@@ -18,7 +18,9 @@ interface Props {
   className: string;
   dragged: boolean;
   playback: boolean;
+  isCurrent: boolean;
   onMouseDown: () => void;
+  onMouseUp: () => void;
 }
 
 class Tag extends React.Component<Props, {}> {
@@ -81,7 +83,9 @@ class Tag extends React.Component<Props, {}> {
       className,
       dragged,
       playback,
-      onMouseDown
+      isCurrent,
+      onMouseDown,
+      onMouseUp
     } = this.props;
 
     if (playback) {
@@ -112,16 +116,33 @@ class Tag extends React.Component<Props, {}> {
 
     const composedClassName = `marker ${className}`;
 
+    let tagMarkerClassName = '';
+
+    if (isCurrent) tagMarkerClassName = 'tag-marker';
+
     return (
       /* eslint-disable-next-line */
       <div
-        onMouseDown={onMouseDown}
+        onMouseDown={(
+          event: React.MouseEvent<HTMLDivElement, MouseEvent>
+        ): void => {
+          event.stopPropagation();
+          onMouseDown();
+        }}
+        onMouseUp={(): void => {
+          onMouseUp();
+        }}
         className={composedClassName}
         style={style}
         ref={this.setRef}
       >
         <svg width="10px" height="10px">
-          <rect width="10px" height="10px" fill="red" />
+          <rect
+            className={tagMarkerClassName}
+            width="10px"
+            height="10px"
+            fill="red"
+          />
         </svg>
       </div>
     );

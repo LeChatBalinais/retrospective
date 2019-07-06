@@ -90,3 +90,12 @@ body {
   width: 14px;
   height: 14px;
 }
+
+.tag-marker {
+  stroke: blue;
+  stroke-width: 3px;
+}
+
+.current-tag-row {
+  box-shadow: 0 2px 3px blue, 0 0 0 1px blue;
+}

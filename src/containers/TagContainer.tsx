@@ -3,29 +3,31 @@ import { connect } from 'react-redux';
 import Tag from '../components/Tag';
 import TagState from '../types/tag';
 import store from '../store';
-import { setCurrentTag } from '../actionCreators';
+import { setCurrentTag, setDraggedTag, setPlayback } from '../actionCreators';
 import { State } from '../types/state';
 
 interface Props {
   tag?: TagState;
-  tagDragged?: boolean;
+  isDragged?: boolean;
   duration?: number;
   currentTime?: number;
   playback?: boolean;
   tagID: string;
   offsetX?: number;
   offsetY?: number;
+  isCurrent?: boolean;
 }
 
 const TagContainer = ({
   tag,
-  tagDragged,
+  isDragged,
   duration,
   currentTime,
   playback,
   tagID,
   offsetX,
-  offsetY
+  offsetY,
+  isCurrent
 }: Props): JSX.Element => (
   <Tag
     {...{
@@ -33,13 +35,22 @@ const TagContainer = ({
       className: 'Tag',
       duration,
       currentTime,
-      dragged: tagDragged,
+      dragged: isDragged,
       playback,
       offsetX,
       offsetY,
+      isCurrent,
       onMouseDown: (): void => {
-        console.log('hello');
-        store.dispatch(setCurrentTag(tagID));
+        if (!isCurrent) {
+          store.dispatch(setCurrentTag(tagID));
+          return;
+        }
+
+        store.dispatch(setDraggedTag(tagID));
+        store.dispatch(setPlayback(true));
+      },
+      onMouseUp: (): void => {
+        store.dispatch(setPlayback(false));
       }
     }}
   />
@@ -49,7 +60,8 @@ const mapStateToProps = (
   {
     tags: { byID },
     superVideoState: { playback, currentTime, userSeek },
-    draggedTags
+    draggedTag,
+    currentTag
   }: State,
   { tagID }: Props
 ): Props => {
@@ -86,13 +98,14 @@ const mapStateToProps = (
 
   return {
     tag,
-    tagDragged: draggedTags.includes(tagID),
+    isDragged: draggedTag === tagID,
     tagID,
     duration,
     currentTime: currentTime - path[0].time,
     playback: playback && !userSeek,
     offsetX,
-    offsetY
+    offsetY,
+    isCurrent: tagID === currentTag
   };
 };
 

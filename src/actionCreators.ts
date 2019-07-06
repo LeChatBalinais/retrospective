@@ -7,10 +7,11 @@ import {
   SET_DURATION,
   SET_USER_SEEK,
   ADD_NEW_TAG,
-  SET_TAG_DRAGGED,
+  SET_DRAGGED_TAG,
   UPDATE_TAG_PATH,
   ADD_FETCHED_TAGS,
-  SET_CURRENT_TAG
+  SET_CURRENT_TAG,
+  SEEK_TO_TAG
 } from './actions';
 
 import {
@@ -20,11 +21,12 @@ import {
   SetUserSeek,
   SetDuration,
   AddNewTag,
-  SetTagDragged,
+  SetDraggedTag,
   UpdateTagPath,
   AddFetchedTags,
   SetCurrentTag,
-  Action
+  Action,
+  SeekToTag
 } from './types/action';
 import { Tags, State } from './types/state';
 import Tag from './types/tag';
@@ -53,8 +55,8 @@ export function addNewTag(x: number, y: number): AddNewTag {
   return { type: ADD_NEW_TAG, payload: { x, y } };
 }
 
-export function setTagDragged(ID: string, dragged: boolean): SetTagDragged {
-  return { type: SET_TAG_DRAGGED, payload: { ID, dragged } };
+export function setDraggedTag(ID: string): SetDraggedTag {
+  return { type: SET_DRAGGED_TAG, payload: { ID } };
 }
 
 export function updateTagPath(ID: string, x: number, y: number): UpdateTagPath {
@@ -69,6 +71,10 @@ export function setCurrentTag(ID: string): SetCurrentTag {
   return { type: SET_CURRENT_TAG, payload: ID };
 }
 
+export function seekToTag(ID: string): SeekToTag {
+  return { type: SEEK_TO_TAG, payload: ID };
+}
+
 export function fetchVideoTagsAsync(
   videoID: string
 ): ThunkAction<void, State, null, AddFetchedTags> {
@@ -78,10 +84,8 @@ export function fetchVideoTagsAsync(
       (response): void => {
         response.json().then(
           (data): void => {
-            console.log(data);
             const { tags: tagObject } = data;
             const tags = tagObject;
-            console.log(tags);
             dispatch(addFetchedTags(tags));
           }
         );
