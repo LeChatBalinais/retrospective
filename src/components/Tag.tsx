@@ -1,20 +1,11 @@
 import React from 'react';
+import { TimelineLite } from 'gsap';
 import {
-  Interactivity,
-  updateInteractivity
-} from '../interactivity/tag-interactivity';
-import {
-  DEFAULT_TAG_INTERACTIVITY_PROPS,
-  updateCurrentTime,
-  updateDraggable,
-  updateOnDragBegin,
-  updateOnDrag,
-  updateOnDragEnd,
-  updateDuration,
-  updatePath,
-  InteractivityProps,
-  OnDragFunc
-} from '../interactivity/tag-interactivity-props';
+  AnimationProps,
+  getUpdatedAnimation,
+  getUpdatedAnimationProps,
+  getAnimationPropsWithUpdatedTarget
+} from '../interactivity/element-animation';
 
 interface Props {
   x: number;
@@ -27,32 +18,59 @@ interface Props {
   className: string;
   dragged: boolean;
   playback: boolean;
-  onDragBegin: OnDragFunc;
-  onDrag: OnDragFunc;
-  onDragEnd: OnDragFunc;
+  isCurrent: boolean;
+  onMouseDown: () => void;
+  onMouseUp: () => void;
 }
 
 class Tag extends React.Component<Props, {}> {
   public constructor(props: Props) {
     super(props);
 
-    this.interactivityProps = DEFAULT_TAG_INTERACTIVITY_PROPS;
+    this.animationProps = undefined;
+    this.animation = undefined;
+
+    this.setRef = (element: HTMLDivElement): void => {
+      this.element = element;
+      this.elementSize = { width: 5, height: 5 };
+
+      this.animationProps = getAnimationPropsWithUpdatedTarget(
+        this.animationProps,
+        this.element,
+        this.elementSize
+      );
+    };
   }
 
   public componentDidMount(): void {
-    this.interactivity = { draggable: undefined, animation: undefined };
-
-    this.interactivity = updateInteractivity(
-      this.prevInteractivityProps,
-      this.interactivityProps
-    )(this.interactivity);
+    this.animation = getUpdatedAnimation(
+      this.animation,
+      undefined,
+      this.animationProps
+    );
+    this.prevAnimationProps = this.animationProps;
   }
 
-  private interactivityProps: InteractivityProps;
+  public componentDidUpdate(): void {
+    this.animation = getUpdatedAnimation(
+      this.animation,
+      this.prevAnimationProps,
+      this.animationProps
+    );
+    this.prevAnimationProps = this.animationProps;
+  }
 
-  private interactivity: Interactivity;
+  private setRef: (element: HTMLDivElement) => void;
 
-  private prevInteractivityProps: InteractivityProps;
+  private element: HTMLDivElement;
+
+  private elementSize: { width: number; height: number };
+
+  private animationProps: AnimationProps;
+
+  private prevAnimationProps: AnimationProps;
+
+  private animation: TimelineLite;
 
   public render(): JSX.Element {
     const {
@@ -60,76 +78,69 @@ class Tag extends React.Component<Props, {}> {
       y,
       offsetX,
       offsetY,
-      duration,
       path,
       currentTime,
       className,
       dragged,
       playback,
-      onDragBegin,
-      onDrag,
-      onDragEnd
+      isCurrent,
+      onMouseDown,
+      onMouseUp
     } = this.props;
 
-    this.prevInteractivityProps = this.interactivityProps;
-
-    this.interactivityProps = updateCurrentTime(
-      this.interactivityProps,
-      currentTime
-    );
-
-    this.interactivityProps = updateDraggable(
-      this.interactivityProps,
-      !playback || dragged
-    );
-    this.interactivityProps = updateOnDragBegin(
-      this.interactivityProps,
-      onDragBegin
-    );
-    this.interactivityProps = updateOnDrag(this.interactivityProps, onDrag);
-    this.interactivityProps = updateOnDragEnd(
-      this.interactivityProps,
-      onDragEnd
-    );
-    this.interactivityProps = updateDuration(this.interactivityProps, duration);
-    this.interactivityProps = updatePath(this.interactivityProps, path);
-
-    if (this.interactivity) {
-      this.interactivity = updateInteractivity(
-        this.prevInteractivityProps,
-        this.interactivityProps
-      )(this.interactivity);
-    }
+    if (playback && !dragged) {
+      this.animationProps = getUpdatedAnimationProps(
+        this.animationProps,
+        path,
+        currentTime
+      );
+      this.animationProps = getAnimationPropsWithUpdatedTarget(
+        this.animationProps,
+        this.element,
+        this.elementSize
+      );
+    } else this.animationProps = undefined;
 
     let style = {};
 
-    if (!playback) {
-      if (!dragged) {
-        style = {
-          top: `${offsetY}%`,
-          left: `${offsetX}%`,
-          transform: `translate3d(0px,0px,0px)`
-        };
-      }
+    if (!playback || (playback && dragged)) {
+      style = {
+        top: `calc(${offsetY}% - ${5}px)`,
+        left: `calc(${offsetX}% - ${5}px)`
+      };
     } else {
-      style = { top: `${y}%`, left: `${x}%` };
+      style = { top: `calc(${y}% - ${5}px`, left: `calc(${x}% - ${5}px` };
     }
 
     const composedClassName = `marker ${className}`;
 
+    let tagMarkerClassName = '';
+
+    if (isCurrent) tagMarkerClassName = 'tag-marker';
+
     return (
+      /* eslint-disable-next-line */
       <div
+        onMouseDown={(
+          event: React.MouseEvent<HTMLDivElement, MouseEvent>
+        ): void => {
+          event.stopPropagation();
+          onMouseDown();
+        }}
+        onMouseUp={(): void => {
+          onMouseUp();
+        }}
         className={composedClassName}
         style={style}
-        ref={(circle: HTMLDivElement): void => {
-          this.interactivityProps = {
-            ...this.interactivityProps,
-            target: circle
-          };
-        }}
+        ref={this.setRef}
       >
         <svg width="10px" height="10px">
-          <rect width="10px" height="10px" fill="red" />
+          <rect
+            className={tagMarkerClassName}
+            width="10px"
+            height="10px"
+            fill="red"
+          />
         </svg>
       </div>
     );

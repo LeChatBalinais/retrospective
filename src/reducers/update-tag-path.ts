@@ -13,13 +13,13 @@ const updateTagPath = (state: State, action: UpdateTagPath): State => {
     }
   } = state;
 
-  let { startTime } = tag;
+  let { start } = tag;
   const { path } = tag;
 
   let newPath = path;
 
-  if (startTime === undefined) {
-    startTime = currentTime;
+  if (start === undefined) {
+    start = currentTime;
     newPath = [];
   }
 
@@ -29,7 +29,7 @@ const updateTagPath = (state: State, action: UpdateTagPath): State => {
     ...state,
     tags: {
       ...state.tags,
-      byID: { ...state.tags.byID, [ID]: { ...tag, startTime, path: newPath } }
+      byID: { ...state.tags.byID, [ID]: { ...tag, start, path: newPath } }
     }
   };
 };

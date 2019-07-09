@@ -1,23 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import TagRow from '../components/TagRow';
+import TagRowComponent from '../components/TagRow';
 import { State } from '../types/state';
 import TagState from '../types/tag';
-import { saveTagAsync, deleteTagAsync } from '../actionCreators';
+import {
+  saveTagAsync,
+  deleteTagAsync,
+  setCurrentTag,
+  seekToTag
+} from '../actionCreators';
 import store from '../store';
 
 interface Props {
   ID: string;
   tag?: TagState;
-  localTag?: boolean;
+  isLocal?: boolean;
+  isCurrent?: boolean;
 }
 
 const onPress = (
   tagID: string,
   tag: TagState,
-  local: boolean
+  isLocal: boolean
 ): (() => void) => {
-  if (local)
+  if (isLocal)
     return (): void => {
       store.dispatch(saveTagAsync(tagID, tag));
     };
@@ -27,19 +33,32 @@ const onPress = (
   };
 };
 
-const AugmentationContainer = ({ ID, tag, localTag }: Props): JSX.Element => (
-  <TagRow {...{ ID, tag, localTag, onPress: onPress(ID, tag, localTag) }} />
+const TagRow = ({ ID, tag, isLocal, isCurrent }: Props): JSX.Element => (
+  <TagRowComponent
+    {...{
+      ID,
+      tag,
+      isLocal,
+      isCurrent,
+      onPress: onPress(ID, tag, isLocal),
+      onMouseDown: (): void => {
+        store.dispatch(setCurrentTag(ID));
+        store.dispatch(seekToTag(ID));
+      }
+    }}
+  />
 );
 
 const mapStateToProps = (
-  { tags: { byID }, localTags }: State,
+  { tags: { byID }, localTags, currentTag }: State,
   { ID }: Props
 ): Props => {
   return {
     ID,
     tag: byID[ID],
-    localTag: localTags.includes(ID)
+    isLocal: localTags.includes(ID),
+    isCurrent: ID === currentTag
   };
 };
 
-export default connect(mapStateToProps)(AugmentationContainer);
+export default connect(mapStateToProps)(TagRow);

@@ -12,8 +12,6 @@ body {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  padding-right: 10px;
-  padding-bottom: 10px;
 }
 
 .augmentation {
@@ -25,7 +23,7 @@ body {
 }
 
 .addition-layer {
-  cursor: crosshair;
+  cursor: pointer;
 }
 
 .section.header-section {
@@ -71,15 +69,14 @@ body {
   cursor: pointer;
 }
 
-
 .slider-container {
-    pointer-events: none;
-     position: absolute;
-    top: 0%;
-    height: 14px;
-    width: calc(100% - 14px);
-    margin-left: 7px;
-   }
+  pointer-events: none;
+  position: absolute;
+  top: 0%;
+  height: 14px;
+  width: calc(100% - 14px);
+  margin-left: 7px;
+}
 
 .slider-current-time {
   pointer-events: none;
@@ -90,4 +87,13 @@ body {
   top: 0%;
   width: 14px;
   height: 14px;
+}
+
+.tag-marker {
+  stroke: blue;
+  stroke-width: 3px;
+}
+
+.current-tag-row {
+  box-shadow: 0 2px 3px blue, 0 0 0 1px blue;
 }

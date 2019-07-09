@@ -16,7 +16,7 @@ const addNewTag = (state: State, action: AddNewTag): State => {
         [newID]: {
           x,
           y,
-          startTime: state.superVideoState.currentTime,
+          start: state.superVideoState.currentTime,
           path: [{ time: state.superVideoState.currentTime, x, y }]
         }
       },

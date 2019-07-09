@@ -5,19 +5,44 @@ import Button from './Button';
 interface Props {
   ID: string;
   tag: Tag;
-  localTag: boolean;
+  isLocal: boolean;
+  isCurrent: boolean;
   onPress: () => void;
+  onMouseDown: () => void;
 }
-const TagTable = ({ ID, tag, localTag, onPress }: Props): JSX.Element => {
+const TagTable = ({
+  ID,
+  tag,
+  isLocal,
+  isCurrent,
+  onPress,
+  onMouseDown
+}: Props): JSX.Element => {
   let buttonCol = null;
 
-  if (localTag) {
+  if (isLocal) {
     buttonCol = <Button {...{ caption: 'Save', onPress }} />;
   } else {
     buttonCol = <Button {...{ caption: 'Delete', onPress }} />;
   }
+
+  let className = 'box';
+
+  if (isCurrent) className = className.concat(' current-tag-row');
+
   return (
-    <div className="box">
+    /* eslint-disable-next-line */
+    <div
+      {...{
+        className,
+        onMouseDown: (
+          event: React.MouseEvent<HTMLDivElement, MouseEvent>
+        ): void => {
+          event.stopPropagation();
+          onMouseDown();
+        }
+      }}
+    >
       <span>{ID} </span>
       <span>Start at: {tag.path[0].time}</span>
       <span>End at: {tag.path[tag.path.length - 1].time} </span>

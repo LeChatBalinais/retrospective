@@ -1,5 +1,4 @@
 import { Tags } from './state';
-import Tag from './tag';
 
 export interface SetPlayback {
   type: 'SET_PLAYBACK';
@@ -27,9 +26,9 @@ export interface AddNewTag {
   type: 'ADD_NEW_TAG';
   payload: { x: number; y: number };
 }
-export interface SetTagDragged {
-  type: 'SET_TAG_DRAGGED';
-  payload: { ID: string; dragged: boolean };
+export interface SetDraggedTag {
+  type: 'SET_DRAGGED_TAG';
+  payload: { ID: string };
 }
 export interface UpdateTagPath {
   type: 'UPDATE_TAG_PATH';
@@ -40,6 +39,16 @@ export interface AddFetchedTags {
   payload: Tags;
 }
 
+export interface SetCurrentTag {
+  type: 'SET_CURRENT_TAG';
+  payload: string;
+}
+
+export interface SeekToTag {
+  type: 'SEEK_TO_TAG';
+  payload: string;
+}
+
 export type Action =
   | SetPlayback
   | SetPlaceNewTagMode
@@ -47,6 +56,8 @@ export type Action =
   | SetDuration
   | SetUserSeek
   | AddNewTag
-  | SetTagDragged
+  | SetDraggedTag
   | UpdateTagPath
-  | AddFetchedTags;
+  | AddFetchedTags
+  | SetCurrentTag
+  | SeekToTag;

@@ -109,8 +109,8 @@ const updateAnimation = (
       console.log(newPath);
       for (let i = 0; i < newPath.length - 1; i += 1)
         newAnimation.to(newTarget, newPath[i + 1].time - newPath[i].time, {
-          left: `${newPath[i + 1].x}%`,
-          top: `${newPath[i + 1].y}%`
+          left: `calc(${newPath[i + 1].x}% - 5px`,
+          top: `calc(${newPath[i + 1].y}% - 5px`
         });
     }
   }
