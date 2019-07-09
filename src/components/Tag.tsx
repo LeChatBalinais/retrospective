@@ -88,7 +88,7 @@ class Tag extends React.Component<Props, {}> {
       onMouseUp
     } = this.props;
 
-    if (playback) {
+    if (playback && !dragged) {
       this.animationProps = getUpdatedAnimationProps(
         this.animationProps,
         path,
@@ -103,13 +103,11 @@ class Tag extends React.Component<Props, {}> {
 
     let style = {};
 
-    if (!playback) {
-      if (!dragged) {
-        style = {
-          top: `calc(${offsetY}% - ${5}px)`,
-          left: `calc(${offsetX}% - ${5}px)`
-        };
-      }
+    if (!playback || (playback && dragged)) {
+      style = {
+        top: `calc(${offsetY}% - ${5}px)`,
+        left: `calc(${offsetX}% - ${5}px)`
+      };
     } else {
       style = { top: `calc(${y}% - ${5}px`, left: `calc(${x}% - ${5}px` };
     }

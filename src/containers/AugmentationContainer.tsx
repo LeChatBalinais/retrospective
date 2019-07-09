@@ -10,26 +10,39 @@ interface Props {
   draggedTag: string;
 }
 
-const AugmentationContainer = (props: Props): JSX.Element => (
-  <Augmentation
-    {...props}
-    {...{
-      onMouseDown: (): void => {
-        store.dispatch(setCurrentTag(undefined));
-      },
-      onMouseMove: (x: number, y: number): void => {
-        if (props.draggedTag)
-          store.dispatch(updateTagPath(props.draggedTag, x, y));
-      },
-      onMouseUp: (x: number, y: number): void => {
-        if (props.draggedTag) {
-          store.dispatch(updateTagPath(props.draggedTag, x, y));
-          store.dispatch(setDraggedTag(undefined));
-        }
-      }
-    }}
-  />
-);
+class AugmentationContainer extends React.Component<Props, {}> {
+  public componentDidMount(): void {}
+
+  private newTagPath: { time: number; x: number; y: number }[];
+
+  public render(): JSX.Element {
+    const {
+      props: { draggedTag }
+    } = this;
+
+    return (
+      <Augmentation
+        {...this.props}
+        {...{
+          onMouseDown: (): void => {
+            store.dispatch(setCurrentTag(undefined));
+          },
+          onMouseMove: (x: number, y: number): void => {
+            if (draggedTag) {
+              store.dispatch(updateTagPath(draggedTag, x, y));
+            }
+          },
+          onMouseUp: (x: number, y: number): void => {
+            if (draggedTag) {
+              store.dispatch(updateTagPath(draggedTag, x, y));
+              store.dispatch(setDraggedTag(undefined));
+            }
+          }
+        }}
+      />
+    );
+  }
+}
 
 const mapStateToProps = ({
   superVideoState: { currentTime },

@@ -27,14 +27,12 @@ class Augmentation extends React.Component<Props, {}> {
 
       const area = this.getTarget().getBoundingClientRect();
 
-      let relativePositionX =
-        ((e.clientX - (area.left + 5)) / (area.width - 10)) * 100;
+      let relativePositionX = ((e.clientX - area.left) / area.width) * 100;
 
       if (relativePositionX < 0) relativePositionX = 0;
       else if (relativePositionX > 100) relativePositionX = 100;
 
-      let relativePositionY =
-        ((e.clientY - (area.top + 5)) / (area.height - 10)) * 100;
+      let relativePositionY = ((e.clientY - area.top) / area.height) * 100;
 
       if (relativePositionY < 0) relativePositionY = 0;
       else if (relativePositionY > 100) relativePositionY = 100;
@@ -49,14 +47,12 @@ class Augmentation extends React.Component<Props, {}> {
 
       const area = this.getTarget().getBoundingClientRect();
 
-      let relativePositionX =
-        ((e.clientX - (area.left + 5)) / (area.width - 10)) * 100;
+      let relativePositionX = ((e.clientX - area.left) / area.width) * 100;
 
       if (relativePositionX < 0) relativePositionX = 0;
       else if (relativePositionX > 100) relativePositionX = 100;
 
-      let relativePositionY =
-        ((e.clientY - (area.top + 5)) / (area.height - 10)) * 100;
+      let relativePositionY = ((e.clientY - area.top) / area.height) * 100;
 
       if (relativePositionY < 0) relativePositionY = 0;
       else if (relativePositionY > 100) relativePositionY = 100;
