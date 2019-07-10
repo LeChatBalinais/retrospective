@@ -7,15 +7,8 @@ const setCurrentTime = (state: State, action: SeekToTag): State => {
   const {
     tags: {
       byID: { [tagID]: tag }
-    },
-    superVideoState: { currentTime }
+    }
   } = state;
-
-  if (
-    currentTime >= tag.start &&
-    currentTime < tag.path[tag.path.length - 1].time
-  )
-    return state;
 
   return {
     ...state,

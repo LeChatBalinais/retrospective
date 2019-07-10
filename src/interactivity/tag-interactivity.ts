@@ -105,8 +105,7 @@ const updateAnimation = (
 
     if (newIsAnimated) {
       newAnimation = new TimelineLite({ paused: true, tweens: [] });
-      console.log(newTarget);
-      console.log(newPath);
+
       for (let i = 0; i < newPath.length - 1; i += 1)
         newAnimation.to(newTarget, newPath[i + 1].time - newPath[i].time, {
           left: `calc(${newPath[i + 1].x}% - 5px`,

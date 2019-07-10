@@ -7,7 +7,8 @@ import {
   saveTagAsync,
   deleteTagAsync,
   setCurrentTag,
-  seekToTag
+  seekToTag,
+  setUserSeek
 } from '../actionCreators';
 import store from '../store';
 
@@ -16,6 +17,7 @@ interface Props {
   tag?: TagState;
   isLocal?: boolean;
   isCurrent?: boolean;
+  playback?: boolean;
 }
 
 const onPress = (
@@ -33,7 +35,13 @@ const onPress = (
   };
 };
 
-const TagRow = ({ ID, tag, isLocal, isCurrent }: Props): JSX.Element => (
+const TagRow = ({
+  ID,
+  tag,
+  isLocal,
+  isCurrent,
+  playback
+}: Props): JSX.Element => (
   <TagRowComponent
     {...{
       ID,
@@ -43,21 +51,31 @@ const TagRow = ({ ID, tag, isLocal, isCurrent }: Props): JSX.Element => (
       onPress: onPress(ID, tag, isLocal),
       onMouseDown: (): void => {
         store.dispatch(setCurrentTag(ID));
+        store.dispatch(setUserSeek(true));
         store.dispatch(seekToTag(ID));
+        setTimeout((): void => {
+          store.dispatch(setUserSeek(false));
+        }, 100);
       }
     }}
   />
 );
 
 const mapStateToProps = (
-  { tags: { byID }, localTags, currentTag }: State,
+  {
+    superVideoState: { playback },
+    tags: { byID },
+    localTags,
+    currentTag
+  }: State,
   { ID }: Props
 ): Props => {
   return {
     ID,
     tag: byID[ID],
     isLocal: localTags.includes(ID),
-    isCurrent: ID === currentTag
+    isCurrent: ID === currentTag,
+    playback
   };
 };
 

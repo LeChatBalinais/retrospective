@@ -1,9 +1,8 @@
 import React from 'react';
 import PlayButton from '../containers/PlayButton';
 
-
 const ControlPanel = (): JSX.Element => (
-  <div>
+  <div className="box">
     <PlayButton />
   </div>
 );

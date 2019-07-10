@@ -1,0 +1,21 @@
+import React from 'react';
+import ActiveTagLabel from '../containers/ActiveTagLabel';
+
+interface Props {
+  IDs: string[];
+}
+
+const ActiveTagsPanel = ({ IDs }: Props): JSX.Element => {
+  const tagRowContainers = IDs.map(
+    (ID: string): JSX.Element => {
+      return <ActiveTagLabel {...{ key: ID, ID }} />;
+    }
+  );
+  return (
+    <div className="field is-grouped is-grouped-multiline">
+      {tagRowContainers}
+    </div>
+  );
+};
+
+export default ActiveTagsPanel;

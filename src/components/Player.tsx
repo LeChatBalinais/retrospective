@@ -4,6 +4,7 @@ import VideoContainer from '../containers/VideoContainer';
 import NewTagLayerContainer from '../containers/NewTagLayerContainer';
 import AugmentationContainer from '../containers/AugmentationContainer';
 import SeekBar from '../containers/SeekBar';
+import ActiveTagsPanel from '../containers/ActiveTagsPanel';
 
 interface Props {
   placeNewTagMode: boolean;
@@ -28,6 +29,7 @@ class Player extends React.Component<Props, {}> {
           </div>
           <SeekBar />
           <ControlPanel />
+          <ActiveTagsPanel />
         </div>
       </div>
     );

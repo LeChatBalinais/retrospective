@@ -110,7 +110,6 @@ export function saveTagAsync(
       (response): void => {
         if (response.ok) {
           dispatch(fetchVideoTagsAsync('hello'));
-          console.log('udpate');
         }
       }
     );
