@@ -18,7 +18,7 @@ const ActiveTagLabel = ({ ID, onMouseDown }: Props): JSX.Element => {
         }
       }}
     >
-      <span className="tag is-primary">{ID} </span>
+      <span className="tag is-primary active-tag-label">{ID} </span>
     </div>
   );
 };

@@ -12,7 +12,7 @@ const ActiveTagsPanel = ({ IDs }: Props): JSX.Element => {
     }
   );
   return (
-    <div className="field is-grouped is-grouped-multiline">
+    <div className="field is-grouped is-grouped-multiline active-tags-panel">
       {tagRowContainers}
     </div>
   );

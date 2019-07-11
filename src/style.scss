@@ -98,3 +98,11 @@ body {
 .current-tag-row {
   box-shadow: 0 2px 3px blue, 0 0 0 1px blue;
 }
+
+.active-tags-panel {
+  height: 50px;
+}
+
+.active-tag-label {
+  cursor: pointer;
+}
