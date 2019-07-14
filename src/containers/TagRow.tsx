@@ -4,12 +4,13 @@ import TagRowComponent from '../components/TagRow';
 import { State } from '../types/state';
 import TagState from '../types/tag';
 import {
-  saveTagAsync,
-  deleteTagAsync,
   setCurrentTag,
   seekToTag,
   setUserSeek
-} from '../actionCreators';
+} from '../actions/actionCreators';
+import saveTagAsync from '../actions/asyncActionCreators/save-tag';
+import deleteTagAsync from '../actions/asyncActionCreators/delete-tag';
+
 import store from '../store';
 
 interface Props {

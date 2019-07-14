@@ -1,5 +1,5 @@
 import React from 'react';
-import TagContainer from '../containers/TagContainer';
+import TagContainer from '../containers/Tag';
 
 interface Props {
   tagIDs: string[];

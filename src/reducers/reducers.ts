@@ -10,7 +10,7 @@ import {
   ADD_FETCHED_TAGS,
   SET_CURRENT_TAG,
   SEEK_TO_TAG
-} from '../actions';
+} from '../actions/actions';
 import DEFAULT_STATE from './default-state';
 import setPlayback from './set-playback';
 import setPlaceNewTagMode from './set-place-new-tag-mode';

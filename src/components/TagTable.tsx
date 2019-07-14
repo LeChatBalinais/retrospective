@@ -1,5 +1,5 @@
 import React from 'react';
-import TagRowContainer from '../containers/TagRowContainer';
+import TagRowContainer from '../containers/TagRow';
 
 interface Props {
   IDs: string[];

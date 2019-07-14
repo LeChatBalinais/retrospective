@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import store from '../store';
-import Video from '../components/Video';
-import { setCurrentTime, setDuration } from '../actionCreators';
+import VideoComponent from '../components/Video';
+import { setCurrentTime, setDuration } from '../actions/actionCreators';
 import { State } from '../types/state';
 
 interface Props {
@@ -11,12 +11,8 @@ interface Props {
   currentTime: number;
 }
 
-const PlayerContainer = ({
-  playback,
-  url,
-  currentTime
-}: Props): JSX.Element => (
-  <Video
+const Video = ({ playback, url, currentTime }: Props): JSX.Element => (
+  <VideoComponent
     {...{ playback, url, currentTime }}
     onTimeUpdate={(videoCurrentTime: number): void => {
       store.dispatch(setCurrentTime(videoCurrentTime));
@@ -39,4 +35,4 @@ const mapStateToProps = ({
   };
 };
 
-export default connect(mapStateToProps)(PlayerContainer);
+export default connect(mapStateToProps)(Video);

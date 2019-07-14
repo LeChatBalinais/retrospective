@@ -1,16 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Augmentation from '../components/Augmentation';
+import AugmentationComponent from '../components/Augmentation';
 import { State } from '../types/state';
 import store from '../store';
-import { setCurrentTag, updateTagPath, setDraggedTag } from '../actionCreators';
+import {
+  setCurrentTag,
+  updateTagPath,
+  setDraggedTag
+} from '../actions/actionCreators';
 
 interface Props {
   tagIDs: string[];
   draggedTag: string;
 }
 
-class AugmentationContainer extends React.Component<Props, {}> {
+class Augmentation extends React.Component<Props, {}> {
   public componentDidMount(): void {}
 
   private newTagPath: { time: number; x: number; y: number }[];
@@ -21,7 +25,7 @@ class AugmentationContainer extends React.Component<Props, {}> {
     } = this;
 
     return (
-      <Augmentation
+      <AugmentationComponent
         {...this.props}
         {...{
           onMouseDown: (): void => {
@@ -69,4 +73,4 @@ const mapStateToProps = ({
   return result;
 };
 
-export default connect(mapStateToProps)(AugmentationContainer);
+export default connect(mapStateToProps)(Augmentation);

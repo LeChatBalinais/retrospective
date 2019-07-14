@@ -1,9 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Tag from '../components/Tag';
+import TagComponent from '../components/Tag';
 import TagState from '../types/tag';
 import store from '../store';
-import { setCurrentTag, setDraggedTag, setPlayback } from '../actionCreators';
+import {
+  setCurrentTag,
+  setDraggedTag,
+  setPlayback
+} from '../actions/actionCreators';
 import { State } from '../types/state';
 
 interface Props {
@@ -18,7 +22,7 @@ interface Props {
   isCurrent?: boolean;
 }
 
-const TagContainer = ({
+const Tag = ({
   tag,
   isDragged,
   duration,
@@ -29,7 +33,7 @@ const TagContainer = ({
   offsetY,
   isCurrent
 }: Props): JSX.Element => (
-  <Tag
+  <TagComponent
     {...{
       ...tag,
       className: 'Tag',
@@ -109,4 +113,4 @@ const mapStateToProps = (
   };
 };
 
-export default connect(mapStateToProps)(TagContainer);
+export default connect(mapStateToProps)(Tag);

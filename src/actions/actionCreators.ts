@@ -1,5 +1,3 @@
-import { Dispatch } from 'redux';
-import { ThunkAction } from 'redux-thunk';
 import {
   SET_PLAYBACK,
   SET_PLACE_NEW_TAG_MODE,
@@ -25,11 +23,9 @@ import {
   UpdateTagPath,
   AddFetchedTags,
   SetCurrentTag,
-  Action,
   SeekToTag
-} from './types/action';
-import { Tags, State } from './types/state';
-import Tag from './types/tag';
+} from '../types/action';
+import { Tags } from '../types/state';
 
 export function setPlayback(on: boolean): SetPlayback {
   return { type: SET_PLAYBACK, payload: on };
@@ -73,66 +69,4 @@ export function setCurrentTag(ID: string): SetCurrentTag {
 
 export function seekToTag(ID: string): SeekToTag {
   return { type: SEEK_TO_TAG, payload: ID };
-}
-
-export function fetchVideoTagsAsync(
-  videoID: string
-): ThunkAction<void, State, null, AddFetchedTags> {
-  return (dispatch: Dispatch): void => {
-    console.log(videoID);
-    fetch(`http://localhost:9000/markers`).then(
-      (response): void => {
-        response.json().then(
-          (data): void => {
-            const { tags: tagObject } = data;
-            const tags = tagObject;
-            dispatch(addFetchedTags(tags));
-          }
-        );
-      }
-    );
-  };
-}
-
-export function saveTagAsync(
-  tagID: string,
-  tag: Tag
-): ThunkAction<void, State, null, Action> {
-  return (dispatch: Dispatch<any>): void => {
-    fetch(`http://localhost:9000/addTag`, {
-      method: 'post',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ tagID, tag })
-    }).then(
-      (response): void => {
-        if (response.ok) {
-          dispatch(fetchVideoTagsAsync('hello'));
-        }
-      }
-    );
-  };
-}
-
-export function deleteTagAsync(
-  ID: string
-): ThunkAction<void, State, null, Action> {
-  return (dispatch: Dispatch<any>): void => {
-    fetch(`http://localhost:9000/deleteTag`, {
-      method: 'post',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ ID })
-    }).then(
-      (response): void => {
-        if (response.ok) {
-          dispatch(fetchVideoTagsAsync('hello'));
-        }
-      }
-    );
-  };
 }

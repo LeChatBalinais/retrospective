@@ -1,6 +1,6 @@
 import React from 'react';
 import ActiveTagLabelComponent from '../components/ActiveTagLabel';
-import { setCurrentTag } from '../actionCreators';
+import { setCurrentTag } from '../actions/actionCreators';
 import store from '../store';
 
 interface Props {

@@ -6,7 +6,9 @@ const DEFAULT_STATE: State = {
     playback: false,
     currentTime: 0,
     url: 'http://localhost:9000/video',
-    userSeek: false
+    userSeek: false,
+    seekToRequestedTime: false,
+    requestedTime: 0
   },
   editorState: {
     placeNewTagMode: false

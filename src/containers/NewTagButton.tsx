@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import store from '../store';
 import Button from '../components/Button';
-import { setPlaceNewTagMode } from '../actionCreators';
+import { setPlaceNewTagMode } from '../actions/actionCreators';
 import { State } from '../types/state';
 
 interface Props {

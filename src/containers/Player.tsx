@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import store from '../store';
-import Player from '../components/Player';
-import { setPlaceNewTagMode, fetchVideoTagsAsync } from '../actionCreators';
+import PlayerComponent from '../components/Player';
+import { setPlaceNewTagMode } from '../actions/actionCreators';
+import fetchVideoTagsAsync from '../actions/asyncActionCreators/fetch-video-tags';
 import { State } from '../types/state';
 
 interface Props {
@@ -12,7 +13,7 @@ interface Props {
   onTagAdded: () => void;
 }
 
-class PlayerContainer extends React.Component<Props, {}> {
+class Player extends React.Component<Props, {}> {
   public componentDidMount(): void {
     store.dispatch(fetchVideoTagsAsync('hello'));
   }
@@ -20,7 +21,9 @@ class PlayerContainer extends React.Component<Props, {}> {
   public render(): JSX.Element {
     const { playback, currentTime, placeNewTagMode, onTagAdded } = this.props;
     return (
-      <Player {...{ playback, currentTime, placeNewTagMode, onTagAdded }} />
+      <PlayerComponent
+        {...{ playback, currentTime, placeNewTagMode, onTagAdded }}
+      />
     );
   }
 }
@@ -37,4 +40,4 @@ const mapStateToProps = ({
   }
 });
 
-export default connect(mapStateToProps)(PlayerContainer);
+export default connect(mapStateToProps)(Player);

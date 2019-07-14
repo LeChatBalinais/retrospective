@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import store from '../store';
 import { State } from '../types/state';
 import SeekBarComponent from '../components/SeekBar';
-import { setCurrentTime, setUserSeek } from '../actionCreators';
+import { setCurrentTime, setUserSeek } from '../actions/actionCreators';
 
 interface Props {
   duration: number;

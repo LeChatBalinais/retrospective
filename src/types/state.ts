@@ -7,6 +7,8 @@ export interface State {
     readonly currentTime: number;
     readonly url: string;
     readonly userSeek: boolean;
+    readonly seekToRequestedTime: boolean;
+    readonly requestedTime: number;
   };
   readonly editorState: {
     readonly placeNewTagMode: boolean;

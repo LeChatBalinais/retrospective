@@ -1,8 +1,8 @@
 import React from 'react';
 import ControlPanel from './ControlPanel';
-import VideoContainer from '../containers/VideoContainer';
-import NewTagLayerContainer from '../containers/NewTagLayerContainer';
-import AugmentationContainer from '../containers/AugmentationContainer';
+import VideoContainer from '../containers/Video';
+import NewTagLayerContainer from '../containers/NewTagLayer';
+import AugmentationContainer from '../containers/Augmentation';
 import SeekBar from '../containers/SeekBar';
 import ActiveTagsPanel from '../containers/ActiveTagsPanel';
 
