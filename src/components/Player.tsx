@@ -5,6 +5,7 @@ import NewTagLayerContainer from '../containers/NewTagLayer';
 import AugmentationContainer from '../containers/Augmentation';
 import SeekBar from '../containers/SeekBar';
 import ActiveTagsPanel from '../containers/ActiveTagsPanel';
+import GraphicalAugmentation from '../containers/GraphicalAugmentation';
 
 interface Props {
   placeNewTagMode: boolean;
@@ -24,6 +25,7 @@ class Player extends React.Component<Props, {}> {
         <div className="box video-box">
           <div className="augmented-video">
             <VideoContainer />
+            <GraphicalAugmentation />
             <AugmentationContainer />
             {newTagLayerComponent}
           </div>

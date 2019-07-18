@@ -102,7 +102,7 @@ class Augmentation extends React.Component<Props, {}> {
           onMouseUp: this.onMouseUp
         }}
       >
-        {tagContainers}{' '}
+        {tagContainers}
       </div>
     );
   }
