@@ -16,19 +16,23 @@ const TagPanelComponent = ({
 }: Props): JSX.Element => {
   return (
     /* eslint-disable-next-line */
-    <div className="box">
-      <div className="box">{name}</div>
-      <div className="box">
-        <span>Start at: {start}</span>
-        <span>End at: {end} </span>
+    <div className="columns">
+      <div className="column">{name}</div>
+      <div className="column">
+        <span>Start at: {start.toFixed(2)}</span>
       </div>
-      <div className="box">
-        <input
-          type="checkbox"
-          {...{ checked: traceIsVisible, value: 'Trace Is Visible' }}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>): void => { onTagTraceVisbileCheckboxInput(event.target.checked); }}
-        />
-        Trace is Visible
+      <div className="column">
+        <span>End at: {end.toFixed(2)} </span>
+      </div>
+      <div className="column">
+        <span>
+          <input
+            type="checkbox"
+            {...{ checked: traceIsVisible, value: 'Trace Is Visible' }}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>): void => { onTagTraceVisbileCheckboxInput(event.target.checked); }}
+          />
+          Trace is Visible
+        </span>
       </div>
     </div>
   );

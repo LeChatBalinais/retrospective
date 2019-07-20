@@ -44,8 +44,6 @@ const TagTable = ({
       }}
     >
       <span>{ID} </span>
-      <span>Start at: {tag.path[0].time}</span>
-      <span>End at: {tag.path[tag.path.length - 1].time} </span>
       {buttonCol}
     </div>
   );
