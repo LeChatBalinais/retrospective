@@ -19,7 +19,8 @@ const DEFAULT_STATE: State = {
   },
   draggedTag: undefined,
   localTags: [],
-  currentTag: undefined
+  currentTag: undefined,
+  visibleTraceTags: []
 };
 
 export default DEFAULT_STATE;

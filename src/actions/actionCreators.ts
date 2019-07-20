@@ -9,7 +9,8 @@ import {
   UPDATE_TAG_PATH,
   ADD_FETCHED_TAGS,
   SET_CURRENT_TAG,
-  SEEK_TO_TAG
+  SEEK_TO_TAG,
+  SET_TAG_TRACE_VISIBLE
 } from './actions';
 
 import {
@@ -23,7 +24,8 @@ import {
   UpdateTagPath,
   AddFetchedTags,
   SetCurrentTag,
-  SeekToTag
+  SeekToTag,
+  SetTagTraceVisible
 } from '../types/action';
 import { Tags } from '../types/state';
 
@@ -69,4 +71,8 @@ export function setCurrentTag(ID: string): SetCurrentTag {
 
 export function seekToTag(ID: string): SeekToTag {
   return { type: SEEK_TO_TAG, payload: ID };
+}
+
+export function setTagTraceVisible(ID: string, visible: boolean): SetTagTraceVisible {
+  return { type: SET_TAG_TRACE_VISIBLE, payload: { ID, visible } };
 }

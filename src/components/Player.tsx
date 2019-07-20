@@ -5,6 +5,7 @@ import NewTagLayerContainer from '../containers/NewTagLayer';
 import AugmentationContainer from '../containers/Augmentation';
 import SeekBar from '../containers/SeekBar';
 import ActiveTagsPanel from '../containers/ActiveTagsPanel';
+import TagPanelContainer from '../containers/TagPanel';
 import GraphicalAugmentation from '../containers/GraphicalAugmentation';
 
 interface Props {
@@ -12,7 +13,7 @@ interface Props {
 }
 
 class Player extends React.Component<Props, {}> {
-  public componentDidMount(): void {}
+  public componentDidMount(): void { }
 
   public render(): JSX.Element {
     const { placeNewTagMode } = this.props;
@@ -32,6 +33,7 @@ class Player extends React.Component<Props, {}> {
           <SeekBar />
           <ControlPanel />
           <ActiveTagsPanel />
+          <TagPanelContainer />
         </div>
       </div>
     );

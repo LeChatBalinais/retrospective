@@ -7,7 +7,6 @@ import NewTagButton from '../containers/NewTagButton';
 
 const App = (): JSX.Element => (
   <Provider store={store}>
-    <div className="section header-section">Retrospective</div>
     <div className="section main-section">
       <div className="columns">
         <div className="column is-8">

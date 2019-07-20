@@ -49,6 +49,11 @@ export interface SeekToTag {
   payload: string;
 }
 
+export interface SetTagTraceVisible {
+  type: 'SET_TAG_TRACE_VISIBLE';
+  payload: { ID: string; visible: boolean }
+}
+
 export type Action =
   | SetPlayback
   | SetPlaceNewTagMode
@@ -60,4 +65,5 @@ export type Action =
   | UpdateTagPath
   | AddFetchedTags
   | SetCurrentTag
-  | SeekToTag;
+  | SeekToTag
+  | SetTagTraceVisible;

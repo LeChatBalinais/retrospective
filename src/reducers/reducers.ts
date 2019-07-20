@@ -9,7 +9,8 @@ import {
   UPDATE_TAG_PATH,
   ADD_FETCHED_TAGS,
   SET_CURRENT_TAG,
-  SEEK_TO_TAG
+  SEEK_TO_TAG,
+  SET_TAG_TRACE_VISIBLE
 } from '../actions/actions';
 import DEFAULT_STATE from './default-state';
 import setPlayback from './set-playback';
@@ -21,6 +22,7 @@ import addNewTag from './add-new-tag';
 import setDraggedTag from './set-dragged-tag';
 import updateTagPath from './update-tag-path';
 import addFetchedTags from './add-fetched-tags';
+import setTagTraceVisible from './set-tag-trace-visible'
 import { State } from '../types/state';
 import { Action } from '../types/action';
 import setCurrentTag from './set-current-tag';
@@ -60,6 +62,9 @@ const rootReducer = (state: State = DEFAULT_STATE, action: Action): State => {
     }
     case SEEK_TO_TAG: {
       return seekToTag(state, action);
+    }
+    case SET_TAG_TRACE_VISIBLE: {
+      return setTagTraceVisible(state, action);
     }
     default:
       return state;

@@ -10,3 +10,4 @@ export const ADD_FETCHED_TAGS = 'ADD_FETCHED_TAGS';
 export const SAVE_TAG = 'SAVE_TAG';
 export const SET_CURRENT_TAG = 'SET_CURRENT_TAG';
 export const SEEK_TO_TAG = 'SEEK_TO_TAG';
+export const SET_TAG_TRACE_VISIBLE = 'SET_TAG_TRACE_VISIBLE';

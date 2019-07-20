@@ -18,6 +18,7 @@ export interface State {
   readonly draggedTag: string;
   readonly localTags: string[];
   readonly currentTag: string;
+  readonly visibleTraceTags: string[];
 }
 
 export interface Tags {
