@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface Props {
-  points: string;
+  points?: string;
 }
 
 const TagTrace = (props: Props): JSX.Element => (
