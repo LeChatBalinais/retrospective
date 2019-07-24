@@ -1,14 +1,13 @@
 import React from 'react';
 
-interface Props {
+export interface Props {
   points?: string;
 }
 
-const TagTrace = (props: Props): JSX.Element => (
+export const TagTrace = (props: Props): JSX.Element => (
   <polyline
     className="tag-trace"
     {...props}
     vectorEffect="non-scaling-stroke"
   />
 );
-export default TagTrace;

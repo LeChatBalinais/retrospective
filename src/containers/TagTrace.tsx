@@ -1,25 +1,17 @@
-import React from 'react';
 import { connect } from 'react-redux';
-import TagTraceComponent from '../components/TagTrace';
+import { Props, TagTrace } from '../components/TagTrace';
 import { State } from '../types/state';
 import makeGetTagTracePoints from '../selectors/get-tag-trace-points';
 
-interface Props {
-  tagID: string;
-  points?: string;
-}
-
-const TagTrace = ({ points }: Props): JSX.Element => (
-  <TagTraceComponent {...{ points }} />
-);
-
-const makeMapStateToProps = (): ((state: State, props: Props) => Props) => {
+const makeMapStateToProps = (): ((
+  state: State,
+  props: { tagID: string }
+) => Props) => {
   const getTagTracePoints = makeGetTagTracePoints();
 
-  return (state: State, { tagID }: Props): Props => {
+  return (state: State, { tagID }: { tagID: string }): Props => {
     const result = {
-      tagID,
-      points: getTagTracePoints(state, { ID: tagID })
+      points: getTagTracePoints(state, tagID)
     };
     return result;
   };

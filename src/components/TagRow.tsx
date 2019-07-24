@@ -1,30 +1,18 @@
 import React from 'react';
-import Tag from '../types/tag';
-import Button from './Button';
+import TagExistanceStatusButton from '../containers/TagExistanceStatusButton';
 
-interface Props {
+export interface Props {
   ID: string;
-  tag: Tag;
   isLocal: boolean;
   isCurrent: boolean;
-  onPress: () => void;
-  onMouseDown: () => void;
+  onMouseDown?: () => void;
 }
-const TagTable = ({
+export const TagRow = ({
   ID,
-  tag,
   isLocal,
   isCurrent,
-  onPress,
   onMouseDown
 }: Props): JSX.Element => {
-  let buttonCol = null;
-
-  if (isLocal) {
-    buttonCol = <Button {...{ caption: 'Save', onPress }} />;
-  } else {
-    buttonCol = <Button {...{ caption: 'Delete', onPress }} />;
-  }
 
   let className = 'box';
 
@@ -44,9 +32,7 @@ const TagTable = ({
       }}
     >
       <span>{ID} </span>
-      {buttonCol}
+      <TagExistanceStatusButton {...{ ID, isLocal }}></TagExistanceStatusButton>
     </div>
   );
 };
-
-export default TagTable;

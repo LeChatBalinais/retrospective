@@ -1,17 +1,18 @@
-import { createSelector, OutputSelector } from 'reselect';
-import { getTagsByID } from './selectors';
+import { createSelector, OutputParametricSelector } from 'reselect';
+import { getTags } from './selectors';
 import Tag from '../types/tag';
 import { State } from '../types/state';
 
-const makeGetTag = (): OutputSelector<
+const makeGetTag = (): OutputParametricSelector<
   State,
+  string,
   Tag,
   (res: { [ID: string]: Tag }, ID: string) => Tag
 > => {
   return createSelector(
-    [getTagsByID, (state: State, props: { ID: string }): string => props.ID],
+    [getTags, (state: State, ID: string): string => ID],
     (tags: { [ID: string]: Tag }, ID: string): Tag => {
-      return (tags[ID]);
+      return tags[ID];
     }
   );
 };

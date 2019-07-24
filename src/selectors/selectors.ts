@@ -15,9 +15,12 @@ export const getCurrentTime = ({
 
 export const getVideoURL = ({ superVideoState: { url } }: State): string => url;
 
-export const getTagsByID = ({ tags: { byID } }: State): { [ID: string]: Tag } =>
+export const getTags = ({ tags: { byID } }: State): { [ID: string]: Tag } =>
   byID;
 
-export const getTag = ({ tags: { byID } }: State, ID: string): Tag => {
-  return byID[ID];
-};
+export const getTagIDs = ({ tags: { allIDs } }: State): string[] => allIDs;
+
+export const getLocalTagIDs = ({ localTags }: State): string[] => localTags;
+
+export const isTagCurrent = ({ currentTag }: State, ID: string): boolean =>
+  currentTag === ID;

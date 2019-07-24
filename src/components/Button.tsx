@@ -1,13 +1,13 @@
 import React from 'react';
 
-interface Props {
+export interface Props {
   caption: string;
-  onPress: () => void;
+  onPress?: () => void;
 }
 
-const Button = ({ caption, onPress }: Props): JSX.Element => (
+export const Button = ({ caption, onPress }: Props): JSX.Element => (
   <button onClick={onPress} type="button">
     {caption}
   </button>
 );
-export default Button;
+

@@ -1,13 +1,13 @@
 import { Dispatch } from 'react';
 import { connect } from 'react-redux';
-import { Props as VideoProps, Video } from '../components/Video';
+import { Props, Video } from '../components/Video';
 import { setCurrentTime, setDuration } from '../actions/actionCreators';
 import { State } from '../types/state';
 import isVideoPlaying from '../selectors/is-video-playing';
 import { getVideoURL, getCurrentTime } from '../selectors/selectors';
 import { Action } from '../types/action';
 
-const mapStateToProps = (state: State): VideoProps => {
+const mapStateToProps = (state: State): Props => {
   return {
     playback: isVideoPlaying(state),
     url: getVideoURL(state),

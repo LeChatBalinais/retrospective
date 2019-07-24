@@ -1,22 +1,23 @@
 import { Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { State } from '../../types/state';
-import Tag from '../../types/tag';
 import { Action } from '../../types/action';
 import fetchVideoTagsAsync from './fetch-video-tags';
+import makeGetTag from '../../selectors/get-tag';
+
+const getTag = makeGetTag();
 
 export default function saveTagAsync(
-  tagID: string,
-  tag: Tag
+  ID: string
 ): ThunkAction<void, State, null, Action> {
-  return (dispatch: Dispatch<any>): void => {
+  return (dispatch: Dispatch<any>, getState: () => State): void => {
     fetch(`http://localhost:9000/addTag`, {
       method: 'post',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ tagID, tag })
+      body: JSON.stringify({ ID, tag: getTag(getState(), ID) })
     }).then(
       (response): void => {
         if (response.ok) {
