@@ -1,13 +1,19 @@
 import React from 'react';
 
-interface Props {
+export interface ValueProps {
   name: string;
-  start: number;
-  end: number;
+  start?: number;
+  end?: number;
   traceIsVisible: boolean;
+}
+
+export interface FuncProps {
   onTagTraceVisbileCheckboxInput: (visible: boolean) => void;
 }
-const TagPanelComponent = ({
+
+export type Props = ValueProps & FuncProps;
+
+export const TagPanel = ({
   name,
   start,
   end,
@@ -29,7 +35,9 @@ const TagPanelComponent = ({
           <input
             type="checkbox"
             {...{ checked: traceIsVisible, value: 'Trace Is Visible' }}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>): void => { onTagTraceVisbileCheckboxInput(event.target.checked); }}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
+              onTagTraceVisbileCheckboxInput(event.target.checked);
+            }}
           />
           Trace is Visible
         </span>
@@ -37,5 +45,3 @@ const TagPanelComponent = ({
     </div>
   );
 };
-
-export default TagPanelComponent;

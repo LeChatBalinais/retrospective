@@ -1,37 +1,31 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'react';
-import { Props, TagRow } from '../components/TagRow';
+import { ValueProps, FuncProps, TagRow } from '../components/TagRow';
 import { State } from '../types/state';
 import {
   setCurrentTag,
   seekToTag,
   setUserSeek
 } from '../actions/actionCreators';
-import saveTagAsync from '../actions/asyncActionCreators/save-tag';
-import deleteTagAsync from '../actions/asyncActionCreators/delete-tag';
-import store from '../store';
 import makeIsTagLocal from '../selectors/is-tag-local';
 import { isTagCurrent } from '../selectors/selectors';
 import { Action } from '../types/action';
 
-const onPress = (tagID: string, isLocal: boolean): (() => void) => {
-  if (isLocal)
-    return (): void => {
-      store.dispatch(saveTagAsync(tagID));
-    };
+type MapStateToProps = (state: State, { ID }: Props) => ValueProps;
 
-  return (): void => {
-    store.dispatch(deleteTagAsync(tagID));
-  };
-};
-
-const makeMapStateToProps = (): ((
-  state: State,
+type MapDispatchToProps = (
+  dispatch: Dispatch<Action>,
   { ID }: { ID: string }
-) => Props) => {
+) => FuncProps;
+
+interface Props {
+  ID: string;
+}
+
+const makeMapStateToProps = (): MapStateToProps => {
   const isTagLocal = makeIsTagLocal();
 
-  return (state: State, { ID }: { ID: string }): Props => {
+  return (state: State, { ID }: Props): ValueProps => {
     return {
       ID,
       isLocal: isTagLocal(state, ID),
@@ -40,21 +34,8 @@ const makeMapStateToProps = (): ((
   };
 };
 
-const makeMapDispatchToProps = (): ((
-  dispatch: Dispatch<Action>,
-  { ID }: { ID: string }
-) => {
-  onPress: () => void;
-  onMouseDown: () => void;
-}) => {
-  return (
-    dispatch: Dispatch<Action>,
-    { ID }: { ID: string }
-  ): {
-    onPress: () => void;
-    onMouseDown: () => void;
-  } => ({
-    onPress: onPress(ID, false),
+const makeMapDispatchToProps = (): MapDispatchToProps => {
+  return (dispatch: Dispatch<Action>, { ID }: Props): FuncProps => ({
     onMouseDown: (): void => {
       dispatch(setCurrentTag(ID));
       dispatch(setUserSeek(true));

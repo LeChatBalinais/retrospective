@@ -1,43 +1,53 @@
-import React from 'react';
+import { Dispatch } from 'react';
 import { connect } from 'react-redux';
-import store from '../store';
-import PlayerComponent from '../components/Player';
-import { setPlaceNewTagMode } from '../actions/actionCreators';
+import {
+  ValueProps as PlayerValueProps,
+  FuncProps as PlayerFuncProps,
+  Player
+} from '../components/Player';
 import fetchVideoTagsAsync from '../actions/asyncActionCreators/fetch-video-tags';
 import { State } from '../types/state';
+import { AnyAction } from '../types/action';
+import { getCurrentTagID, isPlaceNewTagModeOn } from '../selectors/selectors';
 
-interface Props {
-  playback: boolean;
-  currentTime: number;
-  placeNewTagMode: boolean;
-  onTagAdded: () => void;
-}
+// interface Props {
+//   currentTag: string;
+//   placeNewTagMode: boolean;
+// }
 
-class Player extends React.Component<Props, {}> {
-  public componentDidMount(): void {
-    store.dispatch(fetchVideoTagsAsync('hello'));
-  }
+// class Player extends React.Component<Props, {}> {
+//   public componentDidMount(): void {}
 
-  public render(): JSX.Element {
-    const { playback, currentTime, placeNewTagMode, onTagAdded } = this.props;
-    return (
-      <PlayerComponent
-        {...{ playback, currentTime, placeNewTagMode, onTagAdded }}
-      />
-    );
-  }
-}
+//   public render(): JSX.Element {
+//     const { currentTag, placeNewTagMode } = this.props;
+//     return (
+//       <PlayerComponent
+//         {...{
+//           currentTag,
+//           placeNewTagMode,
+//           onComponentDidMount: (): void => {
+//             store.dispatch(fetchVideoTagsAsync('hello'));
+//           }
+//         }}
+//       />
+//     );
+//   }
+// }
 
-const mapStateToProps = ({
-  superVideoState: { playback, currentTime },
-  editorState: { placeNewTagMode }
-}: State): Props => ({
-  playback,
-  currentTime,
-  placeNewTagMode,
-  onTagAdded: (): void => {
-    store.dispatch(setPlaceNewTagMode(false));
+const mapStateToProps = (state: State): PlayerValueProps => ({
+  currentTag: getCurrentTagID(state),
+  placeNewTagMode: isPlaceNewTagModeOn(state)
+});
+
+const mapDispatchToProps = (
+  dispatch: Dispatch<AnyAction>
+): PlayerFuncProps => ({
+  onComponentDidMount: (): void => {
+    dispatch(fetchVideoTagsAsync('hello'));
   }
 });
 
-export default connect(mapStateToProps)(Player);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Player);

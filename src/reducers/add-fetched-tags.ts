@@ -8,6 +8,7 @@ const addFetchedMarks = (state: State, action: AddFetchedTags): State => {
 
   const {
     localTags,
+    currentTag,
     tags: { byID: tagsByID }
   } = state;
 
@@ -30,10 +31,15 @@ const addFetchedMarks = (state: State, action: AddFetchedTags): State => {
     (ID: string): boolean => !fetchedAllIDs.includes(ID)
   );
 
+  let newCurrentTag = currentTag;
+
+  if (!allIDs.includes(currentTag)) newCurrentTag = undefined;
+
   return {
     ...state,
     tags: { byID, allIDs },
-    localTags: updatedLocalTags
+    localTags: updatedLocalTags,
+    currentTag: newCurrentTag
   };
 };
 

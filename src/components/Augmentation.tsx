@@ -87,7 +87,7 @@ class Augmentation extends React.Component<Props, {}> {
 
     const tagContainers = tagIDs.map(
       (tagID: string): React.ReactNode => (
-        <TagContainer {...{ key: tagID, tagID }} />
+        <TagContainer {...{ key: tagID, ID: tagID }} />
       )
     );
 

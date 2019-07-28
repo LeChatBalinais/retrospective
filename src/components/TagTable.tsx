@@ -1,9 +1,11 @@
 import React from 'react';
 import TagRowContainer from '../containers/TagRow';
 
-export interface Props {
+export interface ValueProps {
   IDs: string[];
 }
+
+type Props = ValueProps;
 
 export const TagTable = ({ IDs }: Props): JSX.Element => {
   const tagRowContainers = IDs.map(

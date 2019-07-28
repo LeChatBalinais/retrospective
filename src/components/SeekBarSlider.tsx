@@ -2,12 +2,14 @@ import React from 'react';
 
 type onSeekFunc = (currentTime: number) => void;
 
-interface Props {
+export interface ValueProps {
   position: number;
   className: string;
 }
 
-class SeekBarSlider extends React.Component<Props, {}> {
+type Props = ValueProps;
+
+export class SeekBarSlider extends React.Component<Props, {}> {
   private setRef: (slider: HTMLDivElement) => void;
 
   public render(): JSX.Element {
@@ -20,5 +22,3 @@ class SeekBarSlider extends React.Component<Props, {}> {
     return <div {...{ className }} style={style} ref={this.setRef} />;
   }
 }
-
-export default SeekBarSlider;

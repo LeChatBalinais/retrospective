@@ -1,116 +1,67 @@
-import React from 'react';
+import { Dispatch } from 'react';
 import { connect } from 'react-redux';
-import TagComponent from '../components/Tag';
-import TagState from '../types/tag';
-import store from '../store';
 import {
-  setCurrentTag,
-  setDraggedTag,
-  setPlayback
-} from '../actions/actionCreators';
+  FuncProps as TagFuncProps,
+  ValueProps as TagValueProps,
+  Tag
+} from '../components/Tag';
+import { setPlayback, mouseDownOnTagGraphics } from '../actions/actionCreators';
 import { State } from '../types/state';
+import makeGetTagInfo from '../selectors/get-tag-info';
+import isVideoPlaying from '../selectors/is-video-playing';
+import {
+  makeGetTagAppearsAt,
+  makeGetCurrentTagPosition
+} from '../selectors/tag-selectors';
+import { getCurrentTime } from '../selectors/selectors';
+import { Action } from '../types/action';
 
 interface Props {
-  tag?: TagState;
-  isDragged?: boolean;
-  duration?: number;
-  currentTime?: number;
-  playback?: boolean;
-  tagID: string;
-  offsetX?: number;
-  offsetY?: number;
-  isCurrent?: boolean;
+  ID: string;
 }
 
-const Tag = ({
-  tag,
-  isDragged,
-  duration,
-  currentTime,
-  playback,
-  tagID,
-  offsetX,
-  offsetY,
-  isCurrent
-}: Props): JSX.Element => (
-  <TagComponent
-    {...{
-      ...tag,
+type MapStateToProps = (state: State, props: Props) => TagValueProps;
+
+const makeMapStateToProps = (): MapStateToProps => {
+  const getTagInfo = makeGetTagInfo();
+  const getTagAppearsAt = makeGetTagAppearsAt();
+  const getCurrentTagPosition = makeGetCurrentTagPosition();
+
+  return (state: State, { ID }: Props): TagValueProps => {
+    const { path, isEdited: dragged, isCurrent } = getTagInfo(state, ID);
+    const { time, x, y } = getTagAppearsAt(state, ID);
+    const { x: offsetX, y: offsetY } = getCurrentTagPosition(state, ID);
+    const currentTime = getCurrentTime(state) - time;
+    const playback = isVideoPlaying(state);
+
+    return {
       className: 'Tag',
-      duration,
+      path,
+      x,
+      y,
+      dragged,
       currentTime,
-      dragged: isDragged,
       playback,
       offsetX,
       offsetY,
-      isCurrent,
-      onMouseDown: (): void => {
-        if (!isCurrent) {
-          store.dispatch(setCurrentTag(tagID));
-          return;
-        }
-
-        store.dispatch(setDraggedTag(tagID));
-        store.dispatch(setPlayback(true));
-      },
-      onMouseUp: (): void => {
-        store.dispatch(setPlayback(false));
-      }
-    }}
-  />
-);
-
-const mapStateToProps = (
-  {
-    tags: { byID },
-    superVideoState: { playback, currentTime, userSeek },
-    draggedTag,
-    currentTag
-  }: State,
-  { tagID }: Props
-): Props => {
-  const tag = byID[tagID];
-
-  const { path } = tag;
-  let offsetX = 0;
-  let offsetY = 0;
-
-  if (currentTime < path[0].time) {
-    offsetX = path[0].x;
-    offsetY = path[0].y;
-  } else if (currentTime > path[path.length - 1].time) {
-    offsetX = path[path.length - 1].x;
-    offsetY = path[path.length - 1].y;
-  } else {
-    for (let i = 0; i < path.length; i += 1) {
-      if (path[i].time === currentTime) {
-        offsetX = path[i].x;
-        offsetY = path[i].y;
-      } else if (
-        path[i].time <= currentTime &&
-        path[i + 1].time >= currentTime
-      ) {
-        offsetX = (path[i].x + path[i + 1].x) / 2;
-        offsetY = (path[i].y + path[i + 1].y) / 2;
-      }
-    }
-  }
-
-  let duration = 0;
-
-  if (path.length > 1) duration = path[path.length - 1].time - path[0].time;
-
-  return {
-    tag,
-    isDragged: draggedTag === tagID,
-    tagID,
-    duration,
-    currentTime: currentTime - path[0].time,
-    playback: playback && !userSeek,
-    offsetX,
-    offsetY,
-    isCurrent: tagID === currentTag
+      isCurrent
+    };
   };
 };
 
-export default connect(mapStateToProps)(Tag);
+const mapDispatchToProps = (
+  dispatch: Dispatch<Action>,
+  { ID }: Props
+): TagFuncProps => ({
+  onMouseDown: (): void => {
+    dispatch(mouseDownOnTagGraphics(ID));
+  },
+  onMouseUp: (): void => {
+    dispatch(setPlayback(false));
+  }
+});
+
+export default connect(
+  makeMapStateToProps,
+  mapDispatchToProps
+)(Tag);

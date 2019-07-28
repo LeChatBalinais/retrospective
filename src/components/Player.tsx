@@ -8,18 +8,33 @@ import ActiveTagsPanel from '../containers/ActiveTagsPanel';
 import TagPanelContainer from '../containers/TagPanel';
 import GraphicalAugmentation from '../containers/GraphicalAugmentation';
 
-interface Props {
+export interface ValueProps {
   placeNewTagMode: boolean;
+  currentTag: string;
 }
 
-class Player extends React.Component<Props, {}> {
-  public componentDidMount(): void { }
+export interface FuncProps {
+  onComponentDidMount: () => void;
+}
+
+type Props = ValueProps & FuncProps;
+
+export class Player extends React.Component<Props, {}> {
+  public componentDidMount(): void {
+    const { onComponentDidMount } = this.props;
+
+    onComponentDidMount();
+  }
 
   public render(): JSX.Element {
-    const { placeNewTagMode } = this.props;
+    const { placeNewTagMode, currentTag } = this.props;
 
     let newTagLayerComponent = null;
     if (placeNewTagMode) newTagLayerComponent = <NewTagLayerContainer />;
+
+    let currentTagPanel = null;
+    if (currentTag)
+      currentTagPanel = <TagPanelContainer {...{ ID: currentTag }} />;
 
     return (
       <div>
@@ -33,11 +48,9 @@ class Player extends React.Component<Props, {}> {
           <SeekBar />
           <ControlPanel />
           <ActiveTagsPanel />
-          <TagPanelContainer />
+          {currentTagPanel}
         </div>
       </div>
     );
   }
 }
-
-export default Player;

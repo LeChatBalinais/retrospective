@@ -1,19 +1,24 @@
 import React from 'react';
 import TagExistanceStatusButton from '../containers/TagExistanceStatusButton';
 
-export interface Props {
+export interface ValueProps {
   ID: string;
   isLocal: boolean;
   isCurrent: boolean;
-  onMouseDown?: () => void;
 }
+
+export interface FuncProps {
+  onMouseDown: () => void;
+}
+
+export type Props = ValueProps & FuncProps;
+
 export const TagRow = ({
   ID,
   isLocal,
   isCurrent,
   onMouseDown
 }: Props): JSX.Element => {
-
   let className = 'box';
 
   if (isCurrent) className = className.concat(' current-tag-row');
@@ -32,7 +37,7 @@ export const TagRow = ({
       }}
     >
       <span>{ID} </span>
-      <TagExistanceStatusButton {...{ ID, isLocal }}></TagExistanceStatusButton>
+      <TagExistanceStatusButton {...{ ID, isLocal }} />
     </div>
   );
 };

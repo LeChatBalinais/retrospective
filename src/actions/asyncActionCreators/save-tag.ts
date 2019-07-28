@@ -17,7 +17,7 @@ export default function saveTagAsync(
         Accept: 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ ID, tag: getTag(getState(), ID) })
+      body: JSON.stringify({ tagID: ID, tag: getTag(getState(), ID) })
     }).then(
       (response): void => {
         if (response.ok) {

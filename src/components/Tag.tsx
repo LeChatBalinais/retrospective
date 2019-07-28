@@ -7,23 +7,27 @@ import {
   getAnimationPropsWithUpdatedTarget
 } from '../interactivity/element-animation';
 
-interface Props {
+export interface ValueProps {
   x: number;
   y: number;
   offsetX: number;
   offsetY: number;
-  duration: number;
   path: { time: number; x: number; y: number }[];
   currentTime: number;
   className: string;
   dragged: boolean;
   playback: boolean;
   isCurrent: boolean;
+}
+
+export interface FuncProps {
   onMouseDown: () => void;
   onMouseUp: () => void;
 }
 
-class Tag extends React.Component<Props, {}> {
+export type Props = ValueProps & FuncProps;
+
+export class Tag extends React.Component<Props, {}> {
   public constructor(props: Props) {
     super(props);
 
@@ -146,5 +150,3 @@ class Tag extends React.Component<Props, {}> {
     );
   }
 }
-
-export default Tag;

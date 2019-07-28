@@ -1,13 +1,15 @@
 import React from 'react';
 
-export interface Props {
-  points?: string;
+export interface ValueProps {
+  points: string;
 }
 
-export const TagTrace = (props: Props): JSX.Element => (
+type Props = ValueProps;
+
+export const TagTrace = ({ points }: Props): JSX.Element => (
   <polyline
     className="tag-trace"
-    {...props}
+    {...{ points }}
     vectorEffect="non-scaling-stroke"
   />
 );

@@ -1,33 +1,23 @@
-import React from 'react';
+import { Dispatch } from 'react';
 import { connect } from 'react-redux';
-import store from '../store';
-import { State } from '../types/state';
-import SeekBarComponent from '../components/SeekBar';
+import { SeekBar, FuncProps as SeekBarFuncProps } from '../components/SeekBar';
 import { setCurrentTime, setUserSeek } from '../actions/actionCreators';
+import { Action } from '../types/action';
 
-interface Props {
-  duration: number;
-}
-
-const SeekBar = ({ duration }: Props): JSX.Element => {
-  return (
-    <SeekBarComponent
-      onMouseDown={(relativePosition: number): void => {
-        store.dispatch(setUserSeek(true));
-        store.dispatch(setCurrentTime(duration * (relativePosition / 100)));
-      }}
-      onMouseUp={(): void => {
-        store.dispatch(setUserSeek(false));
-      }}
-      onMouseMove={(relativePosition: number): void => {
-        store.dispatch(setCurrentTime(duration * (relativePosition / 100)));
-      }}
-    />
-  );
-};
-
-const mapStateToProps = ({ superVideoState: { duration } }: State): Props => ({
-  duration
+const mapDispatchToProps = (dispatch: Dispatch<Action>): SeekBarFuncProps => ({
+  onMouseDown: (relativePosition: number): void => {
+    dispatch(setUserSeek(true));
+    dispatch(setCurrentTime(relativePosition / 100, true));
+  },
+  onMouseUp: (): void => {
+    dispatch(setUserSeek(false));
+  },
+  onMouseMove: (relativePosition: number): void => {
+    dispatch(setCurrentTime(relativePosition / 100, true));
+  }
 });
 
-export default connect(mapStateToProps)(SeekBar);
+export default connect(
+  undefined,
+  mapDispatchToProps
+)(SeekBar);

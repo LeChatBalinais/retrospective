@@ -1,9 +1,13 @@
 import { connect } from 'react-redux';
-import { Props, TagTable } from '../components/TagTable';
+import {
+  ValueProps as TagTableValueProps,
+  TagTable
+} from '../components/TagTable';
 import { State } from '../types/state';
+import { getTagIDs } from '../selectors/selectors';
 
-const mapStateToProps = ({ tags: { allIDs: IDs } }: State): Props => {
-  return { IDs };
+const mapStateToProps = (state: State): TagTableValueProps => {
+  return { IDs: getTagIDs(state) };
 };
 
 export default connect(mapStateToProps)(TagTable);

@@ -6,13 +6,18 @@ import { TweenMax } from 'gsap';
 type OnTimeUpdate = (currentTime: number) => void;
 type OnDurationChangeFunc = (duration: number) => void;
 
-export interface Props {
+export interface ValueProps {
   url: string;
   playback: boolean;
   currentTime?: number;
-  onTimeUpdate?: OnTimeUpdate;
-  onDurationChange?: OnDurationChangeFunc;
 }
+
+export interface FuncProps {
+  onTimeUpdate: OnTimeUpdate;
+  onDurationChange: OnDurationChangeFunc;
+}
+
+export type Props = ValueProps & FuncProps;
 
 export class Video extends React.Component<Props, {}> {
   public constructor(props: Props) {

@@ -1,4 +1,5 @@
-import { Tags } from './state';
+import { ThunkAction } from 'redux-thunk';
+import { Tags, State } from './state';
 
 export interface SetPlayback {
   type: 'SET_PLAYBACK';
@@ -12,7 +13,7 @@ export interface SetPlaceNewTagMode {
 
 export interface SetCurrentTime {
   type: 'SET_CURRENT_TIME';
-  payload: number;
+  payload: { time: number; isNormalized: boolean };
 }
 export interface SetDuration {
   type: 'SET_DURATION';
@@ -51,7 +52,12 @@ export interface SeekToTag {
 
 export interface SetTagTraceVisible {
   type: 'SET_TAG_TRACE_VISIBLE';
-  payload: { ID: string; visible: boolean }
+  payload: { ID: string; visible: boolean };
+}
+
+export interface MouseDownOnTagGraphics {
+  type: 'MOUSE_DOWN_ON_TAG_GRAPHICS';
+  payload: { ID: string };
 }
 
 export type Action =
@@ -66,4 +72,7 @@ export type Action =
   | AddFetchedTags
   | SetCurrentTag
   | SeekToTag
-  | SetTagTraceVisible;
+  | SetTagTraceVisible
+  | MouseDownOnTagGraphics;
+
+export type AnyAction = Action | ThunkAction<void, State, null, Action>;

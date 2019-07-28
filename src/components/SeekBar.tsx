@@ -6,13 +6,15 @@ import {
   newMouseListener
 } from '../interactivity/track-pointer-on';
 
-interface Props {
+export interface FuncProps {
   onMouseDown: (relativePosition: number) => void;
   onMouseMove: (relativePosition: number) => void;
   onMouseUp: () => void;
 }
 
-class SeekBar extends React.Component<Props, {}> {
+type Props = FuncProps;
+
+export class SeekBar extends React.Component<Props, {}> {
   public constructor(props: Props) {
     super(props);
 
@@ -71,4 +73,3 @@ class SeekBar extends React.Component<Props, {}> {
     );
   }
 }
-export default SeekBar;

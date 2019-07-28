@@ -10,7 +10,8 @@ import {
   ADD_FETCHED_TAGS,
   SET_CURRENT_TAG,
   SEEK_TO_TAG,
-  SET_TAG_TRACE_VISIBLE
+  SET_TAG_TRACE_VISIBLE,
+  MOUSE_DOWN_ON_TAG_GRAPHICS
 } from './actions';
 
 import {
@@ -25,7 +26,8 @@ import {
   AddFetchedTags,
   SetCurrentTag,
   SeekToTag,
-  SetTagTraceVisible
+  SetTagTraceVisible,
+  MouseDownOnTagGraphics
 } from '../types/action';
 import { Tags } from '../types/state';
 
@@ -37,8 +39,14 @@ export function setPlaceNewTagMode(on: boolean): SetPlaceNewTagMode {
   return { type: SET_PLACE_NEW_TAG_MODE, payload: on };
 }
 
-export function setCurrentTime(currentTime: number): SetCurrentTime {
-  return { type: SET_CURRENT_TIME, payload: currentTime };
+export function setCurrentTime(
+  currentTime: number,
+  isNormalized: boolean = false
+): SetCurrentTime {
+  return {
+    type: SET_CURRENT_TIME,
+    payload: { time: currentTime, isNormalized }
+  };
 }
 
 export function setDuration(duration: number): SetDuration {
@@ -73,6 +81,13 @@ export function seekToTag(ID: string): SeekToTag {
   return { type: SEEK_TO_TAG, payload: ID };
 }
 
-export function setTagTraceVisible(ID: string, visible: boolean): SetTagTraceVisible {
+export function setTagTraceVisible(
+  ID: string,
+  visible: boolean
+): SetTagTraceVisible {
   return { type: SET_TAG_TRACE_VISIBLE, payload: { ID, visible } };
+}
+
+export function mouseDownOnTagGraphics(ID: string): MouseDownOnTagGraphics {
+  return { type: MOUSE_DOWN_ON_TAG_GRAPHICS, payload: { ID } };
 }
