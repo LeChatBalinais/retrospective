@@ -1,28 +1,14 @@
-import React from 'react';
 import { connect } from 'react-redux';
-import GraphicalAugmentationComponent from '../components/GraphicalAugmentation';
+import {
+  ValueProps,
+  GraphicalAugmentation
+} from '../components/GraphicalAugmentation';
 import { State } from '../types/state';
+import { getVisibleTraceTagIDs } from '../selectors/selectors';
 
-interface Props {
-  tagIDs: string[];
-}
-
-const GraphicalAugmentation = ({ tagIDs }: Props): JSX.Element => (
-  <GraphicalAugmentationComponent {...{ tagIDs }} />
-);
-
-const mapStateToProps = ({
-  tags: { byID },
-  visibleTraceTags
-}: State): Props => {
+const mapStateToProps = (state: State): ValueProps => {
   const result = {
-    tagIDs: visibleTraceTags.filter(
-      (ID: string): boolean => {
-        if (byID[ID].path.length === 0) return false;
-
-        return true;
-      }
-    )
+    tagIDs: getVisibleTraceTagIDs(state)
   };
   return result;
 };

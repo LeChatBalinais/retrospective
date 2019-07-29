@@ -1,11 +1,13 @@
 import React from 'react';
 import ActiveTagLabel from '../containers/ActiveTagLabel';
 
-interface Props {
+export interface ValueProps {
   IDs: string[];
 }
 
-const ActiveTagsPanel = ({ IDs }: Props): JSX.Element => {
+type Props = ValueProps;
+
+export const ActiveTagsPanel = ({ IDs }: Props): JSX.Element => {
   const tagRowContainers = IDs.map(
     (ID: string): JSX.Element => {
       return <ActiveTagLabel {...{ key: ID, ID }} />;
@@ -17,5 +19,3 @@ const ActiveTagsPanel = ({ IDs }: Props): JSX.Element => {
     </div>
   );
 };
-
-export default ActiveTagsPanel;

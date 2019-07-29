@@ -14,7 +14,7 @@ export interface ValueProps {
 }
 
 export interface FuncProps {
-  onComponentDidMount: () => void;
+  onComponentDidMount?: () => void;
 }
 
 type Props = ValueProps & FuncProps;

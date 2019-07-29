@@ -1,31 +1,22 @@
-import React from 'react';
+import { Dispatch } from 'react';
 import { connect } from 'react-redux';
-import store from '../store';
-import { Button } from '../components/Button';
+import { ValueProps, FuncProps, Button } from '../components/Button';
 import { setPlayback } from '../actions/actionCreators';
 import { State } from '../types/state';
+import { getPlayback } from '../selectors/selectors';
+import { Action } from '../types/action';
 
-interface Props {
-  playback: boolean;
-}
-
-const PlayButtonContainer = ({ playback }): JSX.Element => {
-  let caption = 'Play';
-
-  if (playback) caption = 'Pause';
-
-  return (
-    <Button
-      caption={caption}
-      onPress={(): void => {
-        store.dispatch(setPlayback(!playback));
-      }}
-    />
-  );
-};
-
-const mapStateToProps = ({ superVideoState: { playback } }: State): Props => ({
-  playback
+const mapStateToProps = (state: State): ValueProps => ({
+  caption: getPlayback(state) ? 'Pause' : 'Play'
 });
 
-export default connect(mapStateToProps)(PlayButtonContainer);
+const mapDispatchToProps = (dispatch: Dispatch<Action>): FuncProps => ({
+  onPress: (): void => {
+    dispatch(setPlayback());
+  }
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Button);

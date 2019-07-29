@@ -1,33 +1,22 @@
-import React from 'react';
+import { Dispatch } from 'react';
 import { connect } from 'react-redux';
-import store from '../store';
-import { Button } from '../components/Button';
+import { ValueProps, FuncProps, Button } from '../components/Button';
 import { setPlaceNewTagMode } from '../actions/actionCreators';
 import { State } from '../types/state';
+import { isPlaceNewTagModeOn } from '../selectors/selectors';
+import { Action } from '../types/action';
 
-interface Props {
-  placeNewTagMode: boolean;
-}
-
-const PlayButtonContainer = ({ placeNewTagMode }): JSX.Element => {
-  let caption = 'Place New Tag';
-
-  if (placeNewTagMode) caption = 'X';
-
-  return (
-    <Button
-      caption={caption}
-      onPress={(): void => {
-        store.dispatch(setPlaceNewTagMode(!placeNewTagMode));
-      }}
-    />
-  );
-};
-
-const mapStateToProps = ({
-  editorState: { placeNewTagMode }
-}: State): Props => ({
-  placeNewTagMode
+const mapStateToProps = (state: State): ValueProps => ({
+  caption: isPlaceNewTagModeOn(state) ? 'X' : 'Place New Tag'
 });
 
-export default connect(mapStateToProps)(PlayButtonContainer);
+const mapDispatchToProps = (dispatch: Dispatch<Action>): FuncProps => ({
+  onPress: (): void => {
+    dispatch(setPlaceNewTagMode());
+  }
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Button);

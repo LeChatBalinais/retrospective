@@ -2,9 +2,19 @@ import { State } from '../types/state';
 import { UpdateTagPath } from '../types/action';
 
 const updateTagPath = (state: State, action: UpdateTagPath): State => {
-  const {
-    payload: { ID, x, y }
+  let {
+    payload: { ID }
   } = action;
+
+  const {
+    payload: { x, y }
+  } = action;
+
+  if (ID === undefined) {
+    ({ draggedTag: ID } = state);
+  }
+
+  if (ID === undefined) return state;
 
   const {
     superVideoState: { currentTime },

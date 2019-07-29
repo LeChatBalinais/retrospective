@@ -1,8 +1,10 @@
 import React from 'react';
 
-interface Props {
+export interface FuncProps {
   onClick: (x: number, y: number) => void;
 }
+
+type Props = FuncProps;
 
 function createOnClick(
   onClick: (x: number, y: number) => void
@@ -16,11 +18,10 @@ function createOnClick(
   };
 }
 
-const NewTagLayer = ({ onClick }: Props): JSX.Element => (
+export const NewTagLayer = ({ onClick }: Props): JSX.Element => (
   // eslint-disable-next-line
   <div
     className="augmentation addition-layer"
     onClick={createOnClick(onClick)}
   />
 );
-export default NewTagLayer;

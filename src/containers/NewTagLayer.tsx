@@ -1,20 +1,22 @@
-import React from 'react';
-import store from '../store';
+import { Dispatch } from 'react';
+import { connect } from 'react-redux';
 import {
   addNewTag,
   setPlaceNewTagMode,
   setPlayback
 } from '../actions/actionCreators';
-import NewTagLayerComponent from '../components/NewTagLayer';
+import { FuncProps, NewTagLayer } from '../components/NewTagLayer';
+import { Action } from '../types/action';
 
-const NewTagLayer = (): JSX.Element => (
-  <NewTagLayerComponent
-    onClick={(x: number, y: number): void => {
-      store.dispatch(setPlayback(false));
-      store.dispatch(setPlaceNewTagMode(false));
-      store.dispatch(addNewTag(x, y));
-    }}
-  />
-);
+const mapDispatchToProps = (dispatch: Dispatch<Action>): FuncProps => ({
+  onClick: (x: number, y: number): void => {
+    dispatch(setPlayback(false));
+    dispatch(setPlaceNewTagMode(false));
+    dispatch(addNewTag(x, y));
+  }
+});
 
-export default NewTagLayer;
+export default connect(
+  undefined,
+  mapDispatchToProps
+)(NewTagLayer);

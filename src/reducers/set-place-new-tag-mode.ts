@@ -5,7 +5,15 @@ const setPlaceNewTagMode = (
   state: State,
   action: SetPlaceNewTagMode
 ): State => {
-  const { payload: on } = action;
+  let { payload: on } = action;
+
+  if (on === undefined) {
+    ({
+      editorState: { placeNewTagMode: on }
+    } = state);
+    on = !on;
+  }
+
   return {
     ...state,
     editorState: {

@@ -1,21 +1,30 @@
-import React from 'react';
-import ActiveTagLabelComponent from '../components/ActiveTagLabel';
+import { Dispatch } from 'react';
+import { connect } from 'react-redux';
+import {
+  ValueProps,
+  FuncProps,
+  ActiveTagLabel
+} from '../components/ActiveTagLabel';
 import { setCurrentTag } from '../actions/actionCreators';
-import store from '../store';
+import { State } from '../types/state';
+import { Action } from '../types/action';
 
 interface Props {
   ID: string;
 }
 
-const ActiveTagLabel = ({ ID }: Props): JSX.Element => (
-  <ActiveTagLabelComponent
-    {...{
-      ID,
-      onMouseDown: (): void => {
-        store.dispatch(setCurrentTag(ID));
-      }
-    }}
-  />
-);
+const mapDispatchToProps = (
+  dispatch: Dispatch<Action>,
+  { ID }: Props
+): FuncProps => ({
+  onMouseDown: (): void => {
+    dispatch(setCurrentTag(ID));
+  }
+});
 
-export default ActiveTagLabel;
+const mapStateToProps = (state: State, { ID }: Props): ValueProps => ({ ID });
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ActiveTagLabel);

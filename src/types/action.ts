@@ -3,12 +3,12 @@ import { Tags, State } from './state';
 
 export interface SetPlayback {
   type: 'SET_PLAYBACK';
-  payload: boolean;
+  payload?: boolean;
 }
 
 export interface SetPlaceNewTagMode {
   type: 'SET_PLACE_NEW_TAG_MODE';
-  payload: boolean;
+  payload?: boolean;
 }
 
 export interface SetCurrentTime {
@@ -33,7 +33,7 @@ export interface SetDraggedTag {
 }
 export interface UpdateTagPath {
   type: 'UPDATE_TAG_PATH';
-  payload: { ID: string; x: number; y: number };
+  payload: { ID?: string; x: number; y: number };
 }
 export interface AddFetchedTags {
   type: 'ADD_FETCHED_TAGS';

@@ -1,11 +1,13 @@
 import React from 'react';
 import TagTrace from '../containers/TagTrace';
 
-interface Props {
+export interface ValueProps {
   tagIDs: string[];
 }
 
-const GraphicalAugmentation = ({ tagIDs }: Props): JSX.Element => {
+type Props = ValueProps;
+
+export const GraphicalAugmentation = ({ tagIDs }: Props): JSX.Element => {
   const tagTraceContainers = tagIDs.map(
     (tagID: string): React.ReactNode => <TagTrace {...{ key: tagID, tagID }} />
   );
@@ -21,5 +23,3 @@ const GraphicalAugmentation = ({ tagIDs }: Props): JSX.Element => {
     </div>
   );
 };
-
-export default GraphicalAugmentation;

@@ -1,10 +1,15 @@
 import React from 'react';
 
-interface Props {
+export interface ValueProps {
   ID: string;
+}
+export interface FuncProps {
   onMouseDown: () => void;
 }
-const ActiveTagLabel = ({ ID, onMouseDown }: Props): JSX.Element => {
+
+type Props = ValueProps & FuncProps;
+
+export const ActiveTagLabel = ({ ID, onMouseDown }: Props): JSX.Element => {
   return (
     /* eslint-disable-next-line */
     <div
@@ -22,5 +27,3 @@ const ActiveTagLabel = ({ ID, onMouseDown }: Props): JSX.Element => {
     </div>
   );
 };
-
-export default ActiveTagLabel;

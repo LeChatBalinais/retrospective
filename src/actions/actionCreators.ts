@@ -31,11 +31,11 @@ import {
 } from '../types/action';
 import { Tags } from '../types/state';
 
-export function setPlayback(on: boolean): SetPlayback {
+export function setPlayback(on?: boolean): SetPlayback {
   return { type: SET_PLAYBACK, payload: on };
 }
 
-export function setPlaceNewTagMode(on: boolean): SetPlaceNewTagMode {
+export function setPlaceNewTagMode(on?: boolean): SetPlaceNewTagMode {
   return { type: SET_PLACE_NEW_TAG_MODE, payload: on };
 }
 
@@ -65,7 +65,11 @@ export function setDraggedTag(ID: string): SetDraggedTag {
   return { type: SET_DRAGGED_TAG, payload: { ID } };
 }
 
-export function updateTagPath(ID: string, x: number, y: number): UpdateTagPath {
+export function updateTagPath(
+  x: number,
+  y: number,
+  ID?: string
+): UpdateTagPath {
   return { type: UPDATE_TAG_PATH, payload: { ID, x, y } };
 }
 

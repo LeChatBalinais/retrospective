@@ -1,14 +1,19 @@
 import React from 'react';
 import TagContainer from '../containers/Tag';
 
-interface Props {
+export interface ValueProps {
   tagIDs: string[];
+}
+
+export interface FuncProps {
   onMouseDown: () => void;
   onMouseMove: (x: number, y: number) => void;
   onMouseUp: (x: number, y: number) => void;
 }
 
-class Augmentation extends React.Component<Props, {}> {
+type Props = ValueProps & FuncProps;
+
+export class Augmentation extends React.Component<Props, {}> {
   public constructor(props: Props) {
     super(props);
 
@@ -107,5 +112,3 @@ class Augmentation extends React.Component<Props, {}> {
     );
   }
 }
-
-export default Augmentation;
