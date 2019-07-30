@@ -4,7 +4,7 @@ import {
   TagTrace
 } from '../components/TagTrace';
 import { State } from '../types/state';
-import makeGetTagTracePoints from '../selectors/get-tag-trace-points';
+import makeGetTagTracePoints from '../selectors/tag-selectors/get-tag-trace-points';
 
 const makeMapStateToProps = (): ((
   state: State,

@@ -9,7 +9,8 @@ import { State } from '../types/state';
 import {
   setCurrentTag,
   updateTagPath,
-  setDraggedTag
+  setDraggedTag,
+  actionCombination
 } from '../actions/actionCreators';
 import getVisibleTagIDs from '../selectors/get-visible-tag-ids';
 import { Action } from '../types/action';
@@ -26,8 +27,9 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>): FuncProps => ({
     dispatch(updateTagPath(x, y));
   },
   onMouseUp: (x: number, y: number): void => {
-    dispatch(updateTagPath(x, y));
-    dispatch(setDraggedTag(undefined));
+    dispatch(
+      actionCombination([updateTagPath(x, y), setDraggedTag(undefined)])
+    );
   }
 });
 

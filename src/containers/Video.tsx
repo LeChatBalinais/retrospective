@@ -11,7 +11,7 @@ const mapStateToProps = (state: State): ValueProps => {
   return {
     playback: isVideoPlaying(state),
     url: getVideoURL(state),
-    currentTime: isVideoPlaying(state) ? undefined : getCurrentTime(state)
+    currentTime: getCurrentTime(state)
   };
 };
 

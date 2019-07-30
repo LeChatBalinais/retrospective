@@ -5,9 +5,10 @@ import { State } from '../types/state';
 import {
   setCurrentTag,
   seekToTag,
-  setUserSeek
+  setUserSeek,
+  actionCombination
 } from '../actions/actionCreators';
-import makeIsTagLocal from '../selectors/is-tag-local';
+import { makeIsTagLocal } from '../selectors/tag-selectors';
 import { isTagCurrent } from '../selectors/selectors';
 import { Action } from '../types/action';
 
@@ -37,9 +38,9 @@ const makeMapStateToProps = (): MapStateToProps => {
 const makeMapDispatchToProps = (): MapDispatchToProps => {
   return (dispatch: Dispatch<Action>, { ID }: Props): FuncProps => ({
     onMouseDown: (): void => {
-      dispatch(setCurrentTag(ID));
-      dispatch(setUserSeek(true));
-      dispatch(seekToTag(ID));
+      dispatch(
+        actionCombination([setCurrentTag(ID), setUserSeek(true), seekToTag(ID)])
+      );
       setTimeout((): void => {
         dispatch(setUserSeek(false));
       }, 100);

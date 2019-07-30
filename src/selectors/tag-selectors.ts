@@ -1,108 +1,114 @@
 import { createSelector, OutputParametricSelector } from 'reselect';
-import { getCurrentTime } from './selectors';
+import { getCurrentTime, getLocalTagIDs } from './selectors';
 import { State, Tag } from '../types/state';
 import makeGetTag from './get-tag';
 
-
 export const makeGetTagAppearsAt = (): OutputParametricSelector<
-    State,
-    string,
-    { time: number, x: number, y: number },
-    (res: Tag) => { time: number, x: number, y: number }
+  State,
+  string,
+  { time: number; x: number; y: number },
+  (res: Tag) => { time: number; x: number; y: number }
 > => {
+  const getTag = makeGetTag();
 
-    const getTag = makeGetTag();
+  return createSelector(
+    [getTag],
+    (tag: Tag): { time: number; x: number; y: number } => {
+      if (tag === undefined) return undefined;
 
-    return createSelector(
-        [getTag],
-        (tag: Tag): { time: number, x: number, y: number } => {
-            if (tag === undefined) return undefined;
+      const { path } = tag;
 
-            const { path } = tag;
+      if (path.length === 0) return undefined;
 
-            if (path.length === 0) return undefined;
+      const [appearsAt] = path;
 
-            const [appearsAt] = path;
-
-            return appearsAt;
-        }
-    );
+      return appearsAt;
+    }
+  );
 };
 
 export const makeGetTagDisappearsAt = (): OutputParametricSelector<
-    State,
-    string,
-    { time: number, x: number, y: number },
-    (res: Tag) => { time: number, x: number, y: number }
+  State,
+  string,
+  { time: number; x: number; y: number },
+  (res: Tag) => { time: number; x: number; y: number }
 > => {
+  const getTag = makeGetTag();
 
-    const getTag = makeGetTag();
+  return createSelector(
+    [getTag],
+    (tag: Tag): { time: number; x: number; y: number } => {
+      if (tag === undefined) return undefined;
 
-    return createSelector(
-        [getTag],
-        (tag: Tag): { time: number, x: number, y: number } => {
+      const { path } = tag;
 
-            if (tag === undefined) return undefined;
+      if (path.length === 0) return undefined;
 
-            const { path } = tag;
+      const { length: l, [l - 1]: disappearsAt } = path;
 
-            if (path.length === 0) return undefined;
-
-            const {
-                length: l,
-                [l - 1]: disappearsAt
-            } = path;
-
-            return disappearsAt;
-        }
-    );
+      return disappearsAt;
+    }
+  );
 };
 
 export const makeGetCurrentTagPosition = (): OutputParametricSelector<
-    State,
-    string,
-    { x: number, y: number },
-    (res: Tag, currentTime: number) => { x: number, y: number }
+  State,
+  string,
+  { x: number; y: number },
+  (res: Tag, currentTime: number) => { x: number; y: number }
 > => {
-    const getTag = makeGetTag();
+  const getTag = makeGetTag();
 
-    return createSelector([getTag, getCurrentTime], ({ path }: Tag, currentTime: number): { x: number, y: number } => {
+  return createSelector(
+    [getTag, getCurrentTime],
+    ({ path }: Tag, currentTime: number): { x: number; y: number } => {
+      if (path.length === 0) return undefined;
 
-        if (path.length === 0)
-            return undefined;
+      let x = 0;
+      let y = 0;
 
-        let x = 0;
-        let y = 0;
+      const { length: l, 0: firstPoint, [l - 1]: lastPoint } = path;
 
-        const { length: l, 0: firstPoint, [l - 1]: lastPoint } = path;
+      if (currentTime < firstPoint.time) {
+        ({ x, y } = firstPoint);
+      } else if (currentTime > lastPoint.time) {
+        ({ x, y } = lastPoint);
+      } else {
+        for (let i = 0; i < path.length; i += 1) {
+          const { [i]: iPoint } = path;
 
-        if (currentTime < firstPoint.time) {
-            ({ x, y } = firstPoint);
-        } else if (currentTime > lastPoint.time) {
-            ({ x, y } = lastPoint);
-        } else {
-            for (let i = 0; i < path.length; i += 1) {
-
-                const { [i]: iPoint } = path;
-
-                if (path[i].time === currentTime) {
-                    ({ x } = iPoint);
-                    ({ y } = iPoint);
-                    break;
-                }
-                else {
-                    const { [i + 1]: nextToIPoint } = path;
-                    if (
-                        iPoint.time <= currentTime &&
-                        nextToIPoint.time >= currentTime
-                    ) {
-                        x = (iPoint.x + nextToIPoint.x) / 2;
-                        y = (iPoint.y + nextToIPoint.y) / 2;
-                        break;
-                    }
-                }
+          if (path[i].time === currentTime) {
+            ({ x } = iPoint);
+            ({ y } = iPoint);
+            break;
+          } else {
+            const { [i + 1]: nextToIPoint } = path;
+            if (
+              iPoint.time <= currentTime &&
+              nextToIPoint.time >= currentTime
+            ) {
+              x = (iPoint.x + nextToIPoint.x) / 2;
+              y = (iPoint.y + nextToIPoint.y) / 2;
+              break;
             }
+          }
         }
-        return { x, y }
-    })
-}
+      }
+      return { x, y };
+    }
+  );
+};
+
+export const makeIsTagLocal = (): OutputParametricSelector<
+  State,
+  string,
+  boolean,
+  (res: string[], ID: string) => boolean
+> => {
+  return createSelector(
+    [getLocalTagIDs, (state: State, ID: string): string => ID],
+    (localTagIDs: string[], ID: string): boolean => {
+      return localTagIDs.includes(ID);
+    }
+  );
+};

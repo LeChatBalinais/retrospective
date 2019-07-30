@@ -1,3 +1,6 @@
+import DEFAULT_STATE from './default-state';
+import { State } from '../types/state';
+import { Action, ActionCombination, SimpleAction } from '../types/action';
 import {
   SET_PLAYBACK,
   SET_PLACE_NEW_TAG_MODE,
@@ -11,9 +14,9 @@ import {
   SET_CURRENT_TAG,
   SEEK_TO_TAG,
   SET_TAG_TRACE_VISIBLE,
-  MOUSE_DOWN_ON_TAG_GRAPHICS
+  MOUSE_DOWN_ON_TAG_GRAPHICS,
+  ACTION_COMBINATION
 } from '../actions/actions';
-import DEFAULT_STATE from './default-state';
 import setPlayback from './set-playback';
 import setPlaceNewTagMode from './set-place-new-tag-mode';
 import setCurrentTime from './set-current-time';
@@ -23,14 +26,12 @@ import addNewTag from './add-new-tag';
 import setDraggedTag from './set-dragged-tag';
 import updateTagPath from './update-tag-path';
 import addFetchedTags from './add-fetched-tags';
-import setTagTraceVisible from './set-tag-trace-visible'
-import mouseDownOnTagGraphics from './mouse-down-on-tag-graphics'
-import { State } from '../types/state';
-import { Action } from '../types/action';
+import setTagTraceVisible from './set-tag-trace-visible';
+import mouseDownOnTagGraphics from './mouse-down-on-tag-graphics';
 import setCurrentTag from './set-current-tag';
 import seekToTag from './seek-to-tag';
 
-const rootReducer = (state: State = DEFAULT_STATE, action: Action): State => {
+const simpleActionRootReducer = (state: State, action: SimpleAction): State => {
   switch (action.type) {
     case SET_PLAYBACK: {
       return setPlayback(state, action);
@@ -74,6 +75,29 @@ const rootReducer = (state: State = DEFAULT_STATE, action: Action): State => {
     default:
       return state;
   }
+};
+
+function actionCombinationRootReducer(
+  state: State,
+  action: ActionCombination
+): State {
+  const reducer = (accumulator: State, currentValue: Action): State => {
+    if (currentValue.type === ACTION_COMBINATION)
+      return actionCombinationRootReducer(
+        accumulator,
+        currentValue as ActionCombination
+      );
+
+    return simpleActionRootReducer(accumulator, currentValue as SimpleAction);
+  };
+  return action.actions.reduce(reducer, state);
+}
+
+const rootReducer = (state: State = DEFAULT_STATE, action: Action): State => {
+  if (action.type === ACTION_COMBINATION)
+    return actionCombinationRootReducer(state, action as ActionCombination);
+
+  return simpleActionRootReducer(state, action as SimpleAction);
 };
 
 export default rootReducer;

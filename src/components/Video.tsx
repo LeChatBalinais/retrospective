@@ -9,7 +9,7 @@ type OnDurationChangeFunc = (duration: number) => void;
 export interface ValueProps {
   url: string;
   playback: boolean;
-  currentTime?: number;
+  currentTime: number;
 }
 
 export interface FuncProps {

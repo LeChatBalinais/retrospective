@@ -60,7 +60,12 @@ export interface MouseDownOnTagGraphics {
   payload: { ID: string };
 }
 
-export type Action =
+export interface ActionCombination {
+  type: 'ACTION_COMBINATION';
+  actions: Action[];
+}
+
+export type SimpleAction =
   | SetPlayback
   | SetPlaceNewTagMode
   | SetCurrentTime
@@ -74,5 +79,7 @@ export type Action =
   | SeekToTag
   | SetTagTraceVisible
   | MouseDownOnTagGraphics;
+
+export type Action = SimpleAction | ActionCombination;
 
 export type AnyAction = Action | ThunkAction<void, State, null, Action>;

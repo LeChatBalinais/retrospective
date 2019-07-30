@@ -11,7 +11,8 @@ import {
   SET_CURRENT_TAG,
   SEEK_TO_TAG,
   SET_TAG_TRACE_VISIBLE,
-  MOUSE_DOWN_ON_TAG_GRAPHICS
+  MOUSE_DOWN_ON_TAG_GRAPHICS,
+  ACTION_COMBINATION
 } from './actions';
 
 import {
@@ -27,7 +28,9 @@ import {
   SetCurrentTag,
   SeekToTag,
   SetTagTraceVisible,
-  MouseDownOnTagGraphics
+  MouseDownOnTagGraphics,
+  Action,
+  ActionCombination
 } from '../types/action';
 import { Tags } from '../types/state';
 
@@ -94,4 +97,8 @@ export function setTagTraceVisible(
 
 export function mouseDownOnTagGraphics(ID: string): MouseDownOnTagGraphics {
   return { type: MOUSE_DOWN_ON_TAG_GRAPHICS, payload: { ID } };
+}
+
+export function actionCombination(actions: Action[]): ActionCombination {
+  return { type: ACTION_COMBINATION, actions };
 }
