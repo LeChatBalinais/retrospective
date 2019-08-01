@@ -18,7 +18,7 @@ export interface FuncProps {
 
 export type Props = ValueProps & FuncProps;
 
-export const Video = ({
+const Video = ({
   url: src,
   onDurationChange: onDurationChangeFunc,
   onTimeUpdate: onTimeUpdateFunc,
@@ -70,3 +70,5 @@ export const Video = ({
     />
   );
 };
+
+export default Video;

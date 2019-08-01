@@ -7,7 +7,7 @@ export interface ValueProps {
 
 type Props = ValueProps;
 
-export const ActiveTagsPanel = ({ IDs }: Props): JSX.Element => {
+const ActiveTagsPanel = ({ IDs }: Props): JSX.Element => {
   const tagRowContainers = IDs.map(
     (ID: string): JSX.Element => {
       return <ActiveTagLabel {...{ key: ID, ID }} />;
@@ -19,3 +19,5 @@ export const ActiveTagsPanel = ({ IDs }: Props): JSX.Element => {
     </div>
   );
 };
+
+export default ActiveTagsPanel;

@@ -27,7 +27,17 @@ export interface FuncProps {
 
 export type Props = ValueProps & FuncProps;
 
-export class Tag extends React.Component<Props, {}> {
+class Tag extends React.Component<Props, {}> {
+  private element: HTMLDivElement;
+
+  private elementSize: { width: number; height: number };
+
+  private animationProps: AnimationProps;
+
+  private prevAnimationProps: AnimationProps;
+
+  private animation: TimelineLite;
+
   public constructor(props: Props) {
     super(props);
 
@@ -65,16 +75,6 @@ export class Tag extends React.Component<Props, {}> {
   }
 
   private setRef: (element: HTMLDivElement) => void;
-
-  private element: HTMLDivElement;
-
-  private elementSize: { width: number; height: number };
-
-  private animationProps: AnimationProps;
-
-  private prevAnimationProps: AnimationProps;
-
-  private animation: TimelineLite;
 
   public render(): JSX.Element {
     const {
@@ -150,3 +150,5 @@ export class Tag extends React.Component<Props, {}> {
     );
   }
 }
+
+export default Tag;

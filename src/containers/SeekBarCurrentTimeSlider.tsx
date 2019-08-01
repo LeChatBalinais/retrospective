@@ -1,8 +1,7 @@
 import { connect } from 'react-redux';
 import { State } from '../types/state';
-import {
-  ValueProps as SeekBarSliderValueProps,
-  SeekBarSlider
+import SeekBarSlider, {
+  ValueProps as SeekBarSliderValueProps
 } from '../components/SeekBarSlider';
 import { getCurrentNormalizedTime } from '../selectors/selectors';
 

@@ -1,6 +1,6 @@
 import { Dispatch } from 'react';
 import { connect } from 'react-redux';
-import { ValueProps, FuncProps, Video } from '../components/Video';
+import Video, { ValueProps, FuncProps } from '../components/Video';
 import { setCurrentTime, setDuration } from '../actions/actionCreators';
 import { State } from '../types/state';
 import isVideoPlaying from '../selectors/is-video-playing';

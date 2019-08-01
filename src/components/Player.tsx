@@ -19,7 +19,7 @@ export interface FuncProps {
 
 type Props = ValueProps & FuncProps;
 
-export const Player = ({
+const Player = ({
   placeNewTagMode,
   currentTag,
   onComponentDidMount
@@ -52,3 +52,5 @@ export const Player = ({
     </div>
   );
 };
+
+export default Player;

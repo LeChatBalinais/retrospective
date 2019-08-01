@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
-import {
-  ValueProps as TagTableValueProps,
-  TagTable
+import TagTable, {
+  ValueProps as TagTableValueProps
 } from '../components/TagTable';
 import { State } from '../types/state';
 import { getTagIDs } from '../selectors/selectors';

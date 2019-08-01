@@ -9,7 +9,7 @@ export interface FuncProps {
 
 type Props = ValueProps & FuncProps;
 
-export const ActiveTagLabel = ({ ID, onMouseDown }: Props): JSX.Element => {
+const ActiveTagLabel = ({ ID, onMouseDown }: Props): JSX.Element => {
   return (
     /* eslint-disable-next-line */
     <div
@@ -27,3 +27,5 @@ export const ActiveTagLabel = ({ ID, onMouseDown }: Props): JSX.Element => {
     </div>
   );
 };
+
+export default ActiveTagLabel;

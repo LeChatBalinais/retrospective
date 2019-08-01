@@ -6,7 +6,7 @@ import {
   setPlayback,
   actionCombination
 } from '../actions/actionCreators';
-import { FuncProps, NewTagLayer } from '../components/NewTagLayer';
+import NewTagLayer, { FuncProps } from '../components/NewTagLayer';
 import { Action } from '../types/action';
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>): FuncProps => ({

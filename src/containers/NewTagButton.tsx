@@ -1,6 +1,6 @@
 import { Dispatch } from 'react';
 import { connect } from 'react-redux';
-import { ValueProps, FuncProps, Button } from '../components/Button';
+import Button, { ValueProps, FuncProps } from '../components/Button';
 import { setPlaceNewTagMode } from '../actions/actionCreators';
 import { State } from '../types/state';
 import { isPlaceNewTagModeOn } from '../selectors/selectors';

@@ -10,7 +10,7 @@ export interface FuncProps {
 
 type Props = FuncProps;
 
-export const SeekBar = ({
+const SeekBar = ({
   onMouseDown,
   onMouseUp,
   onMouseMove
@@ -37,3 +37,5 @@ export const SeekBar = ({
     </div>
   );
 };
+
+export default SeekBar;

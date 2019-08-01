@@ -13,7 +13,7 @@ export interface FuncProps {
 
 type Props = ValueProps & FuncProps;
 
-export const Augmentation = ({
+const Augmentation = ({
   tagIDs,
   onMouseDown,
   onMouseMove,
@@ -84,3 +84,5 @@ export const Augmentation = ({
     </div>
   );
 };
+
+export default Augmentation;

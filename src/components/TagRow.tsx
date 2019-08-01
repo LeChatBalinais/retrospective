@@ -13,7 +13,7 @@ export interface FuncProps {
 
 export type Props = ValueProps & FuncProps;
 
-export const TagRow = ({
+const TagRow = ({
   ID,
   isLocal,
   isCurrent,
@@ -41,3 +41,5 @@ export const TagRow = ({
     </div>
   );
 };
+
+export default TagRow;

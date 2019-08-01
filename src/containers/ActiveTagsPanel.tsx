@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { ValueProps, ActiveTagsPanel } from '../components/ActiveTagsPanel';
+import ActiveTagsPanel, { ValueProps } from '../components/ActiveTagsPanel';
 import { State } from '../types/state';
 import getVisibleTagIDs from '../selectors/get-visible-tag-ids';
 

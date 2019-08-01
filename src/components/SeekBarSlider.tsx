@@ -9,7 +9,7 @@ export interface ValueProps {
 
 type Props = ValueProps;
 
-export const SeekBarSlider = (props: ValueProps): JSX.Element => {
+const SeekBarSlider = (props: ValueProps): JSX.Element => {
   const { className, position } = props;
 
   const style = {
@@ -18,3 +18,5 @@ export const SeekBarSlider = (props: ValueProps): JSX.Element => {
 
   return <div {...{ className }} style={style} />;
 };
+
+export default SeekBarSlider;

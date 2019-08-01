@@ -1,9 +1,8 @@
 import { Dispatch } from 'react';
 import { connect } from 'react-redux';
-import {
+import Augmentation, {
   ValueProps,
-  FuncProps,
-  Augmentation
+  FuncProps
 } from '../components/Augmentation';
 import { State } from '../types/state';
 import {

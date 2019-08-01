@@ -1,17 +1,18 @@
 import React from 'react';
 
-export interface ValueProps{
+export interface ValueProps {
   caption: string;
 }
 
-export interface FuncProps{
+export interface FuncProps {
   onPress?: () => void;
 }
 export type Props = ValueProps & FuncProps;
 
-export const Button = ({ caption, onPress }: Props): JSX.Element => (
+const Button = ({ caption, onPress }: Props): JSX.Element => (
   <button onClick={onPress} type="button">
     {caption}
   </button>
 );
 
+export default Button;

@@ -1,9 +1,8 @@
 import { Dispatch } from 'react';
 import { connect } from 'react-redux';
-import {
+import Tag, {
   FuncProps as TagFuncProps,
-  ValueProps as TagValueProps,
-  Tag
+  ValueProps as TagValueProps
 } from '../components/Tag';
 import { setPlayback, mouseDownOnTagGraphics } from '../actions/actionCreators';
 import { State } from '../types/state';

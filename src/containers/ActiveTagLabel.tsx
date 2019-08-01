@@ -1,9 +1,8 @@
 import { Dispatch } from 'react';
 import { connect } from 'react-redux';
-import {
+import ActiveTagLabel, {
   ValueProps,
-  FuncProps,
-  ActiveTagLabel
+  FuncProps
 } from '../components/ActiveTagLabel';
 import { setCurrentTag } from '../actions/actionCreators';
 import { State } from '../types/state';

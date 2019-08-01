@@ -1,13 +1,13 @@
-import { Dispatch } from 'react';
 import { connect } from 'react-redux';
-import {
+import { ThunkDispatch } from 'redux-thunk';
+
+import Player, {
   ValueProps as PlayerValueProps,
-  FuncProps as PlayerFuncProps,
-  Player
+  FuncProps as PlayerFuncProps
 } from '../components/Player';
 import fetchVideoTagsAsync from '../actions/asyncActionCreators/fetch-video-tags';
 import { State } from '../types/state';
-import { AnyAction } from '../types/action';
+import { Action } from '../types/action';
 import { getCurrentTagID, isPlaceNewTagModeOn } from '../selectors/selectors';
 
 const mapStateToProps = (state: State): PlayerValueProps => ({
@@ -16,7 +16,7 @@ const mapStateToProps = (state: State): PlayerValueProps => ({
 });
 
 const mapDispatchToProps = (
-  dispatch: Dispatch<AnyAction>
+  dispatch: ThunkDispatch<State, {}, Action>
 ): PlayerFuncProps => ({
   onComponentDidMount: (): void => {
     dispatch(fetchVideoTagsAsync('hello'));

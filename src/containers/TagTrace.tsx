@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
-import {
-  ValueProps as TagTraceValueProps,
-  TagTrace
+import TagTrace, {
+  ValueProps as TagTraceValueProps
 } from '../components/TagTrace';
 import { State } from '../types/state';
 import makeGetTagTracePoints from '../selectors/tag-selectors/get-tag-trace-points';

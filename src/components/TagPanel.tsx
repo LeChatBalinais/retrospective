@@ -13,7 +13,7 @@ export interface FuncProps {
 
 export type Props = ValueProps & FuncProps;
 
-export const TagPanel = ({
+const TagPanel = ({
   name,
   start,
   end,
@@ -45,3 +45,5 @@ export const TagPanel = ({
     </div>
   );
 };
+
+export default TagPanel;

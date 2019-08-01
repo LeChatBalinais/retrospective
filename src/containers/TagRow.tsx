@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'react';
-import { ValueProps, FuncProps, TagRow } from '../components/TagRow';
+import TagRow, { ValueProps, FuncProps } from '../components/TagRow';
 import { State } from '../types/state';
 import {
   setCurrentTag,

@@ -1,6 +1,6 @@
 import { Dispatch } from 'react';
 import { connect } from 'react-redux';
-import { SeekBar, FuncProps as SeekBarFuncProps } from '../components/SeekBar';
+import SeekBar, { FuncProps as SeekBarFuncProps } from '../components/SeekBar';
 import {
   setCurrentTime,
   setUserSeek,

@@ -1,9 +1,8 @@
 import { Dispatch } from 'react';
 import { connect } from 'react-redux';
-import {
+import TagPanel, {
   ValueProps as TagPanelValueProp,
-  FuncProps as TagPanelFuncProp,
-  TagPanel
+  FuncProps as TagPanelFuncProp
 } from '../components/TagPanel';
 import { State } from '../types/state';
 import { setTagTraceVisible } from '../actions/actionCreators';

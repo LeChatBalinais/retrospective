@@ -7,7 +7,7 @@ export interface ValueProps {
 
 type Props = ValueProps;
 
-export const GraphicalAugmentation = ({ tagIDs }: Props): JSX.Element => {
+const GraphicalAugmentation = ({ tagIDs }: Props): JSX.Element => {
   const tagTraceContainers = tagIDs.map(
     (tagID: string): React.ReactNode => <TagTrace {...{ key: tagID, tagID }} />
   );
@@ -23,3 +23,5 @@ export const GraphicalAugmentation = ({ tagIDs }: Props): JSX.Element => {
     </div>
   );
 };
+
+export default GraphicalAugmentation;

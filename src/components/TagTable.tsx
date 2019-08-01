@@ -7,9 +7,11 @@ export interface ValueProps {
 
 type Props = ValueProps;
 
-export const TagTable = ({ IDs }: Props): JSX.Element => {
+const TagTable = ({ IDs }: Props): JSX.Element => {
   const tagRowContainers = IDs.map(
     (ID: string): JSX.Element => <TagRowContainer {...{ key: ID, ID }} />
   );
   return <div className="box markers-list">{tagRowContainers}</div>;
 };
+
+export default TagTable;

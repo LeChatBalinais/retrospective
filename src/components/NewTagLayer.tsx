@@ -18,10 +18,12 @@ function createOnClick(
   };
 }
 
-export const NewTagLayer = ({ onClick }: Props): JSX.Element => (
+const NewTagLayer = ({ onClick }: Props): JSX.Element => (
   // eslint-disable-next-line
   <div
     className="augmentation addition-layer"
     onClick={createOnClick(onClick)}
   />
 );
+
+export default NewTagLayer;

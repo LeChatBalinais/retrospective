@@ -6,10 +6,12 @@ export interface ValueProps {
 
 type Props = ValueProps;
 
-export const TagTrace = ({ points }: Props): JSX.Element => (
+const TagTrace = ({ points }: Props): JSX.Element => (
   <polyline
     className="tag-trace"
     {...{ points }}
     vectorEffect="non-scaling-stroke"
   />
 );
+
+export default TagTrace;

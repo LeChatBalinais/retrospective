@@ -1,9 +1,9 @@
-import { Dispatch } from 'react';
+import { ThunkDispatch } from 'redux-thunk';
 import { connect } from 'react-redux';
-import { ValueProps, FuncProps, Button } from '../components/Button';
+import Button, { ValueProps, FuncProps } from '../components/Button';
 import saveTagAsync from '../actions/asyncActionCreators/save-tag';
 import deleteTagAsync from '../actions/asyncActionCreators/delete-tag';
-import { AnyAction } from '../types/action';
+import { Action } from '../types/action';
 import { State } from '../types/state';
 
 interface Props {
@@ -12,12 +12,12 @@ interface Props {
 }
 
 type MapDispatchToProps = (
-  dispatch: Dispatch<AnyAction>,
+  dispatch: ThunkDispatch<State, {}, Action>,
   props: Props
 ) => FuncProps;
 
 const onPress = (
-  dispatch: Dispatch<AnyAction>,
+  dispatch: ThunkDispatch<State, {}, Action>,
   tagID: string,
   isLocal: boolean
 ): (() => void) => {
@@ -33,7 +33,7 @@ const onPress = (
 
 const makeMapDispatchToProps = (): MapDispatchToProps => {
   return (
-    dispatch: Dispatch<AnyAction>,
+    dispatch: ThunkDispatch<State, {}, Action>,
     { ID, isLocal }: { ID: string; isLocal: boolean }
   ): { onPress: () => void } => ({ onPress: onPress(dispatch, ID, isLocal) });
 };

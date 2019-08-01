@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
-import {
-  ValueProps,
-  GraphicalAugmentation
+import GraphicalAugmentation, {
+  ValueProps
 } from '../components/GraphicalAugmentation';
 import { State } from '../types/state';
 import { getVisibleTraceTagIDs } from '../selectors/selectors';
