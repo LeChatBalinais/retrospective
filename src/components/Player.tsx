@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ControlPanel from './ControlPanel';
 import VideoContainer from '../containers/Video';
 import NewTagLayerContainer from '../containers/NewTagLayer';
@@ -19,38 +19,36 @@ export interface FuncProps {
 
 type Props = ValueProps & FuncProps;
 
-export class Player extends React.Component<Props, {}> {
-  public componentDidMount(): void {
-    const { onComponentDidMount } = this.props;
-
+export const Player = ({
+  placeNewTagMode,
+  currentTag,
+  onComponentDidMount
+}: Props): JSX.Element => {
+  useEffect((): void => {
     onComponentDidMount();
-  }
+  }, [onComponentDidMount]);
 
-  public render(): JSX.Element {
-    const { placeNewTagMode, currentTag } = this.props;
+  let newTagLayerComponent = null;
+  if (placeNewTagMode) newTagLayerComponent = <NewTagLayerContainer />;
 
-    let newTagLayerComponent = null;
-    if (placeNewTagMode) newTagLayerComponent = <NewTagLayerContainer />;
+  let currentTagPanel = null;
+  if (currentTag)
+    currentTagPanel = <TagPanelContainer {...{ ID: currentTag }} />;
 
-    let currentTagPanel = null;
-    if (currentTag)
-      currentTagPanel = <TagPanelContainer {...{ ID: currentTag }} />;
-
-    return (
-      <div>
-        <div className="box video-box">
-          <div className="augmented-video">
-            <VideoContainer />
-            <GraphicalAugmentation />
-            <AugmentationContainer />
-            {newTagLayerComponent}
-          </div>
-          <SeekBar />
-          <ControlPanel />
-          <ActiveTagsPanel />
-          {currentTagPanel}
+  return (
+    <div>
+      <div className="box video-box">
+        <div className="augmented-video">
+          <VideoContainer />
+          <GraphicalAugmentation />
+          <AugmentationContainer />
+          {newTagLayerComponent}
         </div>
+        <SeekBar />
+        <ControlPanel />
+        <ActiveTagsPanel />
+        {currentTagPanel}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};

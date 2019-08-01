@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-
-import React from 'react';
+import React, { useRef, useState, useCallback } from 'react';
 import { TweenMax } from 'gsap';
 
 type OnTimeUpdate = (currentTime: number) => void;
@@ -19,80 +18,55 @@ export interface FuncProps {
 
 export type Props = ValueProps & FuncProps;
 
-export class Video extends React.Component<Props, {}> {
-  public constructor(props: Props) {
-    super(props);
-    this.video = React.createRef();
-  }
+export const Video = ({
+  url: src,
+  onDurationChange: onDurationChangeFunc,
+  onTimeUpdate: onTimeUpdateFunc,
+  playback,
+  currentTime
+}: Props): JSX.Element => {
+  const videoEl = useRef(null);
+  const [tickOn, setTickOn] = useState(false);
 
-  private onTimeUpdatePrv(): void {
-    const {
-      video: { current: videoCached }
-    } = this;
-    if (videoCached) {
-      const { currentTime } = videoCached;
-      this.onTimeUpdate(currentTime);
-    }
-  }
+  const onTick = useCallback((): void => {
+    if (videoEl === null) return;
+    const { current } = videoEl;
+    if (current === null) return;
+    const { currentTime: videoCurrentTime } = current;
+    onTimeUpdateFunc(videoCurrentTime);
+  }, [onTimeUpdateFunc]);
 
-  private onTimeUpdateBinded: OnTimeUpdate;
+  const onDurationChange = (): void => {
+    const { current } = videoEl;
+    if (!current) return;
 
-  private onTimeUpdate: OnTimeUpdate;
-
-  private createOnTimeUpdate = (): OnTimeUpdate =>
-    this.onTimeUpdatePrv.bind(this);
-
-  private createOnDurationChange = (
-    onDurationChange: OnDurationChangeFunc
-  ): (() => void) => (): void => {
-    const {
-      video: { current: videoCached }
-    } = this;
-    if (videoCached) {
-      const { duration } = videoCached;
-      onDurationChange(duration);
-    }
+    onDurationChangeFunc(current.duration);
   };
 
-  private video: React.RefObject<HTMLVideoElement>;
+  const { current } = videoEl;
 
-  private currentTimeUpdating: boolean;
-
-  public render(): JSX.Element {
-    const {
-      video: { current: videoCached },
-      props: { url, playback, currentTime, onTimeUpdate, onDurationChange }
-    } = this;
-
-    this.onTimeUpdate = onTimeUpdate;
-
-    if (!this.onTimeUpdateBinded) {
-      this.onTimeUpdateBinded = this.createOnTimeUpdate();
-    }
-    if (videoCached) {
-      if (playback) {
-        videoCached.play();
-        if (!this.currentTimeUpdating) {
-          TweenMax.ticker.addEventListener('tick', this.onTimeUpdateBinded);
-          this.currentTimeUpdating = true;
-        }
-      } else {
-        videoCached.pause();
-        if (this.currentTimeUpdating) {
-          TweenMax.ticker.removeEventListener('tick', this.onTimeUpdateBinded);
-          this.currentTimeUpdating = false;
-        }
+  if (current) {
+    if (playback) {
+      current.play();
+      if (!tickOn) {
+        TweenMax.ticker.addEventListener('tick', onTick);
+        setTickOn(true);
       }
-      if (!playback) videoCached.currentTime = currentTime;
+    } else {
+      current.pause();
+      current.currentTime = currentTime;
+      if (tickOn) {
+        TweenMax.ticker.removeEventListener('tick', onTick);
+        setTickOn(false);
+      }
     }
-
-    return (
-      <video
-        className="main-video"
-        src={url}
-        onDurationChange={this.createOnDurationChange(onDurationChange)}
-        ref={this.video}
-      />
-    );
   }
-}
+
+  return (
+    <video
+      className="main-video"
+      {...{ onDurationChange, src }}
+      ref={videoEl}
+    />
+  );
+};

@@ -1,49 +1,11 @@
-export interface MouseListenerProps {
-  onMouseUp: () => void;
-
-  onMouseDown: (relativePosition: number) => void;
-
-  onMouseMove: (relativePosition: number) => void;
-
-  getTarget: () => HTMLDivElement;
-}
-
-export function newMouseListenerProps(
+export default function newMouseListener(
   onMouseUp: () => void,
   onMouseDown: (relativePosition: number) => void,
   onMouseMove: (relativePosition: number) => void,
-  getTarget: () => HTMLDivElement,
-  prevMouseListenerProps: MouseListenerProps
-): MouseListenerProps {
-  let newProps = prevMouseListenerProps;
-
-  if (!prevMouseListenerProps)
-    return { onMouseUp, onMouseDown, onMouseMove, getTarget };
-
-  if (onMouseUp !== prevMouseListenerProps.onMouseUp)
-    newProps = { onMouseUp, ...prevMouseListenerProps };
-
-  if (onMouseDown !== prevMouseListenerProps.onMouseDown)
-    newProps = { onMouseDown, ...prevMouseListenerProps };
-
-  if (onMouseMove !== prevMouseListenerProps.onMouseMove)
-    newProps = { onMouseMove, ...prevMouseListenerProps };
-
-  if (getTarget !== prevMouseListenerProps.getTarget)
-    newProps = { getTarget, ...prevMouseListenerProps };
-
-  return newProps;
-}
-
-export function newMouseListener(
-  prevProps: MouseListenerProps,
-  newProps: MouseListenerProps,
-  prevListener: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
+  getTargetTarget: () => HTMLDivElement
 ): (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void {
-  if (prevProps === newProps && prevListener) return prevListener;
-
   const mouseMoveListener = (e: MouseEvent): void => {
-    const ribbonRect = newProps.getTarget().getBoundingClientRect();
+    const ribbonRect = getTargetTarget().getBoundingClientRect();
 
     let relativePosition =
       ((e.clientX - (ribbonRect.left + 7)) / (ribbonRect.width - 14)) * 100;
@@ -51,17 +13,17 @@ export function newMouseListener(
     if (relativePosition < 0) relativePosition = 0;
     else if (relativePosition > 100) relativePosition = 100;
 
-    newProps.onMouseMove(relativePosition);
+    onMouseMove(relativePosition);
   };
 
   const mouseUpListener = (): void => {
     document.removeEventListener('mousemove', mouseMoveListener);
     document.removeEventListener('mouseup', mouseUpListener);
-    newProps.onMouseUp();
+    onMouseUp();
   };
 
   return (event: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
-    const ribbonRect = newProps.getTarget().getBoundingClientRect();
+    const ribbonRect = getTargetTarget().getBoundingClientRect();
 
     let relativePosition =
       ((event.clientX - (ribbonRect.left + 7)) / (ribbonRect.width - 14)) * 100;
@@ -72,6 +34,6 @@ export function newMouseListener(
     document.addEventListener('mousemove', mouseMoveListener);
     document.addEventListener('mouseup', mouseUpListener);
 
-    newProps.onMouseDown(relativePosition);
+    onMouseDown(relativePosition);
   };
 }

@@ -9,16 +9,12 @@ export interface ValueProps {
 
 type Props = ValueProps;
 
-export class SeekBarSlider extends React.Component<Props, {}> {
-  private setRef: (slider: HTMLDivElement) => void;
+export const SeekBarSlider = (props: ValueProps): JSX.Element => {
+  const { className, position } = props;
 
-  public render(): JSX.Element {
-    const { className, position } = this.props;
+  const style = {
+    left: `calc(${position}% - 7px`
+  };
 
-    const style = {
-      left: `calc(${position}% - 7px`
-    };
-
-    return <div {...{ className }} style={style} ref={this.setRef} />;
-  }
-}
+  return <div {...{ className }} style={style} />;
+};

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useCallback } from 'react';
 import TagContainer from '../containers/Tag';
 
 export interface ValueProps {
@@ -13,24 +13,19 @@ export interface FuncProps {
 
 type Props = ValueProps & FuncProps;
 
-export class Augmentation extends React.Component<Props, {}> {
-  public constructor(props: Props) {
-    super(props);
+export const Augmentation = ({
+  tagIDs,
+  onMouseDown,
+  onMouseMove,
+  onMouseUp
+}: Props): JSX.Element => {
+  const divEl = useRef(null);
 
-    this.setRef = (area: HTMLDivElement): void => {
-      this.area = area;
-    };
+  const onMouseMoveFunc = useCallback(
+    (e: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
+      if (!onMouseMove) return;
 
-    this.getTarget = (): HTMLDivElement => {
-      return this.area;
-    };
-
-    this.onMouseUp = (
-      e: React.MouseEvent<HTMLDivElement, MouseEvent>
-    ): void => {
-      if (!this.onMouseMoveFunc) return;
-
-      const area = this.getTarget().getBoundingClientRect();
+      const area = divEl.current.getBoundingClientRect();
 
       let relativePositionX = ((e.clientX - area.left) / area.width) * 100;
 
@@ -42,15 +37,16 @@ export class Augmentation extends React.Component<Props, {}> {
       if (relativePositionY < 0) relativePositionY = 0;
       else if (relativePositionY > 100) relativePositionY = 100;
 
-      this.onMouseUpFunc(relativePositionX, relativePositionY);
-    };
+      onMouseMove(relativePositionX, relativePositionY);
+    },
+    [onMouseMove]
+  );
 
-    this.onMouseMove = (
-      e: React.MouseEvent<HTMLDivElement, MouseEvent>
-    ): void => {
-      if (!this.onMouseMoveFunc) return;
+  const onMouseUpFunc = useCallback(
+    (e: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
+      if (!onMouseUp) return;
 
-      const area = this.getTarget().getBoundingClientRect();
+      const area = divEl.current.getBoundingClientRect();
 
       let relativePositionX = ((e.clientX - area.left) / area.width) * 100;
 
@@ -62,53 +58,29 @@ export class Augmentation extends React.Component<Props, {}> {
       if (relativePositionY < 0) relativePositionY = 0;
       else if (relativePositionY > 100) relativePositionY = 100;
 
-      this.onMouseMoveFunc(relativePositionX, relativePositionY);
-    };
-  }
+      onMouseUp(relativePositionX, relativePositionY);
+    },
+    [onMouseUp]
+  );
 
-  private onMouseMove: (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => void;
+  const tagContainers = tagIDs.map(
+    (tagID: string): React.ReactNode => (
+      <TagContainer {...{ key: tagID, ID: tagID }} />
+    )
+  );
 
-  private onMouseUp: (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => void;
-
-  private onMouseMoveFunc: (x: number, y: number) => void;
-
-  private onMouseUpFunc: (x: number, y: number) => void;
-
-  private getTarget: () => HTMLDivElement;
-
-  private setRef: (area: HTMLDivElement) => void;
-
-  private area: HTMLDivElement;
-
-  public render(): JSX.Element {
-    const { tagIDs, onMouseDown, onMouseMove, onMouseUp } = this.props;
-
-    this.onMouseMoveFunc = onMouseMove;
-    this.onMouseUpFunc = onMouseUp;
-
-    const tagContainers = tagIDs.map(
-      (tagID: string): React.ReactNode => (
-        <TagContainer {...{ key: tagID, ID: tagID }} />
-      )
-    );
-
-    return (
-      /* eslint-disable-next-line */
-      <div
-        className="augmentation"
-        ref={this.setRef}
-        {...{
-          onMouseDown,
-          onMouseMove: this.onMouseMove,
-          onMouseUp: this.onMouseUp
-        }}
-      >
-        {tagContainers}
-      </div>
-    );
-  }
-}
+  return (
+    /* eslint-disable-next-line */
+    <div
+      className="augmentation"
+      ref={divEl}
+      {...{
+        onMouseDown,
+        onMouseMove: onMouseMoveFunc,
+        onMouseUp: onMouseUpFunc
+      }}
+    >
+      {tagContainers}
+    </div>
+  );
+};

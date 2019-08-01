@@ -1,10 +1,6 @@
-import React from 'react';
+import React, { useRef, useCallback } from 'react';
 import SeekBarCurrentTimeSlider from '../containers/SeekBarCurrentTimeSlider';
-import {
-  MouseListenerProps,
-  newMouseListenerProps,
-  newMouseListener
-} from '../interactivity/track-pointer-on';
+import newMouseListener from '../interactivity/track-pointer-on';
 
 export interface FuncProps {
   onMouseDown: (relativePosition: number) => void;
@@ -14,62 +10,30 @@ export interface FuncProps {
 
 type Props = FuncProps;
 
-export class SeekBar extends React.Component<Props, {}> {
-  public constructor(props: Props) {
-    super(props);
+export const SeekBar = ({
+  onMouseDown,
+  onMouseUp,
+  onMouseMove
+}: Props): JSX.Element => {
+  const divEl = useRef(null);
 
-    this.setRef = (ribbon: HTMLDivElement): void => {
-      this.ribbon = ribbon;
-    };
+  const getTarget = useCallback((): HTMLDivElement => divEl.current, [divEl]);
 
-    this.getTarget = (): HTMLDivElement => {
-      return this.ribbon;
-    };
-  }
+  const getMouseListener = useCallback(
+    (): ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) =>
+      newMouseListener(onMouseUp, onMouseDown, onMouseMove, getTarget),
+    [onMouseUp, onMouseDown, onMouseMove, getTarget]
+  );
 
-  private setRef: (ribbon: HTMLDivElement) => void;
-
-  private getTarget: () => HTMLDivElement;
-
-  private mouseListenerProps: MouseListenerProps;
-
-  private mouseDownListener: (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => void;
-
-  private ribbon: HTMLDivElement;
-
-  public render(): JSX.Element {
-    const { onMouseDown, onMouseUp, onMouseMove } = this.props;
-
-    const newProps = newMouseListenerProps(
-      onMouseUp,
-      onMouseDown,
-      onMouseMove,
-      this.getTarget,
-      this.mouseListenerProps
-    );
-
-    this.mouseDownListener = newMouseListener(
-      this.mouseListenerProps,
-      newProps,
-      this.mouseDownListener
-    );
-
-    return (
-      <div className="box seek-bar-box">
-        <div className="ribbon-container">
-          {/* eslint-disable-next-line */}
-          <div
-            className="ribbon"
-            ref={this.setRef}
-            onMouseDown={this.mouseDownListener}
-          />
-          <div className="slider-container">
-            <SeekBarCurrentTimeSlider />
-          </div>
+  return (
+    <div className="box seek-bar-box">
+      <div className="ribbon-container">
+        {/* eslint-disable-next-line */}
+        <div className="ribbon" ref={divEl} onMouseDown={getMouseListener()} />
+        <div className="slider-container">
+          <SeekBarCurrentTimeSlider />
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
