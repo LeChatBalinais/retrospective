@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useRef, useEffect, useMemo } from 'react';
 import { TimelineLite } from 'gsap';
 import {
   AnimationProps,
   getUpdatedAnimation,
-  getUpdatedAnimationProps,
-  getAnimationPropsWithUpdatedTarget
+  getUpdatedAnimationProps
 } from '../interactivity/element-animation';
 
 export interface ValueProps {
@@ -27,128 +26,89 @@ export interface FuncProps {
 
 export type Props = ValueProps & FuncProps;
 
-class Tag extends React.Component<Props, {}> {
-  private element: HTMLDivElement;
+const Tag = ({
+  x,
+  y,
+  offsetX,
+  offsetY,
+  path,
+  currentTime,
+  className,
+  dragged,
+  playback,
+  isCurrent,
+  onMouseDown,
+  onMouseUp
+}: Props): JSX.Element => {
+  const divEl = useRef(null);
 
-  private elementSize: { width: number; height: number };
+  const width = 5;
+  const height = 5;
+  const existance = playback && !dragged;
 
-  private animationProps: AnimationProps;
+  const animationProps = useMemo<AnimationProps>(
+    (): AnimationProps =>
+      getUpdatedAnimationProps(path, currentTime, width, height, existance),
+    [path, currentTime, width, height, existance]
+  );
 
-  private prevAnimationProps: AnimationProps;
+  const animationRef = useRef<TimelineLite>(undefined);
 
-  private animation: TimelineLite;
+  const prevPropsRef = useRef<AnimationProps>(undefined);
 
-  public constructor(props: Props) {
-    super(props);
+  useEffect((): void => {
+    animationRef.current = getUpdatedAnimation(
+      animationRef.current,
+      prevPropsRef.current,
+      animationProps,
+      (): HTMLDivElement => divEl.current
+    );
+    prevPropsRef.current = animationProps;
+  }, [animationProps]);
 
-    this.animationProps = undefined;
-    this.animation = undefined;
+  let style = {};
 
-    this.setRef = (element: HTMLDivElement): void => {
-      this.element = element;
-      this.elementSize = { width: 5, height: 5 };
-
-      this.animationProps = getAnimationPropsWithUpdatedTarget(
-        this.animationProps,
-        this.element,
-        this.elementSize
-      );
+  if (!playback || (playback && dragged)) {
+    style = {
+      top: `calc(${offsetY}% - ${5}px)`,
+      left: `calc(${offsetX}% - ${5}px)`
     };
+  } else {
+    style = { top: `calc(${y}% - ${5}px`, left: `calc(${x}% - ${5}px` };
   }
 
-  public componentDidMount(): void {
-    this.animation = getUpdatedAnimation(
-      this.animation,
-      undefined,
-      this.animationProps
-    );
-    this.prevAnimationProps = this.animationProps;
-  }
+  const composedClassName = `marker ${className}`;
 
-  public componentDidUpdate(): void {
-    this.animation = getUpdatedAnimation(
-      this.animation,
-      this.prevAnimationProps,
-      this.animationProps
-    );
-    this.prevAnimationProps = this.animationProps;
-  }
+  let tagMarkerClassName = '';
 
-  private setRef: (element: HTMLDivElement) => void;
+  if (isCurrent) tagMarkerClassName = 'tag-marker';
 
-  public render(): JSX.Element {
-    const {
-      x,
-      y,
-      offsetX,
-      offsetY,
-      path,
-      currentTime,
-      className,
-      dragged,
-      playback,
-      isCurrent,
-      onMouseDown,
-      onMouseUp
-    } = this.props;
-
-    if (playback && !dragged) {
-      this.animationProps = getUpdatedAnimationProps(
-        this.animationProps,
-        path,
-        currentTime
-      );
-      this.animationProps = getAnimationPropsWithUpdatedTarget(
-        this.animationProps,
-        this.element,
-        this.elementSize
-      );
-    } else this.animationProps = undefined;
-
-    let style = {};
-
-    if (!playback || (playback && dragged)) {
-      style = {
-        top: `calc(${offsetY}% - ${5}px)`,
-        left: `calc(${offsetX}% - ${5}px)`
-      };
-    } else {
-      style = { top: `calc(${y}% - ${5}px`, left: `calc(${x}% - ${5}px` };
-    }
-
-    const composedClassName = `marker ${className}`;
-
-    let tagMarkerClassName = '';
-
-    if (isCurrent) tagMarkerClassName = 'tag-marker';
-
-    return (
-      /* eslint-disable-next-line */
-      <div
-        onMouseDown={(
-          event: React.MouseEvent<HTMLDivElement, MouseEvent>
-        ): void => {
-          event.stopPropagation();
-          onMouseDown();
-        }}
-        onMouseUp={(): void => {
-          onMouseUp();
-        }}
-        className={composedClassName}
-        style={style}
-        ref={this.setRef}
-      >
-        <svg width="10px" height="10px">
-          <rect
-            className={tagMarkerClassName}
-            width="10px"
-            height="10px"
-            fill="red"
-          />
-        </svg>
-      </div>
-    );
-  }
-}
+  return (
+    /* eslint-disable-next-line */
+    <div
+      onMouseDown={(
+        event: React.MouseEvent<HTMLDivElement, MouseEvent>
+      ): void => {
+        event.stopPropagation();
+        onMouseDown();
+      }}
+      onMouseUp={(): void => {
+        onMouseUp();
+      }}
+      className={composedClassName}
+      style={style}
+      ref={divEl}
+    >
+      <svg width="10px" height="10px">
+        <rect
+          className={tagMarkerClassName}
+          width="10px"
+          height="10px"
+          fill="red"
+        />
+      </svg>
+    </div>
+  );
+};
 
 export default Tag;

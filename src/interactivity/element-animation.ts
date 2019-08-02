@@ -5,43 +5,23 @@ interface SpaceTimePoint {
   x: number;
   y: number;
 }
-interface Size {
-  width: number;
-  height: number;
-}
 
 export interface AnimationProps {
-  target: HTMLDivElement;
-  targetSize: Size;
+  width: number;
+  height: number;
   path: SpaceTimePoint[];
   currentTime: number;
 }
 
-export function getAnimationPropsWithUpdatedTarget(
-  animationProps: AnimationProps,
-  target: HTMLDivElement,
-  targetSize: Size
-): AnimationProps {
-  if (!animationProps || target !== animationProps.target) {
-    return { ...animationProps, target, targetSize };
-  }
-
-  return animationProps;
-}
-
 export function getUpdatedAnimationProps(
-  animationProps: AnimationProps,
   path: SpaceTimePoint[],
-  currentTime: number
+  currentTime: number,
+  width: number,
+  height: number,
+  existance: boolean
 ): AnimationProps {
-  if (
-    !animationProps ||
-    path !== animationProps.path ||
-    currentTime !== animationProps.currentTime
-  )
-    return { ...animationProps, path, currentTime };
-
-  return animationProps;
+  if (!existance) return undefined;
+  return { path, currentTime, width, height };
 }
 
 function shutedDownAnimation(animation: TimelineLite): undefined {
@@ -54,13 +34,14 @@ function shutedDownAnimation(animation: TimelineLite): undefined {
 function createNewAnimation(
   target: HTMLDivElement,
   path: SpaceTimePoint[],
-  size: Size
+  width: number,
+  height: number
 ): TimelineLite {
   const animation = new TimelineLite({ paused: true, tweens: [] });
   for (let i = 0; i < path.length - 1; i += 1) {
     animation.to(target, path[i + 1].time - path[i].time, {
-      left: `calc(${path[i + 1].x}% - ${size.width}px`,
-      top: `calc(${path[i + 1].y}% - ${size.height}px`
+      left: `calc(${path[i + 1].x}% - ${width}px`,
+      top: `calc(${path[i + 1].y}% - ${height}px`
     });
   }
   return animation;
@@ -79,7 +60,8 @@ function updatedAnimationToCurrentTime(
 export const getUpdatedAnimation = (
   animation: TimelineLite,
   prevState: AnimationProps,
-  newState: AnimationProps
+  newState: AnimationProps,
+  getTarget: () => HTMLDivElement
 ): TimelineLite => {
   let updatedAnimation = animation;
 
@@ -90,30 +72,27 @@ export const getUpdatedAnimation = (
 
   if (!newState) return updatedAnimation;
 
-  const { target, targetSize, path, currentTime } = newState;
+  const { width, height, path, currentTime } = newState;
+  const target = getTarget();
 
-  if (!target || !targetSize || !path) return updatedAnimation;
+  if (!target || !width || !height || !path) return updatedAnimation;
 
   if (!prevState) {
-    updatedAnimation = createNewAnimation(target, path, targetSize);
+    updatedAnimation = createNewAnimation(target, path, width, height);
     updatedAnimation = updatedAnimationToCurrentTime(
       updatedAnimation,
       currentTime
     );
   } else {
     const {
-      target: prevTarget,
-      targetSize: prevTargetSize,
+      width: prevWidth,
+      height: prevHeight,
       path: prevPath,
       currentTime: prevCurrentTime
     } = prevState;
 
-    if (
-      prevTarget !== target ||
-      prevPath !== path ||
-      prevTargetSize !== targetSize
-    ) {
-      updatedAnimation = createNewAnimation(target, path, targetSize);
+    if (prevPath !== path || prevWidth !== width || prevHeight !== height) {
+      updatedAnimation = createNewAnimation(target, path, width, height);
     }
 
     if (prevCurrentTime !== currentTime) {
