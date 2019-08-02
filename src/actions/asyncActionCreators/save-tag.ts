@@ -1,5 +1,4 @@
-import { Dispatch } from 'redux';
-import { ThunkAction } from 'redux-thunk';
+import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { State } from '../../types/state';
 import { Action } from '../../types/action';
 import fetchVideoTagsAsync from './fetch-video-tags';
@@ -10,7 +9,10 @@ const getTag = makeGetTag();
 export default function saveTagAsync(
   ID: string
 ): ThunkAction<void, State, null, Action> {
-  return (dispatch: Dispatch<any>, getState: () => State): void => {
+  return (
+    dispatch: ThunkDispatch<State, {}, Action>,
+    getState: () => State
+  ): void => {
     fetch(`http://localhost:9000/addTag`, {
       method: 'post',
       headers: {
@@ -18,12 +20,10 @@ export default function saveTagAsync(
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ tagID: ID, tag: getTag(getState(), ID) })
-    }).then(
-      (response): void => {
-        if (response.ok) {
-          dispatch(fetchVideoTagsAsync('hello'));
-        }
+    }).then((response): void => {
+      if (response.ok) {
+        dispatch(fetchVideoTagsAsync('hello'));
       }
-    );
+    });
   };
 }

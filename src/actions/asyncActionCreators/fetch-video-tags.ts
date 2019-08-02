@@ -8,17 +8,12 @@ export default function fetchVideoTagsAsync(
   videoID: string
 ): ThunkAction<void, State, null, AddFetchedTags> {
   return (dispatch: Dispatch): void => {
-    console.log(videoID);
-    fetch(`http://localhost:9000/markers`).then(
-      (response): void => {
-        response.json().then(
-          (data): void => {
-            const { tags: tagObject } = data;
-            const tags = tagObject;
-            dispatch(addFetchedTags(tags));
-          }
-        );
-      }
-    );
+    fetch(`http://localhost:9000/markers`).then((response): void => {
+      response.json().then((data): void => {
+        const { tags: tagObject } = data;
+        const tags = tagObject;
+        dispatch(addFetchedTags(tags));
+      });
+    });
   };
 }
