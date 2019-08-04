@@ -1,6 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import { State } from '../types/state';
 import { AddNewTag } from '../types/action';
+import { getCurrentTime } from '../selectors/selectors';
 
 const addNewTag = (state: State, action: AddNewTag): State => {
   const {
@@ -17,7 +18,7 @@ const addNewTag = (state: State, action: AddNewTag): State => {
           ...state.entities.tags.byID,
           [newID]: {
             globalID: undefined,
-            path: [{ time: state.player.currentTimeNormalized, x, y }]
+            path: [{ time: getCurrentTime(state), x, y }]
           }
         },
         allIDs: [...state.entities.tags.allIDs, newID]

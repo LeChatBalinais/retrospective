@@ -7,8 +7,9 @@ export const getUserSeek = ({ player: { userSeek } }: State): boolean =>
   userSeek;
 
 export const getCurrentTime = ({
+  footage: { duration },
   player: { currentTimeNormalized }
-}: State): number => currentTimeNormalized;
+}: State): number => currentTimeNormalized * duration;
 
 export const getVideoDuration = ({ footage: { duration } }: State): number =>
   duration;

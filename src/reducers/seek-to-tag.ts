@@ -9,14 +9,15 @@ const setCurrentTime = (state: State, action: SeekToTag): State => {
       tags: {
         byID: { [tagID]: tag }
       }
-    }
+    },
+    footage: { duration }
   } = state;
 
   return {
     ...state,
     player: {
       ...state.player,
-      currentTimeNormalized: tag.path[0].time
+      currentTimeNormalized: tag.path[0].time / duration
     }
   };
 };

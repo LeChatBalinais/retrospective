@@ -9,8 +9,8 @@ const setCurrentTime = (state: State, action: SetCurrentTime): State => {
 
   let currentTimeNormalized = time;
 
-  if (isNormalized) {
-    currentTimeNormalized = getVideoDuration(state) * time;
+  if (!isNormalized) {
+    currentTimeNormalized = time / getVideoDuration(state);
   }
 
   return {
