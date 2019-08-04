@@ -23,15 +23,9 @@ const updateTagPath = (state: State, action: UpdateTagPath): State => {
     }
   } = state;
 
-  let { start } = tag;
   const { path } = tag;
 
   let newPath = path;
-
-  if (start === undefined) {
-    start = currentTime;
-    newPath = [];
-  }
 
   if (newPath.length === 0 || newPath[newPath.length - 1].time <= currentTime) {
     newPath = [...newPath, { time: currentTime, x, y }];
@@ -67,7 +61,7 @@ const updateTagPath = (state: State, action: UpdateTagPath): State => {
     ...state,
     tags: {
       ...state.tags,
-      byID: { ...state.tags.byID, [ID]: { ...tag, start, path: newPath } }
+      byID: { ...state.tags.byID, [ID]: { ...tag, path: newPath } }
     }
   };
 };

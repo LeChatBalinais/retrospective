@@ -65,6 +65,16 @@ export interface ActionCombination {
   actions: Action[];
 }
 
+export interface RemoveTag {
+  type: 'REMOVE_TAG';
+  payload: { ID: string };
+}
+
+export interface SetTagGlobalID {
+  type: 'SET_TAG_GLOBALID';
+  payload: { ID: string; globalID: string };
+}
+
 export type SimpleAction =
   | SetPlayback
   | SetPlaceNewTagMode
@@ -78,7 +88,9 @@ export type SimpleAction =
   | SetCurrentTag
   | SeekToTag
   | SetTagTraceVisible
-  | MouseDownOnTagGraphics;
+  | MouseDownOnTagGraphics
+  | RemoveTag
+  | SetTagGlobalID;
 
 export type Action = SimpleAction | ActionCombination;
 

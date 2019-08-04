@@ -14,7 +14,7 @@ const setCurrentTime = (state: State, action: SeekToTag): State => {
     ...state,
     superVideoState: {
       ...state.superVideoState,
-      currentTime: tag.start
+      currentTime: tag.path[0].time
     }
   };
 };

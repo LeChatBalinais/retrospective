@@ -15,7 +15,9 @@ import {
   SEEK_TO_TAG,
   SET_TAG_TRACE_VISIBLE,
   MOUSE_DOWN_ON_TAG_GRAPHICS,
-  ACTION_COMBINATION
+  ACTION_COMBINATION,
+  REMOVE_TAG,
+  SET_TAG_GLOBALID
 } from '../actions/actions';
 import setPlayback from './set-playback';
 import setPlaceNewTagMode from './set-place-new-tag-mode';
@@ -30,6 +32,8 @@ import setTagTraceVisible from './set-tag-trace-visible';
 import mouseDownOnTagGraphics from './mouse-down-on-tag-graphics';
 import setCurrentTag from './set-current-tag';
 import seekToTag from './seek-to-tag';
+import removeTag from './remove-tag';
+import setTagGlobalID from './set-tag-globalid';
 
 const simpleActionRootReducer = (state: State, action: SimpleAction): State => {
   switch (action.type) {
@@ -71,6 +75,12 @@ const simpleActionRootReducer = (state: State, action: SimpleAction): State => {
     }
     case MOUSE_DOWN_ON_TAG_GRAPHICS: {
       return mouseDownOnTagGraphics(state, action);
+    }
+    case REMOVE_TAG: {
+      return removeTag(state, action);
+    }
+    case SET_TAG_GLOBALID: {
+      return setTagGlobalID(state, action);
     }
     default:
       return state;

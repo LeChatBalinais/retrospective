@@ -25,8 +25,6 @@ export interface Tags {
 }
 
 export interface Tag {
-  readonly start: number;
-  readonly x: number;
-  readonly y: number;
+  readonly globalID: string;
   readonly path: { time: number; x: number; y: number }[];
 }

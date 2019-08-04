@@ -26,7 +26,8 @@ export const getTags = ({ tags: { byID } }: State): { [ID: string]: Tag } =>
 
 export const getTagIDs = ({ tags: { allIDs } }: State): string[] => allIDs;
 
-export const getLocalTagIDs = ({ localTags }: State): string[] => localTags;
+export const getLocalTagIDs = ({ tags: { byID, allIDs } }: State): string[] =>
+  allIDs.filter((ID: string): boolean => byID[ID].globalID === undefined);
 
 export const getBeingEditedTagIDs = ({ draggedTag }: State): string[] => [
   draggedTag

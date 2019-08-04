@@ -12,7 +12,9 @@ import {
   SEEK_TO_TAG,
   SET_TAG_TRACE_VISIBLE,
   MOUSE_DOWN_ON_TAG_GRAPHICS,
-  ACTION_COMBINATION
+  ACTION_COMBINATION,
+  REMOVE_TAG,
+  SET_TAG_GLOBALID
 } from './actions';
 
 import {
@@ -30,7 +32,9 @@ import {
   SetTagTraceVisible,
   MouseDownOnTagGraphics,
   Action,
-  ActionCombination
+  ActionCombination,
+  RemoveTag,
+  SetTagGlobalID
 } from '../types/action';
 import { Tags } from '../types/state';
 
@@ -97,6 +101,14 @@ export function setTagTraceVisible(
 
 export function mouseDownOnTagGraphics(ID: string): MouseDownOnTagGraphics {
   return { type: MOUSE_DOWN_ON_TAG_GRAPHICS, payload: { ID } };
+}
+
+export function removeTag(ID: string): RemoveTag {
+  return { type: REMOVE_TAG, payload: { ID } };
+}
+
+export function setTagGlobalID(ID: string, globalID: string): SetTagGlobalID {
+  return { type: SET_TAG_GLOBALID, payload: { ID, globalID } };
 }
 
 export function actionCombination(actions: Action[]): ActionCombination {

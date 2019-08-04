@@ -1,8 +1,8 @@
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { State } from '../../types/state';
 import { Action } from '../../types/action';
-import fetchVideoTagsAsync from './fetch-video-tags';
 import makeGetTag from '../../selectors/get-tag';
+import { setTagGlobalID } from '../actionCreators';
 
 const getTag = makeGetTag();
 
@@ -22,7 +22,10 @@ export default function saveTagAsync(
       body: JSON.stringify({ tagID: ID, tag: getTag(getState(), ID) })
     }).then((response): void => {
       if (response.ok) {
-        dispatch(fetchVideoTagsAsync('hello'));
+        response.json().then((data): void => {
+          const { id: globalID } = data;
+          dispatch(setTagGlobalID(ID, globalID));
+        });
       }
     });
   };
