@@ -10,7 +10,7 @@ import {
   ADD_NEW_TAG,
   SET_DRAGGED_TAG,
   UPDATE_TAG_PATH,
-  ADD_FETCHED_TAGS,
+  SET_TAGS,
   SET_CURRENT_TAG,
   SEEK_TO_TAG,
   SET_TAG_TRACE_VISIBLE,
@@ -27,7 +27,7 @@ import setUserSeek from './set-user-seek';
 import addNewTag from './add-new-tag';
 import setDraggedTag from './set-dragged-tag';
 import updateTagPath from './update-tag-path';
-import addFetchedTags from './add-fetched-tags';
+import setTags from './set-tags';
 import setTagTraceVisible from './set-tag-trace-visible';
 import mouseDownOnTagGraphics from './mouse-down-on-tag-graphics';
 import setCurrentTag from './set-current-tag';
@@ -61,8 +61,8 @@ const simpleActionRootReducer = (state: State, action: SimpleAction): State => {
     case UPDATE_TAG_PATH: {
       return updateTagPath(state, action);
     }
-    case ADD_FETCHED_TAGS: {
-      return addFetchedTags(state, action);
+    case SET_TAGS: {
+      return setTags(state, action);
     }
     case SET_CURRENT_TAG: {
       return setCurrentTag(state, action);

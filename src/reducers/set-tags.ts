@@ -1,8 +1,8 @@
 import { v4 as uuid } from 'uuid';
 import { State } from '../types/state';
-import { AddFetchedTags } from '../types/action';
+import { SetTags } from '../types/action';
 
-const addFetchedMarks = (state: State, action: AddFetchedTags): State => {
+const setTags = (state: State, action: SetTags): State => {
   const {
     payload: { allIDs: allFetchedIDs, byID: fetchedByID }
   } = action;
@@ -25,4 +25,4 @@ const addFetchedMarks = (state: State, action: AddFetchedTags): State => {
   };
 };
 
-export default addFetchedMarks;
+export default setTags;

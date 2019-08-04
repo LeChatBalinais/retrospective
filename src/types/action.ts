@@ -35,8 +35,8 @@ export interface UpdateTagPath {
   type: 'UPDATE_TAG_PATH';
   payload: { ID?: string; x: number; y: number };
 }
-export interface AddFetchedTags {
-  type: 'ADD_FETCHED_TAGS';
+export interface SetTags {
+  type: 'SET_TAGS';
   payload: Table<Tag>;
 }
 
@@ -84,7 +84,7 @@ export type SimpleAction =
   | AddNewTag
   | SetDraggedTag
   | UpdateTagPath
-  | AddFetchedTags
+  | SetTags
   | SetCurrentTag
   | SeekToTag
   | SetTagTraceVisible

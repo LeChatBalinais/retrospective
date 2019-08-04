@@ -7,7 +7,7 @@ import {
   ADD_NEW_TAG,
   SET_DRAGGED_TAG,
   UPDATE_TAG_PATH,
-  ADD_FETCHED_TAGS,
+  SET_TAGS,
   SET_CURRENT_TAG,
   SEEK_TO_TAG,
   SET_TAG_TRACE_VISIBLE,
@@ -26,7 +26,7 @@ import {
   AddNewTag,
   SetDraggedTag,
   UpdateTagPath,
-  AddFetchedTags,
+  SetTags,
   SetCurrentTag,
   SeekToTag,
   SetTagTraceVisible,
@@ -80,8 +80,8 @@ export function updateTagPath(
   return { type: UPDATE_TAG_PATH, payload: { ID, x, y } };
 }
 
-export function addFetchedTags(markers: Table<Tag>): AddFetchedTags {
-  return { type: ADD_FETCHED_TAGS, payload: markers };
+export function setTags(markers: Table<Tag>): SetTags {
+  return { type: SET_TAGS, payload: markers };
 }
 
 export function setCurrentTag(ID: string): SetCurrentTag {
