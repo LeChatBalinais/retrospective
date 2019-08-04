@@ -5,8 +5,8 @@ const setDuration = (state: State, action: SetDuration): State => {
   const { payload: duration } = action;
   return {
     ...state,
-    superVideoState: {
-      ...state.superVideoState,
+    footage: {
+      ...state.footage,
       duration
     }
   };

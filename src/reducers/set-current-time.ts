@@ -7,17 +7,17 @@ const setCurrentTime = (state: State, action: SetCurrentTime): State => {
     payload: { time, isNormalized }
   } = action;
 
-  let currentTime = time;
+  let currentTimeNormalized = time;
 
   if (isNormalized) {
-    currentTime = getVideoDuration(state) * time;
+    currentTimeNormalized = getVideoDuration(state) * time;
   }
 
   return {
     ...state,
-    superVideoState: {
-      ...state.superVideoState,
-      currentTime
+    player: {
+      ...state.player,
+      currentTimeNormalized
     }
   };
 };

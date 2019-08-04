@@ -5,20 +5,20 @@ const setPlaceNewTagMode = (
   state: State,
   action: SetPlaceNewTagMode
 ): State => {
-  let { payload: on } = action;
+  let { payload: userIsPlacingNewTag } = action;
 
-  if (on === undefined) {
+  if (userIsPlacingNewTag === undefined) {
     ({
-      editorState: { placeNewTagMode: on }
+      tagEditor: { userIsPlacingNewTag }
     } = state);
-    on = !on;
+    userIsPlacingNewTag = !userIsPlacingNewTag;
   }
 
   return {
     ...state,
-    editorState: {
-      ...state.editorState,
-      placeNewTagMode: on
+    tagEditor: {
+      ...state.tagEditor,
+      userIsPlacingNewTag
     }
   };
 };

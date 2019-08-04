@@ -5,8 +5,8 @@ const setUserSeek = (state: State, action: SetUserSeek): State => {
   const { payload: on } = action;
   return {
     ...state,
-    superVideoState: {
-      ...state.superVideoState,
+    player: {
+      ...state.player,
       userSeek: on
     }
   };

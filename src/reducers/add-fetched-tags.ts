@@ -18,8 +18,10 @@ const addFetchedMarks = (state: State, action: AddFetchedTags): State => {
 
   return {
     ...state,
-    tags: { byID, allIDs },
-    currentTag: undefined
+    entities: {
+      tags: { byID, allIDs }
+    },
+    tagEditor: { ...state.tagEditor, currentTag: undefined }
   };
 };
 

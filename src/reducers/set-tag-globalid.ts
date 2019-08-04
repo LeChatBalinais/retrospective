@@ -7,16 +7,20 @@ const setTagGlobalID = (state: State, action: SetTagGlobalID): State => {
   } = action;
 
   const {
-    tags: {
-      byID: { [ID]: tag }
+    entities: {
+      tags: {
+        byID: { [ID]: tag }
+      }
     }
   } = state;
 
   return {
     ...state,
-    tags: {
-      ...state.tags,
-      byID: { ...state.tags.byID, [ID]: { ...tag, globalID } }
+    entities: {
+      tags: {
+        ...state.entities.tags,
+        byID: { ...state.entities.tags.byID, [ID]: { ...tag, globalID } }
+      }
     }
   };
 };

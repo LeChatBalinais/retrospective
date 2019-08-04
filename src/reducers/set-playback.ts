@@ -6,15 +6,15 @@ const setPlayback = (state: State, action: SetPlayback): State => {
 
   if (on === undefined) {
     ({
-      superVideoState: { playback: on }
+      player: { playback: on }
     } = state);
     on = !on;
   }
 
   return {
     ...state,
-    superVideoState: {
-      ...state.superVideoState,
+    player: {
+      ...state.player,
       playback: on
     }
   };

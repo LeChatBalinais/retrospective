@@ -1,5 +1,5 @@
 import { ThunkAction } from 'redux-thunk';
-import { Tags, State } from './state';
+import { Table, Tag, State } from './state';
 
 export interface SetPlayback {
   type: 'SET_PLAYBACK';
@@ -37,7 +37,7 @@ export interface UpdateTagPath {
 }
 export interface AddFetchedTags {
   type: 'ADD_FETCHED_TAGS';
-  payload: Tags;
+  payload: Table<Tag>;
 }
 
 export interface SetCurrentTag {

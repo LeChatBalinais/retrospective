@@ -11,15 +11,17 @@ const addNewTag = (state: State, action: AddNewTag): State => {
 
   return {
     ...state,
-    tags: {
-      byID: {
-        ...state.tags.byID,
-        [newID]: {
-          globalID: undefined,
-          path: [{ time: state.superVideoState.currentTime, x, y }]
-        }
-      },
-      allIDs: [...state.tags.allIDs, newID]
+    entities: {
+      tags: {
+        byID: {
+          ...state.entities.tags.byID,
+          [newID]: {
+            globalID: undefined,
+            path: [{ time: state.player.currentTimeNormalized, x, y }]
+          }
+        },
+        allIDs: [...state.entities.tags.allIDs, newID]
+      }
     }
   };
 };

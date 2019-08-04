@@ -36,7 +36,7 @@ import {
   RemoveTag,
   SetTagGlobalID
 } from '../types/action';
-import { Tags } from '../types/state';
+import { Table, Tag } from '../types/state';
 
 export function setPlayback(on?: boolean): SetPlayback {
   return { type: SET_PLAYBACK, payload: on };
@@ -80,7 +80,7 @@ export function updateTagPath(
   return { type: UPDATE_TAG_PATH, payload: { ID, x, y } };
 }
 
-export function addFetchedTags(markers: Tags): AddFetchedTags {
+export function addFetchedTags(markers: Table<Tag>): AddFetchedTags {
   return { type: ADD_FETCHED_TAGS, payload: markers };
 }
 

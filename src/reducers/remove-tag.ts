@@ -8,7 +8,9 @@ const removeTag = (state: State, action: RemoveTag): State => {
   } = action;
 
   const {
-    tags: { byID, allIDs }
+    entities: {
+      tags: { byID, allIDs }
+    }
   } = state;
 
   const index = allIDs.findIndex((ID: string): boolean => ID === IDtoRemove);
@@ -19,10 +21,16 @@ const removeTag = (state: State, action: RemoveTag): State => {
 
   return {
     ...state,
-    currentTag: oldCurrentTag === IDtoRemove ? undefined : oldCurrentTag,
-    tags: {
-      allIDs: [...allIDs.slice(0, index), ...allIDs.slice(index + 1)],
-      byID: newByID
+    tagEditor: {
+      ...state.tagEditor,
+      currentTag: oldCurrentTag === IDtoRemove ? undefined : oldCurrentTag
+    },
+
+    entities: {
+      tags: {
+        allIDs: [...allIDs.slice(0, index), ...allIDs.slice(index + 1)],
+        byID: newByID
+      }
     }
   };
 };

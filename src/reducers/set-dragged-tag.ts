@@ -8,7 +8,7 @@ const setDraggedTag = (state: State, action: SetDraggedTag): State => {
 
   return {
     ...state,
-    draggedTag: ID
+    tagEditor: { ...state.tagEditor, tagsBeingEdited: [ID] }
   };
 };
 

@@ -5,16 +5,18 @@ const setCurrentTime = (state: State, action: SeekToTag): State => {
   const { payload: tagID } = action;
 
   const {
-    tags: {
-      byID: { [tagID]: tag }
+    entities: {
+      tags: {
+        byID: { [tagID]: tag }
+      }
     }
   } = state;
 
   return {
     ...state,
-    superVideoState: {
-      ...state.superVideoState,
-      currentTime: tag.path[0].time
+    player: {
+      ...state.player,
+      currentTimeNormalized: tag.path[0].time
     }
   };
 };

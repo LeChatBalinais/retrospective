@@ -1,26 +1,28 @@
 import { State } from '../types/state';
 
 const DEFAULT_STATE: State = {
-  superVideoState: {
+  entities: {
+    tags: {
+      byID: {},
+      allIDs: []
+    }
+  },
+  tagEditor: {
+    userIsPlacingNewTag: false,
+    tagsBeingEdited: [],
+    currentTag: undefined,
+    selectedTags: [],
+    tagsWithVisibleTrace: []
+  },
+  footage: {
     duration: 29,
+    url: 'http://localhost:9000/video'
+  },
+  player: {
     playback: false,
-    currentTime: 0,
-    url: 'http://localhost:9000/video',
     userSeek: false,
-    seekToRequestedTime: false,
-    requestedTime: 0
-  },
-  editorState: {
-    placeNewTagMode: false
-  },
-  tags: {
-    byID: {},
-    allIDs: []
-  },
-  draggedTag: undefined,
-  localTags: [],
-  currentTag: undefined,
-  visibleTraceTags: []
+    currentTimeNormalized: 0
+  }
 };
 
 export default DEFAULT_STATE;

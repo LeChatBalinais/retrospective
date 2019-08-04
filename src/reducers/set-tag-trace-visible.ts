@@ -1,24 +1,32 @@
 import { State } from '../types/state';
 import { SetTagTraceVisible } from '../types/action';
 
-const setTagTraceVisible = (state: State, action: SetTagTraceVisible): State => {
-    const { payload: { ID, visible } } = action;
+const setTagTraceVisible = (
+  state: State,
+  action: SetTagTraceVisible
+): State => {
+  const {
+    payload: { ID, visible }
+  } = action;
 
-    let { visibleTraceTags } = state;
+  let {
+    tagEditor: { tagsWithVisibleTrace }
+  } = state;
 
-
-    if (visible) {
-        if (!visibleTraceTags.includes(ID)) {
-            visibleTraceTags = [...visibleTraceTags, ID];
-        }
-    } else if (visibleTraceTags.includes(ID)) {
-        visibleTraceTags = visibleTraceTags.filter((value: string): boolean => (value !== ID));
+  if (visible) {
+    if (!tagsWithVisibleTrace.includes(ID)) {
+      tagsWithVisibleTrace = [...tagsWithVisibleTrace, ID];
     }
+  } else if (tagsWithVisibleTrace.includes(ID)) {
+    tagsWithVisibleTrace = tagsWithVisibleTrace.filter(
+      (value: string): boolean => value !== ID
+    );
+  }
 
-    return {
-        ...state,
-        visibleTraceTags
-    };
-}
+  return {
+    ...state,
+    tagEditor: { ...state.tagEditor, tagsWithVisibleTrace }
+  };
+};
 
 export default setTagTraceVisible;

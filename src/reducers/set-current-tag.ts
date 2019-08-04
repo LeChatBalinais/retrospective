@@ -6,7 +6,10 @@ const setCurrentTag = (state: State, action: SetCurrentTag): State => {
 
   return {
     ...state,
-    currentTag: ID
+    tagEditor: {
+      ...state.tagEditor,
+      currentTag: ID
+    }
   };
 };
 
