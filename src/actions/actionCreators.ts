@@ -38,12 +38,12 @@ import {
 } from '../types/action';
 import { Table, Tag } from '../types/state';
 
-export function setPlayback(on?: boolean): SetPlayback {
-  return { type: SET_PLAYBACK, payload: on };
+export function setPlayback(playback?: boolean): SetPlayback {
+  return { type: SET_PLAYBACK, payload: { playback } };
 }
 
-export function setPlaceNewTagMode(on?: boolean): SetPlaceNewTagMode {
-  return { type: SET_PLACE_NEW_TAG_MODE, payload: on };
+export function setPlaceNewTagMode(mode?: boolean): SetPlaceNewTagMode {
+  return { type: SET_PLACE_NEW_TAG_MODE, payload: { mode } };
 }
 
 export function setCurrentTime(
@@ -57,11 +57,11 @@ export function setCurrentTime(
 }
 
 export function setDuration(duration: number): SetDuration {
-  return { type: SET_DURATION, payload: duration };
+  return { type: SET_DURATION, payload: { duration } };
 }
 
-export function setUserSeek(on: boolean): SetUserSeek {
-  return { type: SET_USER_SEEK, payload: on };
+export function setUserSeek(mode: boolean): SetUserSeek {
+  return { type: SET_USER_SEEK, payload: { mode } };
 }
 
 export function addNewTag(x: number, y: number): AddNewTag {
@@ -80,16 +80,16 @@ export function updateTagPath(
   return { type: UPDATE_TAG_PATH, payload: { ID, x, y } };
 }
 
-export function setTags(markers: Table<Tag>): SetTags {
-  return { type: SET_TAGS, payload: markers };
+export function setTags(tags: Table<Tag>): SetTags {
+  return { type: SET_TAGS, payload: { tags } };
 }
 
 export function setCurrentTag(ID: string): SetCurrentTag {
-  return { type: SET_CURRENT_TAG, payload: ID };
+  return { type: SET_CURRENT_TAG, payload: { ID } };
 }
 
 export function seekToTag(ID: string): SeekToTag {
-  return { type: SEEK_TO_TAG, payload: ID };
+  return { type: SEEK_TO_TAG, payload: { ID } };
 }
 
 export function setTagTraceVisible(

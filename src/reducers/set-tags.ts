@@ -4,7 +4,9 @@ import { SetTags } from '../types/action';
 
 const setTags = (state: State, action: SetTags): State => {
   const {
-    payload: { allIDs: allFetchedIDs, byID: fetchedByID }
+    payload: {
+      tags: { allIDs: allFetchedIDs, byID: fetchedByID }
+    }
   } = action;
 
   let byID = {};

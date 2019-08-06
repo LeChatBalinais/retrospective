@@ -5,7 +5,9 @@ const setPlaceNewTagMode = (
   state: State,
   action: SetPlaceNewTagMode
 ): State => {
-  let { payload: userIsPlacingNewTag } = action;
+  let {
+    payload: { mode: userIsPlacingNewTag }
+  } = action;
 
   if (userIsPlacingNewTag === undefined) {
     ({

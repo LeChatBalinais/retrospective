@@ -2,12 +2,14 @@ import { State } from '../types/state';
 import { SeekToTag } from '../types/action';
 
 const setCurrentTime = (state: State, action: SeekToTag): State => {
-  const { payload: tagID } = action;
+  const {
+    payload: { ID }
+  } = action;
 
   const {
     entities: {
       tags: {
-        byID: { [tagID]: tag }
+        byID: { [ID]: tag }
       }
     },
     footage: { duration }

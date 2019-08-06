@@ -1,14 +1,13 @@
-import { ThunkAction } from 'redux-thunk';
-import { Table, Tag, State } from './state';
+import { Table, Tag } from './state';
 
 export interface SetPlayback {
   type: 'SET_PLAYBACK';
-  payload?: boolean;
+  payload: { playback?: boolean };
 }
 
 export interface SetPlaceNewTagMode {
   type: 'SET_PLACE_NEW_TAG_MODE';
-  payload?: boolean;
+  payload: { mode?: boolean };
 }
 
 export interface SetCurrentTime {
@@ -17,11 +16,11 @@ export interface SetCurrentTime {
 }
 export interface SetDuration {
   type: 'SET_DURATION';
-  payload: number;
+  payload: { duration: number };
 }
 export interface SetUserSeek {
   type: 'SET_USER_SEEK';
-  payload: boolean;
+  payload: { mode: boolean };
 }
 export interface AddNewTag {
   type: 'ADD_NEW_TAG';
@@ -37,17 +36,17 @@ export interface UpdateTagPath {
 }
 export interface SetTags {
   type: 'SET_TAGS';
-  payload: Table<Tag>;
+  payload: { tags: Table<Tag> };
 }
 
 export interface SetCurrentTag {
   type: 'SET_CURRENT_TAG';
-  payload: string;
+  payload: { ID: string };
 }
 
 export interface SeekToTag {
   type: 'SEEK_TO_TAG';
-  payload: string;
+  payload: { ID: string };
 }
 
 export interface SetTagTraceVisible {
@@ -93,5 +92,3 @@ export type SimpleAction =
   | SetTagGlobalID;
 
 export type Action = SimpleAction | ActionCombination;
-
-export type AnyAction = Action | ThunkAction<void, State, null, Action>;

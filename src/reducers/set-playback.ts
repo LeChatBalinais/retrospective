@@ -2,7 +2,9 @@ import { State } from '../types/state';
 import { SetPlayback } from '../types/action';
 
 const setPlayback = (state: State, action: SetPlayback): State => {
-  let { payload: on } = action;
+  let {
+    payload: { playback: on }
+  } = action;
 
   if (on === undefined) {
     ({
