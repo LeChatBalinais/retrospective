@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>): FuncProps => ({
   onClick: (x: number, y: number): void => {
     dispatch(
       actionCombination([
-        setPlayback(false),
+        setPlayback({ playback: false }),
         setPlaceNewTagMode(false),
         addNewTag(x, y)
       ])

@@ -56,7 +56,7 @@ const mapDispatchToProps = (
     dispatch(mouseDownOnTagGraphics(ID));
   },
   onMouseUp: (): void => {
-    dispatch(setPlayback(false));
+    dispatch(setPlayback({ playback: false }));
   }
 });
 

@@ -1,8 +1,9 @@
-import { Table, Tag } from './state';
+import { ThunkAction, ThunkDispatch } from 'redux-thunk';
+import { Table, Tag, State } from './state';
 
 export interface SetPlayback {
   type: 'SET_PLAYBACK';
-  payload: { playback?: boolean };
+  payload: { playback: boolean };
 }
 
 export interface SetPlaceNewTagMode {
@@ -92,3 +93,7 @@ export type SimpleAction =
   | SetTagGlobalID;
 
 export type Action = SimpleAction | ActionCombination;
+
+export type ThunkAction = ThunkAction<void, State, null, Action>;
+
+export type ThunkDispatch = ThunkDispatch<State, null, Action>;

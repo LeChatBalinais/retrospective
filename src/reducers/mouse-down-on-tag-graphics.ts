@@ -22,7 +22,10 @@ const mouseDownOnTagGraphics = (
 
   if (tagIsCurrent) {
     newState = setDraggedTag(newState, setDraggedTagActionCreator(ID));
-    newState = setPlayback(newState, setPlaybackActionCreator(true));
+    newState = setPlayback(
+      newState,
+      setPlaybackActionCreator({ playback: true })
+    );
   } else {
     newState = setCurrentTag(newState, setCurrentTagActionCreator(ID));
   }

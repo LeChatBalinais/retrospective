@@ -38,8 +38,8 @@ import {
 } from '../types/action';
 import { Table, Tag } from '../types/state';
 
-export function setPlayback(playback?: boolean): SetPlayback {
-  return { type: SET_PLAYBACK, payload: { playback } };
+export function setPlayback(payload: { playback: boolean }): SetPlayback {
+  return { type: SET_PLAYBACK, payload };
 }
 
 export function setPlaceNewTagMode(mode?: boolean): SetPlaceNewTagMode {

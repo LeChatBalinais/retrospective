@@ -1,18 +1,17 @@
-import { Dispatch } from 'react';
 import { connect } from 'react-redux';
 import Button, { ValueProps, FuncProps } from '../components/Button';
-import { setPlayback } from '../actions/actionCreators';
+import togglePlayback from '../actions/actionCreatorContainers/toggle-playback';
 import { State } from '../types/state';
 import { getPlayback } from '../selectors/selectors';
-import { Action } from '../types/action';
+import { ThunkDispatch } from '../types/action';
 
 const mapStateToProps = (state: State): ValueProps => ({
   caption: getPlayback(state) ? 'Pause' : 'Play'
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>): FuncProps => ({
+const mapDispatchToProps = (dispatch: ThunkDispatch): FuncProps => ({
   onPress: (): void => {
-    dispatch(setPlayback());
+    dispatch(togglePlayback());
   }
 });
 

@@ -1,9 +1,8 @@
-import { ThunkDispatch } from 'redux-thunk';
 import { connect } from 'react-redux';
 import Button, { ValueProps, FuncProps } from '../components/Button';
 import saveTagAsync from '../actions/asyncActionCreators/save-tag';
 import deleteTagAsync from '../actions/asyncActionCreators/delete-tag';
-import { Action } from '../types/action';
+import { ThunkDispatch } from '../types/action';
 import { State } from '../types/state';
 
 interface Props {
@@ -11,13 +10,10 @@ interface Props {
   isLocal: boolean;
 }
 
-type MapDispatchToProps = (
-  dispatch: ThunkDispatch<State, {}, Action>,
-  props: Props
-) => FuncProps;
+type MapDispatchToProps = (dispatch: ThunkDispatch, props: Props) => FuncProps;
 
 const onPress = (
-  dispatch: ThunkDispatch<State, {}, Action>,
+  dispatch: ThunkDispatch,
   tagID: string,
   isLocal: boolean
 ): (() => void) => {
@@ -33,7 +29,7 @@ const onPress = (
 
 const makeMapDispatchToProps = (): MapDispatchToProps => {
   return (
-    dispatch: ThunkDispatch<State, {}, Action>,
+    dispatch: ThunkDispatch,
     { ID, isLocal }: { ID: string; isLocal: boolean }
   ): { onPress: () => void } => ({ onPress: onPress(dispatch, ID, isLocal) });
 };
