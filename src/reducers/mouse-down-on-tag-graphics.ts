@@ -21,7 +21,7 @@ const mouseDownOnTagGraphics = (
   let newState = state;
 
   if (tagIsCurrent) {
-    newState = setDraggedTag(newState, setDraggedTagActionCreator(ID));
+    newState = setDraggedTag(newState, setDraggedTagActionCreator({ ID }));
     newState = setPlayback(
       newState,
       setPlaybackActionCreator({ playback: true })

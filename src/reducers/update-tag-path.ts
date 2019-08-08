@@ -1,23 +1,10 @@
 import { State } from '../types/state';
 import { UpdateTagPath } from '../types/action';
-import { getCurrentTime } from '../selectors/selectors';
 
 const updateTagPath = (state: State, action: UpdateTagPath): State => {
-  let {
-    payload: { ID }
-  } = action;
-
   const {
-    payload: { x, y }
+    payload: { ID, time, x, y }
   } = action;
-
-  if (ID === undefined) {
-    ({
-      tagEditor: {
-        tagsBeingEdited: [ID]
-      }
-    } = state);
-  }
 
   if (ID === undefined) return state;
 
@@ -29,20 +16,18 @@ const updateTagPath = (state: State, action: UpdateTagPath): State => {
     }
   } = state;
 
-  const currentTime = getCurrentTime(state);
-
   const { path } = tag;
 
   let newPath = path;
 
-  if (newPath.length === 0 || newPath[newPath.length - 1].time <= currentTime) {
-    newPath = [...newPath, { time: currentTime, x, y }];
-  } else if (newPath[0].time >= currentTime) {
-    newPath = [{ time: currentTime, x, y }, ...newPath];
+  if (newPath.length === 0 || newPath[newPath.length - 1].time <= time) {
+    newPath = [...newPath, { time, x, y }];
+  } else if (newPath[0].time >= time) {
+    newPath = [{ time, x, y }, ...newPath];
   } else {
     const prepEnd = newPath.findIndex(
       (value: { time: number; x: number; y: number }): boolean => {
-        if (value.time >= currentTime - 0.015) {
+        if (value.time >= time - 0.015) {
           return true;
         }
         return false;
@@ -53,14 +38,14 @@ const updateTagPath = (state: State, action: UpdateTagPath): State => {
 
     while (
       postBegin < newPath.length &&
-      newPath[postBegin].time > currentTime + 0.015
+      newPath[postBegin].time > time + 0.015
     ) {
       postBegin += 1;
     }
 
     newPath = [
       ...newPath.slice(0, prepEnd),
-      { time: currentTime, x, y },
+      { time, x, y },
       ...newPath.slice(postBegin, newPath.length - 1)
     ];
   }

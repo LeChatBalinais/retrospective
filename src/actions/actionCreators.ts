@@ -42,8 +42,10 @@ export function setPlayback(payload: { playback: boolean }): SetPlayback {
   return { type: SET_PLAYBACK, payload };
 }
 
-export function setPlaceNewTagMode(mode?: boolean): SetPlaceNewTagMode {
-  return { type: SET_PLACE_NEW_TAG_MODE, payload: { mode } };
+export function setPlaceNewTagMode(payload: {
+  mode: boolean;
+}): SetPlaceNewTagMode {
+  return { type: SET_PLACE_NEW_TAG_MODE, payload };
 }
 
 export function setCurrentTime(
@@ -68,16 +70,17 @@ export function addNewTag(x: number, y: number): AddNewTag {
   return { type: ADD_NEW_TAG, payload: { x, y } };
 }
 
-export function setDraggedTag(ID: string): SetDraggedTag {
-  return { type: SET_DRAGGED_TAG, payload: { ID } };
+export function setDraggedTag(payload: { ID: string }): SetDraggedTag {
+  return { type: SET_DRAGGED_TAG, payload };
 }
 
-export function updateTagPath(
-  x: number,
-  y: number,
-  ID?: string
-): UpdateTagPath {
-  return { type: UPDATE_TAG_PATH, payload: { ID, x, y } };
+export function updateTagPath(payload: {
+  time: number;
+  x: number;
+  y: number;
+  ID: string;
+}): UpdateTagPath {
+  return { type: UPDATE_TAG_PATH, payload };
 }
 
 export function setTags(tags: Table<Tag>): SetTags {

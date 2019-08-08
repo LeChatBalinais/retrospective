@@ -2,24 +2,26 @@ import { State } from '../types/state';
 import { ThunkAction, ThunkDispatch, Action } from '../types/action';
 import { actionCombination } from './actionCreators';
 
-export type MapStateToPayload<E, P> = (state: State, externalPayload: E) => P;
+export type MapStateToPayload<E, P> = (state: State, externalPayload?: E) => P;
 
-export function actionCreatorContainer<E, P>(
+export function actionWithMappedPayload<E, P>(
   mapStateToPayload: MapStateToPayload<E, P>,
   actionCreator: (payload: P) => Action
-): (state: State, externalPayload: E) => Action {
-  return (state: State, externalPayload: E): Action => {
+): (state: State, externalPayload?: E) => Action {
+  return (state: State, externalPayload?: E): Action => {
     return actionCreator({
       ...mapStateToPayload(state, externalPayload)
     });
   };
 }
 
-export default function actionWithPayloadFromState<E>(
-  payload: E,
-  actionCreators: ((state: State, externalPayload: E) => Action)[]
-): ThunkAction {
-  return (dispatch: ThunkDispatch, getState: () => State): void => {
+export default function connect<E>(
+  actionCreators: ((state: State, externalPayload?: E) => Action)[]
+): (payload?: E) => ThunkAction {
+  return (payload?: E): ThunkAction => (
+    dispatch: ThunkDispatch,
+    getState: () => State
+  ): void => {
     if (actionCreators.length === 0) return;
 
     if (actionCreators.length === 1) {

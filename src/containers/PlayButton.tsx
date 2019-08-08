@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Button, { ValueProps, FuncProps } from '../components/Button';
-import togglePlayback from '../actions/actionCreatorContainers/toggle-playback';
+import togglePlayback from '../actions/containers/toggle-playback';
 import { State } from '../types/state';
 import { getPlayback } from '../selectors/selectors';
 import { ThunkDispatch } from '../types/action';

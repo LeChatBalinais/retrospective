@@ -14,7 +14,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>): FuncProps => ({
     dispatch(
       actionCombination([
         setPlayback({ playback: false }),
-        setPlaceNewTagMode(false),
+        setPlaceNewTagMode({ mode: false }),
         addNewTag(x, y)
       ])
     );

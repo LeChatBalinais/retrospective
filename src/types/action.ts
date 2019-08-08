@@ -8,7 +8,7 @@ export interface SetPlayback {
 
 export interface SetPlaceNewTagMode {
   type: 'SET_PLACE_NEW_TAG_MODE';
-  payload: { mode?: boolean };
+  payload: { mode: boolean };
 }
 
 export interface SetCurrentTime {
@@ -33,7 +33,7 @@ export interface SetDraggedTag {
 }
 export interface UpdateTagPath {
   type: 'UPDATE_TAG_PATH';
-  payload: { ID?: string; x: number; y: number };
+  payload: { ID: string; time: number; x: number; y: number };
 }
 export interface SetTags {
   type: 'SET_TAGS';
