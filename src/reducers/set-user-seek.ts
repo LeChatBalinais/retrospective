@@ -1,5 +1,5 @@
 import { State } from '../types/state';
-import { SetUserSeek } from '../types/action';
+import { SetUserSeek } from '../actions/set-user-seek';
 
 const setUserSeek = (state: State, action: SetUserSeek): State => {
   const {

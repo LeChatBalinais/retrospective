@@ -1,5 +1,5 @@
 import { State } from '../types/state';
-import { UpdateTagPath } from '../types/action';
+import { UpdateTagPath } from '../actions/update-tag-path';
 
 const updateTagPath = (state: State, action: UpdateTagPath): State => {
   const {

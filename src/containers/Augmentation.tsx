@@ -4,14 +4,15 @@ import Augmentation, {
   FuncProps
 } from '../components/Augmentation';
 import { State } from '../types/state';
-import { setCurrentTag, setDraggedTag } from '../actions/actionCreators';
 import updateTagBeingEditedPath, {
   createUpdateTagBeingEditedPath
-} from '../actions/containers/update-tag-being-edited-path';
+} from '../actions/thunks/update-tag-being-edited-path';
 import connectAction from '../actions/prepared-action';
 
 import getVisibleTagIDs from '../selectors/get-visible-tag-ids';
-import { ThunkDispatch, Action } from '../types/action';
+import { ThunkDispatch, Action } from '../types/types';
+import setDraggedTag from '../actions/set-dragged-tag';
+import setCurrentTag from '../actions/set-current-tag';
 
 const mapStateToProps = (state: State): ValueProps => ({
   tagIDs: getVisibleTagIDs(state)

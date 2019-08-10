@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import Button, { ValueProps, FuncProps } from '../components/Button';
 import saveTagAsync from '../actions/asyncActionCreators/save-tag';
 import deleteTagAsync from '../actions/asyncActionCreators/delete-tag';
-import { ThunkDispatch } from '../types/action';
+import { ThunkDispatch } from '../types/types';
 import { State } from '../types/state';
 
 interface Props {

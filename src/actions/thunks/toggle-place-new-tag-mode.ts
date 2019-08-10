@@ -1,4 +1,4 @@
-import { setPlaceNewTagMode as actionCreator } from '../actionCreators';
+import actionCreator from '../set-place-new-tag-mode';
 import connect, { actionWithMappedPayload } from '../prepared-action';
 import { State } from '../../types/state';
 import { isPlaceNewTagModeOn } from '../../selectors/selectors';

@@ -1,5 +1,5 @@
 import { State } from '../types/state';
-import { SetTagGlobalID } from '../types/action';
+import { SetTagGlobalID } from '../actions/set-tag-globalid';
 
 const setTagGlobalID = (state: State, action: SetTagGlobalID): State => {
   const {

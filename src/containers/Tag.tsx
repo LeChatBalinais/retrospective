@@ -4,7 +4,7 @@ import Tag, {
   FuncProps as TagFuncProps,
   ValueProps as TagValueProps
 } from '../components/Tag';
-import { setPlayback, mouseDownOnTagGraphics } from '../actions/actionCreators';
+import setPlayback from '../actions/set-playback';
 import { State } from '../types/state';
 import makeGetTagInfo from '../selectors/get-tag-info';
 import isVideoPlaying from '../selectors/is-video-playing';
@@ -13,7 +13,8 @@ import {
   makeGetCurrentTagPosition
 } from '../selectors/tag-selectors';
 import { getCurrentTime } from '../selectors/selectors';
-import { Action } from '../types/action';
+import { Action } from '../types/types';
+import mouseDownOnTagGraphics from '../actions/mouse-down-on-tag-graphics';
 
 interface Props {
   ID: string;
@@ -53,7 +54,7 @@ const mapDispatchToProps = (
   { ID }: Props
 ): TagFuncProps => ({
   onMouseDown: (): void => {
-    dispatch(mouseDownOnTagGraphics(ID));
+    dispatch(mouseDownOnTagGraphics({ ID }));
   },
   onMouseUp: (): void => {
     dispatch(setPlayback({ playback: false }));

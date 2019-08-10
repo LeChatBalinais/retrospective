@@ -1,11 +1,12 @@
 import { Dispatch } from 'react';
 import { connect } from 'react-redux';
 import Video, { ValueProps, FuncProps } from '../components/Video';
-import { setCurrentTime, setDuration } from '../actions/actionCreators';
+import setCurrentTime from '../actions/set-current-time';
+import setDuration from '../actions/set-duration';
 import { State } from '../types/state';
 import isVideoPlaying from '../selectors/is-video-playing';
 import { getVideoURL, getCurrentTime } from '../selectors/selectors';
-import { Action } from '../types/action';
+import { Action } from '../types/types';
 
 const mapStateToProps = (state: State): ValueProps => {
   return {
@@ -16,11 +17,11 @@ const mapStateToProps = (state: State): ValueProps => {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>): FuncProps => ({
-  onTimeUpdate: (videoCurrentTime: number): void => {
-    dispatch(setCurrentTime(videoCurrentTime));
+  onTimeUpdate: (time: number): void => {
+    dispatch(setCurrentTime({ time, isNormalized: false }));
   },
   onDurationChange: (duration: number): void => {
-    dispatch(setDuration(duration));
+    dispatch(setDuration({ duration }));
   }
 });
 

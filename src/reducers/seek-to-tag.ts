@@ -1,5 +1,5 @@
 import { State } from '../types/state';
-import { SeekToTag } from '../types/action';
+import { SeekToTag } from '../actions/seek-to-tag';
 
 const setCurrentTime = (state: State, action: SeekToTag): State => {
   const {

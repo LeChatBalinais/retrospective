@@ -1,5 +1,5 @@
 import { State } from '../types/state';
-import { SetCurrentTime } from '../types/action';
+import { SetCurrentTime } from '../actions/set-current-time';
 import { getVideoDuration } from '../selectors/selectors';
 
 const setCurrentTime = (state: State, action: SetCurrentTime): State => {

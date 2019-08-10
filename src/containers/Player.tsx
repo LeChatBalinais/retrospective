@@ -6,7 +6,7 @@ import Player, {
 import fetchVideoTagsAsync from '../actions/asyncActionCreators/fetch-video-tags';
 import { State } from '../types/state';
 import { getCurrentTagID, isPlaceNewTagModeOn } from '../selectors/selectors';
-import { ThunkDispatch } from '../types/action';
+import { ThunkDispatch } from '../types/types';
 
 const mapStateToProps = (state: State): PlayerValueProps => ({
   currentTag: getCurrentTagID(state),

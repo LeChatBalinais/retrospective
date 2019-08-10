@@ -1,7 +1,7 @@
 import { State } from '../../types/state';
-import { ThunkAction, ThunkDispatch } from '../../types/action';
+import { ThunkAction, ThunkDispatch } from '../../types/types';
 import makeGetTag from '../../selectors/get-tag';
-import { removeTag } from '../actionCreators';
+import removeTag from '../remove-tag';
 
 const getTag = makeGetTag();
 
@@ -17,7 +17,7 @@ export default function deleteTagAsync(ID: string): ThunkAction {
       body: JSON.stringify({ ID: globalID })
     }).then((response): void => {
       if (response.ok) {
-        dispatch(removeTag(ID));
+        dispatch(removeTag({ ID }));
       }
     });
   };

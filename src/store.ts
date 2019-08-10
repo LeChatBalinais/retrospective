@@ -2,7 +2,7 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import thunk, { ThunkMiddleware } from 'redux-thunk';
 import reducer from './reducers/reducers';
 import { State } from './types/state';
-import { Action } from './types/action';
+import { Action } from './types/types';
 
 /* eslint-disable dot-notation */
 /* eslint-disable no-underscore-dangle */

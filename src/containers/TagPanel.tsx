@@ -5,10 +5,10 @@ import TagPanel, {
   FuncProps as TagPanelFuncProp
 } from '../components/TagPanel';
 import { State } from '../types/state';
-import { setTagTraceVisible } from '../actions/actionCreators';
 import { getCurrentTagID } from '../selectors/selectors';
 import makeGetTagInfo from '../selectors/get-tag-info';
-import { Action } from '../types/action';
+import { Action } from '../types/types';
+import setTagTraceVisible from '../actions/set-tag-trace-visible';
 
 interface Props {
   ID: string;
@@ -26,7 +26,7 @@ const onTagTraceVisbileCheckboxInput = (
   ID: string
 ): ((visible: boolean) => void) => {
   return (visible: boolean): void => {
-    dispatch(setTagTraceVisible(ID, visible));
+    dispatch(setTagTraceVisible({ ID, visible }));
   };
 };
 

@@ -1,5 +1,5 @@
-import { setTags } from '../actionCreators';
-import { ThunkAction, ThunkDispatch } from '../../types/action';
+import { ThunkAction, ThunkDispatch } from '../../types/types';
+import setTags from '../set-tags';
 
 export default function fetchVideoTagsAsync(videoID: string): ThunkAction {
   return (dispatch: ThunkDispatch): void => {
@@ -7,7 +7,7 @@ export default function fetchVideoTagsAsync(videoID: string): ThunkAction {
       response.json().then((data): void => {
         const { tags: tagObject } = data;
         const tags = tagObject;
-        dispatch(setTags(tags));
+        dispatch(setTags({ tags }));
       });
     });
   };

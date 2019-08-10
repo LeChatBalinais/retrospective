@@ -15,7 +15,7 @@ const DEFAULT_STATE: State = {
     tagsWithVisibleTrace: []
   },
   footage: {
-    duration: 29,
+    duration: 0,
     url: 'http://localhost:9000/video'
   },
   player: {

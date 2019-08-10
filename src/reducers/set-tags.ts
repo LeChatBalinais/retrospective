@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import { State } from '../types/state';
-import { SetTags } from '../types/action';
+import { SetTags } from '../actions/set-tags';
 
 const setTags = (state: State, action: SetTags): State => {
   const {

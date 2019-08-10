@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import { State } from '../types/state';
-import { AddNewTag } from '../types/action';
 import { getCurrentTime } from '../selectors/selectors';
+import { AddNewTag } from '../actions/add-new-tag';
 
 const addNewTag = (state: State, action: AddNewTag): State => {
   const {

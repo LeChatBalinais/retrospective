@@ -1,7 +1,7 @@
 import { State } from '../../types/state';
-import { ThunkAction, ThunkDispatch } from '../../types/action';
+import { ThunkAction, ThunkDispatch } from '../../types/types';
 import makeGetTag from '../../selectors/get-tag';
-import { setTagGlobalID } from '../actionCreators';
+import setTagGlobalID from '../set-tag-globalid';
 
 const getTag = makeGetTag();
 
@@ -18,7 +18,7 @@ export default function saveTagAsync(ID: string): ThunkAction {
       if (response.ok) {
         response.json().then((data): void => {
           const { id: globalID } = data;
-          dispatch(setTagGlobalID(ID, globalID));
+          dispatch(setTagGlobalID({ ID, globalID }));
         });
       }
     });

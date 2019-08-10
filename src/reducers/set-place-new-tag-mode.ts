@@ -1,5 +1,5 @@
 import { State } from '../types/state';
-import { SetPlaceNewTagMode } from '../types/action';
+import { SetPlaceNewTagMode } from '../actions/set-place-new-tag-mode';
 
 const setPlaceNewTagMode = (
   state: State,

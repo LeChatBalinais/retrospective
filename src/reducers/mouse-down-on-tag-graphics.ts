@@ -1,14 +1,12 @@
 import { State } from '../types/state';
-import { MouseDownOnTagGraphics } from '../types/action';
 import { isTagCurrent } from '../selectors/selectors';
 import setCurrentTag from './set-current-tag';
 import setDraggedTag from './set-dragged-tag';
 import setPlayback from './set-playback';
-import {
-  setCurrentTag as setCurrentTagActionCreator,
-  setDraggedTag as setDraggedTagActionCreator,
-  setPlayback as setPlaybackActionCreator
-} from '../actions/actionCreators';
+import setPlaybackActionCreator from '../actions/set-playback';
+import setDraggedTagActionCreator from '../actions/set-dragged-tag';
+import setCurrentTagActionCreator from '../actions/set-current-tag';
+import { MouseDownOnTagGraphics } from '../actions/mouse-down-on-tag-graphics';
 
 const mouseDownOnTagGraphics = (
   state: State,
@@ -27,7 +25,7 @@ const mouseDownOnTagGraphics = (
       setPlaybackActionCreator({ playback: true })
     );
   } else {
-    newState = setCurrentTag(newState, setCurrentTagActionCreator(ID));
+    newState = setCurrentTag(newState, setCurrentTagActionCreator({ ID }));
   }
 
   return newState;

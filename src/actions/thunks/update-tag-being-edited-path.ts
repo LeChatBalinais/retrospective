@@ -1,4 +1,4 @@
-import { updateTagPath as actionCreator } from '../actionCreators';
+import actionCreator from '../update-tag-path';
 import connect, { actionWithMappedPayload } from '../prepared-action';
 import { State } from '../../types/state';
 import {

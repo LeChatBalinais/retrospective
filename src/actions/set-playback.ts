@@ -1,0 +1,16 @@
+import { SimpleActionTemplate } from '../types/simple-action-template';
+
+export interface SetPlaybackPayload {
+  playback: boolean;
+}
+
+export type SetPlayback = SimpleActionTemplate<
+  'SET_PLAYBACK',
+  SetPlaybackPayload
+>;
+
+export const SET_PLAYBACK = 'SET_PLAYBACK';
+
+export default function setPlayback(payload: SetPlaybackPayload): SetPlayback {
+  return { type: SET_PLAYBACK, payload };
+}

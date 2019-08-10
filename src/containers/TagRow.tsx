@@ -2,15 +2,13 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'react';
 import TagRow, { ValueProps, FuncProps } from '../components/TagRow';
 import { State } from '../types/state';
-import {
-  setCurrentTag,
-  seekToTag,
-  setUserSeek,
-  actionCombination
-} from '../actions/actionCreators';
 import { makeIsTagLocal } from '../selectors/tag-selectors';
 import { isTagCurrent } from '../selectors/selectors';
-import { Action } from '../types/action';
+import { Action } from '../types/types';
+import setUserSeek from '../actions/set-user-seek';
+import setCurrentTag from '../actions/set-current-tag';
+import seekToTag from '../actions/seek-to-tag';
+import actionCombination from '../actions/action-combination';
 
 type MapStateToProps = (state: State, { ID }: Props) => ValueProps;
 
@@ -39,10 +37,14 @@ const makeMapDispatchToProps = (): MapDispatchToProps => {
   return (dispatch: Dispatch<Action>, { ID }: Props): FuncProps => ({
     onMouseDown: (): void => {
       dispatch(
-        actionCombination([setCurrentTag(ID), setUserSeek(true), seekToTag(ID)])
+        actionCombination([
+          setCurrentTag({ ID }),
+          setUserSeek({ mode: true }),
+          seekToTag({ ID })
+        ])
       );
       setTimeout((): void => {
-        dispatch(setUserSeek(false));
+        dispatch(setUserSeek({ mode: false }));
       }, 100);
     }
   });

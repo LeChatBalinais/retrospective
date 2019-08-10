@@ -1,5 +1,5 @@
 import { State } from '../types/state';
-import { SetCurrentTag } from '../types/action';
+import { SetCurrentTag } from '../actions/set-current-tag';
 
 const setCurrentTag = (state: State, action: SetCurrentTag): State => {
   const {

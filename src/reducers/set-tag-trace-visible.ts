@@ -1,5 +1,5 @@
 import { State } from '../types/state';
-import { SetTagTraceVisible } from '../types/action';
+import { SetTagTraceVisible } from '../actions/set-tag-trace-visible';
 
 const setTagTraceVisible = (
   state: State,
