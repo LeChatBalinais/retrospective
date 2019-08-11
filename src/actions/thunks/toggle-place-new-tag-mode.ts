@@ -1,5 +1,5 @@
 import actionCreator from '../set-place-new-tag-mode';
-import connect, { actionWithMappedPayload } from '../prepared-action';
+import connect, { mapStateToActionCreator } from '../utils/map-state-to-action';
 import { State } from '../../types/state';
 import { isPlaceNewTagModeOn } from '../../selectors/selectors';
 
@@ -8,5 +8,5 @@ const mapStateToPayload = (state: State): { mode: boolean } => {
 };
 
 export default connect([
-  actionWithMappedPayload(mapStateToPayload, actionCreator)
+  mapStateToActionCreator(mapStateToPayload, actionCreator)
 ]);

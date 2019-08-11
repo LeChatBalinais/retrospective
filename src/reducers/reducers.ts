@@ -31,7 +31,7 @@ import { SET_TAG_TRACE_VISIBLE } from '../actions/set-tag-trace-visible';
 import { MOUSE_DOWN_ON_TAG_GRAPHICS } from '../actions/mouse-down-on-tag-graphics';
 import { REMOVE_TAG } from '../actions/remove-tag';
 import { SET_TAG_GLOBALID } from '../actions/set-tag-globalid';
-import { ACTION_COMBINATION } from '../actions/action-combination';
+import { ACTION_COMBINATION } from '../actions/utils/action-combination';
 
 const simpleActionRootReducer = (state: State, action: SimpleAction): State => {
   switch (action.type) {

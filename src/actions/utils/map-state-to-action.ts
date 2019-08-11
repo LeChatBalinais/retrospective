@@ -1,16 +1,18 @@
-import { State } from '../types/state';
-import { ThunkAction, ThunkDispatch, Action } from '../types/types';
+import { State } from '../../types/state';
+import { ThunkAction, ThunkDispatch, Action } from '../../types/types';
 import actionCombination from './action-combination';
 
 export type MapStateToPayload<E, P> = (state: State, externalPayload?: E) => P;
 
-export function actionWithMappedPayload<E, P>(
+export function mapStateToActionCreator<E, P>(
   mapStateToPayload: MapStateToPayload<E, P>,
   actionCreator: (payload: P) => Action
 ): (state: State, externalPayload?: E) => Action {
   return (state: State, externalPayload?: E): Action => {
+    const payload = mapStateToPayload(state, externalPayload);
+    if (payload === undefined) return undefined;
     return actionCreator({
-      ...mapStateToPayload(state, externalPayload)
+      ...payload
     });
   };
 }
@@ -26,16 +28,18 @@ export default function connect<E>(
 
     if (actionCreators.length === 1) {
       const [actionCreator] = actionCreators;
-      dispatch(actionCreator(getState(), payload));
+      if (actionCreator !== undefined)
+        dispatch(actionCreator(getState(), payload));
       return;
     }
 
-    const actions: Action[] = [];
+    const actions: ((p: E) => Action)[] = [];
 
     for (let index = 0; index < actionCreators.length; index += 1) {
       const actionCreator = actionCreators[index];
-      actions.push(actionCreator(getState(), payload));
+      if (actionCreator !== undefined)
+        actions.push((p: E): Action => actionCreator(getState(), p));
     }
-    dispatch(actionCombination(actions));
+    dispatch(actionCombination(actions)(payload));
   };
 }

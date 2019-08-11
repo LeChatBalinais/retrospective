@@ -5,10 +5,12 @@ import { State } from '../types/state';
 import { makeIsTagLocal } from '../selectors/tag-selectors';
 import { isTagCurrent } from '../selectors/selectors';
 import { Action } from '../types/types';
-import setUserSeek from '../actions/set-user-seek';
-import setCurrentTag from '../actions/set-current-tag';
-import seekToTag from '../actions/seek-to-tag';
-import actionCombination from '../actions/action-combination';
+import setUserSeek, { SetUserSeekPayload } from '../actions/set-user-seek';
+import setCurrentTag, {
+  SetCurrentTagPayload
+} from '../actions/set-current-tag';
+import seekToTag, { SeekToTagPayload } from '../actions/seek-to-tag';
+import actionCombination from '../actions/utils/action-combination';
 
 type MapStateToProps = (state: State, { ID }: Props) => ValueProps;
 
@@ -37,11 +39,9 @@ const makeMapDispatchToProps = (): MapDispatchToProps => {
   return (dispatch: Dispatch<Action>, { ID }: Props): FuncProps => ({
     onMouseDown: (): void => {
       dispatch(
-        actionCombination([
-          setCurrentTag({ ID }),
-          setUserSeek({ mode: true }),
-          seekToTag({ ID })
-        ])
+        actionCombination<
+          SetCurrentTagPayload & SetUserSeekPayload & SeekToTagPayload
+        >([setCurrentTag, setUserSeek, seekToTag])({ ID, mode: true })
       );
       setTimeout((): void => {
         dispatch(setUserSeek({ mode: false }));

@@ -4,7 +4,7 @@ import Tag, {
   FuncProps as TagFuncProps,
   ValueProps as TagValueProps
 } from '../components/Tag';
-import setPlayback from '../actions/set-playback';
+import setPlayback, { SetPlaybackPayload } from '../actions/set-playback';
 import { State } from '../types/state';
 import makeGetTagInfo from '../selectors/get-tag-info';
 import isVideoPlaying from '../selectors/is-video-playing';
@@ -12,9 +12,18 @@ import {
   makeGetTagAppearsAt,
   makeGetCurrentTagPosition
 } from '../selectors/tag-selectors';
-import { getCurrentTime } from '../selectors/selectors';
+import { getCurrentTime, isTagCurrent } from '../selectors/selectors';
 import { Action } from '../types/types';
 import mouseDownOnTagGraphics from '../actions/mouse-down-on-tag-graphics';
+import connectAction, {
+  mapStateToActionCreator
+} from '../actions/utils/map-state-to-action';
+import setDraggedTag, {
+  SetDraggedTagPayload
+} from '../actions/set-dragged-tag';
+import setCurrentTag, {
+  SetCurrentTagPayload
+} from '../actions/set-current-tag';
 
 interface Props {
   ID: string;
@@ -54,6 +63,51 @@ const mapDispatchToProps = (
   { ID }: Props
 ): TagFuncProps => ({
   onMouseDown: (): void => {
+    connectAction<SetDraggedTagPayload>([
+      mapStateToActionCreator(
+        (
+          state: State,
+          { ID: IDToSetBeingEdited }: SetDraggedTagPayload
+        ): SetDraggedTagPayload => {
+          if (isTagCurrent(state, IDToSetBeingEdited))
+            return {
+              ID
+            };
+
+          return undefined;
+        },
+        setDraggedTag
+      ),
+      mapStateToActionCreator(
+        (
+          state: State,
+          { ID: IDToSetBeingEdited }: SetDraggedTagPayload
+        ): SetPlaybackPayload => {
+          if (isTagCurrent(state, IDToSetBeingEdited))
+            return {
+              playback: true
+            };
+
+          return undefined;
+        },
+        setPlayback
+      ),
+      mapStateToActionCreator(
+        (
+          state: State,
+          { ID: IDToSetBeingEdited }: SetDraggedTagPayload
+        ): SetCurrentTagPayload => {
+          if (!isTagCurrent(state, IDToSetBeingEdited))
+            return {
+              ID: IDToSetBeingEdited
+            };
+
+          return undefined;
+        },
+        setCurrentTag
+      )
+    ])({ ID });
+
     dispatch(mouseDownOnTagGraphics({ ID }));
   },
   onMouseUp: (): void => {

@@ -7,7 +7,7 @@ import { State } from '../types/state';
 import updateTagBeingEditedPath, {
   createUpdateTagBeingEditedPath
 } from '../actions/thunks/update-tag-being-edited-path';
-import connectAction from '../actions/prepared-action';
+import connectAction from '../actions/utils/map-state-to-action';
 
 import getVisibleTagIDs from '../selectors/get-visible-tag-ids';
 import { ThunkDispatch, Action } from '../types/types';

@@ -1,18 +1,20 @@
 import { Dispatch } from 'react';
 import { connect } from 'react-redux';
 import SeekBar, { FuncProps as SeekBarFuncProps } from '../components/SeekBar';
-import setCurrentTime from '../actions/set-current-time';
+import setCurrentTime, {
+  SetCurrentTimePayload
+} from '../actions/set-current-time';
 import { Action } from '../types/types';
-import setUserSeek from '../actions/set-user-seek';
-import actionCombination from '../actions/action-combination';
+import setUserSeek, { SetUserSeekPayload } from '../actions/set-user-seek';
+import actionCombination from '../actions/utils/action-combination';
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>): SeekBarFuncProps => ({
   onMouseDown: (relativePosition: number): void => {
     dispatch(
-      actionCombination([
-        setUserSeek({ mode: true }),
-        setCurrentTime({ time: relativePosition / 100, isNormalized: true })
-      ])
+      actionCombination<SetUserSeekPayload & SetCurrentTimePayload>([
+        setUserSeek,
+        setCurrentTime
+      ])({ mode: true, time: relativePosition / 100, isNormalized: true })
     );
   },
   onMouseUp: (): void => {

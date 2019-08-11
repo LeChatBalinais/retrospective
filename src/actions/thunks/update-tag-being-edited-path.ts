@@ -1,5 +1,5 @@
 import actionCreator from '../update-tag-path';
-import connect, { actionWithMappedPayload } from '../prepared-action';
+import connect, { mapStateToActionCreator } from '../utils/map-state-to-action';
 import { State } from '../../types/state';
 import {
   getBeingEditedTagIDs,
@@ -15,7 +15,7 @@ const mapStateToPayload = (
   return { ID, time, ...payload };
 };
 
-export const createUpdateTagBeingEditedPath = actionWithMappedPayload(
+export const createUpdateTagBeingEditedPath = mapStateToActionCreator(
   mapStateToPayload,
   actionCreator
 );
