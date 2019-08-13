@@ -16,8 +16,8 @@ const mapStateToPayload = (
 };
 
 export const createUpdateTagBeingEditedPath = mapStateToActionCreator(
-  mapStateToPayload,
-  actionCreator
+  actionCreator,
+  mapStateToPayload
 );
 
 export default connect([createUpdateTagBeingEditedPath]);

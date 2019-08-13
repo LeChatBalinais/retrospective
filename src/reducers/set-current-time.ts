@@ -1,17 +1,13 @@
 import { State } from '../types/state';
-import { SetCurrentTime } from '../actions/set-current-time';
-import { getVideoDuration } from '../selectors/selectors';
+import { SetCurrentNormalizedTime } from '../actions/set-current-normalized-time';
 
-const setCurrentTime = (state: State, action: SetCurrentTime): State => {
+const setCurrentTime = (
+  state: State,
+  action: SetCurrentNormalizedTime
+): State => {
   const {
-    payload: { time, isNormalized }
+    payload: { time: currentTimeNormalized }
   } = action;
-
-  let currentTimeNormalized = time;
-
-  if (!isNormalized) {
-    currentTimeNormalized = time / getVideoDuration(state);
-  }
 
   return {
     ...state,

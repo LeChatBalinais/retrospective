@@ -3,7 +3,7 @@ import { State } from '../types/state';
 import { Action, ActionCombination, SimpleAction } from '../types/types';
 import { SET_PLAYBACK } from '../actions/set-playback';
 import { SET_PLACE_NEW_TAG_MODE } from '../actions/set-place-new-tag-mode';
-import { SET_CURRENT_TIME } from '../actions/set-current-time';
+import { SET_CURRENT_NORMALIZED_TIME } from '../actions/set-current-normalized-time';
 import { SET_DURATION } from '../actions/set-duration';
 import { SET_USER_SEEK } from '../actions/set-user-seek';
 import setPlayback from './set-playback';
@@ -16,9 +16,7 @@ import setDraggedTag from './set-dragged-tag';
 import updateTagPath from './update-tag-path';
 import setTags from './set-tags';
 import setTagTraceVisible from './set-tag-trace-visible';
-import mouseDownOnTagGraphics from './mouse-down-on-tag-graphics';
 import setCurrentTag from './set-current-tag';
-import seekToTag from './seek-to-tag';
 import removeTag from './remove-tag';
 import setTagGlobalID from './set-tag-globalid';
 import { ADD_NEW_TAG } from '../actions/add-new-tag';
@@ -26,9 +24,7 @@ import { SET_DRAGGED_TAG } from '../actions/set-dragged-tag';
 import { UPDATE_TAG_PATH } from '../actions/update-tag-path';
 import { SET_TAGS } from '../actions/set-tags';
 import { SET_CURRENT_TAG } from '../actions/set-current-tag';
-import { SEEK_TO_TAG } from '../actions/seek-to-tag';
 import { SET_TAG_TRACE_VISIBLE } from '../actions/set-tag-trace-visible';
-import { MOUSE_DOWN_ON_TAG_GRAPHICS } from '../actions/mouse-down-on-tag-graphics';
 import { REMOVE_TAG } from '../actions/remove-tag';
 import { SET_TAG_GLOBALID } from '../actions/set-tag-globalid';
 import { ACTION_COMBINATION } from '../actions/utils/action-combination';
@@ -41,7 +37,7 @@ const simpleActionRootReducer = (state: State, action: SimpleAction): State => {
     case SET_PLACE_NEW_TAG_MODE: {
       return setPlaceNewTagMode(state, action);
     }
-    case SET_CURRENT_TIME: {
+    case SET_CURRENT_NORMALIZED_TIME: {
       return setCurrentTime(state, action);
     }
     case SET_DURATION: {
@@ -65,14 +61,8 @@ const simpleActionRootReducer = (state: State, action: SimpleAction): State => {
     case SET_CURRENT_TAG: {
       return setCurrentTag(state, action);
     }
-    case SEEK_TO_TAG: {
-      return seekToTag(state, action);
-    }
     case SET_TAG_TRACE_VISIBLE: {
       return setTagTraceVisible(state, action);
-    }
-    case MOUSE_DOWN_ON_TAG_GRAPHICS: {
-      return mouseDownOnTagGraphics(state, action);
     }
     case REMOVE_TAG: {
       return removeTag(state, action);

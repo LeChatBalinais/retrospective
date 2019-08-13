@@ -8,5 +8,5 @@ const mapStateToPayload = (state: State): SetPlaybackPayload => {
 };
 
 export default connect([
-  mapStateToActionCreator(mapStateToPayload, actionCreator)
+  mapStateToActionCreator(actionCreator, mapStateToPayload)
 ]);

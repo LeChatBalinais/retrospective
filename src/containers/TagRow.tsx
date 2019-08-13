@@ -4,15 +4,24 @@ import TagRow, { ValueProps, FuncProps } from '../components/TagRow';
 import { State } from '../types/state';
 import { makeIsTagLocal } from '../selectors/tag-selectors';
 import { isTagCurrent } from '../selectors/selectors';
-import { Action } from '../types/types';
+import { Action, ThunkDispatch } from '../types/types';
 import setUserSeek, { SetUserSeekPayload } from '../actions/set-user-seek';
 import setCurrentTag, {
   SetCurrentTagPayload
 } from '../actions/set-current-tag';
-import seekToTag, { SeekToTagPayload } from '../actions/seek-to-tag';
-import actionCombination from '../actions/utils/action-combination';
+import connectAction, {
+  mapStateToActionCreator
+} from '../actions/utils/map-state-to-action';
+import {
+  setTagStartAsCurrentTime,
+  SetTagStartAsCurrentTimePayload
+} from '../actions/thunks/set-tag-start-as-current-time';
 
 type MapStateToProps = (state: State, { ID }: Props) => ValueProps;
+
+type OnMouseDownPayload = SetCurrentTagPayload &
+  SetUserSeekPayload &
+  SetTagStartAsCurrentTimePayload;
 
 type MapDispatchToProps = (
   dispatch: Dispatch<Action>,
@@ -36,16 +45,19 @@ const makeMapStateToProps = (): MapStateToProps => {
 };
 
 const makeMapDispatchToProps = (): MapDispatchToProps => {
-  return (dispatch: Dispatch<Action>, { ID }: Props): FuncProps => ({
+  return (dispatch: ThunkDispatch, { ID }: Props): FuncProps => ({
     onMouseDown: (): void => {
       dispatch(
-        actionCombination<
-          SetCurrentTagPayload & SetUserSeekPayload & SeekToTagPayload
-        >([setCurrentTag, setUserSeek, seekToTag])({ ID, mode: true })
+        connectAction<OnMouseDownPayload>([
+          mapStateToActionCreator(setCurrentTag),
+          mapStateToActionCreator(setUserSeek),
+          setTagStartAsCurrentTime
+        ])({ ID, mode: true })
       );
+
       setTimeout((): void => {
         dispatch(setUserSeek({ mode: false }));
-      }, 100);
+      }, 50);
     }
   });
 };

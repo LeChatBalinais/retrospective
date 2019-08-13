@@ -8,5 +8,5 @@ const mapStateToPayload = (state: State): { mode: boolean } => {
 };
 
 export default connect([
-  mapStateToActionCreator(mapStateToPayload, actionCreator)
+  mapStateToActionCreator(actionCreator, mapStateToPayload)
 ]);

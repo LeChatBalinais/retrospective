@@ -7,8 +7,11 @@ export default function actionCombination<P>(
 ): (payload: P) => ActionCombination {
   return (payload: P): ActionCombination => ({
     type: ACTION_COMBINATION,
-    actions: actionCreators.map(
-      (actionCreator: (payload: P) => Action): Action => actionCreator(payload)
-    )
+    actions: actionCreators
+      .map(
+        (actionCreator: (payload: P) => Action): Action =>
+          actionCreator(payload)
+      )
+      .filter((action?: Action): boolean => action !== undefined)
   });
 }

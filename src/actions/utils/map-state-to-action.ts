@@ -5,8 +5,11 @@ import actionCombination from './action-combination';
 export type MapStateToPayload<E, P> = (state: State, externalPayload?: E) => P;
 
 export function mapStateToActionCreator<E, P>(
-  mapStateToPayload: MapStateToPayload<E, P>,
-  actionCreator: (payload: P) => Action
+  actionCreator: (payload: P) => Action,
+  mapStateToPayload: MapStateToPayload<E, P> = (
+    state: State,
+    externalPayload?: P & E
+  ): P => externalPayload
 ): (state: State, externalPayload?: E) => Action {
   return (state: State, externalPayload?: E): Action => {
     const payload = mapStateToPayload(state, externalPayload);
@@ -28,8 +31,8 @@ export default function connect<E>(
 
     if (actionCreators.length === 1) {
       const [actionCreator] = actionCreators;
-      if (actionCreator !== undefined)
-        dispatch(actionCreator(getState(), payload));
+      const action = actionCreator(getState(), payload);
+      if (action !== undefined) dispatch(action);
       return;
     }
 
@@ -37,8 +40,7 @@ export default function connect<E>(
 
     for (let index = 0; index < actionCreators.length; index += 1) {
       const actionCreator = actionCreators[index];
-      if (actionCreator !== undefined)
-        actions.push((p: E): Action => actionCreator(getState(), p));
+      actions.push((p: E): Action => actionCreator(getState(), p));
     }
     dispatch(actionCombination(actions)(payload));
   };
