@@ -6,6 +6,15 @@ import { SET_PLACE_NEW_TAG_MODE } from '../actions/set-place-new-tag-mode';
 import { SET_CURRENT_NORMALIZED_TIME } from '../actions/set-current-normalized-time';
 import { SET_DURATION } from '../actions/set-duration';
 import { SET_USER_SEEK } from '../actions/set-user-seek';
+import { ADD_NEW_TAG } from '../actions/add-new-tag';
+import { SET_DRAGGED_TAG } from '../actions/set-dragged-tag';
+import { UPDATE_TAG_PATH } from '../actions/update-tag-path';
+import { SET_TAGS } from '../actions/set-tags';
+import { SET_CURRENT_TAG } from '../actions/set-current-tag';
+import { SET_TAG_TRACE_VISIBLE } from '../actions/set-tag-trace-visible';
+import { REMOVE_TAG } from '../actions/remove-tag';
+import { SET_TAG_GLOBALID } from '../actions/set-tag-globalid';
+import { ACTION_COMBINATION } from '../actions/utils/action-combination';
 import setPlayback from './set-playback';
 import setPlaceNewTagMode from './set-place-new-tag-mode';
 import setCurrentTime from './set-current-time';
@@ -19,20 +28,11 @@ import setTagTraceVisible from './set-tag-trace-visible';
 import setCurrentTag from './set-current-tag';
 import removeTag from './remove-tag';
 import setTagGlobalID from './set-tag-globalid';
-import { ADD_NEW_TAG } from '../actions/add-new-tag';
-import { SET_DRAGGED_TAG } from '../actions/set-dragged-tag';
-import { UPDATE_TAG_PATH } from '../actions/update-tag-path';
-import { SET_TAGS } from '../actions/set-tags';
-import { SET_CURRENT_TAG } from '../actions/set-current-tag';
-import { SET_TAG_TRACE_VISIBLE } from '../actions/set-tag-trace-visible';
-import { REMOVE_TAG } from '../actions/remove-tag';
-import { SET_TAG_GLOBALID } from '../actions/set-tag-globalid';
-import { ACTION_COMBINATION } from '../actions/utils/action-combination';
 
 const simpleActionRootReducer = (state: State, action: SimpleAction): State => {
   switch (action.type) {
     case SET_PLAYBACK: {
-      return setPlayback(state, action);
+      return setPlayback.reducer(state, action);
     }
     case SET_PLACE_NEW_TAG_MODE: {
       return setPlaceNewTagMode(state, action);
