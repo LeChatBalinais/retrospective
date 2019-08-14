@@ -1,5 +1,5 @@
 import { State } from '../types/state';
-import { SetUserSeek } from '../actions/set-user-seek';
+import { SetUserSeek, SET_USER_SEEK } from '../actions/set-user-seek';
 
 const setUserSeek = (state: State, action: SetUserSeek): State => {
   const {
@@ -14,4 +14,4 @@ const setUserSeek = (state: State, action: SetUserSeek): State => {
   };
 };
 
-export default setUserSeek;
+export default { actionType: SET_USER_SEEK, reducer: setUserSeek };

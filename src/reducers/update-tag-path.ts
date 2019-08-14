@@ -1,5 +1,5 @@
 import { State } from '../types/state';
-import { UpdateTagPath } from '../actions/update-tag-path';
+import { UpdateTagPath, UPDATE_TAG_PATH } from '../actions/update-tag-path';
 
 const updateTagPath = (state: State, action: UpdateTagPath): State => {
   const {
@@ -61,4 +61,4 @@ const updateTagPath = (state: State, action: UpdateTagPath): State => {
   };
 };
 
-export default updateTagPath;
+export default { actionType: UPDATE_TAG_PATH, reducer: updateTagPath };

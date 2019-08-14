@@ -1,5 +1,8 @@
 import { State } from '../types/state';
-import { SetPlaceNewTagMode } from '../actions/set-place-new-tag-mode';
+import {
+  SetPlaceNewTagMode,
+  SET_PLACE_NEW_TAG_MODE
+} from '../actions/set-place-new-tag-mode';
 
 const setPlaceNewTagMode = (
   state: State,
@@ -18,4 +21,7 @@ const setPlaceNewTagMode = (
   };
 };
 
-export default setPlaceNewTagMode;
+export default {
+  actionType: SET_PLACE_NEW_TAG_MODE,
+  reducer: setPlaceNewTagMode
+};

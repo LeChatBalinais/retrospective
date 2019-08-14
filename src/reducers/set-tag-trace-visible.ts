@@ -1,5 +1,8 @@
 import { State } from '../types/state';
-import { SetTagTraceVisible } from '../actions/set-tag-trace-visible';
+import {
+  SetTagTraceVisible,
+  SET_TAG_TRACE_VISIBLE
+} from '../actions/set-tag-trace-visible';
 
 const setTagTraceVisible = (
   state: State,
@@ -29,4 +32,7 @@ const setTagTraceVisible = (
   };
 };
 
-export default setTagTraceVisible;
+export default {
+  actionType: SET_TAG_TRACE_VISIBLE,
+  reducer: setTagTraceVisible
+};

@@ -1,6 +1,6 @@
 import { State } from '../types/state';
 import { getCurrentTagID } from '../selectors/selectors';
-import { RemoveTag } from '../actions/remove-tag';
+import { RemoveTag, REMOVE_TAG } from '../actions/remove-tag';
 
 const removeTag = (state: State, action: RemoveTag): State => {
   const {
@@ -35,4 +35,4 @@ const removeTag = (state: State, action: RemoveTag): State => {
   };
 };
 
-export default removeTag;
+export default { actionType: REMOVE_TAG, reducer: removeTag };

@@ -1,7 +1,10 @@
 import { State } from '../types/state';
-import { SetCurrentNormalizedTime } from '../actions/set-current-normalized-time';
+import {
+  SetCurrentNormalizedTime,
+  SET_CURRENT_NORMALIZED_TIME
+} from '../actions/set-current-normalized-time';
 
-const setCurrentTime = (
+const setCurrentNormalizedTime = (
   state: State,
   action: SetCurrentNormalizedTime
 ): State => {
@@ -18,4 +21,7 @@ const setCurrentTime = (
   };
 };
 
-export default setCurrentTime;
+export default {
+  actionType: SET_CURRENT_NORMALIZED_TIME,
+  reducer: setCurrentNormalizedTime
+};

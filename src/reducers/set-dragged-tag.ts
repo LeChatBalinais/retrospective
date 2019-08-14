@@ -1,5 +1,5 @@
 import { State } from '../types/state';
-import { SetDraggedTag } from '../actions/set-dragged-tag';
+import { SetDraggedTag, SET_DRAGGED_TAG } from '../actions/set-dragged-tag';
 
 const setDraggedTag = (state: State, action: SetDraggedTag): State => {
   const {
@@ -12,4 +12,4 @@ const setDraggedTag = (state: State, action: SetDraggedTag): State => {
   };
 };
 
-export default setDraggedTag;
+export default { actionType: SET_DRAGGED_TAG, reducer: setDraggedTag };

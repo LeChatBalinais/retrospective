@@ -1,5 +1,5 @@
 import { State } from '../types/state';
-import { SetTagGlobalID } from '../actions/set-tag-globalid';
+import { SetTagGlobalID, SET_TAG_GLOBALID } from '../actions/set-tag-globalid';
 
 const setTagGlobalID = (state: State, action: SetTagGlobalID): State => {
   const {
@@ -25,4 +25,4 @@ const setTagGlobalID = (state: State, action: SetTagGlobalID): State => {
   };
 };
 
-export default setTagGlobalID;
+export default { actionType: SET_TAG_GLOBALID, reducer: setTagGlobalID };

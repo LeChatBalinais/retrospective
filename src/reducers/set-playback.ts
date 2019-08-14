@@ -3,10 +3,9 @@ import { SetPlayback, SET_PLAYBACK } from '../actions/set-playback';
 import { SimpleAction } from '../types/types';
 
 const setPlayback = (state: State, action: SimpleAction): State => {
-  const spesificAction = action as SetPlayback;
   const {
     payload: { playback }
-  } = spesificAction;
+  } = action as SetPlayback;
 
   return {
     ...state,

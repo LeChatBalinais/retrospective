@@ -1,5 +1,5 @@
 import { State } from '../types/state';
-import { SetDuration } from '../actions/set-duration';
+import { SetDuration, SET_DURATION } from '../actions/set-duration';
 
 const setDuration = (state: State, action: SetDuration): State => {
   const {
@@ -14,4 +14,4 @@ const setDuration = (state: State, action: SetDuration): State => {
   };
 };
 
-export default setDuration;
+export default { actionType: SET_DURATION, reducer: setDuration };

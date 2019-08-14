@@ -1,5 +1,5 @@
 import { State } from '../types/state';
-import { SetCurrentTag } from '../actions/set-current-tag';
+import { SetCurrentTag, SET_CURRENT_TAG } from '../actions/set-current-tag';
 
 const setCurrentTag = (state: State, action: SetCurrentTag): State => {
   const {
@@ -15,4 +15,4 @@ const setCurrentTag = (state: State, action: SetCurrentTag): State => {
   };
 };
 
-export default setCurrentTag;
+export default { actionType: SET_CURRENT_TAG, reducer: setCurrentTag };

@@ -1,30 +1,18 @@
-import { v4 as uuid } from 'uuid';
 import { State } from '../types/state';
-import { SetTags } from '../actions/set-tags';
+import { SetTags, SET_TAGS } from '../actions/set-tags';
 
 const setTags = (state: State, action: SetTags): State => {
   const {
-    payload: {
-      tags: { allIDs: allFetchedIDs, byID: fetchedByID }
-    }
+    payload: { tags }
   } = action;
-
-  let byID = {};
-  let allIDs = [];
-
-  allFetchedIDs.forEach((ID: string): void => {
-    const localID = uuid();
-    allIDs = [...allIDs, localID];
-    byID = { ...byID, [localID]: fetchedByID[ID] };
-  });
 
   return {
     ...state,
     entities: {
-      tags: { byID, allIDs }
+      tags
     },
     tagEditor: { ...state.tagEditor, currentTag: undefined }
   };
 };
 
-export default setTags;
+export default { actionType: SET_TAGS, reducer: setTags };

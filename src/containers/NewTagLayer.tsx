@@ -1,4 +1,5 @@
 import { Dispatch } from 'react';
+import { v4 as uuid } from 'uuid';
 import { connect } from 'react-redux';
 import setPlayback, { SetPlaybackPayload } from '../actions/set-playback';
 import setPlaceNewTagMode, {
@@ -15,6 +16,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>): FuncProps => ({
       actionCombination<
         SetPlaybackPayload & SetPlaceNewTagModePayload & AddNewTagPayload
       >([setPlayback, setPlaceNewTagMode, addNewTag])({
+        ID: uuid(),
         playback: false,
         mode: false,
         x,

@@ -1,6 +1,7 @@
 import { SimpleActionTemplate } from '../types/simple-action-template';
 
 export interface AddNewTagPayload {
+  ID: string;
   x: number;
   y: number;
 }

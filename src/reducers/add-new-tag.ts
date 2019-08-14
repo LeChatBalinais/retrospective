@@ -1,14 +1,11 @@
-import { v4 as uuid } from 'uuid';
 import { State } from '../types/state';
 import { getCurrentTime } from '../selectors/selectors';
-import { AddNewTag } from '../actions/add-new-tag';
+import { AddNewTag, ADD_NEW_TAG } from '../actions/add-new-tag';
 
 const addNewTag = (state: State, action: AddNewTag): State => {
   const {
-    payload: { x, y }
+    payload: { ID, x, y }
   } = action;
-
-  const newID = uuid();
 
   return {
     ...state,
@@ -16,15 +13,15 @@ const addNewTag = (state: State, action: AddNewTag): State => {
       tags: {
         byID: {
           ...state.entities.tags.byID,
-          [newID]: {
+          [ID]: {
             globalID: undefined,
             path: [{ time: getCurrentTime(state), x, y }]
           }
         },
-        allIDs: [...state.entities.tags.allIDs, newID]
+        allIDs: [...state.entities.tags.allIDs, ID]
       }
     }
   };
 };
 
-export default addNewTag;
+export default { actionType: ADD_NEW_TAG, reducer: addNewTag };
