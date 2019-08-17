@@ -3,7 +3,6 @@ import { render } from 'react-dom';
 import './style.scss';
 import App from './components/App';
 import '../reset.css';
-import '../node_modules/regenerator-runtime/runtime';
 
 const renderApp = (): void => {
   const app = document && document.getElementById('app');
@@ -13,10 +12,7 @@ const renderApp = (): void => {
 renderApp();
 
 if (module.hot) {
-  module.hot.accept(
-    './components/App',
-    (): void => {
-      renderApp();
-    }
-  );
+  module.hot.accept('./components/App', (): void => {
+    renderApp();
+  });
 }

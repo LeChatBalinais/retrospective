@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import Button, { ValueProps, FuncProps } from '../components/Button';
-import saveTagAsync from '../actions/asyncActionCreators/save-tag';
-import deleteTagAsync from '../actions/asyncActionCreators/delete-tag';
 import { ThunkDispatch } from '../types/types';
 import { State } from '../types/state';
+import deleteTag from '../actions/delete-tag';
+import saveTag from '../actions/save-tag';
 
 interface Props {
   ID: string;
@@ -19,11 +19,11 @@ const onPress = (
 ): (() => void) => {
   if (isLocal)
     return (): void => {
-      dispatch(saveTagAsync(tagID));
+      dispatch(saveTag({ ID: tagID }));
     };
 
   return (): void => {
-    dispatch(deleteTagAsync(tagID));
+    dispatch(deleteTag({ ID: tagID }));
   };
 };
 

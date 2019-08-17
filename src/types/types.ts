@@ -13,6 +13,9 @@ import { SetCurrentTag } from '../actions/set-current-tag';
 import { SetTagTraceVisible } from '../actions/set-tag-trace-visible';
 import { RemoveTag } from '../actions/remove-tag';
 import { SetTagGlobalID } from '../actions/set-tag-globalid';
+import { DeleteTag } from '../actions/delete-tag';
+import { SaveTag } from '../actions/save-tag';
+import { FetchTags } from '../actions/fetch-tags';
 
 export interface ActionCombination {
   type: 'ACTION_COMBINATION';
@@ -32,7 +35,10 @@ export type SimpleAction =
   | SetCurrentTag
   | SetTagTraceVisible
   | RemoveTag
-  | SetTagGlobalID;
+  | SetTagGlobalID
+  | DeleteTag
+  | SaveTag
+  | FetchTags;
 
 export type Action = SimpleAction | ActionCombination;
 
