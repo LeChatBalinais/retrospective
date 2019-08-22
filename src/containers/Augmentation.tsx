@@ -6,8 +6,8 @@ import Augmentation, {
 import { State } from '../types/state';
 import updateTagBeingEditedPath, {
   createUpdateTagBeingEditedPath
-} from '../actions/thunks/update-tag-being-edited-path';
-import connectAction from '../actions/utils/map-state-to-action';
+} from '../thunks/update-tag-being-edited-path';
+import connectAction from '../utils/map-state-to-action';
 
 import getVisibleTagIDs from '../selectors/get-visible-tag-ids';
 import { ThunkDispatch, Action } from '../types/types';

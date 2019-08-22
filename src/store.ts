@@ -4,7 +4,7 @@ import thunk, { ThunkMiddleware } from 'redux-thunk';
 import reducer from './reducers/reducers';
 import { State } from './types/state';
 import { Action } from './types/types';
-import rootSaga from './actions/sagas/root-saga';
+import rootSaga from './sagas/root-saga';
 
 const sagaMiddleware = createSagaMiddleware();
 

@@ -6,7 +6,7 @@ import setCurrentTime, {
 } from '../actions/set-current-normalized-time';
 import { Action } from '../types/types';
 import setUserSeek, { SetUserSeekPayload } from '../actions/set-user-seek';
-import actionCombination from '../actions/utils/action-combination';
+import actionCombination from '../utils/action-combination';
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>): SeekBarFuncProps => ({
   onMouseDown: (relativePosition: number): void => {

@@ -8,7 +8,7 @@ import setPlaceNewTagMode, {
 import NewTagLayer, { FuncProps } from '../components/NewTagLayer';
 import { Action } from '../types/types';
 import addNewTag, { AddNewTagPayload } from '../actions/add-new-tag';
-import actionCombination from '../actions/utils/action-combination';
+import actionCombination from '../utils/action-combination';
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>): FuncProps => ({
   onClick: (x: number, y: number): void => {

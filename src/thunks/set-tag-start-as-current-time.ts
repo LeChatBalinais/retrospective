@@ -1,8 +1,8 @@
-import actionCreator from '../set-current-normalized-time';
+import actionCreator from '../actions/set-current-normalized-time';
 import connect, { mapStateToActionCreator } from '../utils/map-state-to-action';
-import { State } from '../../types/state';
-import { makeGetTagAppearsAt } from '../../selectors/tag-selectors';
-import { getVideoDuration } from '../../selectors/selectors';
+import { State } from '../types/state';
+import { makeGetTagAppearsAt } from '../selectors/tag-selectors';
+import { getVideoDuration } from '../selectors/selectors';
 
 export interface SetTagStartAsCurrentTimePayload {
   ID: string;

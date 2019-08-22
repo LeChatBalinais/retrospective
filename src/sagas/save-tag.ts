@@ -1,8 +1,8 @@
 import { SagaIterator } from '@redux-saga/core';
 import { put, call, takeEvery, select } from 'redux-saga/effects';
-import makeGetTag from '../../selectors/get-tag';
-import setTagGlobalID from '../set-tag-globalid';
-import { SAVE_TAG, SaveTag } from '../save-tag';
+import makeGetTag from '../selectors/get-tag';
+import setTagGlobalID from '../actions/set-tag-globalid';
+import { SAVE_TAG, SaveTag } from '../actions/save-tag';
 
 const getTag = makeGetTag();
 

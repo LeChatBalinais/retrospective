@@ -1,5 +1,5 @@
-import { State } from '../../types/state';
-import { ThunkAction, ThunkDispatch, Action } from '../../types/types';
+import { State } from '../types/state';
+import { ThunkAction, ThunkDispatch, Action } from '../types/types';
 import actionCombination from './action-combination';
 
 export type MapStateToPayload<E, P> = (state: State, externalPayload?: E) => P;

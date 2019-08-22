@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Video, { ValueProps, FuncProps } from '../components/Video';
-import setCurrentTime from '../actions/thunks/set-current-time';
+import setCurrentTime from '../thunks/set-current-time';
 import setDuration from '../actions/set-duration';
 import { State } from '../types/state';
 import isVideoPlaying from '../selectors/is-video-playing';

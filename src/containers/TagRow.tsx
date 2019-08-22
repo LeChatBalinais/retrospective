@@ -11,11 +11,11 @@ import setCurrentTag, {
 } from '../actions/set-current-tag';
 import connectAction, {
   mapStateToActionCreator
-} from '../actions/utils/map-state-to-action';
+} from '../utils/map-state-to-action';
 import {
   setTagStartAsCurrentTime,
   SetTagStartAsCurrentTimePayload
-} from '../actions/thunks/set-tag-start-as-current-time';
+} from '../thunks/set-tag-start-as-current-time';
 
 type MapStateToProps = (state: State, { ID }: Props) => ValueProps;
 

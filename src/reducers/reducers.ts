@@ -1,7 +1,7 @@
 import DEFAULT_STATE from './default-state';
 import { State } from '../types/state';
 import { Action, ActionCombination, SimpleAction } from '../types/types';
-import { ACTION_COMBINATION } from '../actions/utils/action-combination';
+import { ACTION_COMBINATION } from '../utils/action-combination';
 import simpleActionRootReducer from './simple-action-root-reducer';
 
 function actionCombinationRootReducer(

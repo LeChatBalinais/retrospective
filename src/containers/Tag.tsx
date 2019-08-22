@@ -16,7 +16,7 @@ import { ThunkDispatch } from '../types/types';
 
 import connectAction, {
   mapStateToActionCreator
-} from '../actions/utils/map-state-to-action';
+} from '../utils/map-state-to-action';
 import setDraggedTag, {
   SetDraggedTagPayload
 } from '../actions/set-dragged-tag';
