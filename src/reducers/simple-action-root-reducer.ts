@@ -11,6 +11,7 @@ import SetTagTraceVisible from './set-tag-trace-visible';
 import SetCurrentTag from './set-current-tag';
 import RemoveTag from './remove-tag';
 import SetTagGlobalID from './set-tag-globalid';
+import SetRequestedNormalizedTime from './set-requested-normalized-time';
 import { State } from '../types/state';
 import { SimpleAction } from '../types/types';
 
@@ -34,7 +35,8 @@ const simpleActionRootReducer = (): ((
     SetTagTraceVisible,
     SetCurrentTag,
     RemoveTag,
-    SetTagGlobalID
+    SetTagGlobalID,
+    SetRequestedNormalizedTime
   ];
 
   const reducersByActionType = {};

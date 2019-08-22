@@ -37,4 +37,5 @@ export interface Player {
   readonly playback: boolean;
   readonly userSeek: boolean;
   readonly currentTimeNormalized: number;
+  readonly requestedTimeNormalized: number;
 }

@@ -16,6 +16,7 @@ import { SetTagGlobalID } from '../actions/set-tag-globalid';
 import { DeleteTag } from '../actions/delete-tag';
 import { SaveTag } from '../actions/save-tag';
 import { FetchTags } from '../actions/fetch-tags';
+import { SetRequestedNormalizedTime } from '../actions/set-requested-normalized-time';
 
 export interface ActionCombination {
   type: 'ACTION_COMBINATION';
@@ -38,7 +39,8 @@ export type SimpleAction =
   | SetTagGlobalID
   | DeleteTag
   | SaveTag
-  | FetchTags;
+  | FetchTags
+  | SetRequestedNormalizedTime;
 
 export type Action = SimpleAction | ActionCombination;
 

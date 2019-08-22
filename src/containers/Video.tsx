@@ -4,14 +4,14 @@ import setCurrentTime from '../thunks/set-current-time';
 import setDuration from '../actions/set-duration';
 import { State } from '../types/state';
 import isVideoPlaying from '../selectors/is-video-playing';
-import { getVideoURL, getCurrentTime } from '../selectors/selectors';
+import { getVideoURL, getAboutToBeCurrentTime } from '../selectors/selectors';
 import { ThunkDispatch } from '../types/types';
 
 const mapStateToProps = (state: State): ValueProps => {
   return {
     playback: isVideoPlaying(state),
     url: getVideoURL(state),
-    currentTime: getCurrentTime(state)
+    currentTime: getAboutToBeCurrentTime(state)
   };
 };
 

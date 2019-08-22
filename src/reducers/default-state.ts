@@ -21,7 +21,8 @@ const DEFAULT_STATE: State = {
   player: {
     playback: false,
     userSeek: false,
-    currentTimeNormalized: 0
+    currentTimeNormalized: 0,
+    requestedTimeNormalized: 0
   }
 };
 

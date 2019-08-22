@@ -16,7 +16,8 @@ const setCurrentNormalizedTime = (
     ...state,
     player: {
       ...state.player,
-      currentTimeNormalized
+      currentTimeNormalized,
+      requestedTimeNormalized: currentTimeNormalized
     }
   };
 };

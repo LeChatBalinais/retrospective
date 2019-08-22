@@ -5,11 +5,26 @@ const setUserSeek = (state: State, action: SetUserSeek): State => {
   const {
     payload: { mode: on }
   } = action;
+
+  const {
+    player: { requestedTimeNormalized }
+  } = state;
+
+  let {
+    player: { currentTimeNormalized }
+  } = state;
+
+  if (!on) {
+    currentTimeNormalized = requestedTimeNormalized;
+  }
+
   return {
     ...state,
     player: {
       ...state.player,
-      userSeek: on
+      userSeek: on,
+      currentTimeNormalized,
+      requestedTimeNormalized
     }
   };
 };

@@ -43,6 +43,13 @@ const Video = ({
     onDurationChangeFunc(current.duration);
   };
 
+  const onTimeUpdate = (): void => {
+    if (playback) return;
+    const { current } = videoEl;
+    if (!current) return;
+    onTimeUpdateFunc(current.currentTime);
+  };
+
   const { current } = videoEl;
 
   if (current) {
@@ -65,7 +72,7 @@ const Video = ({
   return (
     <video
       className="main-video"
-      {...{ onDurationChange, src }}
+      {...{ onDurationChange, onTimeUpdate, src }}
       ref={videoEl}
     />
   );

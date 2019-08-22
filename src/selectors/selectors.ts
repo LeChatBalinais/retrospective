@@ -11,11 +11,25 @@ export const getCurrentTime = ({
   player: { currentTimeNormalized }
 }: State): number => currentTimeNormalized * duration;
 
+export const getAboutToBeCurrentTime = ({
+  footage: { duration },
+  player: { requestedTimeNormalized, userSeek, currentTimeNormalized }
+}: State): number =>
+  userSeek
+    ? requestedTimeNormalized * duration
+    : currentTimeNormalized * duration;
+
 export const getVideoDuration = ({ footage: { duration } }: State): number =>
   duration;
 
-export const getCurrentNormalizedTime = (state: State): number =>
-  (getCurrentTime(state) / getVideoDuration(state)) * 100;
+export const getCurrentNormalizedTime = ({
+  player: { currentTimeNormalized }
+}: State): number => currentTimeNormalized;
+
+export const getAboutToBeCurrentNormalizedTime = ({
+  player: { requestedTimeNormalized, userSeek, currentTimeNormalized }
+}: State): number =>
+  userSeek ? requestedTimeNormalized : currentTimeNormalized;
 
 export const getVideoURL = ({ footage: { url } }: State): string => url;
 
