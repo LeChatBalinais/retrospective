@@ -14,6 +14,8 @@ import SetTagGlobalID from './set-tag-globalid';
 import SetRequestedNormalizedTime from './set-requested-normalized-time';
 import { State } from '../types/state';
 import { SimpleAction } from '../types/types';
+import setTimeTagAppearsAt from './set-time-tag-appears-at';
+import setTimeTagDisappearsAt from './set-time-tag-disappears-at';
 
 const simpleActionRootReducer = (): ((
   state: State,
@@ -36,7 +38,9 @@ const simpleActionRootReducer = (): ((
     SetCurrentTag,
     RemoveTag,
     SetTagGlobalID,
-    SetRequestedNormalizedTime
+    SetRequestedNormalizedTime,
+    setTimeTagAppearsAt,
+    setTimeTagDisappearsAt
   ];
 
   const reducersByActionType = {};

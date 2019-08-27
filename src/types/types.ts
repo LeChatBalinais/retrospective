@@ -17,6 +17,8 @@ import { DeleteTag } from '../actions/delete-tag';
 import { SaveTag } from '../actions/save-tag';
 import { FetchTags } from '../actions/fetch-tags';
 import { SetRequestedNormalizedTime } from '../actions/set-requested-normalized-time';
+import { SetTimeTagAppearsAt } from '../actions/set-time-tag-appears-at';
+import { SetTimeTagDisappearsAt } from '../actions/set-time-tag-disappears-at';
 
 export interface ActionCombination {
   type: 'ACTION_COMBINATION';
@@ -40,7 +42,9 @@ export type SimpleAction =
   | DeleteTag
   | SaveTag
   | FetchTags
-  | SetRequestedNormalizedTime;
+  | SetRequestedNormalizedTime
+  | SetTimeTagAppearsAt
+  | SetTimeTagDisappearsAt;
 
 export type Action = SimpleAction | ActionCombination;
 

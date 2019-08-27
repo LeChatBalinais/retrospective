@@ -20,7 +20,7 @@ const mapStateToProps = (state: State): ValueProps => ({
 
 const mapDispatchToProps = (dispatch: ThunkDispatch): FuncProps => ({
   onMouseDown: (): void => {
-    dispatch(setCurrentTag(undefined));
+    dispatch(setCurrentTag({ ID: undefined }));
   },
   onMouseMove: (x: number, y: number): void => {
     dispatch(updateTagBeingEditedPath({ x, y }));

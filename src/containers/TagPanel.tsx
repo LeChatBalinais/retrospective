@@ -9,6 +9,8 @@ import { getCurrentTagID } from '../selectors/selectors';
 import makeGetTagInfo from '../selectors/get-tag-info';
 import { Action } from '../types/types';
 import setTagTraceVisible from '../actions/set-tag-trace-visible';
+import setTimeTagAppearsAt from '../actions/set-time-tag-appears-at';
+import setTimeTagDisappearsAt from '../actions/set-time-tag-disappears-at';
 
 interface Props {
   ID: string;
@@ -27,6 +29,24 @@ const onTagTraceVisbileCheckboxInput = (
 ): ((visible: boolean) => void) => {
   return (visible: boolean): void => {
     dispatch(setTagTraceVisible({ ID, visible }));
+  };
+};
+
+const onAppearsAtInput = (
+  dispatch: Dispatch<Action>,
+  ID: string
+): ((visible: number) => void) => {
+  return (time: number): void => {
+    dispatch(setTimeTagAppearsAt({ ID, time }));
+  };
+};
+
+const onDisappearsAtInput = (
+  dispatch: Dispatch<Action>,
+  ID: string
+): ((visible: number) => void) => {
+  return (time: number): void => {
+    dispatch(setTimeTagDisappearsAt({ ID, time }));
   };
 };
 
@@ -52,7 +72,9 @@ const makeMapDispatchToProps = (): MapDispatchToProps => {
       onTagTraceVisbileCheckboxInput: onTagTraceVisbileCheckboxInput(
         dispatch,
         ID
-      )
+      ),
+      onAppearsAtInput: onAppearsAtInput(dispatch, ID),
+      onDisappearsAtInput: onDisappearsAtInput(dispatch, ID)
     };
   };
 };

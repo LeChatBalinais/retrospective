@@ -9,6 +9,7 @@ const mapStateToPayload = (
 ): { ID: string; time: number; x: number; y: number } => {
   const [ID] = getBeingEditedTagIDs(state);
   const time = getCurrentTime(state);
+  if (ID === undefined) return undefined;
   return { ID, time, ...payload };
 };
 

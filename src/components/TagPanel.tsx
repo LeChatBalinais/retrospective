@@ -9,26 +9,48 @@ export interface ValueProps {
 
 export interface FuncProps {
   onTagTraceVisbileCheckboxInput: (visible: boolean) => void;
+  onAppearsAtInput: (value: number) => void;
+  onDisappearsAtInput: (value: number) => void;
 }
 
 export type Props = ValueProps & FuncProps;
 
 const TagPanel = ({
-  name,
   start,
   end,
   traceIsVisible,
-  onTagTraceVisbileCheckboxInput
+  onTagTraceVisbileCheckboxInput,
+  onAppearsAtInput,
+  onDisappearsAtInput
 }: Props): JSX.Element => {
   return (
     /* eslint-disable-next-line */
     <div className="columns">
-      <div className="column">{name}</div>
       <div className="column">
-        <span>Start at: {start.toFixed(2)}</span>
+        <span>
+          Start at:
+          <input
+            type="NUMBER"
+            step={0.1}
+            value={start}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
+              onAppearsAtInput(Number(event.target.value));
+            }}
+          />
+        </span>
       </div>
       <div className="column">
-        <span>End at: {end.toFixed(2)} </span>
+        <span>
+          End at:{' '}
+          <input
+            type="NUMBER"
+            step={0.1}
+            value={end}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
+              onDisappearsAtInput(Number(event.target.value));
+            }}
+          />{' '}
+        </span>
       </div>
       <div className="column">
         <span>
