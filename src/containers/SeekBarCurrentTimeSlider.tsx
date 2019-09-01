@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { State } from '../types/state';
+import { State } from '../types';
 import SeekBarSlider, {
   ValueProps as SeekBarSliderValueProps
 } from '../components/SeekBarSlider';

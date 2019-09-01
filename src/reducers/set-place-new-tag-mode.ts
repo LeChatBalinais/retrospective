@@ -1,8 +1,6 @@
-import { State } from '../types/state';
-import {
-  SetPlaceNewTagMode,
-  SET_PLACE_NEW_TAG_MODE
-} from '../actions/set-place-new-tag-mode';
+import { SET_PLACE_NEW_TAG_MODE } from '../actions/set-place-new-tag-mode';
+
+import { State, SetPlaceNewTagMode } from '../types';
 
 const setPlaceNewTagMode = (
   state: State,

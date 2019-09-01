@@ -1,5 +1,5 @@
-import { State } from '../types/state';
-import { SetDuration, SET_DURATION } from '../actions/set-duration';
+import { SET_DURATION } from '../actions/set-duration';
+import { State, SetDuration } from '../types';
 
 const setDuration = (state: State, action: SetDuration): State => {
   const {

@@ -1,4 +1,4 @@
-import { State, Tag } from '../types/state';
+import { State, Tag } from '../types';
 
 export const getPlayback = ({ player: { playback } }: State): boolean =>
   playback;

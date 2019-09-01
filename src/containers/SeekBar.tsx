@@ -1,11 +1,13 @@
 import { Dispatch } from 'react';
 import { connect } from 'react-redux';
 import SeekBar, { FuncProps as SeekBarFuncProps } from '../components/SeekBar';
-import setRequestedTime, {
+import setRequestedTime from '../actions/set-requested-normalized-time';
+import {
+  Action,
+  SetUserSeekPayload,
   SetRequestedNormalizedTimePayload
-} from '../actions/set-requested-normalized-time';
-import { Action } from '../types/types';
-import setUserSeek, { SetUserSeekPayload } from '../actions/set-user-seek';
+} from '../types';
+import setUserSeek from '../actions/set-user-seek';
 import actionCombination from '../utils/action-combination';
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>): SeekBarFuncProps => ({

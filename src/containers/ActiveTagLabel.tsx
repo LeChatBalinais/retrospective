@@ -4,8 +4,7 @@ import ActiveTagLabel, {
   ValueProps,
   FuncProps
 } from '../components/ActiveTagLabel';
-import { State } from '../types/state';
-import { Action } from '../types/types';
+import { Action, State } from '../types';
 import setCurrentTag from '../actions/set-current-tag';
 
 interface Props {

@@ -1,6 +1,6 @@
 import { createSelector, OutputParametricSelector } from 'reselect';
 import { getTags } from './selectors';
-import { State, Tag } from '../types/state';
+import { State, Tag } from '../types';
 
 const makeGetTag = (): OutputParametricSelector<
   State,

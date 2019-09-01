@@ -1,6 +1,5 @@
-import { State } from '../types/state';
-import { SetPlayback, SET_PLAYBACK } from '../actions/set-playback';
-import { SimpleAction } from '../types/types';
+import { SET_PLAYBACK } from '../actions/set-playback';
+import { State, SimpleAction, SetPlayback } from '../types';
 
 const setPlayback = (state: State, action: SimpleAction): State => {
   const {

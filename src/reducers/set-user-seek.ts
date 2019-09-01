@@ -1,4 +1,4 @@
-import { State } from '../types/state';
+import { State } from '../types';
 import { SetUserSeek, SET_USER_SEEK } from '../actions/set-user-seek';
 
 const setUserSeek = (state: State, action: SetUserSeek): State => {

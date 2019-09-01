@@ -1,6 +1,6 @@
 import actionCreator from '../actions/update-tag-path';
 import connect, { mapStateToActionCreator } from '../utils/map-state-to-action';
-import { State } from '../types/state';
+import { State } from '../types';
 import { getBeingEditedTagIDs, getCurrentTime } from '../selectors/selectors';
 
 const mapStateToPayload = (

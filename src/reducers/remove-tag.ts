@@ -1,6 +1,7 @@
-import { State } from '../types/state';
 import { getCurrentTagID } from '../selectors/selectors';
-import { RemoveTag, REMOVE_TAG } from '../actions/remove-tag';
+import { REMOVE_TAG } from '../actions/remove-tag';
+
+import { State, RemoveTag } from '../types';
 
 const removeTag = (state: State, action: RemoveTag): State => {
   const {

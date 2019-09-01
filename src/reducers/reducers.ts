@@ -1,6 +1,5 @@
 import DEFAULT_STATE from './default-state';
-import { State } from '../types/state';
-import { Action, ActionCombination, SimpleAction } from '../types/types';
+import { State, Action, ActionCombination, SimpleAction } from '../types';
 import { ACTION_COMBINATION } from '../utils/action-combination';
 import simpleActionRootReducer from './simple-action-root-reducer';
 

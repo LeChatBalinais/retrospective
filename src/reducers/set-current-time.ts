@@ -1,8 +1,6 @@
-import { State } from '../types/state';
-import {
-  SetCurrentNormalizedTime,
-  SET_CURRENT_NORMALIZED_TIME
-} from '../actions/set-current-normalized-time';
+import { SET_CURRENT_NORMALIZED_TIME } from '../actions/set-current-normalized-time';
+
+import { State, SetCurrentNormalizedTime } from '../types';
 
 const setCurrentNormalizedTime = (
   state: State,

@@ -1,9 +1,8 @@
-import actionCreator, {
-  SetCurrentNormalizedTimePayload
-} from '../actions/set-current-normalized-time';
+import actionCreator from '../actions/set-current-normalized-time';
 import connect, { mapStateToActionCreator } from '../utils/map-state-to-action';
-import { State } from '../types/state';
 import { getVideoDuration } from '../selectors/selectors';
+
+import { State, SetCurrentNormalizedTimePayload } from '../types';
 
 export interface SetCurrentTimePayload {
   time: number;

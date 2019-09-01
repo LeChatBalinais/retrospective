@@ -1,5 +1,6 @@
-import { State } from '../types/state';
-import { SetTags, SET_TAGS } from '../actions/set-tags';
+import { SET_TAGS } from '../actions/set-tags';
+
+import { State, SetTags } from '../types';
 
 const setTags = (state: State, action: SetTags): State => {
   const {

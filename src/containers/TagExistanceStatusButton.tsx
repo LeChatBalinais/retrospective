@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import Button, { ValueProps, FuncProps } from '../components/Button';
-import { ThunkDispatch } from '../types/types';
-import { State } from '../types/state';
+import { State, ThunkDispatch } from '../types';
 import deleteTag from '../actions/delete-tag';
 import saveTag from '../actions/save-tag';
 

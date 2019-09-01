@@ -1,14 +1,17 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'react';
 import TagRow, { ValueProps, FuncProps } from '../components/TagRow';
-import { State } from '../types/state';
 import { makeIsTagLocal } from '../selectors/tag-selectors';
 import { isTagCurrent } from '../selectors/selectors';
-import { Action, ThunkDispatch } from '../types/types';
-import setUserSeek, { SetUserSeekPayload } from '../actions/set-user-seek';
-import setCurrentTag, {
+import {
+  State,
+  Action,
+  ThunkDispatch,
+  SetUserSeekPayload,
   SetCurrentTagPayload
-} from '../actions/set-current-tag';
+} from '../types';
+import setUserSeek from '../actions/set-user-seek';
+import setCurrentTag from '../actions/set-current-tag';
 import connectAction, {
   mapStateToActionCreator
 } from '../utils/map-state-to-action';

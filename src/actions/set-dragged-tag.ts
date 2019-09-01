@@ -1,4 +1,4 @@
-import { SimpleActionTemplate } from '../types/simple-action-template';
+import { SimpleActionTemplate } from '../types/actions/simple-action-template';
 
 export interface SetDraggedTagPayload {
   ID: string;

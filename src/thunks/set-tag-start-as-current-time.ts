@@ -1,6 +1,6 @@
 import actionCreator from '../actions/set-requested-normalized-time';
 import connect, { mapStateToActionCreator } from '../utils/map-state-to-action';
-import { State } from '../types/state';
+import { State } from '../types';
 import { makeGetTagAppearsAt } from '../selectors/tag-selectors';
 import { getVideoDuration } from '../selectors/selectors';
 

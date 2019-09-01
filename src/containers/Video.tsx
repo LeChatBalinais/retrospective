@@ -2,10 +2,9 @@ import { connect } from 'react-redux';
 import Video, { ValueProps, FuncProps } from '../components/Video';
 import setCurrentTime from '../thunks/set-current-time';
 import setDuration from '../actions/set-duration';
-import { State } from '../types/state';
 import isVideoPlaying from '../selectors/is-video-playing';
 import { getVideoURL, getAboutToBeCurrentTime } from '../selectors/selectors';
-import { ThunkDispatch } from '../types/types';
+import { State, ThunkDispatch } from '../types';
 
 const mapStateToProps = (state: State): ValueProps => {
   return {

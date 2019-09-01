@@ -1,8 +1,6 @@
-import { State } from '../types/state';
-import {
-  SetRequestedNormalizedTime,
-  SET_REQUESTED_NORMALIZED_TIME
-} from '../actions/set-requested-normalized-time';
+import { SET_REQUESTED_NORMALIZED_TIME } from '../actions/set-requested-normalized-time';
+
+import { State, SetRequestedNormalizedTime } from '../types';
 
 const setRequestedNormalizedTime = (
   state: State,

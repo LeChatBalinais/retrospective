@@ -1,13 +1,16 @@
 import { Dispatch } from 'react';
 import { v4 as uuid } from 'uuid';
 import { connect } from 'react-redux';
-import setPlayback, { SetPlaybackPayload } from '../actions/set-playback';
-import setPlaceNewTagMode, {
-  SetPlaceNewTagModePayload
-} from '../actions/set-place-new-tag-mode';
+import setPlayback from '../actions/set-playback';
+import setPlaceNewTagMode from '../actions/set-place-new-tag-mode';
 import NewTagLayer, { FuncProps } from '../components/NewTagLayer';
-import { Action } from '../types/types';
-import addNewTag, { AddNewTagPayload } from '../actions/add-new-tag';
+import {
+  Action,
+  SetPlaybackPayload,
+  SetPlaceNewTagModePayload,
+  AddNewTagPayload
+} from '../types';
+import addNewTag from '../actions/add-new-tag';
 import actionCombination from '../utils/action-combination';
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>): FuncProps => ({

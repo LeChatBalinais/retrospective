@@ -3,8 +3,7 @@ import Tag, {
   FuncProps as TagFuncProps,
   ValueProps as TagValueProps
 } from '../components/Tag';
-import setPlayback, { SetPlaybackPayload } from '../actions/set-playback';
-import { State } from '../types/state';
+import setPlayback from '../actions/set-playback';
 import makeGetTagInfo from '../selectors/get-tag-info';
 import isVideoPlaying from '../selectors/is-video-playing';
 import {
@@ -12,17 +11,19 @@ import {
   makeGetCurrentTagPosition
 } from '../selectors/tag-selectors';
 import { getCurrentTime, isTagCurrent } from '../selectors/selectors';
-import { ThunkDispatch } from '../types/types';
+import {
+  State,
+  ThunkDispatch,
+  SetPlaybackPayload,
+  SetDraggedTagPayload,
+  SetCurrentTagPayload
+} from '../types';
 
 import connectAction, {
   mapStateToActionCreator
 } from '../utils/map-state-to-action';
-import setDraggedTag, {
-  SetDraggedTagPayload
-} from '../actions/set-dragged-tag';
-import setCurrentTag, {
-  SetCurrentTagPayload
-} from '../actions/set-current-tag';
+import setDraggedTag from '../actions/set-dragged-tag';
+import setCurrentTag from '../actions/set-current-tag';
 
 interface Props {
   ID: string;

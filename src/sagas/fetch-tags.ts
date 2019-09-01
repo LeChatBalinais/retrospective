@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 import { put, call, takeEvery } from 'redux-saga/effects';
 import { FETCH_TAGS } from '../actions/fetch-tags';
 import setTags from '../actions/set-tags';
-import { Table, Tag } from '../types/state';
+import { Table, Tag } from '../types';
 
 function* fetchTags(): SagaIterator {
   const response = yield call(fetch, `http://localhost:9000/markers`);

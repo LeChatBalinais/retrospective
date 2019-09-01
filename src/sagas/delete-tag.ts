@@ -1,8 +1,10 @@
 import { SagaIterator } from '@redux-saga/core';
 import { put, call, takeEvery, select } from 'redux-saga/effects';
-import { DELETE_TAG, DeleteTag } from '../actions/delete-tag';
+import { DELETE_TAG } from '../actions/delete-tag';
 import makeGetTag from '../selectors/get-tag';
 import removeTag from '../actions/remove-tag';
+
+import { DeleteTag } from '../types';
 
 const getTag = makeGetTag();
 

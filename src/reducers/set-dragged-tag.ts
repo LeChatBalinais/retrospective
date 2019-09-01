@@ -1,5 +1,5 @@
-import { State } from '../types/state';
-import { SetDraggedTag, SET_DRAGGED_TAG } from '../actions/set-dragged-tag';
+import { SET_DRAGGED_TAG } from '../actions/set-dragged-tag';
+import { State, SetDraggedTag } from '../types';
 
 const setDraggedTag = (state: State, action: SetDraggedTag): State => {
   const {

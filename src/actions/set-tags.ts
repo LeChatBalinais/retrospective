@@ -1,5 +1,5 @@
-import { Table, Tag } from '../types/state';
-import { SimpleActionTemplate } from '../types/simple-action-template';
+import { Table, Tag } from '../types';
+import { SimpleActionTemplate } from '../types/actions/simple-action-template';
 
 export interface SetTagsPayload {
   tags: Table<Tag>;

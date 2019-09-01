@@ -1,8 +1,5 @@
-import { State } from '../types/state';
-import {
-  SetTimeTagAppearsAt,
-  SET_TIME_TAG_APPEARS_AT
-} from '../actions/set-time-tag-appears-at';
+import { SET_TIME_TAG_APPEARS_AT } from '../actions/set-time-tag-appears-at';
+import { State, SetTimeTagAppearsAt } from '../types';
 
 const setTimeTagAppearsAt = (
   state: State,

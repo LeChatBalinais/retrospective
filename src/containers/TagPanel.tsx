@@ -4,10 +4,9 @@ import TagPanel, {
   ValueProps as TagPanelValueProp,
   FuncProps as TagPanelFuncProp
 } from '../components/TagPanel';
-import { State } from '../types/state';
 import { getCurrentTagID } from '../selectors/selectors';
 import makeGetTagInfo from '../selectors/get-tag-info';
-import { Action } from '../types/types';
+import { State, Action } from '../types';
 import setTagTraceVisible from '../actions/set-tag-trace-visible';
 import setTimeTagAppearsAt from '../actions/set-time-tag-appears-at';
 import setTimeTagDisappearsAt from '../actions/set-time-tag-disappears-at';

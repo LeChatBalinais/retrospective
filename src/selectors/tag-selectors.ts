@@ -1,6 +1,6 @@
 import { createSelector, OutputParametricSelector } from 'reselect';
 import { getCurrentTime, getLocalTagIDs } from './selectors';
-import { State, Tag } from '../types/state';
+import { State, Tag } from '../types';
 import makeGetTag from './get-tag';
 
 export const makeGetTagAppearsAt = (): OutputParametricSelector<

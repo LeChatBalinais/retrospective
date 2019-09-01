@@ -1,6 +1,6 @@
-import { State } from '../types/state';
 import { getCurrentTime } from '../selectors/selectors';
-import { AddNewTag, ADD_NEW_TAG } from '../actions/add-new-tag';
+import { ADD_NEW_TAG } from '../actions/add-new-tag';
+import { State, AddNewTag } from '../types';
 
 const addNewTag = (state: State, action: AddNewTag): State => {
   const {

@@ -1,6 +1,6 @@
 import { createSelector, OutputParametricSelector } from 'reselect';
 import makeGetTag from '../get-tag';
-import { State, Tag } from '../../types/state';
+import { State, Tag } from '../../types';
 
 function getPointsString(
   pointsStr: string,

@@ -1,4 +1,4 @@
-import { Action, ActionCombination } from '../types/types';
+import { Action, ActionCombination } from '../types';
 
 export const ACTION_COMBINATION = 'ACTION_COMBINATION';
 

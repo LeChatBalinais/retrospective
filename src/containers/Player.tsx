@@ -3,9 +3,8 @@ import Player, {
   ValueProps as PlayerValueProps,
   FuncProps as PlayerFuncProps
 } from '../components/Player';
-import { State } from '../types/state';
 import { getCurrentTagID, isPlaceNewTagModeOn } from '../selectors/selectors';
-import { ThunkDispatch } from '../types/types';
+import { State, ThunkDispatch } from '../types';
 import fetchTags from '../actions/fetch-tags';
 
 const mapStateToProps = (state: State): PlayerValueProps => ({

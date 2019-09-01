@@ -12,8 +12,7 @@ import SetCurrentTag from './set-current-tag';
 import RemoveTag from './remove-tag';
 import SetTagGlobalID from './set-tag-globalid';
 import SetRequestedNormalizedTime from './set-requested-normalized-time';
-import { State } from '../types/state';
-import { SimpleAction } from '../types/types';
+import { State, SimpleAction } from '../types';
 import setTimeTagAppearsAt from './set-time-tag-appears-at';
 import setTimeTagDisappearsAt from './set-time-tag-disappears-at';
 
