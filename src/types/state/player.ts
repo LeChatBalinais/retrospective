@@ -1,17 +1,19 @@
 export interface Player {
-  readonly playback: boolean;
-  readonly userSeek: boolean;
-  readonly currentTimeNormalized: number;
-  readonly requestedTimeNormalized: number;
+  readonly status: PlayerStatus;
   readonly video?: {
-    status: Status;
+    status: VideoStatus;
     atStage?: number;
     stageSeekTo?: number;
   };
 }
 
-enum Status {
+export enum VideoStatus {
   Paused,
   Seeking,
+  Playing
+}
+
+export enum PlayerStatus {
+  Paused,
   Playing
 }

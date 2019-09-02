@@ -1,26 +1,22 @@
-import { SET_CURRENT_NORMALIZED_TIME } from '../actions/set-current-normalized-time';
+import { SET_CURRENT_STAGE } from '../actions/set-current-stage';
 
-import { State, SetCurrentNormalizedTime } from '../types';
+import { State, SetCurrentStage } from '../types';
 
-const setCurrentNormalizedTime = (
-  state: State,
-  action: SetCurrentNormalizedTime
-): State => {
+const setCurrentStage = (state: State, action: SetCurrentStage): State => {
   const {
-    payload: { time: currentTimeNormalized }
+    payload: { time: atStage }
   } = action;
 
   return {
     ...state,
     player: {
       ...state.player,
-      currentTimeNormalized,
-      requestedTimeNormalized: currentTimeNormalized
+      video: { ...state.player.video, atStage, stageSeekTo: atStage }
     }
   };
 };
 
 export default {
-  actionType: SET_CURRENT_NORMALIZED_TIME,
-  reducer: setCurrentNormalizedTime
+  actionType: SET_CURRENT_STAGE,
+  reducer: setCurrentStage
 };

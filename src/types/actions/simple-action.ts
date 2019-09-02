@@ -3,7 +3,7 @@ import * as particularActions from './particular-actions';
 export type SimpleAction =
   | particularActions.SetPlayback
   | particularActions.SetPlaceNewTagMode
-  | particularActions.SetCurrentNormalizedTime
+  | particularActions.SetCurrentStage
   | particularActions.SetDuration
   | particularActions.SetUserSeek
   | particularActions.AddNewTag
@@ -17,6 +17,6 @@ export type SimpleAction =
   | particularActions.DeleteTag
   | particularActions.SaveTag
   | particularActions.FetchTags
-  | particularActions.SetRequestedNormalizedTime
+  | particularActions.SetStageSeekTo
   | particularActions.SetTimeTagAppearsAt
   | particularActions.SetTimeTagDisappearsAt;

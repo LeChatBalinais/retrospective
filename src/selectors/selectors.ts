@@ -1,35 +1,43 @@
-import { State, Tag } from '../types';
+import { State, Tag, PlayerStatus, VideoStatus } from '../types';
 
-export const getPlayback = ({ player: { playback } }: State): boolean =>
-  playback;
+export const getPlayerStatus = ({ player: { status } }: State): boolean =>
+  status === PlayerStatus.Playing;
 
-export const getUserSeek = ({ player: { userSeek } }: State): boolean =>
-  userSeek;
+export const getUserSeek = ({
+  player: {
+    video: { status }
+  }
+}: State): boolean => status === VideoStatus.Seeking;
 
 export const getCurrentTime = ({
   footage: { duration },
-  player: { currentTimeNormalized }
-}: State): number => currentTimeNormalized * duration;
+  player: {
+    video: { atStage }
+  }
+}: State): number => atStage * duration;
 
-export const getAboutToBeCurrentTime = ({
+export const getStageSeekTo = ({
   footage: { duration },
-  player: { requestedTimeNormalized, userSeek, currentTimeNormalized }
+  player: {
+    video: { status, atStage, stageSeekTo }
+  }
 }: State): number =>
-  userSeek
-    ? requestedTimeNormalized * duration
-    : currentTimeNormalized * duration;
+  status === VideoStatus.Seeking ? stageSeekTo * duration : atStage * duration;
 
 export const getVideoDuration = ({ footage: { duration } }: State): number =>
   duration;
 
-export const getCurrentNormalizedTime = ({
-  player: { currentTimeNormalized }
-}: State): number => currentTimeNormalized;
+export const getCurrentStage = ({
+  player: {
+    video: { atStage }
+  }
+}: State): number => atStage;
 
-export const getAboutToBeCurrentNormalizedTime = ({
-  player: { requestedTimeNormalized, userSeek, currentTimeNormalized }
-}: State): number =>
-  userSeek ? requestedTimeNormalized : currentTimeNormalized;
+export const getAboutToBeCurrentTime = ({
+  player: {
+    video: { status, atStage, stageSeekTo }
+  }
+}: State): number => (status === VideoStatus.Seeking ? stageSeekTo : atStage);
 
 export const getVideoURL = ({ footage: { url } }: State): string => url;
 

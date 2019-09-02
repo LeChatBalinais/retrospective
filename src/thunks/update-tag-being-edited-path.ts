@@ -18,4 +18,6 @@ export const createUpdateTagBeingEditedPath = mapStateToActionCreator(
   mapStateToPayload
 );
 
-export default connect([createUpdateTagBeingEditedPath]);
+const updateTagBeingEditedPath = connect([createUpdateTagBeingEditedPath]);
+
+export default updateTagBeingEditedPath;

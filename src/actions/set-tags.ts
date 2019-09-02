@@ -1,4 +1,4 @@
-import { Table, Tag } from '../types';
+import { Table, Tag } from '../types/state';
 import { SimpleActionTemplate } from '../types/actions/simple-action-template';
 
 export interface SetTagsPayload {

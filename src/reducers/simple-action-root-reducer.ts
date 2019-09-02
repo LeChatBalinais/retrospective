@@ -1,6 +1,6 @@
 import SetPlayback from './set-playback';
 import SetPlaceNewTagMode from './set-place-new-tag-mode';
-import SetCurrentNormalizedTime from './set-current-time';
+import SetCurrentStage from './set-current-time';
 import SetDuration from './set-duration';
 import SetUserSeek from './set-user-seek';
 import AddNewTag from './add-new-tag';
@@ -11,7 +11,7 @@ import SetTagTraceVisible from './set-tag-trace-visible';
 import SetCurrentTag from './set-current-tag';
 import RemoveTag from './remove-tag';
 import SetTagGlobalID from './set-tag-globalid';
-import SetRequestedNormalizedTime from './set-requested-normalized-time';
+import SetStageSeekTo from './set-stage-seek-to';
 import { State, SimpleAction } from '../types';
 import setTimeTagAppearsAt from './set-time-tag-appears-at';
 import setTimeTagDisappearsAt from './set-time-tag-disappears-at';
@@ -26,7 +26,7 @@ const simpleActionRootReducer = (): ((
   }[] = [
     SetPlayback,
     SetPlaceNewTagMode,
-    SetCurrentNormalizedTime,
+    SetCurrentStage,
     SetDuration,
     SetUserSeek,
     AddNewTag,
@@ -37,7 +37,7 @@ const simpleActionRootReducer = (): ((
     SetCurrentTag,
     RemoveTag,
     SetTagGlobalID,
-    SetRequestedNormalizedTime,
+    SetStageSeekTo,
     setTimeTagAppearsAt,
     setTimeTagDisappearsAt
   ];

@@ -7,6 +7,8 @@ const mapStateToPayload = (state: State): { mode: boolean } => {
   return { mode: !isPlaceNewTagModeOn(state) };
 };
 
-export default connect([
+const togglePlaceNewTagMode = connect([
   mapStateToActionCreator(actionCreator, mapStateToPayload)
 ]);
+
+export default togglePlaceNewTagMode;

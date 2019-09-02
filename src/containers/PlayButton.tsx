@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 import Button, { ValueProps, FuncProps } from '../components/Button';
 import togglePlayback from '../thunks/toggle-playback';
-import { getPlayback } from '../selectors/selectors';
+import { getPlayerStatus } from '../selectors/selectors';
 import { State, ThunkDispatch } from '../types';
 
 const mapStateToProps = (state: State): ValueProps => ({
-  caption: getPlayback(state) ? 'Pause' : 'Play'
+  caption: getPlayerStatus(state) ? 'Pause' : 'Play'
 });
 
 const mapDispatchToProps = (dispatch: ThunkDispatch): FuncProps => ({

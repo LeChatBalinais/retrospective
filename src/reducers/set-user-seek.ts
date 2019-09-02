@@ -1,4 +1,4 @@
-import { State } from '../types';
+import { State, VideoStatus } from '../types';
 import { SetUserSeek, SET_USER_SEEK } from '../actions/set-user-seek';
 
 const setUserSeek = (state: State, action: SetUserSeek): State => {
@@ -7,24 +7,34 @@ const setUserSeek = (state: State, action: SetUserSeek): State => {
   } = action;
 
   const {
-    player: { requestedTimeNormalized }
+    player: {
+      video: { stageSeekTo }
+    }
   } = state;
 
   let {
-    player: { currentTimeNormalized }
+    player: {
+      video: { atStage }
+    }
   } = state;
 
   if (!on) {
-    currentTimeNormalized = requestedTimeNormalized;
+    atStage = stageSeekTo;
   }
+
+  let status: VideoStatus = VideoStatus.Playing;
+
+  if (on) status = VideoStatus.Seeking;
 
   return {
     ...state,
     player: {
       ...state.player,
-      userSeek: on,
-      currentTimeNormalized,
-      requestedTimeNormalized
+      video: {
+        ...state.player.video,
+        status,
+        atStage
+      }
     }
   };
 };

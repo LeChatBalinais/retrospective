@@ -1,0 +1,721 @@
+diff --git a/src/actions/set-current-normalized-time.ts b/src/actions/set-current-normalized-time.ts
+deleted file mode 100644
+index 2b53f97..0000000
+--- a/src/actions/set-current-normalized-time.ts
++++ /dev/null
+@@ -1,18 +0,0 @@
+-import { SimpleActionTemplate } from '../types/actions/simple-action-template';
+-
+-export interface SetCurrentNormalizedTimePayload {
+-  time: number;
+-}
+-
+-export type SetCurrentNormalizedTime = SimpleActionTemplate<
+-  'SET_CURRENT_NORMALIZED_TIME',
+-  SetCurrentNormalizedTimePayload
+->;
+-
+-export const SET_CURRENT_NORMALIZED_TIME = 'SET_CURRENT_NORMALIZED_TIME';
+-
+-export default function setCurrentTime(
+-  payload: SetCurrentNormalizedTimePayload
+-): SetCurrentNormalizedTime {
+-  return { type: SET_CURRENT_NORMALIZED_TIME, payload };
+-}
+diff --git a/src/actions/set-current-stage.ts b/src/actions/set-current-stage.ts
+new file mode 100644
+index 0000000..fa6e467
+--- /dev/null
++++ b/src/actions/set-current-stage.ts
+@@ -0,0 +1,18 @@
++import { SimpleActionTemplate } from '../types/actions/simple-action-template';
++
++export interface SetCurrentStagePayload {
++  time: number;
++}
++
++export type SetCurrentStage = SimpleActionTemplate<
++  'SET_CURRENT_STAGE',
++  SetCurrentStagePayload
++>;
++
++export const SET_CURRENT_STAGE = 'SET_CURRENT_STAGE';
++
++export default function setCurrentTime(
++  payload: SetCurrentStagePayload
++): SetCurrentStage {
++  return { type: SET_CURRENT_STAGE, payload };
++}
+diff --git a/src/actions/set-requested-normalized-time.ts b/src/actions/set-requested-normalized-time.ts
+deleted file mode 100644
+index 06cb77e..0000000
+--- a/src/actions/set-requested-normalized-time.ts
++++ /dev/null
+@@ -1,18 +0,0 @@
+-import { SimpleActionTemplate } from '../types/actions/simple-action-template';
+-
+-export interface SetRequestedNormalizedTimePayload {
+-  time: number;
+-}
+-
+-export type SetRequestedNormalizedTime = SimpleActionTemplate<
+-  'SET_REQUESTED_NORMALIZED_TIME',
+-  SetRequestedNormalizedTimePayload
+->;
+-
+-export const SET_REQUESTED_NORMALIZED_TIME = 'SET_REQUESTED_NORMALIZED_TIME';
+-
+-export default function setRequestedTime(
+-  payload: SetRequestedNormalizedTimePayload
+-): SetRequestedNormalizedTime {
+-  return { type: SET_REQUESTED_NORMALIZED_TIME, payload };
+-}
+diff --git a/src/actions/set-stage-seek-to.ts b/src/actions/set-stage-seek-to.ts
+new file mode 100644
+index 0000000..a3055a2
+--- /dev/null
++++ b/src/actions/set-stage-seek-to.ts
+@@ -0,0 +1,18 @@
++import { SimpleActionTemplate } from '../types/actions/simple-action-template';
++
++export interface SetStageSeekToPayload {
++  time: number;
++}
++
++export type SetStageSeekTo = SimpleActionTemplate<
++  'SET_STAGE_SEEK_TO',
++  SetStageSeekToPayload
++>;
++
++export const SET_STAGE_SEEK_TO = 'SET_STAGE_SEEK_TO';
++
++export default function setRequestedTime(
++  payload: SetStageSeekToPayload
++): SetStageSeekTo {
++  return { type: SET_STAGE_SEEK_TO, payload };
++}
+diff --git a/src/actions/set-tags.ts b/src/actions/set-tags.ts
+index faf7d0f..bc5a74e 100644
+--- a/src/actions/set-tags.ts
++++ b/src/actions/set-tags.ts
+@@ -1,4 +1,4 @@
+-import { Table, Tag } from '../types';
++import { Table, Tag } from '../types/state';
+ import { SimpleActionTemplate } from '../types/actions/simple-action-template';
+ 
+ export interface SetTagsPayload {
+diff --git a/src/containers/PlayButton.tsx b/src/containers/PlayButton.tsx
+index c31d3f3..9d48089 100644
+--- a/src/containers/PlayButton.tsx
++++ b/src/containers/PlayButton.tsx
+@@ -1,11 +1,11 @@
+ import { connect } from 'react-redux';
+ import Button, { ValueProps, FuncProps } from '../components/Button';
+ import togglePlayback from '../thunks/toggle-playback';
+-import { getPlayback } from '../selectors/selectors';
++import { getPlayerStatus } from '../selectors/selectors';
+ import { State, ThunkDispatch } from '../types';
+ 
+ const mapStateToProps = (state: State): ValueProps => ({
+-  caption: getPlayback(state) ? 'Pause' : 'Play'
++  caption: getPlayerStatus(state) ? 'Pause' : 'Play'
+ });
+ 
+ const mapDispatchToProps = (dispatch: ThunkDispatch): FuncProps => ({
+diff --git a/src/containers/SeekBar.tsx b/src/containers/SeekBar.tsx
+index 11f9e75..8887a49 100644
+--- a/src/containers/SeekBar.tsx
++++ b/src/containers/SeekBar.tsx
+@@ -1,21 +1,18 @@
+ import { Dispatch } from 'react';
+ import { connect } from 'react-redux';
+ import SeekBar, { FuncProps as SeekBarFuncProps } from '../components/SeekBar';
+-import setRequestedTime from '../actions/set-requested-normalized-time';
+-import {
+-  Action,
+-  SetUserSeekPayload,
+-  SetRequestedNormalizedTimePayload
+-} from '../types';
++import setRequestedTime from '../actions/set-stage-seek-to';
++import { Action, SetUserSeekPayload, SetStageSeekToPayload } from '../types';
+ import setUserSeek from '../actions/set-user-seek';
+ import actionCombination from '../utils/action-combination';
+ 
+ const mapDispatchToProps = (dispatch: Dispatch<Action>): SeekBarFuncProps => ({
+   onMouseDown: (relativePosition: number): void => {
+     dispatch(
+-      actionCombination<SetUserSeekPayload & SetRequestedNormalizedTimePayload>(
+-        [setUserSeek, setRequestedTime]
+-      )({ mode: true, time: relativePosition / 100 })
++      actionCombination<SetUserSeekPayload & SetStageSeekToPayload>([
++        setUserSeek,
++        setRequestedTime
++      ])({ mode: true, time: relativePosition / 100 })
+     );
+   },
+   onMouseUp: (): void => {
+diff --git a/src/containers/SeekBarCurrentTimeSlider.tsx b/src/containers/SeekBarCurrentTimeSlider.tsx
+index 872d367..61fa15c 100644
+--- a/src/containers/SeekBarCurrentTimeSlider.tsx
++++ b/src/containers/SeekBarCurrentTimeSlider.tsx
+@@ -3,11 +3,11 @@ import { State } from '../types';
+ import SeekBarSlider, {
+   ValueProps as SeekBarSliderValueProps
+ } from '../components/SeekBarSlider';
+-import { getAboutToBeCurrentNormalizedTime } from '../selectors/selectors';
++import { getAboutToBeCurrentTime } from '../selectors/selectors';
+ 
+ const mapStateToProps = (state: State): SeekBarSliderValueProps => {
+   return {
+-    position: getAboutToBeCurrentNormalizedTime(state) * 100,
++    position: getAboutToBeCurrentTime(state) * 100,
+     className: 'slider-current-time'
+   };
+ };
+diff --git a/src/containers/Video.tsx b/src/containers/Video.tsx
+index 568ec6b..bd0ac6c 100644
+--- a/src/containers/Video.tsx
++++ b/src/containers/Video.tsx
+@@ -3,14 +3,14 @@ import Video, { ValueProps, FuncProps } from '../components/Video';
+ import setCurrentTime from '../thunks/set-current-time';
+ import setDuration from '../actions/set-duration';
+ import isVideoPlaying from '../selectors/is-video-playing';
+-import { getVideoURL, getAboutToBeCurrentTime } from '../selectors/selectors';
++import { getVideoURL, getStageSeekTo } from '../selectors/selectors';
+ import { State, ThunkDispatch } from '../types';
+ 
+ const mapStateToProps = (state: State): ValueProps => {
+   return {
+     playback: isVideoPlaying(state),
+     url: getVideoURL(state),
+-    currentTime: getAboutToBeCurrentTime(state)
++    currentTime: getStageSeekTo(state)
+   };
+ };
+ 
+diff --git a/src/reducers/default-state.ts b/src/reducers/default-state.ts
+index 8a1fa5d..a3fe010 100644
+--- a/src/reducers/default-state.ts
++++ b/src/reducers/default-state.ts
+@@ -1,4 +1,4 @@
+-import { State } from '../types';
++import { State, PlayerStatus, VideoStatus } from '../types';
+ 
+ const DEFAULT_STATE: State = {
+   entities: {
+@@ -19,10 +19,12 @@ const DEFAULT_STATE: State = {
+     url: 'http://localhost:9000/video'
+   },
+   player: {
+-    playback: false,
+-    userSeek: false,
+-    currentTimeNormalized: 0,
+-    requestedTimeNormalized: 0
++    status: PlayerStatus.Paused,
++    video: {
++      status: VideoStatus.Playing,
++      atStage: undefined,
++      stageSeekTo: undefined
++    }
+   }
+ };
+ 
+diff --git a/src/reducers/set-current-time.ts b/src/reducers/set-current-time.ts
+index 10edcaa..00023f7 100644
+--- a/src/reducers/set-current-time.ts
++++ b/src/reducers/set-current-time.ts
+@@ -1,26 +1,22 @@
+-import { SET_CURRENT_NORMALIZED_TIME } from '../actions/set-current-normalized-time';
++import { SET_CURRENT_STAGE } from '../actions/set-current-stage';
+ 
+-import { State, SetCurrentNormalizedTime } from '../types';
++import { State, SetCurrentStage } from '../types';
+ 
+-const setCurrentNormalizedTime = (
+-  state: State,
+-  action: SetCurrentNormalizedTime
+-): State => {
++const setCurrentStage = (state: State, action: SetCurrentStage): State => {
+   const {
+-    payload: { time: currentTimeNormalized }
++    payload: { time: atStage }
+   } = action;
+ 
+   return {
+     ...state,
+     player: {
+       ...state.player,
+-      currentTimeNormalized,
+-      requestedTimeNormalized: currentTimeNormalized
++      video: { ...state.player.video, atStage, stageSeekTo: atStage }
+     }
+   };
+ };
+ 
+ export default {
+-  actionType: SET_CURRENT_NORMALIZED_TIME,
+-  reducer: setCurrentNormalizedTime
++  actionType: SET_CURRENT_STAGE,
++  reducer: setCurrentStage
+ };
+diff --git a/src/reducers/set-duration.ts b/src/reducers/set-duration.ts
+index c907c01..e32c895 100644
+--- a/src/reducers/set-duration.ts
++++ b/src/reducers/set-duration.ts
+@@ -7,6 +7,10 @@ const setDuration = (state: State, action: SetDuration): State => {
+   } = action;
+   return {
+     ...state,
++    player: {
++      ...state.player,
++      video: { ...state.player.video, atStage: 0 }
++    },
+     footage: {
+       ...state.footage,
+       duration
+diff --git a/src/reducers/set-playback.ts b/src/reducers/set-playback.ts
+index 65582c4..a3eef6d 100644
+--- a/src/reducers/set-playback.ts
++++ b/src/reducers/set-playback.ts
+@@ -1,16 +1,20 @@
+ import { SET_PLAYBACK } from '../actions/set-playback';
+-import { State, SimpleAction, SetPlayback } from '../types';
++import { State, SimpleAction, SetPlayback, PlayerStatus } from '../types';
+ 
+ const setPlayback = (state: State, action: SimpleAction): State => {
+   const {
+     payload: { playback }
+   } = action as SetPlayback;
+ 
++  let status: PlayerStatus = PlayerStatus.Paused;
++
++  if (playback) status = PlayerStatus.Playing;
++
+   return {
+     ...state,
+     player: {
+       ...state.player,
+-      playback
++      status
+     }
+   };
+ };
+diff --git a/src/reducers/set-requested-normalized-time.ts b/src/reducers/set-requested-normalized-time.ts
+deleted file mode 100644
+index b7afeb4..0000000
+--- a/src/reducers/set-requested-normalized-time.ts
++++ /dev/null
+@@ -1,25 +0,0 @@
+-import { SET_REQUESTED_NORMALIZED_TIME } from '../actions/set-requested-normalized-time';
+-
+-import { State, SetRequestedNormalizedTime } from '../types';
+-
+-const setRequestedNormalizedTime = (
+-  state: State,
+-  action: SetRequestedNormalizedTime
+-): State => {
+-  const {
+-    payload: { time: requestedTimeNormalized }
+-  } = action;
+-
+-  return {
+-    ...state,
+-    player: {
+-      ...state.player,
+-      requestedTimeNormalized
+-    }
+-  };
+-};
+-
+-export default {
+-  actionType: SET_REQUESTED_NORMALIZED_TIME,
+-  reducer: setRequestedNormalizedTime
+-};
+diff --git a/src/reducers/set-stage-seek-to.ts b/src/reducers/set-stage-seek-to.ts
+new file mode 100644
+index 0000000..46742c2
+--- /dev/null
++++ b/src/reducers/set-stage-seek-to.ts
+@@ -0,0 +1,22 @@
++import { SET_STAGE_SEEK_TO } from '../actions/set-stage-seek-to';
++
++import { State, SetStageSeekTo } from '../types';
++
++const setStageSeekTo = (state: State, action: SetStageSeekTo): State => {
++  const {
++    payload: { time: stageSeekTo }
++  } = action;
++
++  return {
++    ...state,
++    player: {
++      ...state.player,
++      video: { ...state.player.video, stageSeekTo }
++    }
++  };
++};
++
++export default {
++  actionType: SET_STAGE_SEEK_TO,
++  reducer: setStageSeekTo
++};
+diff --git a/src/reducers/set-user-seek.ts b/src/reducers/set-user-seek.ts
+index cc8b76c..b34d30a 100644
+--- a/src/reducers/set-user-seek.ts
++++ b/src/reducers/set-user-seek.ts
+@@ -1,4 +1,4 @@
+-import { State } from '../types';
++import { State, VideoStatus } from '../types';
+ import { SetUserSeek, SET_USER_SEEK } from '../actions/set-user-seek';
+ 
+ const setUserSeek = (state: State, action: SetUserSeek): State => {
+@@ -7,24 +7,34 @@ const setUserSeek = (state: State, action: SetUserSeek): State => {
+   } = action;
+ 
+   const {
+-    player: { requestedTimeNormalized }
++    player: {
++      video: { stageSeekTo }
++    }
+   } = state;
+ 
+   let {
+-    player: { currentTimeNormalized }
++    player: {
++      video: { atStage }
++    }
+   } = state;
+ 
+   if (!on) {
+-    currentTimeNormalized = requestedTimeNormalized;
++    atStage = stageSeekTo;
+   }
+ 
++  let status: VideoStatus = VideoStatus.Playing;
++
++  if (on) status = VideoStatus.Seeking;
++
+   return {
+     ...state,
+     player: {
+       ...state.player,
+-      userSeek: on,
+-      currentTimeNormalized,
+-      requestedTimeNormalized
++      video: {
++        ...state.player.video,
++        status,
++        atStage
++      }
+     }
+   };
+ };
+diff --git a/src/reducers/simple-action-root-reducer.ts b/src/reducers/simple-action-root-reducer.ts
+index 89a33d9..e77be79 100644
+--- a/src/reducers/simple-action-root-reducer.ts
++++ b/src/reducers/simple-action-root-reducer.ts
+@@ -1,6 +1,6 @@
+ import SetPlayback from './set-playback';
+ import SetPlaceNewTagMode from './set-place-new-tag-mode';
+-import SetCurrentNormalizedTime from './set-current-time';
++import SetCurrentStage from './set-current-time';
+ import SetDuration from './set-duration';
+ import SetUserSeek from './set-user-seek';
+ import AddNewTag from './add-new-tag';
+@@ -11,7 +11,7 @@ import SetTagTraceVisible from './set-tag-trace-visible';
+ import SetCurrentTag from './set-current-tag';
+ import RemoveTag from './remove-tag';
+ import SetTagGlobalID from './set-tag-globalid';
+-import SetRequestedNormalizedTime from './set-requested-normalized-time';
++import SetStageSeekTo from './set-stage-seek-to';
+ import { State, SimpleAction } from '../types';
+ import setTimeTagAppearsAt from './set-time-tag-appears-at';
+ import setTimeTagDisappearsAt from './set-time-tag-disappears-at';
+@@ -26,7 +26,7 @@ const simpleActionRootReducer = (): ((
+   }[] = [
+     SetPlayback,
+     SetPlaceNewTagMode,
+-    SetCurrentNormalizedTime,
++    SetCurrentStage,
+     SetDuration,
+     SetUserSeek,
+     AddNewTag,
+@@ -37,7 +37,7 @@ const simpleActionRootReducer = (): ((
+     SetCurrentTag,
+     RemoveTag,
+     SetTagGlobalID,
+-    SetRequestedNormalizedTime,
++    SetStageSeekTo,
+     setTimeTagAppearsAt,
+     setTimeTagDisappearsAt
+   ];
+diff --git a/src/selectors/is-video-playing.ts b/src/selectors/is-video-playing.ts
+index e250107..3e0137a 100644
+--- a/src/selectors/is-video-playing.ts
++++ b/src/selectors/is-video-playing.ts
+@@ -1,8 +1,8 @@
+ import { createSelector } from 'reselect';
+-import { getPlayback, getUserSeek } from './selectors';
++import { getPlayerStatus, getUserSeek } from './selectors';
+ 
+ const isVideoPlaying = createSelector(
+-  [getPlayback, getUserSeek],
++  [getPlayerStatus, getUserSeek],
+   (playback: boolean, userSeek: boolean): boolean => playback && !userSeek
+ );
+ 
+diff --git a/src/selectors/selectors.ts b/src/selectors/selectors.ts
+index 95439e8..92e0e1d 100644
+--- a/src/selectors/selectors.ts
++++ b/src/selectors/selectors.ts
+@@ -1,35 +1,43 @@
+-import { State, Tag } from '../types';
++import { State, Tag, PlayerStatus, VideoStatus } from '../types';
+ 
+-export const getPlayback = ({ player: { playback } }: State): boolean =>
+-  playback;
++export const getPlayerStatus = ({ player: { status } }: State): boolean =>
++  status === PlayerStatus.Playing;
+ 
+-export const getUserSeek = ({ player: { userSeek } }: State): boolean =>
+-  userSeek;
++export const getUserSeek = ({
++  player: {
++    video: { status }
++  }
++}: State): boolean => status === VideoStatus.Seeking;
+ 
+ export const getCurrentTime = ({
+   footage: { duration },
+-  player: { currentTimeNormalized }
+-}: State): number => currentTimeNormalized * duration;
++  player: {
++    video: { atStage }
++  }
++}: State): number => atStage * duration;
+ 
+-export const getAboutToBeCurrentTime = ({
++export const getStageSeekTo = ({
+   footage: { duration },
+-  player: { requestedTimeNormalized, userSeek, currentTimeNormalized }
++  player: {
++    video: { status, atStage, stageSeekTo }
++  }
+ }: State): number =>
+-  userSeek
+-    ? requestedTimeNormalized * duration
+-    : currentTimeNormalized * duration;
++  status === VideoStatus.Seeking ? stageSeekTo * duration : atStage * duration;
+ 
+ export const getVideoDuration = ({ footage: { duration } }: State): number =>
+   duration;
+ 
+-export const getCurrentNormalizedTime = ({
+-  player: { currentTimeNormalized }
+-}: State): number => currentTimeNormalized;
++export const getCurrentStage = ({
++  player: {
++    video: { atStage }
++  }
++}: State): number => atStage;
+ 
+-export const getAboutToBeCurrentNormalizedTime = ({
+-  player: { requestedTimeNormalized, userSeek, currentTimeNormalized }
+-}: State): number =>
+-  userSeek ? requestedTimeNormalized : currentTimeNormalized;
++export const getAboutToBeCurrentTime = ({
++  player: {
++    video: { status, atStage, stageSeekTo }
++  }
++}: State): number => (status === VideoStatus.Seeking ? stageSeekTo : atStage);
+ 
+ export const getVideoURL = ({ footage: { url } }: State): string => url;
+ 
+diff --git a/src/thunks/set-current-time.ts b/src/thunks/set-current-time.ts
+index c547eae..59d08a2 100644
+--- a/src/thunks/set-current-time.ts
++++ b/src/thunks/set-current-time.ts
+@@ -1,8 +1,8 @@
+-import actionCreator from '../actions/set-current-normalized-time';
++import actionCreator from '../actions/set-current-stage';
+ import connect, { mapStateToActionCreator } from '../utils/map-state-to-action';
+ import { getVideoDuration } from '../selectors/selectors';
+ 
+-import { State, SetCurrentNormalizedTimePayload } from '../types';
++import { State, SetCurrentStagePayload } from '../types';
+ 
+ export interface SetCurrentTimePayload {
+   time: number;
+@@ -11,10 +11,12 @@ export interface SetCurrentTimePayload {
+ const mapStateToPayload = (
+   state: State,
+   { time }: SetCurrentTimePayload
+-): SetCurrentNormalizedTimePayload => {
++): SetCurrentStagePayload => {
+   return { time: time / getVideoDuration(state) };
+ };
+ 
+-export default connect([
++const setStageAt = connect([
+   mapStateToActionCreator(actionCreator, mapStateToPayload)
+ ]);
++
++export default setStageAt;
+diff --git a/src/thunks/set-tag-start-as-current-time.ts b/src/thunks/set-tag-start-as-current-time.ts
+index 7c59274..30069fa 100644
+--- a/src/thunks/set-tag-start-as-current-time.ts
++++ b/src/thunks/set-tag-start-as-current-time.ts
+@@ -1,4 +1,4 @@
+-import actionCreator from '../actions/set-requested-normalized-time';
++import actionCreator from '../actions/set-stage-seek-to';
+ import connect, { mapStateToActionCreator } from '../utils/map-state-to-action';
+ import { State } from '../types';
+ import { makeGetTagAppearsAt } from '../selectors/tag-selectors';
+@@ -22,6 +22,8 @@ export const setTagStartAsCurrentTime = mapStateToActionCreator(
+   mapStateToPayload
+ );
+ 
+-export default connect([
++const setStageAtTagAppearance = connect([
+   mapStateToActionCreator(actionCreator, mapStateToPayload)
+ ]);
++
++export default setStageAtTagAppearance;
+diff --git a/src/thunks/toggle-place-new-tag-mode.ts b/src/thunks/toggle-place-new-tag-mode.ts
+index 79ed4c8..01b477c 100644
+--- a/src/thunks/toggle-place-new-tag-mode.ts
++++ b/src/thunks/toggle-place-new-tag-mode.ts
+@@ -7,6 +7,8 @@ const mapStateToPayload = (state: State): { mode: boolean } => {
+   return { mode: !isPlaceNewTagModeOn(state) };
+ };
+ 
+-export default connect([
++const togglePlaceNewTagMode = connect([
+   mapStateToActionCreator(actionCreator, mapStateToPayload)
+ ]);
++
++export default togglePlaceNewTagMode;
+diff --git a/src/thunks/toggle-playback.ts b/src/thunks/toggle-playback.ts
+index ddabe78..4467b6e 100644
+--- a/src/thunks/toggle-playback.ts
++++ b/src/thunks/toggle-playback.ts
+@@ -1,12 +1,14 @@
+ import actionCreator, { SetPlaybackPayload } from '../actions/set-playback';
+ import connect, { mapStateToActionCreator } from '../utils/map-state-to-action';
+ import { State } from '../types';
+-import { getPlayback } from '../selectors/selectors';
++import { getPlayerStatus } from '../selectors/selectors';
+ 
+ const mapStateToPayload = (state: State): SetPlaybackPayload => {
+-  return { playback: !getPlayback(state) };
++  return { playback: !getPlayerStatus(state) };
+ };
+ 
+-export default connect([
++const togglePlayback = connect([
+   mapStateToActionCreator(actionCreator, mapStateToPayload)
+ ]);
++
++export default togglePlayback;
+diff --git a/src/thunks/update-tag-being-edited-path.ts b/src/thunks/update-tag-being-edited-path.ts
+index c772505..829068e 100644
+--- a/src/thunks/update-tag-being-edited-path.ts
++++ b/src/thunks/update-tag-being-edited-path.ts
+@@ -18,4 +18,6 @@ export const createUpdateTagBeingEditedPath = mapStateToActionCreator(
+   mapStateToPayload
+ );
+ 
+-export default connect([createUpdateTagBeingEditedPath]);
++const updateTagBeingEditedPath = connect([createUpdateTagBeingEditedPath]);
++
++export default updateTagBeingEditedPath;
+diff --git a/src/types/actions/particular-actions.ts b/src/types/actions/particular-actions.ts
+index 8ac9cc8..8146707 100644
+--- a/src/types/actions/particular-actions.ts
++++ b/src/types/actions/particular-actions.ts
+@@ -4,9 +4,9 @@ export {
+   SetPlaceNewTagModePayload
+ } from '../../actions/set-place-new-tag-mode';
+ export {
+-  SetCurrentNormalizedTime,
+-  SetCurrentNormalizedTimePayload
+-} from '../../actions/set-current-normalized-time';
++  SetCurrentStage,
++  SetCurrentStagePayload
++} from '../../actions/set-current-stage';
+ export { SetDuration, SetDurationPayload } from '../../actions/set-duration';
+ export { SetUserSeek, SetUserSeekPayload } from '../../actions/set-user-seek';
+ export { AddNewTag, AddNewTagPayload } from '../../actions/add-new-tag';
+@@ -35,9 +35,9 @@ export {
+ export { DeleteTag, DeleteTagPayload } from '../../actions/delete-tag';
+ export { SaveTag, SaveTagPayload } from '../../actions/save-tag';
+ export {
+-  SetRequestedNormalizedTime,
+-  SetRequestedNormalizedTimePayload
+-} from '../../actions/set-requested-normalized-time';
++  SetStageSeekTo,
++  SetStageSeekToPayload
++} from '../../actions/set-stage-seek-to';
+ export {
+   SetTimeTagAppearsAt,
+   SetTimeTagAppearsAtPayload
+diff --git a/src/types/actions/simple-action.ts b/src/types/actions/simple-action.ts
+index 41f4b75..4e47c51 100644
+--- a/src/types/actions/simple-action.ts
++++ b/src/types/actions/simple-action.ts
+@@ -3,7 +3,7 @@ import * as particularActions from './particular-actions';
+ export type SimpleAction =
+   | particularActions.SetPlayback
+   | particularActions.SetPlaceNewTagMode
+-  | particularActions.SetCurrentNormalizedTime
++  | particularActions.SetCurrentStage
+   | particularActions.SetDuration
+   | particularActions.SetUserSeek
+   | particularActions.AddNewTag
+@@ -17,6 +17,6 @@ export type SimpleAction =
+   | particularActions.DeleteTag
+   | particularActions.SaveTag
+   | particularActions.FetchTags
+-  | particularActions.SetRequestedNormalizedTime
++  | particularActions.SetStageSeekTo
+   | particularActions.SetTimeTagAppearsAt
+   | particularActions.SetTimeTagDisappearsAt;
+diff --git a/src/types/state/index.ts b/src/types/state/index.ts
+index 00238b4..08e7c39 100644
+--- a/src/types/state/index.ts
++++ b/src/types/state/index.ts
+@@ -1,3 +1,4 @@
+ export * from './table';
+ export * from './tags';
++export * from './player';
+ export * from './state';
+diff --git a/src/types/state/player.ts b/src/types/state/player.ts
+index 0883de9..f508fb8 100644
+--- a/src/types/state/player.ts
++++ b/src/types/state/player.ts
+@@ -1,17 +1,19 @@
+ export interface Player {
+-  readonly playback: boolean;
+-  readonly userSeek: boolean;
+-  readonly currentTimeNormalized: number;
+-  readonly requestedTimeNormalized: number;
++  readonly status: PlayerStatus;
+   readonly video?: {
+-    status: Status;
++    status: VideoStatus;
+     atStage?: number;
+     stageSeekTo?: number;
+   };
+ }
+ 
+-enum Status {
++export enum VideoStatus {
+   Paused,
+   Seeking,
+   Playing
+ }
++
++export enum PlayerStatus {
++  Paused,
++  Playing
++}

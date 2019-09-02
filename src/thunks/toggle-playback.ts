@@ -1,12 +1,14 @@
 import actionCreator, { SetPlaybackPayload } from '../actions/set-playback';
 import connect, { mapStateToActionCreator } from '../utils/map-state-to-action';
 import { State } from '../types';
-import { getPlayback } from '../selectors/selectors';
+import { getPlayerStatus } from '../selectors/selectors';
 
 const mapStateToPayload = (state: State): SetPlaybackPayload => {
-  return { playback: !getPlayback(state) };
+  return { playback: !getPlayerStatus(state) };
 };
 
-export default connect([
+const togglePlayback = connect([
   mapStateToActionCreator(actionCreator, mapStateToPayload)
 ]);
+
+export default togglePlayback;

@@ -1,4 +1,4 @@
-import actionCreator from '../actions/set-requested-normalized-time';
+import actionCreator from '../actions/set-stage-seek-to';
 import connect, { mapStateToActionCreator } from '../utils/map-state-to-action';
 import { State } from '../types';
 import { makeGetTagAppearsAt } from '../selectors/tag-selectors';
@@ -22,6 +22,8 @@ export const setTagStartAsCurrentTime = mapStateToActionCreator(
   mapStateToPayload
 );
 
-export default connect([
+const setStageAtTagAppearance = connect([
   mapStateToActionCreator(actionCreator, mapStateToPayload)
 ]);
+
+export default setStageAtTagAppearance;

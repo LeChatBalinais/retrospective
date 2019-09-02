@@ -7,6 +7,10 @@ const setDuration = (state: State, action: SetDuration): State => {
   } = action;
   return {
     ...state,
+    player: {
+      ...state.player,
+      video: { ...state.player.video, atStage: 0 }
+    },
     footage: {
       ...state.footage,
       duration

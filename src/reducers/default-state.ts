@@ -1,4 +1,4 @@
-import { State } from '../types';
+import { State, PlayerStatus, VideoStatus } from '../types';
 
 const DEFAULT_STATE: State = {
   entities: {
@@ -19,10 +19,12 @@ const DEFAULT_STATE: State = {
     url: 'http://localhost:9000/video'
   },
   player: {
-    playback: false,
-    userSeek: false,
-    currentTimeNormalized: 0,
-    requestedTimeNormalized: 0
+    status: PlayerStatus.Paused,
+    video: {
+      status: VideoStatus.Playing,
+      atStage: undefined,
+      stageSeekTo: undefined
+    }
   }
 };
 

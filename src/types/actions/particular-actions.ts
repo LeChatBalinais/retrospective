@@ -4,9 +4,9 @@ export {
   SetPlaceNewTagModePayload
 } from '../../actions/set-place-new-tag-mode';
 export {
-  SetCurrentNormalizedTime,
-  SetCurrentNormalizedTimePayload
-} from '../../actions/set-current-normalized-time';
+  SetCurrentStage,
+  SetCurrentStagePayload
+} from '../../actions/set-current-stage';
 export { SetDuration, SetDurationPayload } from '../../actions/set-duration';
 export { SetUserSeek, SetUserSeekPayload } from '../../actions/set-user-seek';
 export { AddNewTag, AddNewTagPayload } from '../../actions/add-new-tag';
@@ -35,9 +35,9 @@ export {
 export { DeleteTag, DeleteTagPayload } from '../../actions/delete-tag';
 export { SaveTag, SaveTagPayload } from '../../actions/save-tag';
 export {
-  SetRequestedNormalizedTime,
-  SetRequestedNormalizedTimePayload
-} from '../../actions/set-requested-normalized-time';
+  SetStageSeekTo,
+  SetStageSeekToPayload
+} from '../../actions/set-stage-seek-to';
 export {
   SetTimeTagAppearsAt,
   SetTimeTagAppearsAtPayload

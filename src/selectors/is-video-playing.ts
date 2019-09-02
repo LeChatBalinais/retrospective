@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
-import { getPlayback, getUserSeek } from './selectors';
+import { getPlayerStatus, getUserSeek } from './selectors';
 
 const isVideoPlaying = createSelector(
-  [getPlayback, getUserSeek],
+  [getPlayerStatus, getUserSeek],
   (playback: boolean, userSeek: boolean): boolean => playback && !userSeek
 );
 
