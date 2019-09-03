@@ -47,3 +47,8 @@ export {
   SetTimeTagDisappearsAtPayload
 } from '../../actions/set-time-tag-disappears-at';
 export { FetchTags } from '../../actions/fetch-tags';
+
+export {
+  SetVideoStatus,
+  SetVideoStatusPayload
+} from '../../actions/set-video-status';

@@ -1,7 +1,12 @@
-import { State, Tag, PlayerStatus, VideoStatus } from '../types';
+import { State, Tag, PlaybackStatus, VideoStatus } from '../types';
 
-export const getPlayerStatus = ({ player: { status } }: State): boolean =>
-  status === PlayerStatus.Playing;
+export const getPlayerStatus = ({
+  player: { playbackStatus: status }
+}: State): boolean => status === PlaybackStatus.Playing;
+
+export const getPlayerStatusN = ({
+  player: { playbackStatus: status }
+}: State): PlaybackStatus => status;
 
 export const getUserSeek = ({
   player: {

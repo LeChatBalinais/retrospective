@@ -71,6 +71,7 @@ const Video = ({
 
   return (
     <video
+      preload="auto"
       className="main-video"
       {...{ onDurationChange, onTimeUpdate, src }}
       ref={videoEl}

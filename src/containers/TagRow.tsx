@@ -7,10 +7,11 @@ import {
   State,
   Action,
   ThunkDispatch,
-  SetUserSeekPayload,
-  SetCurrentTagPayload
+  SetCurrentTagPayload,
+  SetVideoStatusPayload,
+  VideoStatus
 } from '../types';
-import setUserSeek from '../actions/set-user-seek';
+import setVideoStatus from '../actions/set-video-status';
 import setCurrentTag from '../actions/set-current-tag';
 import connectAction, {
   mapStateToActionCreator
@@ -19,11 +20,12 @@ import {
   setTagStartAsCurrentTime,
   SetTagStartAsCurrentTimePayload
 } from '../thunks/set-tag-start-as-current-time';
+import turnOffSeekingMode from '../thunks/turn-off-seeking-mode';
 
 type MapStateToProps = (state: State, { ID }: Props) => ValueProps;
 
 type OnMouseDownPayload = SetCurrentTagPayload &
-  SetUserSeekPayload &
+  SetVideoStatusPayload &
   SetTagStartAsCurrentTimePayload;
 
 type MapDispatchToProps = (
@@ -53,13 +55,13 @@ const makeMapDispatchToProps = (): MapDispatchToProps => {
       dispatch(
         connectAction<OnMouseDownPayload>([
           mapStateToActionCreator(setCurrentTag),
-          mapStateToActionCreator(setUserSeek),
+          mapStateToActionCreator(setVideoStatus),
           setTagStartAsCurrentTime
-        ])({ ID, mode: true })
+        ])({ ID, status: VideoStatus.Paused })
       );
 
       setTimeout((): void => {
-        dispatch(setUserSeek({ mode: false }));
+        dispatch(turnOffSeekingMode());
       }, 50);
     }
   });

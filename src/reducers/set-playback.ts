@@ -1,20 +1,20 @@
 import { SET_PLAYBACK } from '../actions/set-playback';
-import { State, SimpleAction, SetPlayback, PlayerStatus } from '../types';
+import { State, SimpleAction, SetPlayback, PlaybackStatus } from '../types';
 
 const setPlayback = (state: State, action: SimpleAction): State => {
   const {
     payload: { playback }
   } = action as SetPlayback;
 
-  let status: PlayerStatus = PlayerStatus.Paused;
+  let status: PlaybackStatus = PlaybackStatus.Paused;
 
-  if (playback) status = PlayerStatus.Playing;
+  if (playback) status = PlaybackStatus.Playing;
 
   return {
     ...state,
     player: {
       ...state.player,
-      status
+      playbackStatus: status
     }
   };
 };

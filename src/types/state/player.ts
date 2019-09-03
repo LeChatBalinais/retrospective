@@ -1,5 +1,6 @@
 export interface Player {
-  readonly status: PlayerStatus;
+  readonly playbackStatus: PlaybackStatus;
+  readonly seekingStatus: SeekingStatus;
   readonly video?: {
     status: VideoStatus;
     atStage?: number;
@@ -13,7 +14,12 @@ export enum VideoStatus {
   Playing
 }
 
-export enum PlayerStatus {
+export enum PlaybackStatus {
   Paused,
   Playing
+}
+
+export enum SeekingStatus {
+  Idle,
+  Seeking
 }

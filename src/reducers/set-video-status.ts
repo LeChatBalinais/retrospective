@@ -1,9 +1,9 @@
-import { State, VideoStatus } from '../types';
-import { SetUserSeek, SET_USER_SEEK } from '../actions/set-user-seek';
+import { State, SetVideoStatus, VideoStatus } from '../types';
+import { SET_VIDEO_STATUS } from '../actions/set-video-status';
 
-const setUserSeek = (state: State, action: SetUserSeek): State => {
+const setUserSeek = (state: State, action: SetVideoStatus): State => {
   const {
-    payload: { mode: on }
+    payload: { status }
   } = action;
 
   const {
@@ -18,13 +18,9 @@ const setUserSeek = (state: State, action: SetUserSeek): State => {
     }
   } = state;
 
-  if (!on) {
+  if (status !== VideoStatus.Seeking) {
     atStage = stageSeekTo;
   }
-
-  let status: VideoStatus = VideoStatus.Playing;
-
-  if (on) status = VideoStatus.Seeking;
 
   return {
     ...state,
@@ -40,7 +36,7 @@ const setUserSeek = (state: State, action: SetUserSeek): State => {
 };
 
 const actionTypeReducerPair = {
-  actionType: SET_USER_SEEK,
+  actionType: SET_VIDEO_STATUS,
   reducer: setUserSeek
 };
 

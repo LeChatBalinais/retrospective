@@ -15,6 +15,7 @@ import SetStageSeekTo from './set-stage-seek-to';
 import { State, SimpleAction } from '../types';
 import setTimeTagAppearsAt from './set-time-tag-appears-at';
 import setTimeTagDisappearsAt from './set-time-tag-disappears-at';
+import setVideoStatus from './set-video-status';
 
 const simpleActionRootReducer = (): ((
   state: State,
@@ -39,7 +40,8 @@ const simpleActionRootReducer = (): ((
     SetTagGlobalID,
     SetStageSeekTo,
     setTimeTagAppearsAt,
-    setTimeTagDisappearsAt
+    setTimeTagDisappearsAt,
+    setVideoStatus
   ];
 
   const reducersByActionType = {};
