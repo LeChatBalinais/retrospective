@@ -16,3 +16,6 @@ export default function setCurrentTag(
 ): SetCurrentTag {
   return { type: SET_CURRENT_TAG, payload };
 }
+
+export const SetCurrentTagPayload = undefined;
+export const SetCurrentTag = undefined;

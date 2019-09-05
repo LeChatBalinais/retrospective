@@ -16,3 +16,6 @@ export default function setRequestedTime(
 ): SetStageSeekTo {
   return { type: SET_STAGE_SEEK_TO, payload };
 }
+
+export const SetStageSeekToPayload = undefined;
+export const SetStageSeekTo = undefined;

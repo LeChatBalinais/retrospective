@@ -17,3 +17,6 @@ export default function setTagGlobalID(
 ): SetTagGlobalID {
   return { type: SET_TAG_GLOBALID, payload };
 }
+
+export const SetTagGlobalIDPayload = undefined;
+export const SetTagGlobalID = undefined;

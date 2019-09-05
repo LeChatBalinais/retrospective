@@ -7,3 +7,5 @@ export const FETCH_TAGS = 'FETCH_TAGS';
 export default function fetchTags(): FetchTags {
   return { type: FETCH_TAGS, payload: {} };
 }
+
+export const FetchTags = undefined;

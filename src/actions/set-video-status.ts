@@ -12,8 +12,9 @@ export type SetVideoStatus = SimpleActionTemplate<
 
 export const SET_VIDEO_STATUS = 'SET_VIDEO_STATUS';
 
-export default function setVideoStatus(
-  payload: SetVideoStatusPayload
-): SetVideoStatus {
+export function setVideoStatus(payload: SetVideoStatusPayload): SetVideoStatus {
   return { type: SET_VIDEO_STATUS, payload };
 }
+
+export const SetVideoStatusPayload = undefined;
+export const SetVideoStatus = undefined;

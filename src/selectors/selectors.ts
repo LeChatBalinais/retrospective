@@ -1,4 +1,10 @@
-import { State, Tag, PlaybackStatus, VideoStatus } from '../types';
+import {
+  State,
+  Tag,
+  PlaybackStatus,
+  VideoStatus,
+  SeekingStatus
+} from '../types';
 
 export const getPlayerStatus = ({
   player: { playbackStatus: status }
@@ -8,11 +14,15 @@ export const getPlayerStatusN = ({
   player: { playbackStatus: status }
 }: State): PlaybackStatus => status;
 
-export const getUserSeek = ({
+export const getVideoStatus = ({
   player: {
     video: { status }
   }
-}: State): boolean => status === VideoStatus.Seeking;
+}: State): VideoStatus => status;
+
+export const getUserSeek = ({
+  player: { seekingStatus: status }
+}: State): boolean => status === SeekingStatus.Seeking;
 
 export const getCurrentTime = ({
   footage: { duration },
@@ -24,10 +34,13 @@ export const getCurrentTime = ({
 export const getStageSeekTo = ({
   footage: { duration },
   player: {
-    video: { status, atStage, stageSeekTo }
+    seekingStatus,
+    video: { status: videoStatus, atStage, stageSeekingTo: stageSeekTo }
   }
 }: State): number =>
-  status === VideoStatus.Seeking ? stageSeekTo * duration : atStage * duration;
+  seekingStatus === SeekingStatus.Seeking || videoStatus === VideoStatus.Seeking
+    ? stageSeekTo * duration
+    : atStage * duration;
 
 export const getVideoDuration = ({ footage: { duration } }: State): number =>
   duration;
@@ -38,11 +51,19 @@ export const getCurrentStage = ({
   }
 }: State): number => atStage;
 
+export const getSeekBarCurrentStage = ({
+  player: { seekBarAtStage }
+}: State): number => seekBarAtStage;
+
 export const getAboutToBeCurrentTime = ({
   player: {
-    video: { status, atStage, stageSeekTo }
+    seekingStatus,
+    video: { status: videoStatus, atStage, stageSeekingTo: stageSeekTo }
   }
-}: State): number => (status === VideoStatus.Seeking ? stageSeekTo : atStage);
+}: State): number =>
+  videoStatus === VideoStatus.Seeking || seekingStatus === SeekingStatus.Seeking
+    ? stageSeekTo
+    : atStage;
 
 export const getVideoURL = ({ footage: { url } }: State): string => url;
 

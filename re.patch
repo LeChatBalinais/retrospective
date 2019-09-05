@@ -1,0 +1,811 @@
+diff --git a/src/actions/add-new-tag.ts b/src/actions/add-new-tag.ts
+index 1f1de70..a90f317 100644
+--- a/src/actions/add-new-tag.ts
++++ b/src/actions/add-new-tag.ts
+@@ -13,3 +13,6 @@ export const ADD_NEW_TAG = 'ADD_NEW_TAG';
+ export default function addNewTag(payload: AddNewTagPayload): AddNewTag {
+   return { type: ADD_NEW_TAG, payload };
+ }
++
++export const AddNewTagPayload = undefined;
++export const AddNewTag = undefined;
+diff --git a/src/actions/delete-tag.ts b/src/actions/delete-tag.ts
+index 4414071..02ea6da 100644
+--- a/src/actions/delete-tag.ts
++++ b/src/actions/delete-tag.ts
+@@ -11,3 +11,6 @@ export const DELETE_TAG = 'DELETE_TAG';
+ export default function deleteTag(payload: DeleteTagPayload): DeleteTag {
+   return { type: DELETE_TAG, payload };
+ }
++
++export const DeleteTagPayload = undefined;
++export const DeleteTag = undefined;
+diff --git a/src/actions/fetch-tags.ts b/src/actions/fetch-tags.ts
+index 5306551..98bf6b0 100644
+--- a/src/actions/fetch-tags.ts
++++ b/src/actions/fetch-tags.ts
+@@ -7,3 +7,5 @@ export const FETCH_TAGS = 'FETCH_TAGS';
+ export default function fetchTags(): FetchTags {
+   return { type: FETCH_TAGS, payload: {} };
+ }
++
++export const FetchTags = undefined;
+diff --git a/src/actions/remove-tag.ts b/src/actions/remove-tag.ts
+index 495e39c..025b9c1 100644
+--- a/src/actions/remove-tag.ts
++++ b/src/actions/remove-tag.ts
+@@ -11,3 +11,6 @@ export const REMOVE_TAG = 'REMOVE_TAG';
+ export default function removeTag(payload: RemoveTagPayload): RemoveTag {
+   return { type: REMOVE_TAG, payload };
+ }
++
++export const RemoveTagPayload = undefined;
++export const RemoveTag = undefined;
+diff --git a/src/actions/save-tag.ts b/src/actions/save-tag.ts
+index 2a71aaa..47a6779 100644
+--- a/src/actions/save-tag.ts
++++ b/src/actions/save-tag.ts
+@@ -11,3 +11,6 @@ export const SAVE_TAG = 'SAVE_TAG';
+ export default function saveTag(payload: SaveTagPayload): SaveTag {
+   return { type: SAVE_TAG, payload };
+ }
++
++export const SaveTagPayload = undefined;
++export const SaveTag = undefined;
+diff --git a/src/actions/set-current-stage.ts b/src/actions/set-current-stage.ts
+index fa6e467..5a45af9 100644
+--- a/src/actions/set-current-stage.ts
++++ b/src/actions/set-current-stage.ts
+@@ -16,3 +16,6 @@ export default function setCurrentTime(
+ ): SetCurrentStage {
+   return { type: SET_CURRENT_STAGE, payload };
+ }
++
++export const SetCurrentStagePayload = undefined;
++export const SetCurrentStage = undefined;
+diff --git a/src/actions/set-current-tag.ts b/src/actions/set-current-tag.ts
+index ed7c9d3..1a99280 100644
+--- a/src/actions/set-current-tag.ts
++++ b/src/actions/set-current-tag.ts
+@@ -16,3 +16,6 @@ export default function setCurrentTag(
+ ): SetCurrentTag {
+   return { type: SET_CURRENT_TAG, payload };
+ }
++
++export const SetCurrentTagPayload = undefined;
++export const SetCurrentTag = undefined;
+diff --git a/src/actions/set-dragged-tag.ts b/src/actions/set-dragged-tag.ts
+index 58fb8c4..4378eb0 100644
+--- a/src/actions/set-dragged-tag.ts
++++ b/src/actions/set-dragged-tag.ts
+@@ -16,3 +16,6 @@ export default function setDraggedTag(
+ ): SetDraggedTag {
+   return { type: SET_DRAGGED_TAG, payload };
+ }
++
++export const SetDraggedTagPayload = undefined;
++export const SetDraggedTag = undefined;
+diff --git a/src/actions/set-duration.ts b/src/actions/set-duration.ts
+index 14d0bbe..f983003 100644
+--- a/src/actions/set-duration.ts
++++ b/src/actions/set-duration.ts
+@@ -14,3 +14,6 @@ export const SET_DURATION = 'SET_DURATION';
+ export default function setDuration(payload: SetDurationPayload): SetDuration {
+   return { type: SET_DURATION, payload };
+ }
++
++export const SetDurationPayload = undefined;
++export const SetDuration = undefined;
+diff --git a/src/actions/set-place-new-tag-mode.ts b/src/actions/set-place-new-tag-mode.ts
+index 56c67d6..735ebb6 100644
+--- a/src/actions/set-place-new-tag-mode.ts
++++ b/src/actions/set-place-new-tag-mode.ts
+@@ -16,3 +16,6 @@ export default function setPlaceNewTagMode(
+ ): SetPlaceNewTagMode {
+   return { type: SET_PLACE_NEW_TAG_MODE, payload };
+ }
++
++export const SetPlaceNewTagModePayload = undefined;
++export const SetPlaceNewTagMode = undefined;
+diff --git a/src/actions/set-playback.ts b/src/actions/set-playback.ts
+index 672fca3..28e0a24 100644
+--- a/src/actions/set-playback.ts
++++ b/src/actions/set-playback.ts
+@@ -14,3 +14,6 @@ export const SET_PLAYBACK = 'SET_PLAYBACK';
+ export default function setPlayback(payload: SetPlaybackPayload): SetPlayback {
+   return { type: SET_PLAYBACK, payload };
+ }
++
++export const SetPlaybackPayload = undefined;
++export const SetPlayback = undefined;
+diff --git a/src/actions/set-stage-seek-to.ts b/src/actions/set-stage-seek-to.ts
+index a3055a2..e1f6dc0 100644
+--- a/src/actions/set-stage-seek-to.ts
++++ b/src/actions/set-stage-seek-to.ts
+@@ -16,3 +16,6 @@ export default function setRequestedTime(
+ ): SetStageSeekTo {
+   return { type: SET_STAGE_SEEK_TO, payload };
+ }
++
++export const SetStageSeekToPayload = undefined;
++export const SetStageSeekTo = undefined;
+diff --git a/src/actions/set-tag-globalid.ts b/src/actions/set-tag-globalid.ts
+index 31abbc7..7287f90 100644
+--- a/src/actions/set-tag-globalid.ts
++++ b/src/actions/set-tag-globalid.ts
+@@ -17,3 +17,6 @@ export default function setTagGlobalID(
+ ): SetTagGlobalID {
+   return { type: SET_TAG_GLOBALID, payload };
+ }
++
++export const SetTagGlobalIDPayload = undefined;
++export const SetTagGlobalID = undefined;
+diff --git a/src/actions/set-tag-trace-visible.ts b/src/actions/set-tag-trace-visible.ts
+index 5a704e5..d007dd0 100644
+--- a/src/actions/set-tag-trace-visible.ts
++++ b/src/actions/set-tag-trace-visible.ts
+@@ -17,3 +17,6 @@ export default function setTagTraceVisible(
+ ): SetTagTraceVisible {
+   return { type: SET_TAG_TRACE_VISIBLE, payload };
+ }
++
++export const SetTagTraceVisiblePayload = undefined;
++export const SetTagTraceVisible = undefined;
+diff --git a/src/actions/set-tags.ts b/src/actions/set-tags.ts
+index bc5a74e..2a3e6c1 100644
+--- a/src/actions/set-tags.ts
++++ b/src/actions/set-tags.ts
+@@ -12,3 +12,6 @@ export const SET_TAGS = 'SET_TAGS';
+ export default function setTags(payload: SetTagsPayload): SetTags {
+   return { type: SET_TAGS, payload };
+ }
++
++export const SetTagsPayload = undefined;
++export const SetTags = undefined;
+diff --git a/src/actions/set-time-tag-appears-at.ts b/src/actions/set-time-tag-appears-at.ts
+index e358087..15f2f20 100644
+--- a/src/actions/set-time-tag-appears-at.ts
++++ b/src/actions/set-time-tag-appears-at.ts
+@@ -17,3 +17,6 @@ export default function setTimeTagAppearsAt(
+ ): SetTimeTagAppearsAt {
+   return { type: SET_TIME_TAG_APPEARS_AT, payload };
+ }
++
++export const SetTimeTagAppearsAtPayload = undefined;
++export const SetTimeTagAppearsAt = undefined;
+diff --git a/src/actions/set-time-tag-disappears-at.ts b/src/actions/set-time-tag-disappears-at.ts
+index 0978769..0a50227 100644
+--- a/src/actions/set-time-tag-disappears-at.ts
++++ b/src/actions/set-time-tag-disappears-at.ts
+@@ -17,3 +17,6 @@ export default function setTimeTagDisappearsAt(
+ ): SetTimeTagDisappearsAt {
+   return { type: SET_TIME_TAG_DISAPPEARS_AT, payload };
+ }
++
++export const SetTimeTagDisappearsAtPayload = undefined;
++export const SetTimeTagDisappearsAt = undefined;
+diff --git a/src/actions/set-user-seek.ts b/src/actions/set-user-seek.ts
+index b0f6ea3..50b8e77 100644
+--- a/src/actions/set-user-seek.ts
++++ b/src/actions/set-user-seek.ts
+@@ -1,7 +1,8 @@
+ import { SimpleActionTemplate } from '../types/actions/simple-action-template';
++import { SeekingStatus } from '../types/state';
+ 
+ export interface SetUserSeekPayload {
+-  mode: boolean;
++  status: SeekingStatus;
+ }
+ 
+ export type SetUserSeek = SimpleActionTemplate<
+@@ -14,3 +15,6 @@ export const SET_USER_SEEK = 'SET_USER_SEEK';
+ export default function setUserSeek(payload: SetUserSeekPayload): SetUserSeek {
+   return { type: SET_USER_SEEK, payload };
+ }
++
++export const SetUserSeekPayload = undefined;
++export const SetUserSeek = undefined;
+diff --git a/src/actions/set-video-status.ts b/src/actions/set-video-status.ts
+index f59f16d..c0d94d7 100644
+--- a/src/actions/set-video-status.ts
++++ b/src/actions/set-video-status.ts
+@@ -12,8 +12,9 @@ export type SetVideoStatus = SimpleActionTemplate<
+ 
+ export const SET_VIDEO_STATUS = 'SET_VIDEO_STATUS';
+ 
+-export default function setVideoStatus(
+-  payload: SetVideoStatusPayload
+-): SetVideoStatus {
++export function setVideoStatus(payload: SetVideoStatusPayload): SetVideoStatus {
+   return { type: SET_VIDEO_STATUS, payload };
+ }
++
++export const SetVideoStatusPayload = undefined;
++export const SetVideoStatus = undefined;
+diff --git a/src/actions/update-tag-path.ts b/src/actions/update-tag-path.ts
+index 0cf9b27..3c5b8ba 100644
+--- a/src/actions/update-tag-path.ts
++++ b/src/actions/update-tag-path.ts
+@@ -19,3 +19,6 @@ export default function updateTagPath(
+ ): UpdateTagPath {
+   return { type: UPDATE_TAG_PATH, payload };
+ }
++
++export const UpdateTagPathPayload = undefined;
++export const UpdateTagPath = undefined;
+diff --git a/src/components/Video.tsx b/src/components/Video.tsx
+index 4cd0618..88050b0 100644
+--- a/src/components/Video.tsx
++++ b/src/components/Video.tsx
+@@ -8,12 +8,15 @@ type OnDurationChangeFunc = (duration: number) => void;
+ export interface ValueProps {
+   url: string;
+   playback: boolean;
+-  currentTime: number;
++  seek: boolean;
++  timeSeekTo: number;
+ }
+ 
+ export interface FuncProps {
+   onTimeUpdate: OnTimeUpdate;
+   onDurationChange: OnDurationChangeFunc;
++  onSeeking: () => void;
++  onSeeked: (time: number) => void;
+ }
+ 
+ export type Props = ValueProps & FuncProps;
+@@ -22,8 +25,11 @@ const Video = ({
+   url: src,
+   onDurationChange: onDurationChangeFunc,
+   onTimeUpdate: onTimeUpdateFunc,
++  onSeeked: onSeekedFunc,
++  onSeeking,
+   playback,
+-  currentTime
++  timeSeekTo,
++  seek
+ }: Props): JSX.Element => {
+   const videoEl = useRef(null);
+   const [tickOn, setTickOn] = useState(false);
+@@ -43,6 +49,13 @@ const Video = ({
+     onDurationChangeFunc(current.duration);
+   };
+ 
++  const onSeeked = (): void => {
++    const { current } = videoEl;
++    if (!current) return;
++
++    onSeekedFunc(current.currentTime);
++  };
++
+   const onTimeUpdate = (): void => {
+     if (playback) return;
+     const { current } = videoEl;
+@@ -61,7 +74,9 @@ const Video = ({
+       }
+     } else {
+       current.pause();
+-      current.currentTime = currentTime;
++      if (seek && Math.abs(current.currentTime - timeSeekTo) > 0.001) {
++        current.currentTime = timeSeekTo;
++      }
+       if (tickOn) {
+         TweenMax.ticker.removeEventListener('tick', onTick);
+         setTickOn(false);
+@@ -73,7 +88,7 @@ const Video = ({
+     <video
+       preload="auto"
+       className="main-video"
+-      {...{ onDurationChange, onTimeUpdate, src }}
++      {...{ onDurationChange, onTimeUpdate, onSeeking, onSeeked, src }}
+       ref={videoEl}
+     />
+   );
+diff --git a/src/containers/SeekBar.tsx b/src/containers/SeekBar.tsx
+index 17a2c23..920fc6e 100644
+--- a/src/containers/SeekBar.tsx
++++ b/src/containers/SeekBar.tsx
+@@ -2,26 +2,25 @@ import { connect } from 'react-redux';
+ import SeekBar, { FuncProps as SeekBarFuncProps } from '../components/SeekBar';
+ import setRequestedTime from '../actions/set-stage-seek-to';
+ import {
+-  SetVideoStatusPayload,
+   SetStageSeekToPayload,
+-  VideoStatus,
++  SetUserSeekPayload,
++  SeekingStatus,
+   ThunkDispatch
+ } from '../types';
+-import setVideoStatus from '../actions/set-video-status';
++import setUserSeek from '../actions/set-user-seek';
+ import actionCombination from '../utils/action-combination';
+-import turnOffSeekingMode from '../thunks/turn-off-seeking-mode';
+ 
+ const mapDispatchToProps = (dispatch: ThunkDispatch): SeekBarFuncProps => ({
+   onMouseDown: (relativePosition: number): void => {
+     dispatch(
+-      actionCombination<SetVideoStatusPayload & SetStageSeekToPayload>([
+-        setVideoStatus,
++      actionCombination<SetStageSeekToPayload & SetUserSeekPayload>([
++        setUserSeek,
+         setRequestedTime
+-      ])({ status: VideoStatus.Paused, time: relativePosition / 100 })
++      ])({ status: SeekingStatus.Seeking, time: relativePosition / 100 })
+     );
+   },
+   onMouseUp: (): void => {
+-    dispatch(turnOffSeekingMode());
++    dispatch(setUserSeek({ status: SeekingStatus.Idle }));
+   },
+   onMouseMove: (relativePosition: number): void => {
+     dispatch(setRequestedTime({ time: relativePosition / 100 }));
+diff --git a/src/containers/SeekBarCurrentTimeSlider.tsx b/src/containers/SeekBarCurrentTimeSlider.tsx
+index 61fa15c..472cc72 100644
+--- a/src/containers/SeekBarCurrentTimeSlider.tsx
++++ b/src/containers/SeekBarCurrentTimeSlider.tsx
+@@ -3,11 +3,11 @@ import { State } from '../types';
+ import SeekBarSlider, {
+   ValueProps as SeekBarSliderValueProps
+ } from '../components/SeekBarSlider';
+-import { getAboutToBeCurrentTime } from '../selectors/selectors';
++import { getSeekBarCurrentStage } from '../selectors/selectors';
+ 
+ const mapStateToProps = (state: State): SeekBarSliderValueProps => {
+   return {
+-    position: getAboutToBeCurrentTime(state) * 100,
++    position: getSeekBarCurrentStage(state) * 100,
+     className: 'slider-current-time'
+   };
+ };
+diff --git a/src/containers/TagRow.tsx b/src/containers/TagRow.tsx
+index fad726b..20ec2be 100644
+--- a/src/containers/TagRow.tsx
++++ b/src/containers/TagRow.tsx
+@@ -8,10 +8,10 @@ import {
+   Action,
+   ThunkDispatch,
+   SetCurrentTagPayload,
+-  SetVideoStatusPayload,
+-  VideoStatus
++  SetUserSeekPayload,
++  SeekingStatus
+ } from '../types';
+-import setVideoStatus from '../actions/set-video-status';
++import setUserSeek from '../actions/set-user-seek';
+ import setCurrentTag from '../actions/set-current-tag';
+ import connectAction, {
+   mapStateToActionCreator
+@@ -20,12 +20,11 @@ import {
+   setTagStartAsCurrentTime,
+   SetTagStartAsCurrentTimePayload
+ } from '../thunks/set-tag-start-as-current-time';
+-import turnOffSeekingMode from '../thunks/turn-off-seeking-mode';
+ 
+ type MapStateToProps = (state: State, { ID }: Props) => ValueProps;
+ 
+ type OnMouseDownPayload = SetCurrentTagPayload &
+-  SetVideoStatusPayload &
++  SetUserSeekPayload &
+   SetTagStartAsCurrentTimePayload;
+ 
+ type MapDispatchToProps = (
+@@ -55,14 +54,12 @@ const makeMapDispatchToProps = (): MapDispatchToProps => {
+       dispatch(
+         connectAction<OnMouseDownPayload>([
+           mapStateToActionCreator(setCurrentTag),
+-          mapStateToActionCreator(setVideoStatus),
++          mapStateToActionCreator(setUserSeek),
+           setTagStartAsCurrentTime
+-        ])({ ID, status: VideoStatus.Paused })
++        ])({ ID, status: SeekingStatus.Seeking })
+       );
+ 
+-      setTimeout((): void => {
+-        dispatch(turnOffSeekingMode());
+-      }, 50);
++      dispatch(setUserSeek({ status: SeekingStatus.Idle }));
+     }
+   });
+ };
+diff --git a/src/containers/Video.tsx b/src/containers/Video.tsx
+index bd0ac6c..a40124f 100644
+--- a/src/containers/Video.tsx
++++ b/src/containers/Video.tsx
+@@ -1,16 +1,35 @@
+ import { connect } from 'react-redux';
+ import Video, { ValueProps, FuncProps } from '../components/Video';
+-import setCurrentTime from '../thunks/set-current-time';
++import setCurrentTime, {
++  SetCurrentTimePayload,
++  setCurrentTimeMappedAction
++} from '../thunks/set-current-time';
+ import setDuration from '../actions/set-duration';
+ import isVideoPlaying from '../selectors/is-video-playing';
+-import { getVideoURL, getStageSeekTo } from '../selectors/selectors';
+-import { State, ThunkDispatch } from '../types';
++import {
++  getVideoURL,
++  getVideoStatus,
++  getUserSeek,
++  getSeekBarCurrentStage
++} from '../selectors/selectors';
++import {
++  State,
++  ThunkDispatch,
++  VideoStatus,
++  SetVideoStatusPayload
++} from '../types';
++import { setVideoStatus } from '../actions/set-video-status';
++
++import connectAction, {
++  mapStateToActionCreator
++} from '../utils/map-state-to-action';
+ 
+ const mapStateToProps = (state: State): ValueProps => {
+   return {
+     playback: isVideoPlaying(state),
+     url: getVideoURL(state),
+-    currentTime: getStageSeekTo(state)
++    seek: getVideoStatus(state) !== VideoStatus.Seeking && getUserSeek(state),
++    timeSeekTo: getSeekBarCurrentStage(state)
+   };
+ };
+ 
+@@ -20,6 +39,19 @@ const mapDispatchToProps = (dispatch: ThunkDispatch): FuncProps => ({
+   },
+   onDurationChange: (duration: number): void => {
+     dispatch(setDuration({ duration }));
++  },
++  onSeeking: (): void => {
++    dispatch(setVideoStatus({ status: VideoStatus.Seeking }));
++  },
++  onSeeked: (time: number): void => {
++    dispatch(
++      connectAction<SetVideoStatusPayload & SetCurrentTimePayload>([
++        mapStateToActionCreator(setVideoStatus),
++        setCurrentTimeMappedAction
++      ])({ status: VideoStatus.Playing, time })
++    );
++
++    // dispatch(setVideoStatus({ status: VideoStatus.Playing }));
+   }
+ });
+ 
+diff --git a/src/reducers/default-state.ts b/src/reducers/default-state.ts
+index 2a7c014..233497e 100644
+--- a/src/reducers/default-state.ts
++++ b/src/reducers/default-state.ts
+@@ -21,10 +21,9 @@ const DEFAULT_STATE: State = {
+   player: {
+     playbackStatus: PlaybackStatus.Paused,
+     seekingStatus: SeekingStatus.Idle,
++    seekBarAtStage: 0,
+     video: {
+-      status: VideoStatus.Playing,
+-      atStage: undefined,
+-      stageSeekTo: undefined
++      status: VideoStatus.Playing
+     }
+   }
+ };
+diff --git a/src/reducers/set-current-time.ts b/src/reducers/set-current-time.ts
+index 00023f7..f5b652b 100644
+--- a/src/reducers/set-current-time.ts
++++ b/src/reducers/set-current-time.ts
+@@ -1,17 +1,25 @@
+ import { SET_CURRENT_STAGE } from '../actions/set-current-stage';
+ 
+-import { State, SetCurrentStage } from '../types';
++import { State, SetCurrentStage, VideoStatus } from '../types';
+ 
+ const setCurrentStage = (state: State, action: SetCurrentStage): State => {
+   const {
+     payload: { time: atStage }
+   } = action;
+ 
++  const {
++    player: {
++      video: { status }
++    }
++  } = state;
++
++  if (status === VideoStatus.Seeking) return state;
++
+   return {
+     ...state,
+     player: {
+       ...state.player,
+-      video: { ...state.player.video, atStage, stageSeekTo: atStage }
++      video: { ...state.player.video, atStage }
+     }
+   };
+ };
+diff --git a/src/reducers/set-duration.ts b/src/reducers/set-duration.ts
+index e32c895..48aacd5 100644
+--- a/src/reducers/set-duration.ts
++++ b/src/reducers/set-duration.ts
+@@ -9,6 +9,7 @@ const setDuration = (state: State, action: SetDuration): State => {
+     ...state,
+     player: {
+       ...state.player,
++      seekBarAtStage: 0,
+       video: { ...state.player.video, atStage: 0 }
+     },
+     footage: {
+diff --git a/src/reducers/set-stage-seek-to.ts b/src/reducers/set-stage-seek-to.ts
+index 46742c2..af54524 100644
+--- a/src/reducers/set-stage-seek-to.ts
++++ b/src/reducers/set-stage-seek-to.ts
+@@ -11,7 +11,7 @@ const setStageSeekTo = (state: State, action: SetStageSeekTo): State => {
+     ...state,
+     player: {
+       ...state.player,
+-      video: { ...state.player.video, stageSeekTo }
++      video: { ...state.player.video, stageSeekingTo: stageSeekTo }
+     }
+   };
+ };
+diff --git a/src/reducers/set-user-seek.ts b/src/reducers/set-user-seek.ts
+index c1ebe58..1560478 100644
+--- a/src/reducers/set-user-seek.ts
++++ b/src/reducers/set-user-seek.ts
+@@ -1,40 +1,16 @@
+-import { State, VideoStatus } from '../types';
++import { State } from '../types';
+ import { SetUserSeek, SET_USER_SEEK } from '../actions/set-user-seek';
+ 
+ const setUserSeek = (state: State, action: SetUserSeek): State => {
+   const {
+-    payload: { mode: on }
++    payload: { status: seekingStatus }
+   } = action;
+ 
+-  const {
+-    player: {
+-      video: { stageSeekTo }
+-    }
+-  } = state;
+-
+-  let {
+-    player: {
+-      video: { atStage }
+-    }
+-  } = state;
+-
+-  if (!on) {
+-    atStage = stageSeekTo;
+-  }
+-
+-  let status: VideoStatus = VideoStatus.Playing;
+-
+-  if (on) status = VideoStatus.Seeking;
+-
+   return {
+     ...state,
+     player: {
+       ...state.player,
+-      video: {
+-        ...state.player.video,
+-        status,
+-        atStage
+-      }
++      seekingStatus
+     }
+   };
+ };
+diff --git a/src/reducers/set-video-status.ts b/src/reducers/set-video-status.ts
+index 0728adc..7ebad88 100644
+--- a/src/reducers/set-video-status.ts
++++ b/src/reducers/set-video-status.ts
+@@ -1,4 +1,4 @@
+-import { State, SetVideoStatus, VideoStatus } from '../types';
++import { State, SetVideoStatus } from '../types';
+ import { SET_VIDEO_STATUS } from '../actions/set-video-status';
+ 
+ const setUserSeek = (state: State, action: SetVideoStatus): State => {
+@@ -6,21 +6,21 @@ const setUserSeek = (state: State, action: SetVideoStatus): State => {
+     payload: { status }
+   } = action;
+ 
+-  const {
+-    player: {
+-      video: { stageSeekTo }
+-    }
+-  } = state;
++  // const {
++  //   player: {
++  //     video: { stageSeekTo }
++  //   }
++  // } = state;
+ 
+-  let {
+-    player: {
+-      video: { atStage }
+-    }
+-  } = state;
++  // let {
++  //   player: {
++  //     video: { atStage }
++  //   }
++  // } = state;
+ 
+-  if (status !== VideoStatus.Seeking) {
+-    atStage = stageSeekTo;
+-  }
++  // if (status !== VideoStatus.Seeking) {
++  //   atStage = stageSeekTo;
++  // }
+ 
+   return {
+     ...state,
+@@ -28,8 +28,7 @@ const setUserSeek = (state: State, action: SetVideoStatus): State => {
+       ...state.player,
+       video: {
+         ...state.player.video,
+-        status,
+-        atStage
++        status
+       }
+     }
+   };
+diff --git a/src/selectors/is-video-playing.ts b/src/selectors/is-video-playing.ts
+index 3e0137a..69ae1f3 100644
+--- a/src/selectors/is-video-playing.ts
++++ b/src/selectors/is-video-playing.ts
+@@ -1,9 +1,11 @@
+ import { createSelector } from 'reselect';
+-import { getPlayerStatus, getUserSeek } from './selectors';
++import { getPlayerStatus, getUserSeek, getVideoStatus } from './selectors';
++import { VideoStatus } from '../types';
+ 
+ const isVideoPlaying = createSelector(
+-  [getPlayerStatus, getUserSeek],
+-  (playback: boolean, userSeek: boolean): boolean => playback && !userSeek
++  [getPlayerStatus, getUserSeek, getVideoStatus],
++  (playback: boolean, userSeek: boolean, videoStatus: VideoStatus): boolean =>
++    playback && !userSeek && videoStatus === VideoStatus.Playing
+ );
+ 
+ export default isVideoPlaying;
+diff --git a/src/selectors/selectors.ts b/src/selectors/selectors.ts
+index c8dc54b..d0d4f9f 100644
+--- a/src/selectors/selectors.ts
++++ b/src/selectors/selectors.ts
+@@ -1,4 +1,10 @@
+-import { State, Tag, PlaybackStatus, VideoStatus } from '../types';
++import {
++  State,
++  Tag,
++  PlaybackStatus,
++  VideoStatus,
++  SeekingStatus
++} from '../types';
+ 
+ export const getPlayerStatus = ({
+   player: { playbackStatus: status }
+@@ -8,11 +14,15 @@ export const getPlayerStatusN = ({
+   player: { playbackStatus: status }
+ }: State): PlaybackStatus => status;
+ 
+-export const getUserSeek = ({
++export const getVideoStatus = ({
+   player: {
+     video: { status }
+   }
+-}: State): boolean => status === VideoStatus.Seeking;
++}: State): VideoStatus => status;
++
++export const getUserSeek = ({
++  player: { seekingStatus: status }
++}: State): boolean => status === SeekingStatus.Seeking;
+ 
+ export const getCurrentTime = ({
+   footage: { duration },
+@@ -24,10 +34,13 @@ export const getCurrentTime = ({
+ export const getStageSeekTo = ({
+   footage: { duration },
+   player: {
+-    video: { status, atStage, stageSeekTo }
++    seekingStatus,
++    video: { status: videoStatus, atStage, stageSeekingTo: stageSeekTo }
+   }
+ }: State): number =>
+-  status === VideoStatus.Seeking ? stageSeekTo * duration : atStage * duration;
++  seekingStatus === SeekingStatus.Seeking || videoStatus === VideoStatus.Seeking
++    ? stageSeekTo * duration
++    : atStage * duration;
+ 
+ export const getVideoDuration = ({ footage: { duration } }: State): number =>
+   duration;
+@@ -38,11 +51,19 @@ export const getCurrentStage = ({
+   }
+ }: State): number => atStage;
+ 
++export const getSeekBarCurrentStage = ({
++  player: { seekBarAtStage }
++}: State): number => seekBarAtStage;
++
+ export const getAboutToBeCurrentTime = ({
+   player: {
+-    video: { status, atStage, stageSeekTo }
++    seekingStatus,
++    video: { status: videoStatus, atStage, stageSeekingTo: stageSeekTo }
+   }
+-}: State): number => (status === VideoStatus.Seeking ? stageSeekTo : atStage);
++}: State): number =>
++  videoStatus === VideoStatus.Seeking || seekingStatus === SeekingStatus.Seeking
++    ? stageSeekTo
++    : atStage;
+ 
+ export const getVideoURL = ({ footage: { url } }: State): string => url;
+ 
+diff --git a/src/thunks/set-current-time.ts b/src/thunks/set-current-time.ts
+index 59d08a2..a6f347b 100644
+--- a/src/thunks/set-current-time.ts
++++ b/src/thunks/set-current-time.ts
+@@ -15,6 +15,11 @@ const mapStateToPayload = (
+   return { time: time / getVideoDuration(state) };
+ };
+ 
++export const setCurrentTimeMappedAction = mapStateToActionCreator(
++  actionCreator,
++  mapStateToPayload
++);
++
+ const setStageAt = connect([
+   mapStateToActionCreator(actionCreator, mapStateToPayload)
+ ]);
+diff --git a/src/thunks/turn-off-seeking-mode.ts b/src/thunks/turn-off-seeking-mode.ts
+deleted file mode 100644
+index d79e9b5..0000000
+--- a/src/thunks/turn-off-seeking-mode.ts
++++ /dev/null
+@@ -1,31 +0,0 @@
+-import actionCreator from '../actions/set-video-status';
+-import connect, { mapStateToActionCreator } from '../utils/map-state-to-action';
+-import {
+-  State,
+-  SetVideoStatusPayload,
+-  PlaybackStatus,
+-  VideoStatus
+-} from '../types';
+-import { getPlayerStatusN } from '../selectors/selectors';
+-
+-const mapStateToPayload = (state: State): SetVideoStatusPayload => {
+-  let status: VideoStatus;
+-
+-  switch (getPlayerStatusN(state)) {
+-    case PlaybackStatus.Playing:
+-      status = VideoStatus.Playing;
+-      break;
+-    case PlaybackStatus.Paused:
+-    default:
+-      status = VideoStatus.Paused;
+-      break;
+-  }
+-
+-  return { status };
+-};
+-
+-const turnOffSeekingMode = connect([
+-  mapStateToActionCreator(actionCreator, mapStateToPayload)
+-]);
+-
+-export default turnOffSeekingMode;
+diff --git a/src/types/state/player.ts b/src/types/state/player.ts
+index d84221c..fda4a9e 100644
+--- a/src/types/state/player.ts
++++ b/src/types/state/player.ts
+@@ -1,10 +1,11 @@
+ export interface Player {
+   readonly playbackStatus: PlaybackStatus;
+   readonly seekingStatus: SeekingStatus;
++  readonly seekBarAtStage: number;
+   readonly video?: {
+     status: VideoStatus;
+     atStage?: number;
+-    stageSeekTo?: number;
++    stageSeekingTo?: number;
+   };
+ }
+ 

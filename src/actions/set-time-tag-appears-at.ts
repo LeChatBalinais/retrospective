@@ -17,3 +17,6 @@ export default function setTimeTagAppearsAt(
 ): SetTimeTagAppearsAt {
   return { type: SET_TIME_TAG_APPEARS_AT, payload };
 }
+
+export const SetTimeTagAppearsAtPayload = undefined;
+export const SetTimeTagAppearsAt = undefined;

@@ -14,3 +14,6 @@ export const SET_PLAYBACK = 'SET_PLAYBACK';
 export default function setPlayback(payload: SetPlaybackPayload): SetPlayback {
   return { type: SET_PLAYBACK, payload };
 }
+
+export const SetPlaybackPayload = undefined;
+export const SetPlayback = undefined;

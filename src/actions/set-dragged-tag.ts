@@ -16,3 +16,6 @@ export default function setDraggedTag(
 ): SetDraggedTag {
   return { type: SET_DRAGGED_TAG, payload };
 }
+
+export const SetDraggedTagPayload = undefined;
+export const SetDraggedTag = undefined;

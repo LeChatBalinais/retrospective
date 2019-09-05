@@ -14,3 +14,6 @@ export const SET_DURATION = 'SET_DURATION';
 export default function setDuration(payload: SetDurationPayload): SetDuration {
   return { type: SET_DURATION, payload };
 }
+
+export const SetDurationPayload = undefined;
+export const SetDuration = undefined;

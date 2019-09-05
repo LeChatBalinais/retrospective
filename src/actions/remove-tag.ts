@@ -11,3 +11,6 @@ export const REMOVE_TAG = 'REMOVE_TAG';
 export default function removeTag(payload: RemoveTagPayload): RemoveTag {
   return { type: REMOVE_TAG, payload };
 }
+
+export const RemoveTagPayload = undefined;
+export const RemoveTag = undefined;

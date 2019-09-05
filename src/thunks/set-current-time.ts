@@ -15,6 +15,11 @@ const mapStateToPayload = (
   return { time: time / getVideoDuration(state) };
 };
 
+export const setCurrentTimeMappedAction = mapStateToActionCreator(
+  actionCreator,
+  mapStateToPayload
+);
+
 const setStageAt = connect([
   mapStateToActionCreator(actionCreator, mapStateToPayload)
 ]);

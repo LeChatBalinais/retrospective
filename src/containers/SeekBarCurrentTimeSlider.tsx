@@ -3,11 +3,11 @@ import { State } from '../types';
 import SeekBarSlider, {
   ValueProps as SeekBarSliderValueProps
 } from '../components/SeekBarSlider';
-import { getAboutToBeCurrentTime } from '../selectors/selectors';
+import { getSeekBarCurrentStage } from '../selectors/selectors';
 
 const mapStateToProps = (state: State): SeekBarSliderValueProps => {
   return {
-    position: getAboutToBeCurrentTime(state) * 100,
+    position: getSeekBarCurrentStage(state) * 100,
     className: 'slider-current-time'
   };
 };

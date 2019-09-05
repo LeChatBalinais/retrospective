@@ -17,3 +17,6 @@ export default function setTagTraceVisible(
 ): SetTagTraceVisible {
   return { type: SET_TAG_TRACE_VISIBLE, payload };
 }
+
+export const SetTagTraceVisiblePayload = undefined;
+export const SetTagTraceVisible = undefined;

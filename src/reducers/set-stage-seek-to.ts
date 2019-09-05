@@ -4,14 +4,14 @@ import { State, SetStageSeekTo } from '../types';
 
 const setStageSeekTo = (state: State, action: SetStageSeekTo): State => {
   const {
-    payload: { time: stageSeekTo }
+    payload: { time: seekBarAtStage }
   } = action;
 
   return {
     ...state,
     player: {
       ...state.player,
-      video: { ...state.player.video, stageSeekTo }
+      seekBarAtStage
     }
   };
 };

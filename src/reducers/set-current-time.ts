@@ -1,17 +1,25 @@
 import { SET_CURRENT_STAGE } from '../actions/set-current-stage';
 
-import { State, SetCurrentStage } from '../types';
+import { State, SetCurrentStage, VideoStatus } from '../types';
 
 const setCurrentStage = (state: State, action: SetCurrentStage): State => {
   const {
     payload: { time: atStage }
   } = action;
 
+  const {
+    player: {
+      video: { status }
+    }
+  } = state;
+
+  if (status === VideoStatus.Seeking) return state;
+
   return {
     ...state,
     player: {
       ...state.player,
-      video: { ...state.player.video, atStage, stageSeekTo: atStage }
+      video: { ...state.player.video, atStage }
     }
   };
 };

@@ -21,10 +21,9 @@ const DEFAULT_STATE: State = {
   player: {
     playbackStatus: PlaybackStatus.Paused,
     seekingStatus: SeekingStatus.Idle,
+    seekBarAtStage: 0,
     video: {
-      status: VideoStatus.Playing,
-      atStage: undefined,
-      stageSeekTo: undefined
+      status: VideoStatus.Paused
     }
   }
 };

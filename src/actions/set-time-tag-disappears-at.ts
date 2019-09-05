@@ -17,3 +17,6 @@ export default function setTimeTagDisappearsAt(
 ): SetTimeTagDisappearsAt {
   return { type: SET_TIME_TAG_DISAPPEARS_AT, payload };
 }
+
+export const SetTimeTagDisappearsAtPayload = undefined;
+export const SetTimeTagDisappearsAt = undefined;

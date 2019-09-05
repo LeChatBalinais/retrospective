@@ -19,3 +19,6 @@ export default function updateTagPath(
 ): UpdateTagPath {
   return { type: UPDATE_TAG_PATH, payload };
 }
+
+export const UpdateTagPathPayload = undefined;
+export const UpdateTagPath = undefined;

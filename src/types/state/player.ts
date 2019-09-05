@@ -1,10 +1,11 @@
 export interface Player {
   readonly playbackStatus: PlaybackStatus;
   readonly seekingStatus: SeekingStatus;
+  readonly seekBarAtStage: number;
   readonly video?: {
     status: VideoStatus;
     atStage?: number;
-    stageSeekTo?: number;
+    stageSeekingTo?: number;
   };
 }
 

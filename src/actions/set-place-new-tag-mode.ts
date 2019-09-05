@@ -16,3 +16,6 @@ export default function setPlaceNewTagMode(
 ): SetPlaceNewTagMode {
   return { type: SET_PLACE_NEW_TAG_MODE, payload };
 }
+
+export const SetPlaceNewTagModePayload = undefined;
+export const SetPlaceNewTagMode = undefined;

@@ -16,3 +16,6 @@ export default function setCurrentTime(
 ): SetCurrentStage {
   return { type: SET_CURRENT_STAGE, payload };
 }
+
+export const SetCurrentStagePayload = undefined;
+export const SetCurrentStage = undefined;
