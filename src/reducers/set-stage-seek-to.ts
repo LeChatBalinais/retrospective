@@ -11,7 +11,7 @@ const setStageSeekTo = (state: State, action: SetStageSeekTo): State => {
     ...state,
     player: {
       ...state.player,
-      seekBarAtStage
+      lastRequestedStage: seekBarAtStage
     }
   };
 };

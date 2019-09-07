@@ -52,7 +52,7 @@ export const getCurrentStage = ({
 }: State): number => atStage;
 
 export const getSeekBarCurrentStage = ({
-  player: { seekBarAtStage }
+  player: { lastRequestedStage: seekBarAtStage }
 }: State): number => seekBarAtStage;
 
 export const getAboutToBeCurrentTime = ({

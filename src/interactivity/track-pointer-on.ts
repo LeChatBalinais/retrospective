@@ -34,6 +34,6 @@ export default function newMouseListener(
     document.addEventListener('mousemove', mouseMoveListener);
     document.addEventListener('mouseup', mouseUpListener);
 
-    onMouseDown(relativePosition);
+    onMouseDown(relativePosition / 100);
   };
 }

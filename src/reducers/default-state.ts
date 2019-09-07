@@ -1,4 +1,10 @@
-import { State, PlaybackStatus, VideoStatus, SeekingStatus } from '../types';
+import {
+  State,
+  PlaybackStatus,
+  VideoStatus,
+  SeekingStatus,
+  SeekbarStatus
+} from '../types';
 
 const DEFAULT_STATE: State = {
   entities: {
@@ -20,10 +26,13 @@ const DEFAULT_STATE: State = {
   },
   player: {
     playbackStatus: PlaybackStatus.Paused,
-    seekingStatus: SeekingStatus.Idle,
-    seekBarAtStage: 0,
+    seekingStatus: SeekingStatus.NoSeeking,
+    lastRequestedStage: 0,
     video: {
       status: VideoStatus.Paused
+    },
+    seekbar: {
+      status: SeekbarStatus.Idle
     }
   }
 };

@@ -1,11 +1,14 @@
 export interface Player {
   readonly playbackStatus: PlaybackStatus;
   readonly seekingStatus: SeekingStatus;
-  readonly seekBarAtStage: number;
+  readonly lastRequestedStage: number;
   readonly video?: {
     status: VideoStatus;
     atStage?: number;
     stageSeekingTo?: number;
+  };
+  readonly seekbar: {
+    status: SeekbarStatus;
   };
 }
 
@@ -21,6 +24,11 @@ export enum PlaybackStatus {
 }
 
 export enum SeekingStatus {
+  NoSeeking,
+  Seeking
+}
+
+export enum SeekbarStatus {
   Idle,
   Seeking
 }

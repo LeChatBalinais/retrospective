@@ -59,7 +59,7 @@ const makeMapDispatchToProps = (): MapDispatchToProps => {
         ])({ ID, status: SeekingStatus.Seeking })
       );
 
-      dispatch(setUserSeek({ status: SeekingStatus.Idle }));
+      dispatch(setUserSeek({ status: SeekingStatus.NoSeeking }));
     }
   });
 };

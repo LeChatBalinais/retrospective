@@ -1,26 +1,16 @@
 import { connect } from 'react-redux';
 import SeekBar, { FuncProps as SeekBarFuncProps } from '../components/SeekBar';
 import setRequestedTime from '../actions/set-stage-seek-to';
-import {
-  SetStageSeekToPayload,
-  SetUserSeekPayload,
-  SeekingStatus,
-  ThunkDispatch
-} from '../types';
+import { SeekingStatus, ThunkDispatch } from '../types';
 import setUserSeek from '../actions/set-user-seek';
-import actionCombination from '../utils/action-combination';
+import mousePressedOnSeekBar from '~/actions/player/seekbar/mouse-down-on-seekbar';
 
 const mapDispatchToProps = (dispatch: ThunkDispatch): SeekBarFuncProps => ({
   onMouseDown: (relativePosition: number): void => {
-    dispatch(
-      actionCombination<SetStageSeekToPayload & SetUserSeekPayload>([
-        setUserSeek,
-        setRequestedTime
-      ])({ status: SeekingStatus.Seeking, time: relativePosition / 100 })
-    );
+    dispatch(mousePressedOnSeekBar({ position: relativePosition }));
   },
   onMouseUp: (): void => {
-    dispatch(setUserSeek({ status: SeekingStatus.Idle }));
+    dispatch(setUserSeek({ status: SeekingStatus.NoSeeking }));
   },
   onMouseMove: (relativePosition: number): void => {
     dispatch(setRequestedTime({ time: relativePosition / 100 }));

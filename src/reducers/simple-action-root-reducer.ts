@@ -17,6 +17,7 @@ import setTimeTagAppearsAt from './set-time-tag-appears-at';
 import setTimeTagDisappearsAt from './set-time-tag-disappears-at';
 import setVideoStatus from './set-video-status';
 import videoStartSeekingToStage from './video-start-seeking-to-stage';
+import mousePressedOnSeekBar from './player/seekbar/mouse-down-on-seekbar';
 
 const simpleActionRootReducer = (): ((
   state: State,
@@ -43,7 +44,8 @@ const simpleActionRootReducer = (): ((
     setTimeTagAppearsAt,
     setTimeTagDisappearsAt,
     setVideoStatus,
-    videoStartSeekingToStage
+    videoStartSeekingToStage,
+    mousePressedOnSeekBar
   ];
 
   const reducersByActionType = {};

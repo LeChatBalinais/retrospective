@@ -62,7 +62,10 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx']
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    alias: {
+      '~': path.resolve(__dirname, 'src/')
+    }
   },
 
   plugins: [
