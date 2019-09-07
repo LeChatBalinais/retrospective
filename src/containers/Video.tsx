@@ -1,35 +1,26 @@
 import { connect } from 'react-redux';
 import Video, { ValueProps, FuncProps } from '../components/Video';
-import setCurrentTime, {
-  SetCurrentTimePayload,
-  setCurrentTimeMappedAction
-} from '../thunks/set-current-time';
+import setCurrentTime from '../thunks/set-current-time';
 import setDuration from '../actions/set-duration';
 import isVideoPlaying from '../selectors/is-video-playing';
 import {
   getVideoURL,
   getVideoStatus,
   getUserSeek,
-  getSeekBarCurrentStage
+  getSeekBarCurrentStage,
+  getVideoDuration
 } from '../selectors/selectors';
-import {
-  State,
-  ThunkDispatch,
-  VideoStatus,
-  SetVideoStatusPayload
-} from '../types';
+import { State, ThunkDispatch, VideoStatus } from '../types';
 import { setVideoStatus } from '../actions/set-video-status';
 
-import connectAction, {
-  mapStateToActionCreator
-} from '../utils/map-state-to-action';
+import videoStartsSeekingToTime from '../thunks/video-start-seeking-to-time';
 
 const mapStateToProps = (state: State): ValueProps => {
   return {
     playback: isVideoPlaying(state),
     url: getVideoURL(state),
     seek: getVideoStatus(state) !== VideoStatus.Seeking && getUserSeek(state),
-    timeSeekTo: getSeekBarCurrentStage(state)
+    timeSeekTo: getSeekBarCurrentStage(state) * getVideoDuration(state)
   };
 };
 
@@ -40,18 +31,11 @@ const mapDispatchToProps = (dispatch: ThunkDispatch): FuncProps => ({
   onDurationChange: (duration: number): void => {
     dispatch(setDuration({ duration }));
   },
-  onSeeking: (): void => {
-    dispatch(setVideoStatus({ status: VideoStatus.Seeking }));
+  onSeeking: (time: number): void => {
+    dispatch(videoStartsSeekingToTime({ time }));
   },
-  onSeeked: (time: number): void => {
-    dispatch(
-      connectAction<SetVideoStatusPayload & SetCurrentTimePayload>([
-        mapStateToActionCreator(setVideoStatus),
-        setCurrentTimeMappedAction
-      ])({ status: VideoStatus.Playing, time })
-    );
-
-    // dispatch(setVideoStatus({ status: VideoStatus.Playing }));
+  onSeeked: (): void => {
+    dispatch(setVideoStatus({ status: VideoStatus.Playing }));
   }
 });
 

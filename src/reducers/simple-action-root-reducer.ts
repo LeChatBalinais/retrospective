@@ -1,3 +1,4 @@
+import { State, SimpleAction } from '../types';
 import SetPlayback from './set-playback';
 import SetPlaceNewTagMode from './set-place-new-tag-mode';
 import SetCurrentStage from './set-current-time';
@@ -12,10 +13,10 @@ import SetCurrentTag from './set-current-tag';
 import RemoveTag from './remove-tag';
 import SetTagGlobalID from './set-tag-globalid';
 import SetStageSeekTo from './set-stage-seek-to';
-import { State, SimpleAction } from '../types';
 import setTimeTagAppearsAt from './set-time-tag-appears-at';
 import setTimeTagDisappearsAt from './set-time-tag-disappears-at';
 import setVideoStatus from './set-video-status';
+import videoStartSeekingToStage from './video-start-seeking-to-stage';
 
 const simpleActionRootReducer = (): ((
   state: State,
@@ -41,7 +42,8 @@ const simpleActionRootReducer = (): ((
     SetStageSeekTo,
     setTimeTagAppearsAt,
     setTimeTagDisappearsAt,
-    setVideoStatus
+    setVideoStatus,
+    videoStartSeekingToStage
   ];
 
   const reducersByActionType = {};

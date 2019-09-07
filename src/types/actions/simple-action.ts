@@ -20,4 +20,5 @@ export type SimpleAction =
   | particularActions.SetStageSeekTo
   | particularActions.SetTimeTagAppearsAt
   | particularActions.SetTimeTagDisappearsAt
-  | particularActions.SetVideoStatus;
+  | particularActions.SetVideoStatus
+  | particularActions.VideoStartSeekingToStage;

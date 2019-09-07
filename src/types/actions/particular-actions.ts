@@ -52,3 +52,8 @@ export {
   SetVideoStatus,
   SetVideoStatusPayload
 } from '../../actions/set-video-status';
+
+export {
+  VideoStartSeekingToStage,
+  VideoStartSeekingToStagePayload
+} from '../../actions/video-start-seeking-to-stage';

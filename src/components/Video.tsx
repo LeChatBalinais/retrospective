@@ -15,8 +15,8 @@ export interface ValueProps {
 export interface FuncProps {
   onTimeUpdate: OnTimeUpdate;
   onDurationChange: OnDurationChangeFunc;
-  onSeeking: () => void;
-  onSeeked: (time: number) => void;
+  onSeeking: (time: number) => void;
+  onSeeked: () => void;
 }
 
 export type Props = ValueProps & FuncProps;
@@ -25,8 +25,8 @@ const Video = ({
   url: src,
   onDurationChange: onDurationChangeFunc,
   onTimeUpdate: onTimeUpdateFunc,
-  onSeeked: onSeekedFunc,
-  onSeeking,
+  onSeeked,
+  onSeeking: onSeekingFunc,
   playback,
   timeSeekTo,
   seek
@@ -49,19 +49,9 @@ const Video = ({
     onDurationChangeFunc(current.duration);
   };
 
-  const onSeeked = (): void => {
-    const { current } = videoEl;
-    if (!current) return;
-
-    onSeekedFunc(current.currentTime);
-  };
-
-  const onTimeUpdate = (): void => {
-    if (playback) return;
-    const { current } = videoEl;
-    if (!current) return;
-    onTimeUpdateFunc(current.currentTime);
-  };
+  const onSeeking = useCallback((): void => {
+    if (seek) onSeekingFunc(timeSeekTo);
+  }, [seek, timeSeekTo, onSeekingFunc]);
 
   const { current } = videoEl;
 
@@ -88,7 +78,7 @@ const Video = ({
     <video
       preload="auto"
       className="main-video"
-      {...{ onDurationChange, onTimeUpdate, onSeeking, onSeeked, src }}
+      {...{ onDurationChange, onSeeking, onSeeked, src }}
       ref={videoEl}
     />
   );
