@@ -1,6 +1,22 @@
+// Seekbar
 export {
-  MouseDownOnSeekBar as MousePressedOnSeekBar
+  MouseDownOnSeekBar
 } from '~/actions/player/seekbar/mouse-down-on-seekbar';
+
+export {
+  MouseUpDuringSeekbarSeeking
+} from '~/actions/player/seekbar/mouse-up-during-seekbar-seeking';
+
+export {
+  MouseMoveDuringSeekbarSeeking
+} from '~/actions/player/seekbar/mouse-move-during-seekbar-seeking';
+
+// Video
+
+export { VideoSeeking } from '~/actions/player/video/video-seeking';
+export { VideoSeeked } from '~/actions/player/video/video-seeked';
+
+// Rest
 
 export { SetPlayback, SetPlaybackPayload } from '~/actions/set-playback';
 export {

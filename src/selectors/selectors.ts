@@ -3,7 +3,8 @@ import {
   Tag,
   PlaybackStatus,
   VideoStatus,
-  SeekingStatus
+  SeekingStatus,
+  SeekbarStatus
 } from '../types';
 
 export const getPlayerStatus = ({
@@ -52,8 +53,13 @@ export const getCurrentStage = ({
 }: State): number => atStage;
 
 export const getSeekBarCurrentStage = ({
-  player: { lastRequestedStage: seekBarAtStage }
-}: State): number => seekBarAtStage;
+  player: {
+    seekingStatus,
+    lastRequestedStage,
+    video: { atStage: videoAtStage }
+  }
+}: State): number =>
+  seekingStatus === SeekingStatus.Seeking ? lastRequestedStage : videoAtStage;
 
 export const getAboutToBeCurrentTime = ({
   player: {

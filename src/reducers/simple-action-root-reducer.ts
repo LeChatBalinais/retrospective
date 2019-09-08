@@ -17,7 +17,11 @@ import setTimeTagAppearsAt from './set-time-tag-appears-at';
 import setTimeTagDisappearsAt from './set-time-tag-disappears-at';
 import setVideoStatus from './set-video-status';
 import videoStartSeekingToStage from './video-start-seeking-to-stage';
-import mousePressedOnSeekBar from './player/seekbar/mouse-down-on-seekbar';
+import mouseDownOnSeekBar from './player/seekbar/mouse-down-on-seekbar';
+import mouseUpDuringSeekbarSeeking from './player/seekbar/mouse-up-during-seekbar-seeking';
+import videoSeeking from './player/video/video-seeking';
+import videoSeeked from './player/video/video-seeked';
+import mouseMoveDuringSeekbarSeeking from './player/seekbar/mouse-move-during-seekbar-seeking';
 
 const simpleActionRootReducer = (): ((
   state: State,
@@ -45,7 +49,11 @@ const simpleActionRootReducer = (): ((
     setTimeTagDisappearsAt,
     setVideoStatus,
     videoStartSeekingToStage,
-    mousePressedOnSeekBar
+    mouseDownOnSeekBar,
+    mouseMoveDuringSeekbarSeeking,
+    mouseUpDuringSeekbarSeeking,
+    videoSeeking,
+    videoSeeked
   ];
 
   const reducersByActionType = {};

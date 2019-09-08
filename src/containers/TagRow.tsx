@@ -50,7 +50,7 @@ const makeMapStateToProps = (): MapStateToProps => {
 
 const makeMapDispatchToProps = (): MapDispatchToProps => {
   return (dispatch: ThunkDispatch, { ID }: Props): FuncProps => ({
-    onMouseDown: (): void => {
+    onClick: (): void => {
       dispatch(
         connectAction<OnMouseDownPayload>([
           mapStateToActionCreator(setCurrentTag),

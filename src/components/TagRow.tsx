@@ -8,17 +8,12 @@ export interface ValueProps {
 }
 
 export interface FuncProps {
-  onMouseDown: () => void;
+  onClick: () => void;
 }
 
 export type Props = ValueProps & FuncProps;
 
-const TagRow = ({
-  ID,
-  isLocal,
-  isCurrent,
-  onMouseDown
-}: Props): JSX.Element => {
+const TagRow = ({ ID, isLocal, isCurrent, onClick }: Props): JSX.Element => {
   let className = 'box';
 
   if (isCurrent) className = className.concat(' current-tag-row');
@@ -28,11 +23,11 @@ const TagRow = ({
     <div
       {...{
         className,
-        onMouseDown: (
+        onClick: (
           event: React.MouseEvent<HTMLDivElement, MouseEvent>
         ): void => {
           event.stopPropagation();
-          onMouseDown();
+          onClick();
         }
       }}
     >

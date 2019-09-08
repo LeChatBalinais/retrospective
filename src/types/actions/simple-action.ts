@@ -22,4 +22,8 @@ export type SimpleAction =
   | particularActions.SetTimeTagDisappearsAt
   | particularActions.SetVideoStatus
   | particularActions.VideoStartSeekingToStage
-  | particularActions.MousePressedOnSeekBar;
+  | particularActions.MouseDownOnSeekBar
+  | particularActions.MouseUpDuringSeekbarSeeking
+  | particularActions.MouseMoveDuringSeekbarSeeking
+  | particularActions.VideoSeeking
+  | particularActions.VideoSeeked;

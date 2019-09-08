@@ -11,9 +11,8 @@ import {
   getVideoDuration
 } from '../selectors/selectors';
 import { State, ThunkDispatch, VideoStatus } from '../types';
-import { setVideoStatus } from '../actions/set-video-status';
-
-import videoStartsSeekingToTime from '../thunks/video-start-seeking-to-time';
+import videoSeeking from '~/actions/player/video/video-seeking';
+import videoSeeked from '~/actions/player/video/video-seeked';
 
 const mapStateToProps = (state: State): ValueProps => {
   return {
@@ -32,10 +31,10 @@ const mapDispatchToProps = (dispatch: ThunkDispatch): FuncProps => ({
     dispatch(setDuration({ duration }));
   },
   onSeeking: (time: number): void => {
-    dispatch(videoStartsSeekingToTime({ time }));
+    dispatch(videoSeeking({ time }));
   },
   onSeeked: (): void => {
-    dispatch(setVideoStatus({ status: VideoStatus.Playing }));
+    dispatch(videoSeeked());
   }
 });
 

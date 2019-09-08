@@ -11,11 +11,10 @@ export type MouseDownOnSeekBar = SimpleActionTemplate<
 
 export const MOUSE_DOWN_ON_SEEK_BAR = 'MOUSE_DOWN_ON_SEEK_BAR';
 
-export default function mousePressedOnSeekBar(
+export default function mouseDownOnSeekBar(
   payload: MouseDownOnSeekBarPayload
 ): MouseDownOnSeekBar {
   return { type: MOUSE_DOWN_ON_SEEK_BAR, payload };
 }
 
-export const MousePressedOnSeekBarPayload = undefined;
-export const MousePressedOnSeekBar = undefined;
+export const MouseDownOnSeekBar = undefined;

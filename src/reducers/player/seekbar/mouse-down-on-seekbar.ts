@@ -1,19 +1,34 @@
 import { MOUSE_DOWN_ON_SEEK_BAR } from '~/actions/player/seekbar/mouse-down-on-seekbar';
 import {
   State,
-  MousePressedOnSeekBar,
+  MouseDownOnSeekBar,
   SeekbarStatus,
   SeekingStatus
 } from '~/types';
 
 const mouseDownOnSeekbar = (
   state: State,
-  { payload: { position } }: MousePressedOnSeekBar
+  { payload: { position } }: MouseDownOnSeekBar
 ): State => {
+  const { player } = state;
+
+  const {
+    lastRequestedStage,
+    seekingStatus,
+    seekbar: { status: seekbarStatus }
+  } = player;
+
+  if (
+    seekbarStatus === SeekbarStatus.Seeking &&
+    lastRequestedStage === position &&
+    seekingStatus === SeekingStatus.Seeking
+  )
+    return state;
+
   return {
     ...state,
     player: {
-      ...state.player,
+      ...player,
       lastRequestedStage: position,
       seekingStatus: SeekingStatus.Seeking,
       seekbar: {

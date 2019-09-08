@@ -14,8 +14,8 @@ export interface Player {
 
 export enum VideoStatus {
   Paused,
-  Seeking,
-  Playing
+  Playing,
+  Seeking
 }
 
 export enum PlaybackStatus {
