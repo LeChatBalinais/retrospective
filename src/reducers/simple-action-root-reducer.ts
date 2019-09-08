@@ -22,6 +22,7 @@ import mouseUpDuringSeekbarSeeking from './player/seekbar/mouse-up-during-seekba
 import videoSeeking from './player/video/video-seeking';
 import videoSeeked from './player/video/video-seeked';
 import mouseMoveDuringSeekbarSeeking from './player/seekbar/mouse-move-during-seekbar-seeking';
+import playButtonClicked from './player/controls/play-button-clicked';
 
 const simpleActionRootReducer = (): ((
   state: State,
@@ -53,7 +54,8 @@ const simpleActionRootReducer = (): ((
     mouseMoveDuringSeekbarSeeking,
     mouseUpDuringSeekbarSeeking,
     videoSeeking,
-    videoSeeked
+    videoSeeked,
+    playButtonClicked
   ];
 
   const reducersByActionType = {};

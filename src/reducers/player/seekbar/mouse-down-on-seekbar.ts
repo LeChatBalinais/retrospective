@@ -1,10 +1,5 @@
-import { MOUSE_DOWN_ON_SEEK_BAR } from '~/actions/player/seekbar/mouse-down-on-seekbar';
-import {
-  State,
-  MouseDownOnSeekBar,
-  SeekbarStatus,
-  SeekingStatus
-} from '~/types';
+import { MOUSE_DOWN_ON_SEEK_BAR, MouseDownOnSeekBar } from '~/actions';
+import { State, SeekbarStatus, SeekingStatus } from '~/types';
 
 const mouseDownOnSeekbar = (
   state: State,

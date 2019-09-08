@@ -2,13 +2,13 @@ import { connect } from 'react-redux';
 import Video, { ValueProps, FuncProps } from '../components/Video';
 import setCurrentTime from '../thunks/set-current-time';
 import setDuration from '../actions/set-duration';
-import isVideoPlaying from '../selectors/is-video-playing';
 import {
   getVideoURL,
   getVideoStatus,
   getUserSeek,
   getSeekBarCurrentStage,
-  getVideoDuration
+  getVideoDuration,
+  shouldPlayVideo
 } from '../selectors/selectors';
 import { State, ThunkDispatch, VideoStatus } from '../types';
 import videoSeeking from '~/actions/player/video/video-seeking';
@@ -16,7 +16,7 @@ import videoSeeked from '~/actions/player/video/video-seeked';
 
 const mapStateToProps = (state: State): ValueProps => {
   return {
-    playback: isVideoPlaying(state),
+    playback: shouldPlayVideo(state),
     url: getVideoURL(state),
     seek: getVideoStatus(state) !== VideoStatus.Seeking && getUserSeek(state),
     timeSeekTo: getSeekBarCurrentStage(state) * getVideoDuration(state)

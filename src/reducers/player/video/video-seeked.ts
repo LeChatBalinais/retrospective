@@ -1,4 +1,4 @@
-import { VIDEO_SEEKED } from '~/actions/player/video/video-seeked';
+import { VIDEO_SEEKED } from '~/actions';
 import { State, VideoStatus, SeekingStatus, SeekbarStatus } from '~/types';
 
 const videoSeeked = (state: State): State => {

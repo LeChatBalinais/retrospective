@@ -3,8 +3,7 @@ import {
   Tag,
   PlaybackStatus,
   VideoStatus,
-  SeekingStatus,
-  SeekbarStatus
+  SeekingStatus
 } from '../types';
 
 export const getPlayerStatus = ({
@@ -111,3 +110,14 @@ export const isTagCurrent = (
 export const isPlaceNewTagModeOn = ({
   tagEditor: { userIsPlacingNewTag }
 }: State): boolean => userIsPlacingNewTag;
+
+export const shouldPlayVideo = ({
+  player: { playbackStatus, seekingStatus }
+}: State): boolean => {
+  if (
+    playbackStatus === PlaybackStatus.Playing &&
+    seekingStatus === SeekingStatus.NoSeeking
+  )
+    return true;
+  return false;
+};

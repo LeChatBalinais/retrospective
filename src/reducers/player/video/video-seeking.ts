@@ -1,4 +1,4 @@
-import { VIDEO_SEEKING } from '~/actions/player/video/video-seeking';
+import { VIDEO_SEEKING } from '~/actions';
 import { State, VideoSeeking, VideoStatus } from '~/types';
 import { getVideoDuration } from '~/selectors/selectors';
 

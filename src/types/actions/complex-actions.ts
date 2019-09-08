@@ -1,6 +1,6 @@
 import { ThunkAction } from 'redux-thunk';
 import { State } from '../state';
-import { SimpleAction } from './simple-action';
+import { SimpleAction } from '../../actions';
 
 export interface ActionCombination {
   type: 'ACTION_COMBINATION';

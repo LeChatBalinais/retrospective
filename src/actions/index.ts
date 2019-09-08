@@ -1,4 +1,5 @@
 import * as particularActions from '~/types/actions/particular-actions';
+import { PlayerActions } from './player';
 
 export type SimpleAction =
   | particularActions.SetPlayback
@@ -22,8 +23,6 @@ export type SimpleAction =
   | particularActions.SetTimeTagDisappearsAt
   | particularActions.SetVideoStatus
   | particularActions.VideoStartSeekingToStage
-  | particularActions.MouseDownOnSeekBar
-  | particularActions.MouseUpDuringSeekbarSeeking
-  | particularActions.MouseMoveDuringSeekbarSeeking
-  | particularActions.VideoSeeking
-  | particularActions.VideoSeeked;
+  | PlayerActions;
+
+export * from './player';
