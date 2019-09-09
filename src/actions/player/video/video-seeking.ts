@@ -11,9 +11,7 @@ export type VideoSeeking = SimpleActionTemplate<
 
 export const VIDEO_SEEKING = 'VIDEO_SEEKING';
 
-export default function videoSeeking(
-  payload: VideoSeekingPayload
-): VideoSeeking {
+export function videoSeeking(payload: VideoSeekingPayload): VideoSeeking {
   return { type: VIDEO_SEEKING, payload };
 }
 

@@ -25,6 +25,7 @@ export enum PlaybackStatus {
 
 export enum SeekingStatus {
   NoSeeking,
+  SeekbarSeeking,
   Seeking
 }
 

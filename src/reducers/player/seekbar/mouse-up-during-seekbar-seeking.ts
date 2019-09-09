@@ -18,7 +18,7 @@ const mouseUpDuringSeekbarSeeking = (state: State): State => {
     videoStatus === VideoStatus.Seeking ||
     (lastRequestedStage !== undefined && atStage !== lastRequestedStage)
   )
-    seekingStatus = SeekingStatus.Seeking;
+    seekingStatus = SeekingStatus.SeekbarSeeking;
 
   return {
     ...state,

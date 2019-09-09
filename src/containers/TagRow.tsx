@@ -1,34 +1,15 @@
 import { connect } from 'react-redux';
-import { Dispatch } from 'react';
+import { Dispatch } from 'redux';
 import TagRow, { ValueProps, FuncProps } from '../components/TagRow';
 import { makeIsTagLocal } from '../selectors/tag-selectors';
 import { isTagCurrent } from '../selectors/selectors';
-import {
-  State,
-  Action,
-  ThunkDispatch,
-  SetCurrentTagPayload,
-  SetUserSeekPayload,
-  SeekingStatus
-} from '../types';
-import setUserSeek from '../actions/set-user-seek';
-import setCurrentTag from '../actions/set-current-tag';
-import connectAction, {
-  mapStateToActionCreator
-} from '../utils/map-state-to-action';
-import {
-  setTagStartAsCurrentTime,
-  SetTagStartAsCurrentTimePayload
-} from '../thunks/set-tag-start-as-current-time';
+import { State } from '../types';
+import { tagRowClicked } from '~/actions/tag-list';
 
 type MapStateToProps = (state: State, { ID }: Props) => ValueProps;
 
-type OnMouseDownPayload = SetCurrentTagPayload &
-  SetUserSeekPayload &
-  SetTagStartAsCurrentTimePayload;
-
 type MapDispatchToProps = (
-  dispatch: Dispatch<Action>,
+  dispatch: Dispatch,
   { ID }: { ID: string }
 ) => FuncProps;
 
@@ -49,17 +30,9 @@ const makeMapStateToProps = (): MapStateToProps => {
 };
 
 const makeMapDispatchToProps = (): MapDispatchToProps => {
-  return (dispatch: ThunkDispatch, { ID }: Props): FuncProps => ({
+  return (dispatch: Dispatch, { ID }: Props): FuncProps => ({
     onClick: (): void => {
-      dispatch(
-        connectAction<OnMouseDownPayload>([
-          mapStateToActionCreator(setCurrentTag),
-          mapStateToActionCreator(setUserSeek),
-          setTagStartAsCurrentTime
-        ])({ ID, status: SeekingStatus.Seeking })
-      );
-
-      dispatch(setUserSeek({ status: SeekingStatus.NoSeeking }));
+      dispatch(tagRowClicked({ tagID: ID }));
     }
   });
 };

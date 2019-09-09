@@ -16,7 +16,7 @@ const mouseDownOnSeekbar = (
   if (
     seekbarStatus === SeekbarStatus.Seeking &&
     lastRequestedStage === position &&
-    seekingStatus === SeekingStatus.Seeking
+    seekingStatus === SeekingStatus.SeekbarSeeking
   )
     return state;
 
@@ -25,7 +25,7 @@ const mouseDownOnSeekbar = (
     player: {
       ...player,
       lastRequestedStage: position,
-      seekingStatus: SeekingStatus.Seeking,
+      seekingStatus: SeekingStatus.SeekbarSeeking,
       seekbar: {
         status: SeekbarStatus.Seeking
       }

@@ -7,14 +7,15 @@ const videoSeeked = (state: State): State => {
   const {
     video,
     lastRequestedStage: prevLastRequestedStage,
-    seekbar: { status: seekbarStatus }
+    seekbar: { status: seekbarStatus },
+    seekingStatus: prevSeekingStatus
   } = player;
 
   const { status, stageSeekingTo: prevStageSeekingTo } = video;
 
   if (status !== VideoStatus.Seeking) return state;
 
-  let seekingStatus = SeekingStatus.Seeking;
+  let seekingStatus = prevSeekingStatus;
   let lastRequestedStage = prevLastRequestedStage;
 
   if (prevLastRequestedStage === prevStageSeekingTo) {

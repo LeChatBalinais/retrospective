@@ -23,6 +23,9 @@ import videoSeeking from './player/video/video-seeking';
 import videoSeeked from './player/video/video-seeked';
 import mouseMoveDuringSeekbarSeeking from './player/seekbar/mouse-move-during-seekbar-seeking';
 import playButtonClicked from './player/controls/play-button-clicked';
+import tagRowClicked from './tag-list/tag-row/tag-row-clicked';
+import videoPlayedToTime from './player/video/video-played-to-time';
+import videoDurationChanged from './player/video/video-duration-changed';
 
 const simpleActionRootReducer = (): ((
   state: State,
@@ -55,7 +58,10 @@ const simpleActionRootReducer = (): ((
     mouseUpDuringSeekbarSeeking,
     videoSeeking,
     videoSeeked,
-    playButtonClicked
+    videoPlayedToTime,
+    videoDurationChanged,
+    playButtonClicked,
+    tagRowClicked
   ];
 
   const reducersByActionType = {};

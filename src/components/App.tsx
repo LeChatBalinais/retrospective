@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import store from '../store';
 import Player from '../containers/Player';
-import TagTableContainer from '../containers/TagTable';
+import TagTableContainer from '../containers/TagList';
 import NewTagButton from '../containers/NewTagButton';
 
 const App = (): JSX.Element => (

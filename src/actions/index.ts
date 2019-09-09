@@ -1,5 +1,6 @@
 import * as particularActions from '~/types/actions/particular-actions';
 import { PlayerActions } from './player';
+import { TagListActions } from './tag-list';
 
 export type SimpleAction =
   | particularActions.SetPlayback
@@ -23,6 +24,7 @@ export type SimpleAction =
   | particularActions.SetTimeTagDisappearsAt
   | particularActions.SetVideoStatus
   | particularActions.VideoStartSeekingToStage
-  | PlayerActions;
+  | PlayerActions
+  | TagListActions;
 
 export * from './player';

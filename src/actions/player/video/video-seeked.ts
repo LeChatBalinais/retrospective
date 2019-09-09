@@ -4,7 +4,7 @@ export type VideoSeeked = SimpleActionTemplate<'VIDEO_SEEKED', {}>;
 
 export const VIDEO_SEEKED = 'VIDEO_SEEKED';
 
-export default function videoSeeked(): VideoSeeked {
+export function videoSeeked(): VideoSeeked {
   return { type: VIDEO_SEEKED, payload: {} };
 }
 

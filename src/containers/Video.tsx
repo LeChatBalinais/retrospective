@@ -1,34 +1,35 @@
 import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
 import Video, { ValueProps, FuncProps } from '../components/Video';
-import setCurrentTime from '../thunks/set-current-time';
-import setDuration from '../actions/set-duration';
+import { State } from '~/types';
 import {
+  videoSeeking,
+  videoSeeked,
+  videoPlayedToTime,
+  videoDurationChanged
+} from '~/actions';
+import {
+  shouldVideoSeek,
   getVideoURL,
-  getVideoStatus,
-  getUserSeek,
-  getSeekBarCurrentStage,
-  getVideoDuration,
-  shouldPlayVideo
-} from '../selectors/selectors';
-import { State, ThunkDispatch, VideoStatus } from '../types';
-import videoSeeking from '~/actions/player/video/video-seeking';
-import videoSeeked from '~/actions/player/video/video-seeked';
+  shouldVideoPlayback,
+  getTimeSeekTo
+} from '~/selectors';
 
 const mapStateToProps = (state: State): ValueProps => {
   return {
-    playback: shouldPlayVideo(state),
+    playback: shouldVideoPlayback(state),
     url: getVideoURL(state),
-    seek: getVideoStatus(state) !== VideoStatus.Seeking && getUserSeek(state),
-    timeSeekTo: getSeekBarCurrentStage(state) * getVideoDuration(state)
+    seek: shouldVideoSeek(state),
+    timeSeekTo: getTimeSeekTo(state)
   };
 };
 
-const mapDispatchToProps = (dispatch: ThunkDispatch): FuncProps => ({
+const mapDispatchToProps = (dispatch: Dispatch): FuncProps => ({
   onTimeUpdate: (time: number): void => {
-    dispatch(setCurrentTime({ time }));
+    dispatch(videoPlayedToTime({ time }));
   },
   onDurationChange: (duration: number): void => {
-    dispatch(setDuration({ duration }));
+    dispatch(videoDurationChanged({ duration }));
   },
   onSeeking: (time: number): void => {
     dispatch(videoSeeking({ time }));

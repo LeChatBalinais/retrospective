@@ -10,6 +10,10 @@ export const getPlayerStatus = ({
   player: { playbackStatus: status }
 }: State): boolean => status === PlaybackStatus.Playing;
 
+export const isVideoPlaying = ({
+  player: { playbackStatus, seekingStatus }
+}: State): boolean => playbackStatus && !seekingStatus;
+
 export const getPlayerStatusN = ({
   player: { playbackStatus: status }
 }: State): PlaybackStatus => status;
@@ -22,7 +26,7 @@ export const getVideoStatus = ({
 
 export const getUserSeek = ({
   player: { seekingStatus: status }
-}: State): boolean => status === SeekingStatus.Seeking;
+}: State): boolean => status !== SeekingStatus.NoSeeking;
 
 export const getCurrentTime = ({
   footage: { duration },
@@ -38,7 +42,8 @@ export const getStageSeekTo = ({
     video: { status: videoStatus, atStage, stageSeekingTo: stageSeekTo }
   }
 }: State): number =>
-  seekingStatus === SeekingStatus.Seeking || videoStatus === VideoStatus.Seeking
+  seekingStatus === SeekingStatus.SeekbarSeeking ||
+  videoStatus === VideoStatus.Seeking
     ? stageSeekTo * duration
     : atStage * duration;
 
@@ -58,7 +63,9 @@ export const getSeekBarCurrentStage = ({
     video: { atStage: videoAtStage }
   }
 }: State): number =>
-  seekingStatus === SeekingStatus.Seeking ? lastRequestedStage : videoAtStage;
+  seekingStatus === SeekingStatus.SeekbarSeeking
+    ? lastRequestedStage
+    : videoAtStage;
 
 export const getAboutToBeCurrentTime = ({
   player: {
@@ -66,7 +73,8 @@ export const getAboutToBeCurrentTime = ({
     video: { status: videoStatus, atStage, stageSeekingTo: stageSeekTo }
   }
 }: State): number =>
-  videoStatus === VideoStatus.Seeking || seekingStatus === SeekingStatus.Seeking
+  videoStatus === VideoStatus.Seeking ||
+  seekingStatus === SeekingStatus.SeekbarSeeking
     ? stageSeekTo
     : atStage;
 
