@@ -3,8 +3,8 @@ import TagExistanceStatusButton from '../containers/TagExistanceStatusButton';
 
 export interface ValueProps {
   ID: string;
-  isLocal: boolean;
-  isCurrent: boolean;
+  isSaveButtonAvailable: boolean;
+  isHighlighted: boolean;
 }
 
 export interface FuncProps {
@@ -13,7 +13,12 @@ export interface FuncProps {
 
 export type Props = ValueProps & FuncProps;
 
-const TagRow = ({ ID, isLocal, isCurrent, onClick }: Props): JSX.Element => {
+const TagRow = ({
+  ID,
+  isSaveButtonAvailable: isLocal,
+  isHighlighted: isCurrent,
+  onClick
+}: Props): JSX.Element => {
   let className = 'box';
 
   if (isCurrent) className = className.concat(' current-tag-row');

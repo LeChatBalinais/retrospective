@@ -1,8 +1,10 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import TagRow, { ValueProps, FuncProps } from '../components/TagRow';
-import { makeIsTagLocal } from '../selectors/tag-selectors';
-import { isTagCurrent } from '../selectors/selectors';
+import {
+  isSaveButtonAvailable,
+  isTagRowHighlighted
+} from '../selectors/ui/tag-list/tag-row';
 import { State } from '../types';
 import { tagRowClicked } from '~/actions/tag-list';
 
@@ -17,25 +19,23 @@ interface Props {
   ID: string;
 }
 
-const makeMapStateToProps = (): MapStateToProps => {
-  const isTagLocal = makeIsTagLocal();
+const makeMapStateToProps = (): MapStateToProps => (
+  state: State,
+  { ID }: Props
+): ValueProps => ({
+  ID,
+  isSaveButtonAvailable: isSaveButtonAvailable(state, ID),
+  isHighlighted: isTagRowHighlighted(state, ID)
+});
 
-  return (state: State, { ID }: Props): ValueProps => {
-    return {
-      ID,
-      isLocal: isTagLocal(state, ID),
-      isCurrent: isTagCurrent(state, ID)
-    };
-  };
-};
-
-const makeMapDispatchToProps = (): MapDispatchToProps => {
-  return (dispatch: Dispatch, { ID }: Props): FuncProps => ({
-    onClick: (): void => {
-      dispatch(tagRowClicked({ tagID: ID }));
-    }
-  });
-};
+const makeMapDispatchToProps = (): MapDispatchToProps => (
+  dispatch: Dispatch,
+  { ID }: Props
+): FuncProps => ({
+  onClick: (): void => {
+    dispatch(tagRowClicked({ tagID: ID }));
+  }
+});
 
 export default connect(
   makeMapStateToProps,

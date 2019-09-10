@@ -5,9 +5,6 @@ import { TagListActions } from './tag-list';
 export type SimpleAction =
   | particularActions.SetPlayback
   | particularActions.SetPlaceNewTagMode
-  | particularActions.SetCurrentStage
-  | particularActions.SetDuration
-  | particularActions.SetUserSeek
   | particularActions.AddNewTag
   | particularActions.SetDraggedTag
   | particularActions.UpdateTagPath
@@ -19,11 +16,8 @@ export type SimpleAction =
   | particularActions.DeleteTag
   | particularActions.SaveTag
   | particularActions.FetchTags
-  | particularActions.SetStageSeekTo
   | particularActions.SetTimeTagAppearsAt
   | particularActions.SetTimeTagDisappearsAt
-  | particularActions.SetVideoStatus
-  | particularActions.VideoStartSeekingToStage
   | PlayerActions
   | TagListActions;
 

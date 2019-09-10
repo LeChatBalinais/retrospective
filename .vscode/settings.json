@@ -9,5 +9,6 @@
     "javascriptreact"
   ],
   "typescript.tsdk": "node_modules\\typescript\\lib",
-  "workbench.editor.enablePreview": false
+  "workbench.editor.enablePreview": false,
+  "typescript.validate.enable": false
 }
