@@ -54,7 +54,6 @@ const Video = ({
   }, [seek, timeSeekTo, onSeekingFunc]);
 
   const { current } = videoEl;
-
   if (current) {
     if (playback) {
       current.play();

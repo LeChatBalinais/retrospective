@@ -1,4 +1,4 @@
-import { State, Tag } from '~/types';
+import { State, Tag, VideoStatus } from '~/types';
 
 export const getTag = (
   {
@@ -19,3 +19,15 @@ export const isTagLocal = (state: State, ID: string): boolean => {
   if (!tag) return false;
   return tag.globalID === undefined;
 };
+
+export const getVideoStatus = ({
+  player: {
+    video: { status }
+  }
+}: State): VideoStatus => status;
+
+export const getStageVideoSeekingTo = ({
+  player: {
+    video: { stageSeekingTo }
+  }
+}: State): number => stageSeekingTo;

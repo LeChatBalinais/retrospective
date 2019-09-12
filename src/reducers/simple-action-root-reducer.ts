@@ -11,15 +11,15 @@ import RemoveTag from './remove-tag';
 import SetTagGlobalID from './set-tag-globalid';
 import setTimeTagAppearsAt from './set-time-tag-appears-at';
 import setTimeTagDisappearsAt from './set-time-tag-disappears-at';
-import mouseDownOnSeekBar from './player/seekbar/mouse-down-on-seekbar';
-import mouseUpDuringSeekbarSeeking from './player/seekbar/mouse-up-during-seekbar-seeking';
-import videoSeeking from './player/video/video-seeking';
-import videoSeeked from './player/video/video-seeked';
-import mouseMoveDuringSeekbarSeeking from './player/seekbar/mouse-move-during-seekbar-seeking';
-import playButtonClicked from './player/controls/play-button-clicked';
-import tagRowClicked from './tag-list/tag-row/tag-row-clicked';
-import videoPlayedToTime from './player/video/video-played-to-time';
-import videoDurationChanged from './player/video/video-duration-changed';
+import mouseDownOnSeekBar from './ui/player/seekbar/mouse-down-on-seekbar';
+import mouseUpDuringSeekbarSeeking from './ui/player/seekbar/mouse-up-during-seekbar-seeking';
+import videoSeeking from './ui/player/video/video-seeking';
+import videoSeeked from './ui/player/video/video-seeked';
+import mouseMoveDuringSeekbarSeeking from './ui/player/seekbar/mouse-move-during-seekbar-seeking';
+import playButtonClicked from './ui/player/controls/play-button-clicked';
+import tagRowClicked from './ui/tag-list/tag-row/tag-row-clicked';
+import videoPlayedToTime from './ui/player/video/video-played-to-time';
+import videoDurationChanged from './ui/player/video/video-duration-changed';
 
 const simpleActionRootReducer = (): ((
   state: State,
