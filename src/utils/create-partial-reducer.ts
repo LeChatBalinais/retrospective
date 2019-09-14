@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+type Selector<S, P, A> = (state?: S, payload?: P) => A;
+
 export function createPartialReducer<S, V>(
   getReducedVal: (state: S) => V,
   setReducedVal: (state: S, val: V) => S,
@@ -10,14 +12,21 @@ export function createPartialReducer<S, V, P, A1>(
   getReducedVal: (state: S) => V,
   setReducedVal: (state: S, val: V) => S,
   calculateReducedVal: (arg1: A1) => V,
-  selectors: [(state?: S, payload?: P) => A1]
+  selectors: [Selector<S, P, A1>]
 ): (initialState: S, currentState: S, payload: P) => S;
 
 export function createPartialReducer<S, V, P, A1, A2>(
   getReducedVal: (state: S) => V,
   setReducedVal: (state: S, val: V) => S,
   calculateReducedVal: (arg1: A1, arg2: A2) => V,
-  selectors: [(state?: S, payload?: P) => A1, (state?: S, payload?: P) => A2]
+  selectors: [Selector<S, P, A1>, Selector<S, P, A2>]
+): (initialState: S, currentState: S, payload: P) => S;
+
+export function createPartialReducer<S, V, P, A1, A2, A3>(
+  getReducedVal: (state: S) => V,
+  setReducedVal: (state: S, val: V) => S,
+  calculateReducedVal: (arg1: A1, arg2: A2, arg3: A3) => V,
+  selectors: [Selector<S, P, A1>, Selector<S, P, A2>, Selector<S, P, A3>]
 ): (initialState: S, currentState: S, payload: P) => S;
 
 export function createPartialReducer<S, V, P, A1, A2, A3, A4>(
@@ -25,10 +34,23 @@ export function createPartialReducer<S, V, P, A1, A2, A3, A4>(
   setReducedVal: (state: S, val: V) => S,
   calculateReducedVal: (arg1: A1, arg2: A2, arg3: A3, arg4: A4) => V,
   selectors: [
-    (state?: S, payload?: P) => A1,
-    (state?: S, payload?: P) => A2,
-    (state?: S, payload?: P) => A3,
-    (state?: S, payload?: P) => A4
+    Selector<S, P, A1>,
+    Selector<S, P, A2>,
+    Selector<S, P, A3>,
+    Selector<S, P, A4>
+  ]
+): (initialState: S, currentState: S, payload: P) => S;
+
+export function createPartialReducer<S, V, P, A1, A2, A3, A4, A5>(
+  getReducedVal: (state: S) => V,
+  setReducedVal: (state: S, val: V) => S,
+  calculateReducedVal: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5) => V,
+  selectors: [
+    Selector<S, P, A1>,
+    Selector<S, P, A2>,
+    Selector<S, P, A3>,
+    Selector<S, P, A4>,
+    Selector<S, P, A5>
   ]
 ): (initialState: S, currentState: S, payload: P) => S;
 

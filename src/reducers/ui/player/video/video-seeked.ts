@@ -78,5 +78,5 @@ const subReducers = [
 
 export default {
   actionType: VIDEO_SEEKED,
-  reducer: createReducer<State, {}>(subReducers)
+  reducer: createReducer<State>(subReducers)
 };
