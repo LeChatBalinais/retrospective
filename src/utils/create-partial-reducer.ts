@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export function createPartialReducer<S, V>(
   getReducedVal: (state: S) => V,
   setReducedVal: (state: S, val: V) => S,
@@ -7,19 +9,16 @@ export function createPartialReducer<S, V>(
 export function createPartialReducer<S, V, P, A1, A2>(
   getReducedVal: (state: S) => V,
   setReducedVal: (state: S, val: V) => S,
-  calculateReducedVal: (args: [A1, A2]) => V,
-  selectors: [
-    (arg?: { state?: S; payload?: P }) => A1,
-    (arg?: { state?: S; payload?: P }) => A2
-  ]
+  calculateReducedVal: (arg1: A1, arg2: A2) => V,
+  selectors: [(state?: S, payload?: P) => A1, (state?: S, payload?: P) => A2]
 ): (initialState: S, currentState: S, payload: P) => S;
 
 export function createPartialReducer<S, V, P>(
   getReducedVal: (state: S) => V,
   setReducedVal: (state: S, val: V) => S,
-  calculateReducedVal: (args?: any[]) => V,
+  calculateReducedVal: (...args: any[]) => V,
   selectors?: ((state?: S, payload?: P) => any)[]
-): (initialState: S, currentState: S) => S {
+): (initialState: S, currentState: S, payload?: P) => S {
   return (initialState: S, currentState: S, payload?: P): S => {
     let val;
     if (!selectors) val = calculateReducedVal();
@@ -29,7 +28,7 @@ export function createPartialReducer<S, V, P>(
         args.push(selector(initialState, payload));
       });
 
-      val = calculateReducedVal(args);
+      val = calculateReducedVal(...args);
     }
 
     if (getReducedVal(initialState) === val) return currentState;

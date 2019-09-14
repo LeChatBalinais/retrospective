@@ -15,7 +15,7 @@ const videoPlayedToTime = (
       ...state.player,
       video: {
         ...state.player.video,
-        atStage: toTime / duration
+        stageAt: toTime / duration
       }
     }
   };

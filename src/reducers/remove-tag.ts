@@ -18,6 +18,7 @@ const removeTag = (state: State, action: RemoveTag): State => {
 
   const oldCurrentTag = getCurrentTagID(state);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { [IDtoRemove]: removedTag, ...newByID } = byID;
 
   return {

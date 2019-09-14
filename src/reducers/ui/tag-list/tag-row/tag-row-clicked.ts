@@ -17,7 +17,7 @@ const tagRowClicked = (
 
   const {
     seekingStatus: prevSeekingStatus,
-    video: { atStage: videoAtStage }
+    video: { stageAt: stageVideoAt }
   } = player;
 
   if (tag.path.length === 0) return state;
@@ -25,7 +25,7 @@ const tagRowClicked = (
   let lastRequestedStage = tag.path[0].time / duration;
   let seekingStatus = SeekingStatus.Seeking;
 
-  if (lastRequestedStage === videoAtStage) {
+  if (lastRequestedStage === stageVideoAt) {
     lastRequestedStage = undefined;
     seekingStatus = prevSeekingStatus;
   }

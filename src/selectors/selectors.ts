@@ -31,7 +31,7 @@ export const getUserSeek = ({
 export const getCurrentTime = ({
   footage: { duration },
   player: {
-    video: { atStage }
+    video: { stageAt: atStage }
   }
 }: State): number => atStage * duration;
 
@@ -39,7 +39,11 @@ export const getStageSeekTo = ({
   footage: { duration },
   player: {
     seekingStatus,
-    video: { status: videoStatus, atStage, stageSeekingTo: stageSeekTo }
+    video: {
+      status: videoStatus,
+      stageAt: atStage,
+      stageSeekingTo: stageSeekTo
+    }
   }
 }: State): number =>
   seekingStatus === SeekingStatus.SeekbarSeeking ||
@@ -56,7 +60,7 @@ export const getVideoDuration = (state: State): number => {
 
 export const getCurrentStage = ({
   player: {
-    video: { atStage }
+    video: { stageAt: atStage }
   }
 }: State): number => atStage;
 
@@ -64,17 +68,21 @@ export const getSeekBarCurrentStage = ({
   player: {
     seekingStatus,
     lastRequestedStage,
-    video: { atStage: videoAtStage }
+    video: { stageAt: stageVideoAt }
   }
 }: State): number =>
   seekingStatus === SeekingStatus.SeekbarSeeking
     ? lastRequestedStage
-    : videoAtStage;
+    : stageVideoAt;
 
 export const getAboutToBeCurrentTime = ({
   player: {
     seekingStatus,
-    video: { status: videoStatus, atStage, stageSeekingTo: stageSeekTo }
+    video: {
+      status: videoStatus,
+      stageAt: atStage,
+      stageSeekingTo: stageSeekTo
+    }
   }
 }: State): number =>
   videoStatus === VideoStatus.Seeking ||

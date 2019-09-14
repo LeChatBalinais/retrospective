@@ -10,10 +10,10 @@ const getToTime = (state: State, { time }: VideoSeekingPayload): number => time;
 
 const calculateVideoStatus = (): VideoStatus => VideoStatus.Seeking;
 
-const calculateStageVideoSeekingTo = ([duration, toTime]: [
-  number,
-  number
-]): number => toTime / duration;
+const calculateStageVideoSeekingTo = (
+  duration: number,
+  toTime: number
+): number => toTime / duration;
 
 const subReducers = [
   createPartialReducer(getVideoStatus, setVideoStatus, calculateVideoStatus),

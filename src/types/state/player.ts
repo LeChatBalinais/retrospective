@@ -4,7 +4,7 @@ export interface Player {
   readonly lastRequestedStage: number;
   readonly video?: {
     status: VideoStatus;
-    atStage?: number;
+    stageAt?: number;
     stageSeekingTo?: number;
   };
   readonly seekbar: {

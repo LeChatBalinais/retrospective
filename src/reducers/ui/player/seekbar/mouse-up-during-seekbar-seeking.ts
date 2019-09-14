@@ -6,7 +6,7 @@ const mouseUpDuringSeekbarSeeking = (state: State): State => {
 
   const {
     seekbar: { status: seekbarStatus },
-    video: { atStage, status: videoStatus },
+    video: { stageAt: atStage, status: videoStatus },
     lastRequestedStage
   } = player;
 

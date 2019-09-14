@@ -3,13 +3,13 @@ import { State, VideoStatus, SeekingStatus, SeekbarStatus } from '~/types';
 import createReducer from '~/utils/create-reducer';
 import { getVideoStatus } from '~/selectors/selectors';
 
-const videoAtStageReducer = (
+const stageVideoAtReducer = (
   initialState: State,
   currentState: State
 ): State => {
   const {
     player: {
-      video: { stageSeekingTo: stageVideoSeekingTo, atStage: prevAtStage }
+      video: { stageSeekingTo: stageVideoSeekingTo, stageAt: prevAtStage }
     }
   } = initialState;
 
@@ -21,7 +21,7 @@ const videoAtStageReducer = (
     ...currentState,
     player: {
       ...currentState.player,
-      video: { ...currentState.player.video, atStage }
+      video: { ...currentState.player.video, stageAt: atStage }
     }
   };
 };
@@ -131,7 +131,7 @@ const subReducers = [
   videoStatusReducer,
   lastRequestedStageReducer,
   seekingStatusReducer,
-  videoAtStageReducer
+  stageVideoAtReducer
 ];
 
 export default {
