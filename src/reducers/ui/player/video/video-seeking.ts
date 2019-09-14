@@ -1,37 +1,29 @@
 import { VIDEO_SEEKING } from '~/actions';
 import { State, VideoSeekingPayload, VideoStatus } from '~/types';
-import createReducer from '~/reducers/create-reducer';
+import createReducer from '~/utils/create-reducer';
 import { getVideoStatus, getStageVideoSeekingTo } from '~/selectors/common';
 import { getVideoDuration } from '~/selectors/selectors';
 import { setVideoStatus, setStageVideoSeekingTo } from '~/reducers/base';
+import { createPartialReducer } from '~/utils/create-partial-reducer';
 
-const videoStatusReducer = (
-  initialState: State,
-  currentState: State
-): State => {
-  const status = VideoStatus.Seeking;
+const getToTime = (state: State, { time }: VideoSeekingPayload): number => time;
 
-  if (status === getVideoStatus(initialState)) return currentState;
+const calculateVideoStatus = (): VideoStatus => VideoStatus.Seeking;
 
-  return setVideoStatus(currentState, status);
-};
+const calculateStageVideoSeekingTo = ([duration, toTime]: [
+  number,
+  number
+]): number => toTime / duration;
 
-const stageVideoSeekingToReducer = (
-  initialState: State,
-  currentState: State,
-  { time: toTime }: VideoSeekingPayload
-): State => {
-  const duration = getVideoDuration(initialState);
-
-  const stageSeekingTo = toTime / duration;
-
-  if (stageSeekingTo === getStageVideoSeekingTo(initialState))
-    return currentState;
-
-  return setStageVideoSeekingTo(currentState, stageSeekingTo);
-};
-
-const subReducers = [videoStatusReducer, stageVideoSeekingToReducer];
+const subReducers = [
+  createPartialReducer(getVideoStatus, setVideoStatus, calculateVideoStatus),
+  createPartialReducer(
+    getStageVideoSeekingTo,
+    setStageVideoSeekingTo,
+    calculateStageVideoSeekingTo,
+    [getVideoDuration, getToTime]
+  )
+];
 
 export default {
   actionType: VIDEO_SEEKING,

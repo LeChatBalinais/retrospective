@@ -47,8 +47,12 @@ export const getStageSeekTo = ({
     ? stageSeekTo * duration
     : atStage * duration;
 
-export const getVideoDuration = ({ footage: { duration } }: State): number =>
-  duration;
+export const getVideoDuration = (state: State): number => {
+  const {
+    footage: { duration }
+  } = state;
+  return duration;
+};
 
 export const getCurrentStage = ({
   player: {

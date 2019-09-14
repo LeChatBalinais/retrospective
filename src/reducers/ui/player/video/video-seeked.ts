@@ -1,6 +1,6 @@
 import { VIDEO_SEEKED } from '~/actions';
 import { State, VideoStatus, SeekingStatus, SeekbarStatus } from '~/types';
-import createReducer from '~/reducers/create-reducer';
+import createReducer from '~/utils/create-reducer';
 import { getVideoStatus } from '~/selectors/selectors';
 
 const videoAtStageReducer = (
@@ -126,6 +126,7 @@ const stageSeekingToReducer = (
 };
 
 const subReducers = [
+  // createPartialReducer()
   stageSeekingToReducer,
   videoStatusReducer,
   lastRequestedStageReducer,
