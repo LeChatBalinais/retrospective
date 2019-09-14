@@ -1,137 +1,79 @@
 import { VIDEO_SEEKED } from '~/actions';
 import { State, VideoStatus, SeekingStatus, SeekbarStatus } from '~/types';
 import createReducer from '~/utils/create-reducer';
-import { getVideoStatus } from '~/selectors/selectors';
+import { createPartialReducer } from '~/utils/create-partial-reducer';
+import {
+  getVideoStatus,
+  getStageVideoAt,
+  getStageVideoSeekingTo,
+  getSeekingStatus,
+  getLastRequestedStage,
+  getSeekbarStatus
+} from '~/selectors/common';
+import {
+  setStageVideoAt,
+  setSeekingStatus,
+  setLastRequestedStage,
+  setVideoStatus,
+  setStageVideoSeekingTo
+} from '~/reducers/base';
 
-const stageVideoAtReducer = (
-  initialState: State,
-  currentState: State
-): State => {
-  const {
-    player: {
-      video: { stageSeekingTo: stageVideoSeekingTo, stageAt: prevAtStage }
-    }
-  } = initialState;
+const calculateStageVideoAt = (stageVideoSeekingTo: number): number =>
+  stageVideoSeekingTo;
 
-  const atStage = stageVideoSeekingTo;
+const calculateSeekingStatus = (
+  stageVideoSeekingTo: number,
+  lastRequestedStage: number,
+  seekbarStatus: SeekbarStatus,
+  prevSeekingStatus: SeekingStatus
+): SeekingStatus =>
+  stageVideoSeekingTo === lastRequestedStage &&
+  seekbarStatus === SeekbarStatus.Idle
+    ? SeekingStatus.NoSeeking
+    : prevSeekingStatus;
 
-  if (atStage === prevAtStage) return currentState;
+const calculateLastRequestedStage = (
+  stageVideoSeekingTo: number,
+  prevLastRequestedStage: number
+): number =>
+  stageVideoSeekingTo === prevLastRequestedStage
+    ? undefined
+    : prevLastRequestedStage;
 
-  return {
-    ...currentState,
-    player: {
-      ...currentState.player,
-      video: { ...currentState.player.video, stageAt: atStage }
-    }
-  };
-};
+const calculateVideoStatus = (): VideoStatus => VideoStatus.Paused;
 
-const seekingStatusReducer = (
-  initialState: State,
-  currentState: State
-): State => {
-  const {
-    player: {
-      video: { stageSeekingTo },
-      seekingStatus: prevSeekingStatus,
-      seekbar: { status: seekbarStatus },
-      lastRequestedStage
-    }
-  } = initialState;
-
-  const seekingStatus =
-    stageSeekingTo === lastRequestedStage &&
-    seekbarStatus === SeekbarStatus.Idle
-      ? SeekingStatus.NoSeeking
-      : prevSeekingStatus;
-
-  if (seekingStatus === prevSeekingStatus) return currentState;
-
-  return {
-    ...currentState,
-    player: {
-      ...currentState.player,
-      seekingStatus
-    }
-  };
-};
-
-const lastRequestedStageReducer = (
-  initialState: State,
-  currentState: State
-): State => {
-  const {
-    player: {
-      video: { stageSeekingTo },
-      lastRequestedStage: prevLastRequestedStage
-    }
-  } = initialState;
-
-  const lastRequestedStage =
-    stageSeekingTo === prevLastRequestedStage
-      ? undefined
-      : prevLastRequestedStage;
-
-  if (lastRequestedStage === prevLastRequestedStage) return currentState;
-
-  return {
-    ...currentState,
-    player: {
-      ...currentState.player,
-      lastRequestedStage
-    }
-  };
-};
-
-const videoStatusReducer = (
-  initialState: State,
-  currentState: State
-): State => {
-  const prevStatus = getVideoStatus(initialState);
-
-  const status = VideoStatus.Paused;
-
-  if (status === prevStatus) return currentState;
-
-  return {
-    ...currentState,
-    player: {
-      ...currentState.player,
-      video: { ...currentState.player.video, status: VideoStatus.Paused }
-    }
-  };
-};
-
-const stageSeekingToReducer = (
-  initialState: State,
-  currentState: State
-): State => {
-  const {
-    player: {
-      video: { stageSeekingTo: prevStageSeekingTo }
-    }
-  } = initialState;
-
-  const stageSeekingTo = undefined;
-
-  if (stageSeekingTo === prevStageSeekingTo) return currentState;
-
-  return {
-    ...currentState,
-    player: {
-      ...currentState.player,
-      video: { ...currentState.player.video, stageSeekingTo }
-    }
-  };
-};
+const calculateStageVideoSeekingTo = (): number => undefined;
 
 const subReducers = [
-  // createPartialReducer()
-  stageSeekingToReducer,
-  videoStatusReducer,
-  lastRequestedStageReducer,
-  seekingStatusReducer,
-  stageVideoAtReducer
+  createPartialReducer(
+    getStageVideoSeekingTo,
+    setStageVideoSeekingTo,
+    calculateStageVideoSeekingTo
+  ),
+  createPartialReducer(getVideoStatus, setVideoStatus, calculateVideoStatus),
+  createPartialReducer(
+    getLastRequestedStage,
+    setLastRequestedStage,
+    calculateLastRequestedStage,
+    [getStageVideoSeekingTo, getLastRequestedStage]
+  ),
+  createPartialReducer(
+    getSeekingStatus,
+    setSeekingStatus,
+    calculateSeekingStatus,
+    [
+      getStageVideoSeekingTo,
+      getLastRequestedStage,
+      getSeekbarStatus,
+      getSeekingStatus
+    ]
+  ),
+  createPartialReducer(
+    getStageVideoAt,
+    setStageVideoAt,
+    calculateStageVideoAt,
+    [getStageVideoSeekingTo]
+  )
 ];
 
 export default {

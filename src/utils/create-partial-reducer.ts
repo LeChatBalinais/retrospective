@@ -6,11 +6,30 @@ export function createPartialReducer<S, V>(
   calculateReducedVal: () => V
 ): (initialState: S, currentState: S) => S;
 
+export function createPartialReducer<S, V, P, A1>(
+  getReducedVal: (state: S) => V,
+  setReducedVal: (state: S, val: V) => S,
+  calculateReducedVal: (arg1: A1) => V,
+  selectors: [(state?: S, payload?: P) => A1]
+): (initialState: S, currentState: S, payload: P) => S;
+
 export function createPartialReducer<S, V, P, A1, A2>(
   getReducedVal: (state: S) => V,
   setReducedVal: (state: S, val: V) => S,
   calculateReducedVal: (arg1: A1, arg2: A2) => V,
   selectors: [(state?: S, payload?: P) => A1, (state?: S, payload?: P) => A2]
+): (initialState: S, currentState: S, payload: P) => S;
+
+export function createPartialReducer<S, V, P, A1, A2, A3, A4>(
+  getReducedVal: (state: S) => V,
+  setReducedVal: (state: S, val: V) => S,
+  calculateReducedVal: (arg1: A1, arg2: A2, arg3: A3, arg4: A4) => V,
+  selectors: [
+    (state?: S, payload?: P) => A1,
+    (state?: S, payload?: P) => A2,
+    (state?: S, payload?: P) => A3,
+    (state?: S, payload?: P) => A4
+  ]
 ): (initialState: S, currentState: S, payload: P) => S;
 
 export function createPartialReducer<S, V, P>(
