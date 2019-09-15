@@ -1,6 +1,7 @@
 import {
   MOUSE_MOVE_DURING_SEEKBAR_SEEKING,
-  MouseMoveDuringSeekbarSeekingPayload
+  MouseMoveDuringSeekbarSeekingPayload,
+  MouseMoveDuringSeekbarSeekingType
 } from '~/actions';
 import { State } from '~/types';
 import createReducer from '~/utils/create-reducer';
@@ -26,5 +27,9 @@ const partialReducers = [
 
 export default {
   actionType: MOUSE_MOVE_DURING_SEEKBAR_SEEKING,
-  reducer: createReducer(partialReducers)
+  reducer: createReducer<
+    MouseMoveDuringSeekbarSeekingType,
+    State,
+    MouseMoveDuringSeekbarSeekingPayload
+  >(partialReducers)
 };

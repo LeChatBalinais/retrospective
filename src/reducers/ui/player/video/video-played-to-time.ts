@@ -1,4 +1,8 @@
-import { VIDEO_PLAYED_TO_TIME, VideoPlayedToTimePayload } from '~/actions';
+import {
+  VIDEO_PLAYED_TO_TIME,
+  VideoPlayedToTimePayload,
+  VideoPlayedToTimeType
+} from '~/actions';
 import { State } from '~/types';
 import createReducer from '~/utils/create-reducer';
 import { setStageVideoAt } from '~/reducers/base';
@@ -23,5 +27,9 @@ const partialReducers = [
 
 export default {
   actionType: VIDEO_PLAYED_TO_TIME,
-  reducer: createReducer(partialReducers)
+  reducer: createReducer<
+    VideoPlayedToTimeType,
+    State,
+    VideoPlayedToTimePayload
+  >(partialReducers)
 };

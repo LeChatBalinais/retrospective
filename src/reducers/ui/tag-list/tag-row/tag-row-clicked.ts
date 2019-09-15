@@ -1,4 +1,8 @@
-import { TAG_ROW_CLICKED, TagRowClickedPayload } from '~/actions/tag-list';
+import {
+  TAG_ROW_CLICKED,
+  TagRowClickedPayload,
+  TagRowClickedType
+} from '~/actions/tag-list';
 import { State, SeekingStatus, PlaneTimePoint } from '~/types';
 import createReducer from '~/utils/create-reducer';
 import { getCurrentTagID, getVideoDuration } from '~/selectors/selectors';
@@ -77,5 +81,7 @@ const partialReducers = [
 
 export default {
   actionType: TAG_ROW_CLICKED,
-  reducer: createReducer<State, TagRowClickedPayload>(partialReducers)
+  reducer: createReducer<TagRowClickedType, State, TagRowClickedPayload>(
+    partialReducers
+  )
 };

@@ -1,11 +1,13 @@
 import { SimpleActionTemplate } from '~/types/actions/simple-action-template';
 
+export type VideoDurationChangedType = 'VIDEO_DURATION_CHANGED';
+
 export interface VideoDurationChangedPayload {
   duration: number;
 }
 
 export type VideoDurationChanged = SimpleActionTemplate<
-  'VIDEO_DURATION_CHANGED',
+  VideoDurationChangedType,
   VideoDurationChangedPayload
 >;
 
@@ -16,5 +18,3 @@ export function videoDurationChanged(
 ): VideoDurationChanged {
   return { type: VIDEO_DURATION_CHANGED, payload };
 }
-
-export const VideoDurationChanged = undefined;

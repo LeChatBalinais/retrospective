@@ -1,5 +1,5 @@
-import { VIDEO_SEEKED } from '~/actions';
-import { VideoStatus, SeekingStatus, SeekbarStatus } from '~/types';
+import { VIDEO_SEEKED, VideoSeekedType } from '~/actions';
+import { VideoStatus, SeekingStatus, SeekbarStatus, State } from '~/types';
 import createReducer from '~/utils/create-reducer';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
 import {
@@ -78,5 +78,5 @@ const partialReducers = [
 
 export default {
   actionType: VIDEO_SEEKED,
-  reducer: createReducer(partialReducers)
+  reducer: createReducer<VideoSeekedType, State>(partialReducers)
 };

@@ -1,5 +1,5 @@
-import { PLAY_BUTTON_CLICKED } from '~/actions';
-import { PlaybackStatus } from '~/types';
+import { PLAY_BUTTON_CLICKED, PlayButtonClickedType } from '~/actions';
+import { PlaybackStatus, State } from '~/types';
 import createReducer from '~/utils/create-reducer';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
 import { getPlaybackStatus } from '~/selectors/common';
@@ -23,5 +23,5 @@ const partialReducers = [
 
 export default {
   actionType: PLAY_BUTTON_CLICKED,
-  reducer: createReducer(partialReducers)
+  reducer: createReducer<PlayButtonClickedType, State>(partialReducers)
 };

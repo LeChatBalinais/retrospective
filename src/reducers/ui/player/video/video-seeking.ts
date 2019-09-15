@@ -1,4 +1,4 @@
-import { VIDEO_SEEKING } from '~/actions';
+import { VIDEO_SEEKING, VideoSeekingType } from '~/actions';
 import { State, VideoSeekingPayload, VideoStatus } from '~/types';
 import createReducer from '~/utils/create-reducer';
 import { getVideoStatus, getStageVideoSeekingTo } from '~/selectors/common';
@@ -27,5 +27,7 @@ const partialReducers = [
 
 export default {
   actionType: VIDEO_SEEKING,
-  reducer: createReducer(partialReducers)
+  reducer: createReducer<VideoSeekingType, State, VideoSeekingPayload>(
+    partialReducers
+  )
 };

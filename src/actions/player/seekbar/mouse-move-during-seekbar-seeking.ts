@@ -1,11 +1,12 @@
 import { SimpleActionTemplate } from '~/types/actions/simple-action-template';
 
+export type MouseMoveDuringSeekbarSeekingType = 'MOUSE_MOVE_DURING_SEEKBAR_SEEKING';
 export interface MouseMoveDuringSeekbarSeekingPayload {
   position: number;
 }
 
 export type MouseMoveDuringSeekbarSeeking = SimpleActionTemplate<
-  'MOUSE_MOVE_DURING_SEEKBAR_SEEKING',
+  MouseMoveDuringSeekbarSeekingType,
   MouseMoveDuringSeekbarSeekingPayload
 >;
 
@@ -17,6 +18,3 @@ export default function mouseMoveDuringSeekbarSeeking(
 ): MouseMoveDuringSeekbarSeeking {
   return { type: MOUSE_MOVE_DURING_SEEKBAR_SEEKING, payload };
 }
-
-export const MouseMoveDuringSeekbarSeekingPayload = undefined;
-export const MouseMoveDuringSeekbarSeeking = undefined;

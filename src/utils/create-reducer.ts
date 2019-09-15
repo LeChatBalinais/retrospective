@@ -1,10 +1,10 @@
-type Reducer<S, P> = (state: S, action: { payload: P }) => S;
+type Reducer<T, S, P> = (state: S, action: { type: T; payload: P }) => S;
 type SubReducer<S, P> = (initialState: S, currentState: S, payload: P) => S;
 
-export default function createReducer<S, P = {}>(
+export default function createReducer<T, S, P = {}>(
   reducers: SubReducer<S, P>[]
-): Reducer<S, P> {
-  return (state: S, { payload }: { payload: P }): S => {
+): Reducer<T, S, P> {
+  return (state: S, { payload }: { type: T; payload: P }): S => {
     let newState = state;
 
     newState = reducers.reduce(

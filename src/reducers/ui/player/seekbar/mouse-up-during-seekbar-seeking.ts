@@ -1,5 +1,8 @@
-import { MOUSE_UP_DURING_SEEKBAR_SEEKING } from '~/actions';
-import { SeekbarStatus, SeekingStatus, VideoStatus } from '~/types';
+import {
+  MOUSE_UP_DURING_SEEKBAR_SEEKING,
+  MouseUpDuringSeekbarSeekingType
+} from '~/actions';
+import { SeekbarStatus, SeekingStatus, VideoStatus, State } from '~/types';
 import createReducer from '~/utils/create-reducer';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
 import {
@@ -57,5 +60,7 @@ const partialReducers = [
 
 export default {
   actionType: MOUSE_UP_DURING_SEEKBAR_SEEKING,
-  reducer: createReducer(partialReducers)
+  reducer: createReducer<MouseUpDuringSeekbarSeekingType, State, {}>(
+    partialReducers
+  )
 };

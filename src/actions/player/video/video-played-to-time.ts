@@ -1,11 +1,13 @@
 import { SimpleActionTemplate } from '~/types/actions/simple-action-template';
 
+export type VideoPlayedToTimeType = 'VIDEO_PLAYED_TO_TIME';
+
 export interface VideoPlayedToTimePayload {
   time: number;
 }
 
 export type VideoPlayedToTime = SimpleActionTemplate<
-  'VIDEO_PLAYED_TO_TIME',
+  VideoPlayedToTimeType,
   VideoPlayedToTimePayload
 >;
 
@@ -16,5 +18,3 @@ export function videoPlayedToTime(
 ): VideoPlayedToTime {
   return { type: VIDEO_PLAYED_TO_TIME, payload };
 }
-
-export const VideoPlayedToTime = undefined;

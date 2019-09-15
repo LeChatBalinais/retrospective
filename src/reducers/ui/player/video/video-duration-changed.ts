@@ -1,4 +1,8 @@
-import { VIDEO_DURATION_CHANGED, VideoDurationChangedPayload } from '~/actions';
+import {
+  VIDEO_DURATION_CHANGED,
+  VideoDurationChangedPayload,
+  VideoDurationChangedType
+} from '~/actions';
 import { State } from '~/types';
 import { getVideoDuration } from '~/selectors/selectors';
 import { setVideoDuration, setStageVideoAt } from '~/reducers/base';
@@ -24,5 +28,9 @@ const partialReducers = [
 
 export default {
   actionType: VIDEO_DURATION_CHANGED,
-  reducer: createReducer(partialReducers)
+  reducer: createReducer<
+    VideoDurationChangedType,
+    State,
+    VideoDurationChangedPayload
+  >(partialReducers)
 };
