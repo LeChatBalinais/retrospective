@@ -1,19 +1,19 @@
 import { SimpleActionTemplate } from '~/types/actions/simple-action-template';
 
-export interface MouseMoveOnSeekBarPayload {
+export interface MouseMoveDuringSeekbarSeekingPayload {
   position: number;
 }
 
 export type MouseMoveDuringSeekbarSeeking = SimpleActionTemplate<
   'MOUSE_MOVE_DURING_SEEKBAR_SEEKING',
-  MouseMoveOnSeekBarPayload
+  MouseMoveDuringSeekbarSeekingPayload
 >;
 
 export const MOUSE_MOVE_DURING_SEEKBAR_SEEKING =
   'MOUSE_MOVE_DURING_SEEKBAR_SEEKING';
 
 export default function mouseMoveDuringSeekbarSeeking(
-  payload: MouseMoveOnSeekBarPayload
+  payload: MouseMoveDuringSeekbarSeekingPayload
 ): MouseMoveDuringSeekbarSeeking {
   return { type: MOUSE_MOVE_DURING_SEEKBAR_SEEKING, payload };
 }

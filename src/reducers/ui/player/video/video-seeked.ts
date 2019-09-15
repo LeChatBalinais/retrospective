@@ -1,5 +1,5 @@
 import { VIDEO_SEEKED } from '~/actions';
-import { State, VideoStatus, SeekingStatus, SeekbarStatus } from '~/types';
+import { VideoStatus, SeekingStatus, SeekbarStatus } from '~/types';
 import createReducer from '~/utils/create-reducer';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
 import {
@@ -44,7 +44,7 @@ const calculateVideoStatus = (): VideoStatus => VideoStatus.Paused;
 
 const calculateStageVideoSeekingTo = (): number => undefined;
 
-const subReducers = [
+const partialReducers = [
   createPartialReducer(
     getStageVideoSeekingTo,
     setStageVideoSeekingTo,
@@ -78,5 +78,5 @@ const subReducers = [
 
 export default {
   actionType: VIDEO_SEEKED,
-  reducer: createReducer<State>(subReducers)
+  reducer: createReducer(partialReducers)
 };

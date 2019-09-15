@@ -18,3 +18,4 @@ export default function mouseDownOnSeekBar(
 }
 
 export const MouseDownOnSeekBar = undefined;
+export const MouseDownOnSeekBarPayload = undefined;

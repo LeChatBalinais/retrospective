@@ -1,4 +1,10 @@
-import { VideoStatus, State, SeekingStatus } from '~/types';
+import {
+  VideoStatus,
+  State,
+  SeekingStatus,
+  PlaybackStatus,
+  SeekbarStatus
+} from '~/types';
 
 export const setVideoStatus = (state: State, status: VideoStatus): State => ({
   ...state,
@@ -47,6 +53,31 @@ export const setSeekingStatus = (
   }
 });
 
+export const setSeekbarStatus = (
+  state: State,
+  status: SeekbarStatus
+): State => ({
+  ...state,
+  player: {
+    ...state.player,
+    seekbar: {
+      ...state.player.seekbar,
+      status
+    }
+  }
+});
+
+export const setPlaybackStatus = (
+  state: State,
+  playbackStatus: PlaybackStatus
+): State => ({
+  ...state,
+  player: {
+    ...state.player,
+    playbackStatus
+  }
+});
+
 export const setLastRequestedStage = (
   state: State,
   lastRequestedStage: number
@@ -56,4 +87,14 @@ export const setLastRequestedStage = (
     ...state.player,
     lastRequestedStage
   }
+});
+
+export const setVideoDuration = (state: State, duration: number): State => ({
+  ...state,
+  footage: { ...state.footage, duration }
+});
+
+export const setCurrentTagID = (state: State, currentTag: string): State => ({
+  ...state,
+  tagEditor: { ...state.tagEditor, currentTag }
 });

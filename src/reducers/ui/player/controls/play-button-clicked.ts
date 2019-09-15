@@ -1,26 +1,27 @@
 import { PLAY_BUTTON_CLICKED } from '~/actions';
-import { State, PlaybackStatus } from '~/types';
+import { PlaybackStatus } from '~/types';
+import createReducer from '~/utils/create-reducer';
+import { createPartialReducer } from '~/utils/create-partial-reducer';
+import { getPlaybackStatus } from '~/selectors/common';
+import { setPlaybackStatus } from '~/reducers/base';
 
-const playButtonClicked = (state: State): State => {
-  const { player } = state;
+const calculatePlaybackStatus = (
+  prevPlaybackStatus: PlaybackStatus
+): PlaybackStatus =>
+  prevPlaybackStatus === PlaybackStatus.Playing
+    ? PlaybackStatus.Paused
+    : PlaybackStatus.Playing;
 
-  const { playbackStatus: prevPlaybackStatus } = player;
-
-  let playbackStatus = PlaybackStatus.Playing;
-
-  if (prevPlaybackStatus === PlaybackStatus.Playing)
-    playbackStatus = PlaybackStatus.Paused;
-
-  return {
-    ...state,
-    player: {
-      ...player,
-      playbackStatus
-    }
-  };
-};
+const partialReducers = [
+  createPartialReducer(
+    getPlaybackStatus,
+    setPlaybackStatus,
+    calculatePlaybackStatus,
+    [getPlaybackStatus]
+  )
+];
 
 export default {
   actionType: PLAY_BUTTON_CLICKED,
-  reducer: playButtonClicked
+  reducer: createReducer(partialReducers)
 };

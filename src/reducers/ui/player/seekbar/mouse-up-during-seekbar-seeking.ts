@@ -1,38 +1,61 @@
 import { MOUSE_UP_DURING_SEEKBAR_SEEKING } from '~/actions';
-import { State, SeekbarStatus, SeekingStatus, VideoStatus } from '~/types';
+import { SeekbarStatus, SeekingStatus, VideoStatus } from '~/types';
+import createReducer from '~/utils/create-reducer';
+import { createPartialReducer } from '~/utils/create-partial-reducer';
+import {
+  getSeekingStatus,
+  getSeekbarStatus,
+  getVideoStatus,
+  getLastRequestedStage,
+  getStageVideoAt
+} from '~/selectors/common';
+import { setSeekingStatus, setSeekbarStatus } from '~/reducers/base';
 
-const mouseUpDuringSeekbarSeeking = (state: State): State => {
-  const { player } = state;
+const calculateSeekingStatus = (
+  seekbarStatus: SeekbarStatus,
+  videoStatus: VideoStatus,
+  lastRequestedStage: number,
+  stageVideoAt: number,
+  prevSeekingStatus: SeekingStatus
+): SeekingStatus => {
+  let seekingStatus = prevSeekingStatus;
 
-  const {
-    seekbar: { status: seekbarStatus },
-    video: { stageAt: atStage, status: videoStatus },
-    lastRequestedStage
-  } = player;
+  if (seekbarStatus === SeekbarStatus.Idle) return seekingStatus;
 
-  if (seekbarStatus === SeekbarStatus.Idle) return state;
-
-  let seekingStatus = SeekingStatus.NoSeeking;
+  seekingStatus = SeekingStatus.NoSeeking;
 
   if (
     videoStatus === VideoStatus.Seeking ||
-    (lastRequestedStage !== undefined && atStage !== lastRequestedStage)
+    (lastRequestedStage !== undefined && stageVideoAt !== lastRequestedStage)
   )
     seekingStatus = SeekingStatus.SeekbarSeeking;
 
-  return {
-    ...state,
-    player: {
-      ...player,
-      seekingStatus,
-      seekbar: {
-        status: SeekbarStatus.Idle
-      }
-    }
-  };
+  return seekingStatus;
 };
+
+const calculateSeekbarStatus = (): SeekbarStatus => SeekbarStatus.Idle;
+
+const partialReducers = [
+  createPartialReducer(
+    getSeekingStatus,
+    setSeekingStatus,
+    calculateSeekingStatus,
+    [
+      getSeekbarStatus,
+      getVideoStatus,
+      getLastRequestedStage,
+      getStageVideoAt,
+      getSeekingStatus
+    ]
+  ),
+  createPartialReducer(
+    getSeekbarStatus,
+    setSeekbarStatus,
+    calculateSeekbarStatus
+  )
+];
 
 export default {
   actionType: MOUSE_UP_DURING_SEEKBAR_SEEKING,
-  reducer: mouseUpDuringSeekbarSeeking
+  reducer: createReducer(partialReducers)
 };

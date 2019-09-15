@@ -1,4 +1,12 @@
-import { State, Tag, VideoStatus, SeekingStatus, SeekbarStatus } from '~/types';
+import {
+  State,
+  Tag,
+  VideoStatus,
+  SeekingStatus,
+  SeekbarStatus,
+  PlaneTimePoint,
+  PlaybackStatus
+} from '~/types';
 
 export const getTag = (
   {
@@ -26,6 +34,10 @@ export const getVideoStatus = ({
   }
 }: State): VideoStatus => status;
 
+export const getPlaybackStatus = ({
+  player: { playbackStatus }
+}: State): PlaybackStatus => playbackStatus;
+
 export const getStageVideoSeekingTo = ({
   player: {
     video: { stageSeekingTo }
@@ -51,3 +63,11 @@ export const getSeekbarStatus = ({
     seekbar: { status }
   }
 }: State): SeekbarStatus => status;
+
+export const getCurrentTagID = ({ tagEditor: { currentTag } }: State): string =>
+  currentTag;
+
+export const getTagPath = (state: State, tagID: string): PlaneTimePoint[] => {
+  const tag = getTag(state, tagID);
+  return tag ? tag.path : undefined;
+};

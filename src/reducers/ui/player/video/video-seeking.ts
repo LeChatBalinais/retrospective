@@ -15,7 +15,7 @@ const calculateStageVideoSeekingTo = (
   toTime: number
 ): number => toTime / duration;
 
-const subReducers = [
+const partialReducers = [
   createPartialReducer(getVideoStatus, setVideoStatus, calculateVideoStatus),
   createPartialReducer(
     getStageVideoSeekingTo,
@@ -27,5 +27,5 @@ const subReducers = [
 
 export default {
   actionType: VIDEO_SEEKING,
-  reducer: createReducer<State, VideoSeekingPayload>(subReducers)
+  reducer: createReducer(partialReducers)
 };

@@ -1,50 +1,81 @@
-import { TagRowClicked, TAG_ROW_CLICKED } from '~/actions/tag-list';
-import { State, SeekingStatus } from '~/types';
+import { TAG_ROW_CLICKED, TagRowClickedPayload } from '~/actions/tag-list';
+import { State, SeekingStatus, PlaneTimePoint } from '~/types';
+import createReducer from '~/utils/create-reducer';
+import { getCurrentTagID, getVideoDuration } from '~/selectors/selectors';
+import {
+  setCurrentTagID,
+  setLastRequestedStage,
+  setSeekingStatus
+} from '~/reducers/base';
+import { createPartialReducer } from '~/utils/create-partial-reducer';
+import {
+  getLastRequestedStage,
+  getStageVideoAt,
+  getTagPath,
+  getSeekingStatus
+} from '~/selectors/common';
 
-const tagRowClicked = (
+const getTagID = (state: State, { tagID }: TagRowClickedPayload): string =>
+  tagID;
+
+const getPath = (
   state: State,
-  { payload: { tagID } }: TagRowClicked
-): State => {
-  const {
-    player,
-    entities: {
-      tags: {
-        byID: { [tagID]: tag }
-      }
-    },
-    footage: { duration }
-  } = state;
+  { tagID }: TagRowClickedPayload
+): PlaneTimePoint[] => getTagPath(state, tagID);
 
-  const {
-    seekingStatus: prevSeekingStatus,
-    video: { stageAt: stageVideoAt }
-  } = player;
+const calculateCurrentTagID = (tagID: string): string => tagID;
 
-  if (tag.path.length === 0) return state;
+const calculateLastRequestedStage = (
+  stageVideoAt: number,
+  path: PlaneTimePoint[],
+  duration: number,
+  prevLastRequestedStage: number
+): number => {
+  if (path.length === 0) return prevLastRequestedStage;
 
-  let lastRequestedStage = tag.path[0].time / duration;
-  let seekingStatus = SeekingStatus.Seeking;
+  const lastRequestedStage = path[0].time / duration;
 
-  if (lastRequestedStage === stageVideoAt) {
-    lastRequestedStage = undefined;
-    seekingStatus = prevSeekingStatus;
-  }
+  if (lastRequestedStage === stageVideoAt) return undefined;
 
-  return {
-    ...state,
-    tagEditor: {
-      ...state.tagEditor,
-      currentTag: tagID
-    },
-    player: {
-      ...player,
-      seekingStatus,
-      lastRequestedStage
-    }
-  };
+  return lastRequestedStage;
 };
+
+const calculateSeekingStatus = (
+  stageVideoAt: number,
+  path: PlaneTimePoint[],
+  duration: number,
+  prevSeekingStatus: SeekingStatus
+): SeekingStatus => {
+  if (path.length === 0) return prevSeekingStatus;
+  const lastRequestedStage = path[0].time / duration;
+
+  if (lastRequestedStage === stageVideoAt) return prevSeekingStatus;
+
+  return SeekingStatus.Seeking;
+};
+
+const partialReducers = [
+  createPartialReducer(
+    getCurrentTagID,
+    setCurrentTagID,
+    calculateCurrentTagID,
+    [getTagID]
+  ),
+  createPartialReducer(
+    getLastRequestedStage,
+    setLastRequestedStage,
+    calculateLastRequestedStage,
+    [getStageVideoAt, getPath, getVideoDuration, getLastRequestedStage]
+  ),
+  createPartialReducer(
+    getSeekingStatus,
+    setSeekingStatus,
+    calculateSeekingStatus,
+    [getStageVideoAt, getPath, getVideoDuration, getSeekingStatus]
+  )
+];
 
 export default {
   actionType: TAG_ROW_CLICKED,
-  reducer: tagRowClicked
+  reducer: createReducer<State, TagRowClickedPayload>(partialReducers)
 };
