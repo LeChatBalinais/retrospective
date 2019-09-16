@@ -1,13 +1,11 @@
 import { State, SimpleAction } from '../types';
 import SetPlayback from './set-playback';
 import SetPlaceNewTagMode from './set-place-new-tag-mode';
-import AddNewTag from './add-new-tag';
 import SetDraggedTag from './set-dragged-tag';
 import UpdateTagPath from './update-tag-path';
 import SetTags from './set-tags';
 import SetTagTraceVisible from './set-tag-trace-visible';
 import SetCurrentTag from './set-current-tag';
-import RemoveTag from './remove-tag';
 import SetTagGlobalID from './set-tag-globalid';
 import setTimeTagAppearsAt from './set-time-tag-appears-at';
 import setTimeTagDisappearsAt from './set-time-tag-disappears-at';
@@ -20,6 +18,8 @@ import playButtonClicked from './ui/player/controls/play-button-clicked';
 import tagRowClicked from './ui/tag-list/tag-row/tag-row-clicked';
 import videoPlayedToTime from './ui/player/video/video-played-to-time';
 import videoDurationChanged from './ui/player/video/video-duration-changed';
+import tagDeletionConfirmed from './sagas/tag-deletion-confirmed';
+import newTagLayerClicked from './ui/player/new-tag-layer/new-tag-layer-clicked';
 
 const simpleActionRootReducer = (): ((
   state: State,
@@ -31,13 +31,11 @@ const simpleActionRootReducer = (): ((
   }[] = [
     SetPlayback,
     SetPlaceNewTagMode,
-    AddNewTag,
     SetDraggedTag,
     UpdateTagPath,
     SetTags,
     SetTagTraceVisible,
     SetCurrentTag,
-    RemoveTag,
     SetTagGlobalID,
     setTimeTagAppearsAt,
     setTimeTagDisappearsAt,
@@ -49,7 +47,9 @@ const simpleActionRootReducer = (): ((
     videoPlayedToTime,
     videoDurationChanged,
     playButtonClicked,
-    tagRowClicked
+    tagRowClicked,
+    newTagLayerClicked,
+    tagDeletionConfirmed
   ];
 
   const reducersByActionType = {};

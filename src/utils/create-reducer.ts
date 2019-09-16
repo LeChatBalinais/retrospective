@@ -6,7 +6,6 @@ export default function createReducer<T, S, P = {}>(
 ): Reducer<T, S, P> {
   return (state: S, { payload }: { type: T; payload: P }): S => {
     let newState = state;
-
     newState = reducers.reduce(
       (intermediateState: S, reducer: SubReducer<S, P>): S =>
         reducer(state, intermediateState, payload),

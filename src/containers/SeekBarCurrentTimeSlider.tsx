@@ -6,6 +6,7 @@ import SeekBarSlider, {
 import { getSeekBarCurrentStage } from '../selectors/selectors';
 
 const mapStateToProps = (state: State): SeekBarSliderValueProps => {
+  console.log(getSeekBarCurrentStage(state) * 100);
   return {
     position: getSeekBarCurrentStage(state) * 100,
     className: 'slider-current-time'

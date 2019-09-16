@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import SeekBar, { FuncProps as SeekBarFuncProps } from '../components/SeekBar';
-import mousePressedOnSeekBar from '~/actions/player/seekbar/mouse-down-on-seekbar';
-import mouseUpDuringSeekbarSeeking from '~/actions/player/seekbar/mouse-up-during-seekbar-seeking';
-import mouseMoveDuringSeekbarSeeking from '~/actions/player/seekbar/mouse-move-during-seekbar-seeking';
+import mousePressedOnSeekBar from '~/actions/ui/player/seekbar/mouse-down-on-seekbar';
+import mouseUpDuringSeekbarSeeking from '~/actions/ui/player/seekbar/mouse-up-during-seekbar-seeking';
+import mouseMoveDuringSeekbarSeeking from '~/actions/ui/player/seekbar/mouse-move-during-seekbar-seeking';
 
 const mapDispatchToProps = (dispatch: Dispatch): SeekBarFuncProps => ({
   onMouseDown: (relativePosition: number): void => {

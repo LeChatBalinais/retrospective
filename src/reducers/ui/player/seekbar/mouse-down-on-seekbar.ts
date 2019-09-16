@@ -45,7 +45,7 @@ const calculateSeekingStatus = (
     lastRequestedStage === position &&
     prevSeekingStatus === SeekingStatus.SeekbarSeeking
     ? prevSeekingStatus
-    : SeekingStatus.Seeking;
+    : SeekingStatus.SeekbarSeeking;
 };
 
 const calculateSeekbarStatus = (

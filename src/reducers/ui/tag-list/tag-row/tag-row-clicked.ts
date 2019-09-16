@@ -2,7 +2,7 @@ import {
   TAG_ROW_CLICKED,
   TagRowClickedPayload,
   TagRowClickedType
-} from '~/actions/tag-list';
+} from '~/actions/ui/tag-list';
 import { State, SeekingStatus, PlaneTimePoint } from '~/types';
 import createReducer from '~/utils/create-reducer';
 import { getCurrentTagID, getVideoDuration } from '~/selectors/selectors';

@@ -5,7 +5,6 @@ export {
   SetPlaceNewTagMode,
   SetPlaceNewTagModePayload
 } from '~/actions/set-place-new-tag-mode';
-export { AddNewTag, AddNewTagPayload } from '~/actions/add-new-tag';
 export { SetDraggedTag, SetDraggedTagPayload } from '~/actions/set-dragged-tag';
 export { UpdateTagPath, UpdateTagPathPayload } from '~/actions/update-tag-path';
 export { SetTags, SetTagsPayload } from '~/actions/set-tags';
@@ -14,12 +13,10 @@ export {
   SetTagTraceVisible,
   SetTagTraceVisiblePayload
 } from '~/actions/set-tag-trace-visible';
-export { RemoveTag, RemoveTagPayload } from '~/actions/remove-tag';
 export {
   SetTagGlobalID,
   SetTagGlobalIDPayload
 } from '~/actions/set-tag-globalid';
-export { DeleteTag, DeleteTagPayload } from '~/actions/delete-tag';
 export { SaveTag, SaveTagPayload } from '~/actions/save-tag';
 export {
   SetTimeTagAppearsAt,
