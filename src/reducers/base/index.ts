@@ -6,8 +6,10 @@ import {
   PlaybackStatus,
   SeekbarStatus,
   Table,
-  Tag
+  Tag,
+  PlaneTimePoint
 } from '~/types';
+import { getTag } from '~/selectors/common';
 
 export const setVideoStatus = (state: State, status: VideoStatus): State => ({
   ...state,
@@ -140,6 +142,20 @@ function removeElementFromTable<T>(
   };
 }
 
+function updateElementInTable<T>(
+  { byID, allIDs }: Table<T>,
+  ID: string,
+  element: T
+): Table<T> {
+  return {
+    allIDs,
+    byID: {
+      ...byID,
+      [ID]: element
+    }
+  };
+}
+
 export const addNewTag = (
   state: State,
   { time, x, y }: { time: number; x: number; y: number }
@@ -161,3 +177,28 @@ export const deleteTag = (state: State, tagID: string): State => ({
     tags: removeElementFromTable<Tag>(state.entities.tags, tagID)
   }
 });
+
+export const updateTag = (
+  state: State,
+  tagID: string,
+  globalID: string,
+  path: PlaneTimePoint[]
+): State => ({
+  ...state,
+  entities: {
+    ...state.entities,
+    tags: updateElementInTable<Tag>(state.entities.tags, tagID, {
+      globalID,
+      path
+    })
+  }
+});
+
+export const setTagGlobalID = (
+  state: State,
+  tagID: string,
+  globalID: string
+): State => {
+  const tag = getTag(state, tagID);
+  return updateTag(state, tagID, globalID, tag.path);
+};

@@ -20,6 +20,7 @@ import videoPlayedToTime from './ui/player/video/video-played-to-time';
 import videoDurationChanged from './ui/player/video/video-duration-changed';
 import tagDeletionConfirmed from './sagas/tag-deletion-confirmed';
 import newTagLayerClicked from './ui/player/new-tag-layer/new-tag-layer-clicked';
+import tagSavingConfirmed from './sagas/tag-saving-confirmed';
 
 const simpleActionRootReducer = (): ((
   state: State,
@@ -49,7 +50,8 @@ const simpleActionRootReducer = (): ((
     playButtonClicked,
     tagRowClicked,
     newTagLayerClicked,
-    tagDeletionConfirmed
+    tagDeletionConfirmed,
+    tagSavingConfirmed
   ];
 
   const reducersByActionType = {};

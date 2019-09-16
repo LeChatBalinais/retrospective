@@ -1,7 +1,11 @@
 import { connect } from 'react-redux';
 import Button, { ValueProps, FuncProps } from '../components/Button';
-import { State, ThunkDispatch, deleteTagButtonClicked } from '../types';
-import saveTag from '../actions/save-tag';
+import {
+  State,
+  ThunkDispatch,
+  deleteTagButtonClicked,
+  saveTagButtonClicked
+} from '../types';
 
 interface Props {
   ID: string;
@@ -17,7 +21,7 @@ const onPress = (
 ): (() => void) => {
   if (isLocal)
     return (): void => {
-      dispatch(saveTag({ ID: tagID }));
+      dispatch(saveTagButtonClicked({ tagID }));
     };
 
   return (): void => {

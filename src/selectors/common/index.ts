@@ -72,6 +72,11 @@ export const getTagPath = (state: State, tagID: string): PlaneTimePoint[] => {
   return tag ? tag.path : undefined;
 };
 
+export const getTagGlobalID = (state: State, tagID: string): string => {
+  const tag = getTag(state, tagID);
+  return tag ? tag.globalID : undefined;
+};
+
 export const getPlacingNewTagMode = ({
   tagEditor: { userIsPlacingNewTag }
 }: State): boolean => userIsPlacingNewTag;
