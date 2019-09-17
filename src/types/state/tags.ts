@@ -1,4 +1,4 @@
-import { Table } from './table';
+import { Table, ElementsByID } from './table';
 
 export interface Tag {
   readonly globalID: string;
@@ -11,3 +11,5 @@ export interface PlaneTimePoint {
   y: number;
 }
 export type Tags = Table<Tag>;
+
+export type TagsByID = ElementsByID<Tag>;

@@ -3,14 +3,12 @@ import Augmentation, {
   ValueProps,
   FuncProps
 } from '../components/Augmentation';
-import updateTagBeingEditedPath, {
-  createUpdateTagBeingEditedPath
-} from '../thunks/update-tag-being-edited-path';
-import connectAction from '../utils/map-state-to-action';
+import updateTagBeingEditedPath from '../thunks/update-tag-being-edited-path';
+
 import getVisibleTagIDs from '../selectors/get-visible-tag-ids';
-import { State, ThunkDispatch, Action } from '../types';
-import setDraggedTag from '../actions/set-dragged-tag';
-import setCurrentTag from '../actions/set-current-tag';
+import { State, ThunkDispatch } from '../types';
+import mouseDownOnAugmentation from '~/actions/ui/player/augmentation/mouse-down-on-augmentation';
+import mouseUpOnAugmentation from '~/actions/ui/player/augmentation/mouse-move-on-augmentation';
 
 const mapStateToProps = (state: State): ValueProps => ({
   tagIDs: getVisibleTagIDs(state)
@@ -18,18 +16,13 @@ const mapStateToProps = (state: State): ValueProps => ({
 
 const mapDispatchToProps = (dispatch: ThunkDispatch): FuncProps => ({
   onMouseDown: (): void => {
-    dispatch(setCurrentTag({ ID: undefined }));
+    dispatch(mouseDownOnAugmentation());
   },
   onMouseMove: (x: number, y: number): void => {
     dispatch(updateTagBeingEditedPath({ x, y }));
   },
   onMouseUp: (x: number, y: number): void => {
-    dispatch(
-      connectAction([
-        createUpdateTagBeingEditedPath,
-        (): Action => setDraggedTag({ ID: undefined })
-      ])({ x, y })
-    );
+    dispatch(mouseUpOnAugmentation({ x, y }));
   }
 });
 

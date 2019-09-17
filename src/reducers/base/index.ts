@@ -7,7 +7,9 @@ import {
   SeekbarStatus,
   Table,
   Tag,
-  PlaneTimePoint
+  PlaneTimePoint,
+  Tags,
+  TagsByID
 } from '~/types';
 import { getTag } from '~/selectors/common';
 
@@ -103,6 +105,18 @@ export const setCurrentTagID = (state: State, currentTag: string): State => ({
   ...state,
   tagEditor: { ...state.tagEditor, currentTag }
 });
+
+export const setTagBeingEditedID = (
+  state: State,
+  tagBeingEditedID: string
+): State => {
+  console.log(tagBeingEditedID);
+
+  return {
+    ...state,
+    tagEditor: { ...state.tagEditor, tagsBeingEdited: [tagBeingEditedID] }
+  };
+};
 
 export const setPlacingNewTagMode = (
   state: State,
@@ -202,3 +216,19 @@ export const setTagGlobalID = (
   const tag = getTag(state, tagID);
   return updateTag(state, tagID, globalID, tag.path);
 };
+
+export const setTags = (state: State, tags: Tags): State => ({
+  ...state,
+  entities: { ...state.entities, tags }
+});
+
+export const setTagsByID = (state: State, byID: TagsByID): State => ({
+  ...state,
+  entities: {
+    ...state.entities,
+    tags: {
+      ...state.entities.tags,
+      byID
+    }
+  }
+});

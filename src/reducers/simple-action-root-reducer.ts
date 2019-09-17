@@ -3,10 +3,8 @@ import SetPlayback from './set-playback';
 import SetPlaceNewTagMode from './set-place-new-tag-mode';
 import SetDraggedTag from './set-dragged-tag';
 import UpdateTagPath from './update-tag-path';
-import SetTags from './set-tags';
 import SetTagTraceVisible from './set-tag-trace-visible';
 import SetCurrentTag from './set-current-tag';
-import SetTagGlobalID from './set-tag-globalid';
 import setTimeTagAppearsAt from './set-time-tag-appears-at';
 import setTimeTagDisappearsAt from './set-time-tag-disappears-at';
 import mouseDownOnSeekBar from './ui/player/seekbar/mouse-down-on-seekbar';
@@ -21,6 +19,9 @@ import videoDurationChanged from './ui/player/video/video-duration-changed';
 import tagDeletionConfirmed from './sagas/tag-deletion-confirmed';
 import newTagLayerClicked from './ui/player/new-tag-layer/new-tag-layer-clicked';
 import tagSavingConfirmed from './sagas/tag-saving-confirmed';
+import tagsFetched from './sagas/tags-fetched';
+import mouseDownOnAugmentation from './ui/player/augmentation/mouse_down_on_augmentation';
+import mouseUpOnAugmentation from './ui/player/augmentation/mouse_up_on_augmentation';
 
 const simpleActionRootReducer = (): ((
   state: State,
@@ -34,10 +35,8 @@ const simpleActionRootReducer = (): ((
     SetPlaceNewTagMode,
     SetDraggedTag,
     UpdateTagPath,
-    SetTags,
     SetTagTraceVisible,
     SetCurrentTag,
-    SetTagGlobalID,
     setTimeTagAppearsAt,
     setTimeTagDisappearsAt,
     mouseDownOnSeekBar,
@@ -51,7 +50,10 @@ const simpleActionRootReducer = (): ((
     tagRowClicked,
     newTagLayerClicked,
     tagDeletionConfirmed,
-    tagSavingConfirmed
+    tagSavingConfirmed,
+    tagsFetched,
+    mouseDownOnAugmentation,
+    mouseUpOnAugmentation
   ];
 
   const reducersByActionType = {};

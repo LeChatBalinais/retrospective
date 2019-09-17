@@ -5,7 +5,9 @@ import {
   SeekingStatus,
   SeekbarStatus,
   PlaneTimePoint,
-  PlaybackStatus
+  PlaybackStatus,
+  Tags,
+  TagsByID
 } from '~/types';
 
 export const getTag = (
@@ -50,6 +52,13 @@ export const getStageVideoAt = ({
   }
 }: State): number => stageAt;
 
+export const getTimeVideoAt = ({
+  footage: { duration },
+  player: {
+    video: { stageAt }
+  }
+}: State): number => stageAt * duration;
+
 export const getSeekingStatus = ({
   player: { seekingStatus }
 }: State): SeekingStatus => seekingStatus;
@@ -80,3 +89,25 @@ export const getTagGlobalID = (state: State, tagID: string): string => {
 export const getPlacingNewTagMode = ({
   tagEditor: { userIsPlacingNewTag }
 }: State): boolean => userIsPlacingNewTag;
+
+export const getTags = ({ entities: { tags } }: State): Tags => tags;
+
+export const getTagBeingEditedID = ({
+  tagEditor: { tagsBeingEdited }
+}: State): string =>
+  tagsBeingEdited.length === 0 ? undefined : tagsBeingEdited[0];
+
+export const getTagBeingEdited = (state: State): Tag => {
+  const {
+    tagEditor: { tagsBeingEdited }
+  } = state;
+  return state.tagEditor.tagsBeingEdited.length === 0
+    ? undefined
+    : getTag(state, tagsBeingEdited[0]);
+};
+
+export const getTagsByID = ({
+  entities: {
+    tags: { byID }
+  }
+}: State): TagsByID => byID;

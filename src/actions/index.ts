@@ -8,12 +8,8 @@ export type SimpleAction =
   | particularActions.SetPlaceNewTagMode
   | particularActions.SetDraggedTag
   | particularActions.UpdateTagPath
-  | particularActions.SetTags
   | particularActions.SetCurrentTag
   | particularActions.SetTagTraceVisible
-  | particularActions.SetTagGlobalID
-  | particularActions.SaveTag
-  | particularActions.FetchTags
   | particularActions.SetTimeTagAppearsAt
   | particularActions.SetTimeTagDisappearsAt
   | PlayerActions

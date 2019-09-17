@@ -5,7 +5,7 @@ import Player, {
 } from '../components/Player';
 import { getCurrentTagID, isPlaceNewTagModeOn } from '../selectors/selectors';
 import { State, ThunkDispatch } from '../types';
-import fetchTags from '../actions/fetch-tags';
+import { playerLoaded } from '../actions/ui/player';
 
 const mapStateToProps = (state: State): PlayerValueProps => ({
   currentTag: getCurrentTagID(state),
@@ -14,7 +14,7 @@ const mapStateToProps = (state: State): PlayerValueProps => ({
 
 const mapDispatchToProps = (dispatch: ThunkDispatch): PlayerFuncProps => ({
   onComponentDidMount: (): void => {
-    dispatch(fetchTags());
+    dispatch(playerLoaded());
   }
 });
 
