@@ -1,5 +1,5 @@
 import {
-  MOUSE_UP_ON_AUGMENTATION,
+  MOUSE_MOVE_ON_AUGMENTATION,
   MouseUpOnAugmentationPayload
 } from '~/actions';
 import { MouseUpOnAugmentationType, State, TagsByID } from '~/types';
@@ -10,14 +10,12 @@ import {
   getTimeVideoAt,
   getTagBeingEditedID
 } from '~/selectors/common';
-import { setTagsByID, setTagBeingEditedID } from '~/reducers/base';
+import { setTagsByID } from '~/reducers/base';
 
 const getPosition = (
   state: State,
   payload: MouseUpOnAugmentationPayload
 ): { x: number; y: number } => payload;
-
-const calculateTagBeingEditedID = (): string => undefined;
 
 const calculateTagsByID = (
   tagBeingEditedID: string,
@@ -70,11 +68,6 @@ const calculateTagsByID = (
 };
 
 const partialReducers = [
-  createPartialReducer(
-    getTagBeingEditedID,
-    setTagBeingEditedID,
-    calculateTagBeingEditedID
-  ),
   createPartialReducer(getTagsByID, setTagsByID, calculateTagsByID, [
     getTagBeingEditedID,
     getTimeVideoAt,
@@ -84,7 +77,7 @@ const partialReducers = [
 ];
 
 export default {
-  actionType: MOUSE_UP_ON_AUGMENTATION,
+  actionType: MOUSE_MOVE_ON_AUGMENTATION,
   reducer: createReducer<
     MouseUpOnAugmentationType,
     State,

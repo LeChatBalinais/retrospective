@@ -110,8 +110,6 @@ export const setTagBeingEditedID = (
   state: State,
   tagBeingEditedID: string
 ): State => {
-  console.log(tagBeingEditedID);
-
   return {
     ...state,
     tagEditor: { ...state.tagEditor, tagsBeingEdited: [tagBeingEditedID] }

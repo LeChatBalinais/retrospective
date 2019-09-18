@@ -3,27 +3,17 @@ import Tag, {
   FuncProps as TagFuncProps,
   ValueProps as TagValueProps
 } from '../components/Tag';
-import setPlayback from '../actions/set-playback';
 import makeGetTagInfo from '../selectors/get-tag-info';
 import isVideoPlaying from '../selectors/is-video-playing';
 import {
   makeGetTagAppearsAt,
   makeGetCurrentTagPosition
 } from '../selectors/tag-selectors';
-import { getCurrentTime, isTagCurrent } from '../selectors/selectors';
-import {
-  State,
-  ThunkDispatch,
-  SetPlaybackPayload,
-  SetDraggedTagPayload,
-  SetCurrentTagPayload
-} from '../types';
+import { getCurrentTime } from '../selectors/selectors';
+import { State, ThunkDispatch } from '../types';
 
-import connectAction, {
-  mapStateToActionCreator
-} from '../utils/map-state-to-action';
-import setDraggedTag from '../actions/set-dragged-tag';
-import setCurrentTag from '../actions/set-current-tag';
+import mouseDownOnTag from '~/actions/ui/player/augmentation/tag/mouse-down-on-tag';
+import mouseUpOnTag from '~/actions/ui/player/augmentation/tag/mouse-up-on-tag';
 
 interface Props {
   ID: string;
@@ -63,55 +53,10 @@ const mapDispatchToProps = (
   { ID }: Props
 ): TagFuncProps => ({
   onMouseDown: (): void => {
-    dispatch(
-      connectAction<SetDraggedTagPayload>([
-        mapStateToActionCreator(
-          setDraggedTag,
-          (
-            state: State,
-            { ID: IDToSetBeingEdited }: SetDraggedTagPayload
-          ): SetDraggedTagPayload => {
-            if (isTagCurrent(state, IDToSetBeingEdited))
-              return {
-                ID
-              };
-
-            return undefined;
-          }
-        ),
-        mapStateToActionCreator(
-          setPlayback,
-          (
-            state: State,
-            { ID: IDToSetBeingEdited }: SetDraggedTagPayload
-          ): SetPlaybackPayload => {
-            if (isTagCurrent(state, IDToSetBeingEdited))
-              return {
-                playback: true
-              };
-
-            return undefined;
-          }
-        ),
-        mapStateToActionCreator(
-          setCurrentTag,
-          (
-            state: State,
-            { ID: IDToSetBeingEdited }: SetDraggedTagPayload
-          ): SetCurrentTagPayload => {
-            if (!isTagCurrent(state, IDToSetBeingEdited))
-              return {
-                ID: IDToSetBeingEdited
-              };
-
-            return undefined;
-          }
-        )
-      ])({ ID })
-    );
+    dispatch(mouseDownOnTag({ tagID: ID }));
   },
   onMouseUp: (): void => {
-    dispatch(setPlayback({ playback: false }));
+    dispatch(mouseUpOnTag());
   }
 });
 

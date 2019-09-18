@@ -6,8 +6,6 @@ import { SagasActions } from './sagas';
 export type SimpleAction =
   | particularActions.SetPlayback
   | particularActions.SetPlaceNewTagMode
-  | particularActions.SetDraggedTag
-  | particularActions.UpdateTagPath
   | particularActions.SetCurrentTag
   | particularActions.SetTagTraceVisible
   | particularActions.SetTimeTagAppearsAt

@@ -1,20 +1,20 @@
 import { SimpleActionTemplate } from '~/types/actions/simple-action-template';
 
-export type MouseUpOnAugmentationType = 'MOUSE_UP_ON_AUGMENTATION';
-export interface MouseUpOnAugmentationPayload {
+export type MouseMoveOnAugmentationType = 'MOUSE_MOVE_ON_AUGMENTATION';
+export interface MouseMoveOnAugmentationPayload {
   x: number;
   y: number;
 }
 
-export type MouseUpOnAugmentation = SimpleActionTemplate<
-  MouseUpOnAugmentationType,
-  MouseUpOnAugmentationPayload
+export type MouseMoveOnAugmentation = SimpleActionTemplate<
+  MouseMoveOnAugmentationType,
+  MouseMoveOnAugmentationPayload
 >;
 
-export const MOUSE_UP_ON_AUGMENTATION = 'MOUSE_UP_ON_AUGMENTATION';
+export const MOUSE_MOVE_ON_AUGMENTATION = 'MOUSE_MOVE_ON_AUGMENTATION';
 
-export default function mouseUpOnAugmentation(
-  payload: MouseUpOnAugmentationPayload
-): MouseUpOnAugmentation {
-  return { type: MOUSE_UP_ON_AUGMENTATION, payload };
+export default function mouseMoveOnAugmentation(
+  payload: MouseMoveOnAugmentationPayload
+): MouseMoveOnAugmentation {
+  return { type: MOUSE_MOVE_ON_AUGMENTATION, payload };
 }

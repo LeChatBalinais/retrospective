@@ -1,8 +1,6 @@
 import { State, SimpleAction } from '../types';
 import SetPlayback from './set-playback';
 import SetPlaceNewTagMode from './set-place-new-tag-mode';
-import SetDraggedTag from './set-dragged-tag';
-import UpdateTagPath from './update-tag-path';
 import SetTagTraceVisible from './set-tag-trace-visible';
 import SetCurrentTag from './set-current-tag';
 import setTimeTagAppearsAt from './set-time-tag-appears-at';
@@ -22,6 +20,9 @@ import tagSavingConfirmed from './sagas/tag-saving-confirmed';
 import tagsFetched from './sagas/tags-fetched';
 import mouseDownOnAugmentation from './ui/player/augmentation/mouse_down_on_augmentation';
 import mouseUpOnAugmentation from './ui/player/augmentation/mouse_up_on_augmentation';
+import mouseMoveOnAugmentation from './ui/player/augmentation/mouse_move_on_augmentation';
+import mouseDownOnTag from './ui/player/augmentation/tag/mouse_down_on_tag';
+import mouseUpOnTag from './ui/player/augmentation/tag/mouse_up_on_tag';
 
 const simpleActionRootReducer = (): ((
   state: State,
@@ -33,8 +34,6 @@ const simpleActionRootReducer = (): ((
   }[] = [
     SetPlayback,
     SetPlaceNewTagMode,
-    SetDraggedTag,
-    UpdateTagPath,
     SetTagTraceVisible,
     SetCurrentTag,
     setTimeTagAppearsAt,
@@ -53,7 +52,10 @@ const simpleActionRootReducer = (): ((
     tagSavingConfirmed,
     tagsFetched,
     mouseDownOnAugmentation,
-    mouseUpOnAugmentation
+    mouseUpOnAugmentation,
+    mouseMoveOnAugmentation,
+    mouseDownOnTag,
+    mouseUpOnTag
   ];
 
   const reducersByActionType = {};
