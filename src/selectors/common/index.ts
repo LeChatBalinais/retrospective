@@ -111,3 +111,7 @@ export const getTagsByID = ({
     tags: { byID }
   }
 }: State): TagsByID => byID;
+
+export const getVisibleTraceTagIDs = ({
+  tagEditor: { tagsWithVisibleTrace }
+}: State): string[] => tagsWithVisibleTrace;

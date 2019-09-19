@@ -1,16 +1,16 @@
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import Button, { ValueProps, FuncProps } from '../components/Button';
-import togglePlaceNewTagMode from '../thunks/toggle-place-new-tag-mode';
 import { isPlaceNewTagModeOn } from '../selectors/selectors';
-import { State, ThunkDispatch } from '../types';
+import { State, newTagButtonClicked } from '../types';
 
 const mapStateToProps = (state: State): ValueProps => ({
   caption: isPlaceNewTagModeOn(state) ? 'X' : 'Place New Tag'
 });
 
-const mapDispatchToProps = (dispatch: ThunkDispatch): FuncProps => ({
+const mapDispatchToProps = (dispatch: Dispatch): FuncProps => ({
   onPress: (): void => {
-    dispatch(togglePlaceNewTagMode());
+    dispatch(newTagButtonClicked());
   }
 });
 

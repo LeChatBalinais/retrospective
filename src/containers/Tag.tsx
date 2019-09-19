@@ -1,3 +1,4 @@
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import Tag, {
   FuncProps as TagFuncProps,
@@ -10,7 +11,7 @@ import {
   makeGetCurrentTagPosition
 } from '../selectors/tag-selectors';
 import { getCurrentTime } from '../selectors/selectors';
-import { State, ThunkDispatch } from '../types';
+import { State } from '../types';
 
 import mouseDownOnTag from '~/actions/ui/player/augmentation/tag/mouse-down-on-tag';
 import mouseUpOnTag from '~/actions/ui/player/augmentation/tag/mouse-up-on-tag';
@@ -49,7 +50,7 @@ const makeMapStateToProps = (): MapStateToProps => {
 };
 
 const mapDispatchToProps = (
-  dispatch: ThunkDispatch,
+  dispatch: Dispatch,
   { ID }: Props
 ): TagFuncProps => ({
   onMouseDown: (): void => {

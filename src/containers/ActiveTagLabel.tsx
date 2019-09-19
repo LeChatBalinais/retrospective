@@ -5,7 +5,7 @@ import ActiveTagLabel, {
   FuncProps
 } from '../components/ActiveTagLabel';
 import { Action, State } from '../types';
-import setCurrentTag from '../actions/set-current-tag';
+import { activeTagLabelClicked } from '~/actions';
 
 interface Props {
   ID: string;
@@ -16,7 +16,7 @@ const mapDispatchToProps = (
   { ID }: Props
 ): FuncProps => ({
   onMouseDown: (): void => {
-    dispatch(setCurrentTag({ ID }));
+    dispatch(activeTagLabelClicked({ tagID: ID }));
   }
 });
 

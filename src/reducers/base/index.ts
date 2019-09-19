@@ -230,3 +230,32 @@ export const setTagsByID = (state: State, byID: TagsByID): State => ({
     }
   }
 });
+
+export const setVisibleTraceTagIDs = (
+  state: State,
+  tagsWithVisibleTrace: string[]
+): State => ({
+  ...state,
+  tagEditor: {
+    ...state.tagEditor,
+    tagsWithVisibleTrace
+  }
+});
+
+export const setTagTraceVisible = (
+  tagsWithVisibleTrace: string[],
+  tagID: string,
+  visible: boolean
+): string[] => {
+  if (visible) {
+    if (!tagsWithVisibleTrace.includes(tagID)) {
+      return [...tagsWithVisibleTrace, tagID];
+    }
+  } else if (tagsWithVisibleTrace.includes(tagID)) {
+    return tagsWithVisibleTrace.filter(
+      (value: string): boolean => value !== tagID
+    );
+  }
+
+  return tagsWithVisibleTrace;
+};

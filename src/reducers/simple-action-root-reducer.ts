@@ -1,10 +1,4 @@
 import { State, SimpleAction } from '../types';
-import SetPlayback from './set-playback';
-import SetPlaceNewTagMode from './set-place-new-tag-mode';
-import SetTagTraceVisible from './set-tag-trace-visible';
-import SetCurrentTag from './set-current-tag';
-import setTimeTagAppearsAt from './set-time-tag-appears-at';
-import setTimeTagDisappearsAt from './set-time-tag-disappears-at';
 import mouseDownOnSeekBar from './ui/player/seekbar/mouse-down-on-seekbar';
 import mouseUpDuringSeekbarSeeking from './ui/player/seekbar/mouse-up-during-seekbar-seeking';
 import videoSeeking from './ui/player/video/video-seeking';
@@ -23,6 +17,11 @@ import mouseUpOnAugmentation from './ui/player/augmentation/mouse_up_on_augmenta
 import mouseMoveOnAugmentation from './ui/player/augmentation/mouse_move_on_augmentation';
 import mouseDownOnTag from './ui/player/augmentation/tag/mouse_down_on_tag';
 import mouseUpOnTag from './ui/player/augmentation/tag/mouse_up_on_tag';
+import newTagButtonClicked from './ui/new-tag-button-clicked';
+import activeTagLabelClicked from './ui/player/active-tags-panel/active-tag-label/active-tag-label-clicked';
+import tagTraceVisibilityCheckboxToggled from './ui/player/current-tag-panel/tag-trace-visibility-checkbox-toggled';
+import tagAppearsAtEditboxEdited from './ui/player/current-tag-panel/tag-appears-at-editbox-edited';
+import tagDisappearsAtEditboxEdited from './ui/player/current-tag-panel/tag-disappears-at-editbox-edited';
 
 const simpleActionRootReducer = (): ((
   state: State,
@@ -32,12 +31,6 @@ const simpleActionRootReducer = (): ((
     actionType: string;
     reducer: (state: State, action: SimpleAction) => State;
   }[] = [
-    SetPlayback,
-    SetPlaceNewTagMode,
-    SetTagTraceVisible,
-    SetCurrentTag,
-    setTimeTagAppearsAt,
-    setTimeTagDisappearsAt,
     mouseDownOnSeekBar,
     mouseMoveDuringSeekbarSeeking,
     mouseUpDuringSeekbarSeeking,
@@ -55,7 +48,12 @@ const simpleActionRootReducer = (): ((
     mouseUpOnAugmentation,
     mouseMoveOnAugmentation,
     mouseDownOnTag,
-    mouseUpOnTag
+    mouseUpOnTag,
+    newTagButtonClicked,
+    activeTagLabelClicked,
+    tagTraceVisibilityCheckboxToggled,
+    tagAppearsAtEditboxEdited,
+    tagDisappearsAtEditboxEdited
   ];
 
   const reducersByActionType = {};

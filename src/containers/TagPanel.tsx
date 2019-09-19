@@ -7,9 +7,9 @@ import TagPanel, {
 import { getCurrentTagID } from '../selectors/selectors';
 import makeGetTagInfo from '../selectors/get-tag-info';
 import { State, Action } from '../types';
-import setTagTraceVisible from '../actions/set-tag-trace-visible';
-import setTimeTagAppearsAt from '../actions/set-time-tag-appears-at';
-import setTimeTagDisappearsAt from '../actions/set-time-tag-disappears-at';
+import tagTraceVisibilityCheckboxToggled from '~/actions/ui/player/current-tag-panel/tag-trace-visibility-checkbox-toggled';
+import tagAppearsAtEditBoxEdited from '~/actions/ui/player/current-tag-panel/tag-appears-at-editbox-edited';
+import tagDisappearsAtEditBoxEdited from '~/actions/ui/player/current-tag-panel/tag-disappears-at-editbox-edited';
 
 interface Props {
   ID: string;
@@ -27,7 +27,7 @@ const onTagTraceVisbileCheckboxInput = (
   ID: string
 ): ((visible: boolean) => void) => {
   return (visible: boolean): void => {
-    dispatch(setTagTraceVisible({ ID, visible }));
+    dispatch(tagTraceVisibilityCheckboxToggled({ tagID: ID, visible }));
   };
 };
 
@@ -36,7 +36,7 @@ const onAppearsAtInput = (
   ID: string
 ): ((visible: number) => void) => {
   return (time: number): void => {
-    dispatch(setTimeTagAppearsAt({ ID, time }));
+    dispatch(tagAppearsAtEditBoxEdited({ tagID: ID, time }));
   };
 };
 
@@ -45,7 +45,7 @@ const onDisappearsAtInput = (
   ID: string
 ): ((visible: number) => void) => {
   return (time: number): void => {
-    dispatch(setTimeTagDisappearsAt({ ID, time }));
+    dispatch(tagDisappearsAtEditBoxEdited({ tagID: ID, time }));
   };
 };
 

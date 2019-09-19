@@ -1,10 +1,11 @@
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import Player, {
   ValueProps as PlayerValueProps,
   FuncProps as PlayerFuncProps
 } from '../components/Player';
 import { getCurrentTagID, isPlaceNewTagModeOn } from '../selectors/selectors';
-import { State, ThunkDispatch } from '../types';
+import { State } from '../types';
 import { playerLoaded } from '../actions/ui/player';
 
 const mapStateToProps = (state: State): PlayerValueProps => ({
@@ -12,7 +13,7 @@ const mapStateToProps = (state: State): PlayerValueProps => ({
   placeNewTagMode: isPlaceNewTagModeOn(state)
 });
 
-const mapDispatchToProps = (dispatch: ThunkDispatch): PlayerFuncProps => ({
+const mapDispatchToProps = (dispatch: Dispatch): PlayerFuncProps => ({
   onComponentDidMount: (): void => {
     dispatch(playerLoaded());
   }

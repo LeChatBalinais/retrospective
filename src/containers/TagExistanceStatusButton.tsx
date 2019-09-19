@@ -1,21 +1,17 @@
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import Button, { ValueProps, FuncProps } from '../components/Button';
-import {
-  State,
-  ThunkDispatch,
-  deleteTagButtonClicked,
-  saveTagButtonClicked
-} from '../types';
+import { State, deleteTagButtonClicked, saveTagButtonClicked } from '../types';
 
 interface Props {
   ID: string;
   isLocal: boolean;
 }
 
-type MapDispatchToProps = (dispatch: ThunkDispatch, props: Props) => FuncProps;
+type MapDispatchToProps = (dispatch: Dispatch, props: Props) => FuncProps;
 
 const onPress = (
-  dispatch: ThunkDispatch,
+  dispatch: Dispatch,
   tagID: string,
   isLocal: boolean
 ): (() => void) => {
@@ -31,7 +27,7 @@ const onPress = (
 
 const makeMapDispatchToProps = (): MapDispatchToProps => {
   return (
-    dispatch: ThunkDispatch,
+    dispatch: Dispatch,
     { ID, isLocal }: { ID: string; isLocal: boolean }
   ): { onPress: () => void } => ({ onPress: onPress(dispatch, ID, isLocal) });
 };

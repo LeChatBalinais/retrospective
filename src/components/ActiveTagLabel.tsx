@@ -15,7 +15,7 @@ const ActiveTagLabel = ({ ID, onMouseDown }: Props): JSX.Element => {
     <div
       className="control"
       {...{
-        onMouseDown: (
+        onClick: (
           event: React.MouseEvent<HTMLDivElement, MouseEvent>
         ): void => {
           event.stopPropagation();
