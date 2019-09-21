@@ -1,8 +1,8 @@
-import { SimpleActionTemplate } from '~/types/actions/simple-action-template';
+import { ActionTemplate } from '~/types/action-template';
 
 export type VideoSeekedType = 'VIDEO_SEEKED';
 
-export type VideoSeeked = SimpleActionTemplate<'VIDEO_SEEKED', {}>;
+export type VideoSeeked = ActionTemplate<'VIDEO_SEEKED', {}>;
 
 export const VIDEO_SEEKED = 'VIDEO_SEEKED';
 

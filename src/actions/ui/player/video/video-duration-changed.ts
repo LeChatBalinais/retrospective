@@ -1,4 +1,4 @@
-import { SimpleActionTemplate } from '~/types/actions/simple-action-template';
+import { ActionTemplate } from '~/types/action-template';
 
 export type VideoDurationChangedType = 'VIDEO_DURATION_CHANGED';
 
@@ -6,7 +6,7 @@ export interface VideoDurationChangedPayload {
   duration: number;
 }
 
-export type VideoDurationChanged = SimpleActionTemplate<
+export type VideoDurationChanged = ActionTemplate<
   VideoDurationChangedType,
   VideoDurationChangedPayload
 >;

@@ -1,4 +1,4 @@
-import { State, SimpleAction } from '../types';
+import { State, Action } from '../types';
 import mouseDownOnSeekBar from './ui/player/seekbar/mouse-down-on-seekbar';
 import mouseUpDuringSeekbarSeeking from './ui/player/seekbar/mouse-up-during-seekbar-seeking';
 import videoSeeking from './ui/player/video/video-seeking';
@@ -22,14 +22,15 @@ import activeTagLabelClicked from './ui/player/active-tags-panel/active-tag-labe
 import tagTraceVisibilityCheckboxToggled from './ui/player/current-tag-panel/tag-trace-visibility-checkbox-toggled';
 import tagAppearsAtEditboxEdited from './ui/player/current-tag-panel/tag-appears-at-editbox-edited';
 import tagDisappearsAtEditboxEdited from './ui/player/current-tag-panel/tag-disappears-at-editbox-edited';
+import DEFAULT_STATE from './default-state';
 
 const simpleActionRootReducer = (): ((
   state: State,
-  action: SimpleAction
+  action: Action
 ) => State) => {
   const reducers: {
     actionType: string;
-    reducer: (state: State, action: SimpleAction) => State;
+    reducer: (state: State, action: Action) => State;
   }[] = [
     mouseDownOnSeekBar,
     mouseMoveDuringSeekbarSeeking,
@@ -60,13 +61,13 @@ const simpleActionRootReducer = (): ((
   reducers.forEach(
     (reducer: {
       actionType: string;
-      reducer: (state: State, action: SimpleAction) => State;
+      reducer: (state: State, action: Action) => State;
     }): void => {
       reducersByActionType[reducer.actionType] = reducer.reducer;
     }
   );
 
-  return (state: State, action: SimpleAction): State => {
+  return (state: State = DEFAULT_STATE, action: Action): State => {
     const reducer = reducersByActionType[action.type];
     if (reducer === undefined) return state;
     return reducer(state, action);

@@ -1,4 +1,4 @@
-import { SimpleActionTemplate } from '~/types/actions/simple-action-template';
+import { ActionTemplate } from '~/types/action-template';
 
 export type MouseMoveOnAugmentationType = 'MOUSE_MOVE_ON_AUGMENTATION';
 export interface MouseMoveOnAugmentationPayload {
@@ -6,7 +6,7 @@ export interface MouseMoveOnAugmentationPayload {
   y: number;
 }
 
-export type MouseMoveOnAugmentation = SimpleActionTemplate<
+export type MouseMoveOnAugmentation = ActionTemplate<
   MouseMoveOnAugmentationType,
   MouseMoveOnAugmentationPayload
 >;

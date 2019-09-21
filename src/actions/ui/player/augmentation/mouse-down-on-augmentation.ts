@@ -1,8 +1,8 @@
-import { SimpleActionTemplate } from '~/types/actions/simple-action-template';
+import { ActionTemplate } from '~/types/action-template';
 
 export type MouseDownOnAugmentationType = 'MOUSE_DOWN_ON_AUGMENTATION';
 
-export type MouseDownOnAugmentation = SimpleActionTemplate<
+export type MouseDownOnAugmentation = ActionTemplate<
   MouseDownOnAugmentationType,
   {}
 >;

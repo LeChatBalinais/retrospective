@@ -1,12 +1,12 @@
-import { PlayerActions } from './ui/player';
-import { TagListActions } from './ui/tag-list';
-import { SagasActions } from './sagas';
+import { PlayerActions as PlayerAction } from './ui/player';
+import { TagListActions as TagListAction } from './ui/tag-list';
+import { SagasActions as SagasAction } from './sagas';
 import { NewTagButtonClicked } from './ui/new-tag-button-clicked';
 
-export type SimpleAction =
-  | PlayerActions
-  | TagListActions
-  | SagasActions
+export type Action =
+  | PlayerAction
+  | TagListAction
+  | SagasAction
   | NewTagButtonClicked;
 
 export * from './ui/player';

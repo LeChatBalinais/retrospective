@@ -1,4 +1,4 @@
-import { SimpleActionTemplate } from '~/types/actions/simple-action-template';
+import { ActionTemplate } from '~/types/action-template';
 
 export type TagTraceVisibilityCheckboxToggledType = 'TAG_TRACE_VISIBILITY_CHECKBOX_TOGGLED';
 
@@ -7,7 +7,7 @@ export interface TagTraceVisibilityCheckboxToggledPayload {
   visible: boolean;
 }
 
-export type TagTraceVisibilityCheckboxToggled = SimpleActionTemplate<
+export type TagTraceVisibilityCheckboxToggled = ActionTemplate<
   TagTraceVisibilityCheckboxToggledType,
   TagTraceVisibilityCheckboxToggledPayload
 >;

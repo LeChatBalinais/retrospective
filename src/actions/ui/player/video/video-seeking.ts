@@ -1,4 +1,4 @@
-import { SimpleActionTemplate } from '~/types/actions/simple-action-template';
+import { ActionTemplate } from '~/types/action-template';
 
 export type VideoSeekingType = 'VIDEO_SEEKING';
 
@@ -6,7 +6,7 @@ export interface VideoSeekingPayload {
   time: number;
 }
 
-export type VideoSeeking = SimpleActionTemplate<
+export type VideoSeeking = ActionTemplate<
   VideoSeekingType,
   VideoSeekingPayload
 >;

@@ -1,4 +1,4 @@
-import { SimpleActionTemplate } from '~/types/actions/simple-action-template';
+import { ActionTemplate } from '~/types/action-template';
 
 export type TagAppearsAtEditBoxEditedType = 'TAG_APPEARS_AT_EDIT_BOX_EDITED';
 
@@ -7,7 +7,7 @@ export interface TagAppearsAtEditBoxEditedPayload {
   time: number;
 }
 
-export type TagAppearsAtEditBoxEdited = SimpleActionTemplate<
+export type TagAppearsAtEditBoxEdited = ActionTemplate<
   TagAppearsAtEditBoxEditedType,
   TagAppearsAtEditBoxEditedPayload
 >;

@@ -1,4 +1,4 @@
-import { SimpleActionTemplate } from '~/types/actions/simple-action-template';
+import { ActionTemplate } from '~/types/action-template';
 
 export type NewTagLayerClickedType = 'NEW_TAG_LAYER_CLICKED';
 
@@ -7,7 +7,7 @@ export interface NewTagLayerClickedPayload {
   y: number;
 }
 
-export type NewTagLayerClicked = SimpleActionTemplate<
+export type NewTagLayerClicked = ActionTemplate<
   NewTagLayerClickedType,
   NewTagLayerClickedPayload
 >;

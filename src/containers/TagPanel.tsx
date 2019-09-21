@@ -1,4 +1,4 @@
-import { Dispatch } from 'react';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import TagPanel, {
   ValueProps as TagPanelValueProp,
@@ -6,7 +6,7 @@ import TagPanel, {
 } from '../components/TagPanel';
 import { getCurrentTagID } from '../selectors/selectors';
 import makeGetTagInfo from '../selectors/get-tag-info';
-import { State, Action } from '../types';
+import { State } from '../types';
 import tagTraceVisibilityCheckboxToggled from '~/actions/ui/player/current-tag-panel/tag-trace-visibility-checkbox-toggled';
 import tagAppearsAtEditBoxEdited from '~/actions/ui/player/current-tag-panel/tag-appears-at-editbox-edited';
 import tagDisappearsAtEditBoxEdited from '~/actions/ui/player/current-tag-panel/tag-disappears-at-editbox-edited';
@@ -16,14 +16,14 @@ interface Props {
 }
 
 type MapDispatchToProps = (
-  dispatch: Dispatch<Action>,
+  dispatch: Dispatch,
   { ID }: Props
 ) => TagPanelFuncProp;
 
 type MapStateToProps = (state: State) => TagPanelValueProp;
 
 const onTagTraceVisbileCheckboxInput = (
-  dispatch: Dispatch<Action>,
+  dispatch: Dispatch,
   ID: string
 ): ((visible: boolean) => void) => {
   return (visible: boolean): void => {
@@ -32,7 +32,7 @@ const onTagTraceVisbileCheckboxInput = (
 };
 
 const onAppearsAtInput = (
-  dispatch: Dispatch<Action>,
+  dispatch: Dispatch,
   ID: string
 ): ((visible: number) => void) => {
   return (time: number): void => {
@@ -41,7 +41,7 @@ const onAppearsAtInput = (
 };
 
 const onDisappearsAtInput = (
-  dispatch: Dispatch<Action>,
+  dispatch: Dispatch,
   ID: string
 ): ((visible: number) => void) => {
   return (time: number): void => {
@@ -66,7 +66,7 @@ const makeMapStateToProps = (): MapStateToProps => {
 };
 
 const makeMapDispatchToProps = (): MapDispatchToProps => {
-  return (dispatch: Dispatch<Action>, { ID }: Props): TagPanelFuncProp => {
+  return (dispatch: Dispatch, { ID }: Props): TagPanelFuncProp => {
     return {
       onTagTraceVisbileCheckboxInput: onTagTraceVisbileCheckboxInput(
         dispatch,

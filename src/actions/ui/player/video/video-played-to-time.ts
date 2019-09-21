@@ -1,4 +1,4 @@
-import { SimpleActionTemplate } from '~/types/actions/simple-action-template';
+import { ActionTemplate } from '~/types/action-template';
 
 export type VideoPlayedToTimeType = 'VIDEO_PLAYED_TO_TIME';
 
@@ -6,7 +6,7 @@ export interface VideoPlayedToTimePayload {
   time: number;
 }
 
-export type VideoPlayedToTime = SimpleActionTemplate<
+export type VideoPlayedToTime = ActionTemplate<
   VideoPlayedToTimeType,
   VideoPlayedToTimePayload
 >;

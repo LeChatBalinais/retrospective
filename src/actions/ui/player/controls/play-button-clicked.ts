@@ -1,7 +1,7 @@
-import { SimpleActionTemplate } from '~/types/actions/simple-action-template';
+import { ActionTemplate } from '~/types/action-template';
 
 export type PlayButtonClickedType = 'PLAY_BUTTON_CLICKED';
-export type PlayButtonClicked = SimpleActionTemplate<PlayButtonClickedType, {}>;
+export type PlayButtonClicked = ActionTemplate<PlayButtonClickedType, {}>;
 
 export const PLAY_BUTTON_CLICKED = 'PLAY_BUTTON_CLICKED';
 

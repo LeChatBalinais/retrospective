@@ -1,20 +1,17 @@
-import { Dispatch } from 'react';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import ActiveTagLabel, {
   ValueProps,
   FuncProps
 } from '../components/ActiveTagLabel';
-import { Action, State } from '../types';
+import { State } from '../types';
 import { activeTagLabelClicked } from '~/actions';
 
 interface Props {
   ID: string;
 }
 
-const mapDispatchToProps = (
-  dispatch: Dispatch<Action>,
-  { ID }: Props
-): FuncProps => ({
+const mapDispatchToProps = (dispatch: Dispatch, { ID }: Props): FuncProps => ({
   onMouseDown: (): void => {
     dispatch(activeTagLabelClicked({ tagID: ID }));
   }

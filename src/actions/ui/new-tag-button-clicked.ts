@@ -1,8 +1,8 @@
-import { SimpleActionTemplate } from '~/types/actions/simple-action-template';
+import { ActionTemplate } from '~/types/action-template';
 
 export type NewTagButtonClickedType = 'NEW_TAG_BUTTON_CLICKED';
 
-export type NewTagButtonClicked = SimpleActionTemplate<
+export type NewTagButtonClicked = ActionTemplate<
   NewTagButtonClickedType,
   {}
 >;

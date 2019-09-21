@@ -1,4 +1,4 @@
-import { SimpleActionTemplate } from '~/types/actions/simple-action-template';
+import { ActionTemplate } from '~/types/action-template';
 
 export type TagDeletionConfirmedType = 'TAG_DELETION_CONFIRMED';
 
@@ -6,7 +6,7 @@ export interface TagDeletionConfirmedPayload {
   tagID: string;
 }
 
-export type TagDeletionConfirmed = SimpleActionTemplate<
+export type TagDeletionConfirmed = ActionTemplate<
   TagDeletionConfirmedType,
   TagDeletionConfirmedPayload
 >;

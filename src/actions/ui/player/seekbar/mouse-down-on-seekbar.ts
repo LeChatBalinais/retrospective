@@ -1,4 +1,4 @@
-import { SimpleActionTemplate } from '~/types/actions/simple-action-template';
+import { ActionTemplate } from '~/types/action-template';
 
 export type MouseDownOnSeekBarType = 'MOUSE_DOWN_ON_SEEK_BAR';
 
@@ -6,7 +6,7 @@ export interface MouseDownOnSeekBarPayload {
   position: number;
 }
 
-export type MouseDownOnSeekBar = SimpleActionTemplate<
+export type MouseDownOnSeekBar = ActionTemplate<
   MouseDownOnSeekBarType,
   MouseDownOnSeekBarPayload
 >;

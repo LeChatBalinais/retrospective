@@ -1,4 +1,4 @@
-import { SimpleActionTemplate } from '~/types/actions/simple-action-template';
+import { ActionTemplate } from '~/types/action-template';
 
 export type TagSavingConfirmedType = 'TAG_SAVING_CONFIRMED';
 
@@ -7,7 +7,7 @@ export interface TagSavingConfirmedPayload {
   tagGlobalID: string;
 }
 
-export type TagSavingConfirmed = SimpleActionTemplate<
+export type TagSavingConfirmed = ActionTemplate<
   TagSavingConfirmedType,
   TagSavingConfirmedPayload
 >;

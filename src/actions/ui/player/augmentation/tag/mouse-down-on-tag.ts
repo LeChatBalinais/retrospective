@@ -1,4 +1,4 @@
-import { SimpleActionTemplate } from '~/types/actions/simple-action-template';
+import { ActionTemplate } from '~/types/action-template';
 
 export type MouseDownOnTagType = 'MOUSE_DOWN_ON_TAG';
 
@@ -6,7 +6,7 @@ export interface MouseDownOnTagPayload {
   tagID: string;
 }
 
-export type MouseDownOnTag = SimpleActionTemplate<
+export type MouseDownOnTag = ActionTemplate<
   MouseDownOnTagType,
   MouseDownOnTagPayload
 >;

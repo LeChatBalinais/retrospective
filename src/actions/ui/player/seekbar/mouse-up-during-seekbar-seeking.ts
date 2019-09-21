@@ -1,8 +1,8 @@
-import { SimpleActionTemplate } from '~/types/actions/simple-action-template';
+import { ActionTemplate } from '~/types/action-template';
 
 export type MouseUpDuringSeekbarSeekingType = 'MOUSE_UP_DURING_SEEKBAR_SEEKING';
 
-export type MouseUpDuringSeekbarSeeking = SimpleActionTemplate<
+export type MouseUpDuringSeekbarSeeking = ActionTemplate<
   MouseUpDuringSeekbarSeekingType,
   {}
 >;

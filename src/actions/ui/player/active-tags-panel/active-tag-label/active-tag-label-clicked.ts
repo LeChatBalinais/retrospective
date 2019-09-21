@@ -1,4 +1,4 @@
-import { SimpleActionTemplate } from '~/types/actions/simple-action-template';
+import { ActionTemplate } from '~/types/action-template';
 
 export type ActiveTagLabelClickedType = 'ACTIVE_TAG_LABEL_CLICKED';
 
@@ -6,7 +6,7 @@ export interface ActiveTagLabelClickedPayload {
   tagID: string;
 }
 
-export type ActiveTagLabelClicked = SimpleActionTemplate<
+export type ActiveTagLabelClicked = ActionTemplate<
   ActiveTagLabelClickedType,
   ActiveTagLabelClickedPayload
 >;

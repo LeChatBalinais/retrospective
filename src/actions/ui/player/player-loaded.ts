@@ -1,8 +1,8 @@
-import { SimpleActionTemplate } from '~/types/actions/simple-action-template';
+import { ActionTemplate } from '~/types/action-template';
 
 export type PlayerLoadedType = 'PLAYER_LOADED';
 
-export type PlayerLoaded = SimpleActionTemplate<PlayerLoadedType, {}>;
+export type PlayerLoaded = ActionTemplate<PlayerLoadedType, {}>;
 
 export const PLAYER_LOADED = 'PLAYER_LOADED';
 
