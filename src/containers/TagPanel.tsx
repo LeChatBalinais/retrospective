@@ -7,9 +7,9 @@ import TagPanel, {
 import { getCurrentTagID } from '../selectors/selectors';
 import makeGetTagInfo from '../selectors/get-tag-info';
 import { State } from '../types';
-import tagTraceVisibilityCheckboxToggled from '~/actions/ui/player/current-tag-panel/tag-trace-visibility-checkbox-toggled';
-import tagAppearsAtEditBoxEdited from '~/actions/ui/player/current-tag-panel/tag-appears-at-editbox-edited';
-import tagDisappearsAtEditBoxEdited from '~/actions/ui/player/current-tag-panel/tag-disappears-at-editbox-edited';
+import { actionCreator as tagTraceVisibilityCheckboxToggled } from '~/actions-reducers/ui-current-tag-panel-trace-visibility-checkbox-toggled';
+import { actionCreator as tagAppearsAtEditBoxEdited } from '~/actions-reducers/ui-current-tag-panel-appears-at-edited';
+import { actionCreator as tagDisappearsAtEditBoxEdited } from '~/actions-reducers/ui-current-tag-panel-disappears-at-edited';
 
 interface Props {
   ID: string;

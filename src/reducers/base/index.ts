@@ -10,7 +10,8 @@ import {
   PlaneTimePoint,
   Tags,
   TagsByID
-} from '~/types';
+} from '~/types/state';
+
 import { getTag } from '~/selectors/common';
 
 export const setVideoStatus = (state: State, status: VideoStatus): State => ({

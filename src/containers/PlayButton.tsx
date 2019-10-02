@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import Button, { ValueProps, FuncProps } from '../components/Button';
-import { State, playButtonClicked } from '../types';
+import { State } from '../types/state';
+import { actionCreator as uiPlayButtonClicked } from '~/actions-reducers/ui-player-play-button-clicked';
 import { isVideoPlaying } from '~/selectors/selectors';
 
 const mapStateToProps = (state: State): ValueProps => ({
@@ -10,7 +11,7 @@ const mapStateToProps = (state: State): ValueProps => ({
 
 const mapDispatchToProps = (dispatch: Dispatch): FuncProps => ({
   onPress: (): void => {
-    dispatch(playButtonClicked());
+    dispatch(uiPlayButtonClicked());
   }
 });
 

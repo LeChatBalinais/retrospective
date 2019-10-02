@@ -5,7 +5,7 @@ import ActiveTagLabel, {
   FuncProps
 } from '../components/ActiveTagLabel';
 import { State } from '../types';
-import { activeTagLabelClicked } from '~/actions';
+import { actionCreator as activeTagLabelClicked } from '~/actions-reducers/ui-active-tag-panel-label-clicked';
 
 interface Props {
   ID: string;

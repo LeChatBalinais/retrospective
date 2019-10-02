@@ -13,8 +13,8 @@ import {
 import { getCurrentTime } from '../selectors/selectors';
 import { State } from '../types';
 
-import mouseDownOnTag from '~/actions/ui/player/augmentation/tag/mouse-down-on-tag';
-import mouseUpOnTag from '~/actions/ui/player/augmentation/tag/mouse-up-on-tag';
+import { actionCreator as mouseDownOnTag } from '~/actions-reducers/ui-player-augmentation-tag-mouse-down';
+import { actionCreator as mouseUpOnTag } from '~/actions-reducers/ui-player-augmentation-tag-mouse-up';
 
 interface Props {
   ID: string;

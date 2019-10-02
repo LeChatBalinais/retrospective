@@ -6,9 +6,9 @@ import Augmentation, {
 } from '../components/Augmentation';
 import getVisibleTagIDs from '../selectors/get-visible-tag-ids';
 import { State } from '../types';
-import mouseDownOnAugmentation from '~/actions/ui/player/augmentation/mouse-down-on-augmentation';
-import mouseUpOnAugmentation from '~/actions/ui/player/augmentation/mouse-up-on-augmentation';
-import mouseMoveOnAugmentation from '~/actions/ui/player/augmentation/mouse-move-on-augmentation';
+import { actionCreator as mouseDownOnAugmentation } from '~/actions-reducers/ui-player-augmentation-mouse-down';
+import { actionCreator as mouseMoveOnAugmentation } from '~/actions-reducers/ui-player-augmentation-mouse-move';
+import { actionCreator as mouseUpOnAugmentation } from '~/actions-reducers/ui-player-augmentation-mouse-up';
 
 const mapStateToProps = (state: State): ValueProps => ({
   tagIDs: getVisibleTagIDs(state)

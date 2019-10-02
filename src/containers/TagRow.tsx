@@ -6,7 +6,7 @@ import {
   isTagRowHighlighted
 } from '../selectors/ui/tag-list/tag-row';
 import { State } from '../types';
-import { tagRowClicked } from '~/actions/ui/tag-list';
+import { actionCreator as tagRowClicked } from '~/actions-reducers/ui-tag-list-row-clicked';
 
 type MapStateToProps = (state: State, { ID }: Props) => ValueProps;
 

@@ -1,14 +1,17 @@
 import { SagaIterator } from '@redux-saga/core';
 import { put, call, takeEvery, select } from 'redux-saga/effects';
 import makeGetTag from '../selectors/get-tag';
-import { SaveTagButtonClicked, SAVE_TAG_BUTTON_CLICKED } from '../types';
-import tagSavingConfirmed from '~/actions/sagas/tag-saving-confirmed';
+import {
+  ACTION_ID as UI_TAG_LIST_ROW_SAVE_BUTTON_CLICKED,
+  Action
+} from '~/actions-reducers/ui-tag-list-row-save-button-clicked';
+
+import { actionCreator as tagSavingConfirmed } from '~/actions-reducers/saga-tag-saving-confirmed';
 
 const getTag = makeGetTag();
 
-function* saveTag({ payload: { tagID } }: SaveTagButtonClicked): SagaIterator {
+function* saveTag({ payload: { tagID } }: Action): SagaIterator {
   const tag = yield select(getTag, tagID);
-
   const response = yield call(fetch, `http://localhost:9000/addTag`, {
     method: 'post',
     headers: {
@@ -26,5 +29,5 @@ function* saveTag({ payload: { tagID } }: SaveTagButtonClicked): SagaIterator {
 }
 
 export default function* watchIncrementAsync(): SagaIterator {
-  yield takeEvery(SAVE_TAG_BUTTON_CLICKED, saveTag);
+  yield takeEvery(UI_TAG_LIST_ROW_SAVE_BUTTON_CLICKED, saveTag);
 }

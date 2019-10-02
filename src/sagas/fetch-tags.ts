@@ -1,9 +1,9 @@
 import { SagaIterator } from '@redux-saga/core';
 import { v4 as uuid } from 'uuid';
 import { put, call, takeEvery } from 'redux-saga/effects';
-import { PLAYER_LOADED } from '../actions/ui/player';
+import { ACTION_ID as UI_PLAYER_LOADED } from '~/actions-reducers/ui-player-loaded';
 import { Table, Tag } from '../types';
-import tagsFetched from '~/actions/sagas/tags-fetched';
+import { actionCreator as tagsFetched } from '~/actions-reducers/saga-tags-fetching-fetched';
 
 function* fetchTags(): SagaIterator {
   const response = yield call(fetch, `http://localhost:9000/markers`);
@@ -26,5 +26,5 @@ function* fetchTags(): SagaIterator {
 }
 
 export default function* watchFetchTags(): SagaIterator {
-  yield takeEvery(PLAYER_LOADED, fetchTags);
+  yield takeEvery(UI_PLAYER_LOADED, fetchTags);
 }

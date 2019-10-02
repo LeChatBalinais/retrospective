@@ -6,7 +6,7 @@ import Player, {
 } from '../components/Player';
 import { getCurrentTagID, isPlaceNewTagModeOn } from '../selectors/selectors';
 import { State } from '../types';
-import { playerLoaded } from '../actions/ui/player';
+import { actionCreator as playerLoaded } from '~/actions-reducers/ui-player-loaded';
 
 const mapStateToProps = (state: State): PlayerValueProps => ({
   currentTag: getCurrentTagID(state),

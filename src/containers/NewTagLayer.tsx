@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import NewTagLayer, { FuncProps } from '../components/NewTagLayer';
-import newTagLayerClicked from '~/actions/ui/player/new-tag-layer/new-tag-layer-clicked';
+import { actionCreator as newTagLayerClicked } from '~/actions-reducers/ui-player-new-tag-layer-clicked';
 
 const mapDispatchToProps = (dispatch: Dispatch): FuncProps => ({
   onClick: (x: number, y: number): void => {
