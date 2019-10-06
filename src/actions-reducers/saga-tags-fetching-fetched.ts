@@ -1,5 +1,5 @@
 import { ActionTemplate } from '~/utils/action-template';
-import { State, Tags, Table, Tag } from '~/types/state';
+import { State, Tags, Table, Tag } from '~/state';
 import createReducer from '~/utils/create-reducer';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
 import { setTags } from '~/reducers/base';

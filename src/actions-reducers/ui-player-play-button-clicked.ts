@@ -1,6 +1,6 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
-import { PlaybackStatus, State } from '~/types/state';
+import { PlaybackStatus, State } from '~/state';
 import createReducer from '~/utils/create-reducer';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
 import { getPlaybackStatus } from '~/selectors/common';

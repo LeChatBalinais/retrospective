@@ -10,7 +10,7 @@ import {
   PlaneTimePoint,
   Tags,
   TagsByID
-} from '~/types/state';
+} from '~/state';
 
 import { getTag } from '~/selectors/common';
 

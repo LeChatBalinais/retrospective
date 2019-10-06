@@ -5,7 +5,7 @@ import {
   SeekingStatus,
   SeekbarStatus,
   State
-} from '~/types/state';
+} from '~/state';
 import createReducer from '~/utils/create-reducer';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
 import {

@@ -5,5 +5,5 @@ export default interface Tag {
   readonly traceIsVisible: boolean;
   readonly isEdited: boolean;
   readonly isCurrent: boolean;
-  readonly path: { time: number, x: number, y: number }[];
+  readonly path: { time: number; x: number; y: number }[];
 }

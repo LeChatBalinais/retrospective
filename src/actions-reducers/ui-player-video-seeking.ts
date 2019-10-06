@@ -1,6 +1,6 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
-import { State, VideoStatus } from '~/types/state';
+import { State, VideoStatus } from '~/state';
 import createReducer from '~/utils/create-reducer';
 import { getVideoStatus, getStageVideoSeekingTo } from '~/selectors/common';
 import { getVideoDuration } from '~/selectors/selectors';

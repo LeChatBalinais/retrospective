@@ -4,7 +4,7 @@ import {
   PlaybackStatus,
   VideoStatus,
   SeekingStatus
-} from '../types/state';
+} from '../state';
 
 export const getPlayerStatus = ({
   player: { playbackStatus: status }

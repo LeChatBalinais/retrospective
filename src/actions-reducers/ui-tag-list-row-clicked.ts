@@ -1,6 +1,6 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
-import { State, SeekingStatus, PlaneTimePoint } from '~/types/state';
+import { State, SeekingStatus, PlaneTimePoint } from '~/state';
 import createReducer from '~/utils/create-reducer';
 import { getCurrentTagID, getVideoDuration } from '~/selectors/selectors';
 import {

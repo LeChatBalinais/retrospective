@@ -8,7 +8,7 @@ import {
   PlaybackStatus,
   Tags,
   TagsByID
-} from '~/types/state';
+} from '~/state';
 
 export const getTag = (
   {

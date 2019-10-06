@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import Button, { ValueProps, FuncProps } from '../components/Button';
-import { State } from '../types/state';
+import { State } from '../state';
 import { actionCreator as uiPlayButtonClicked } from '~/actions-reducers/ui-player-play-button-clicked';
 import { isVideoPlaying } from '~/selectors/selectors';
 

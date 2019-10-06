@@ -1,3 +1,5 @@
+import { State } from '~/state';
+import DEFAULT_STATE from '../default-state';
 import {
   Action as SagaTagDeletionConfirmed,
   reducer as sagaTagDeletionConfirmedReducer
@@ -159,4 +161,13 @@ export const reducers = {
   ...uiCurrentTagPanelAppearsAtEdited,
   ...uiCurrentTagPanelDisappearsAtEdited,
   ...uiCurrentTagPanelTraceVisibilityCheckboxToggled
+};
+
+export const reducer = (
+  state: State = DEFAULT_STATE,
+  action: Action
+): State => {
+  const r = reducers[action.type];
+  if (r === undefined) return state;
+  return r(state, action);
 };

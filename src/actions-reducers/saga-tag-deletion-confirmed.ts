@@ -1,6 +1,6 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
-import { State } from '~/types/state';
+import { State } from '~/state';
 import createReducer from '~/utils/create-reducer';
 import { deleteTag, setCurrentTagID } from '~/reducers/base';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
