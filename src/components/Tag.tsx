@@ -7,16 +7,12 @@ import {
 } from '../interactivity/element-animation';
 
 export interface ValueProps {
-  x: number;
-  y: number;
-  offsetX: number;
-  offsetY: number;
+  position: { x: number; y: number };
   path: { time: number; x: number; y: number }[];
-  currentTime: number;
+  timeAt: number;
   className: string;
-  dragged: boolean;
-  playback: boolean;
   isCurrent: boolean;
+  isAnimated: boolean;
 }
 
 export interface FuncProps {
@@ -27,16 +23,12 @@ export interface FuncProps {
 export type Props = ValueProps & FuncProps;
 
 const Tag = ({
-  x,
-  y,
-  offsetX,
-  offsetY,
+  position,
   path,
-  currentTime,
+  timeAt,
   className,
-  dragged,
-  playback,
   isCurrent,
+  isAnimated,
   onMouseDown,
   onMouseUp
 }: Props): JSX.Element => {
@@ -44,12 +36,11 @@ const Tag = ({
 
   const width = 5;
   const height = 5;
-  const existance = playback && !dragged;
 
   const animationProps = useMemo<AnimationProps>(
     (): AnimationProps =>
-      getUpdatedAnimationProps(path, currentTime, width, height, existance),
-    [path, currentTime, width, height, existance]
+      getUpdatedAnimationProps(path, timeAt, width, height, isAnimated),
+    [path, timeAt, width, height, isAnimated]
   );
 
   const animationRef = useRef<TimelineLite>(undefined);
@@ -66,16 +57,10 @@ const Tag = ({
     prevPropsRef.current = animationProps;
   }, [animationProps]);
 
-  let style = {};
-
-  if (!playback || (playback && dragged)) {
-    style = {
-      top: `calc(${offsetY}% - ${5}px)`,
-      left: `calc(${offsetX}% - ${5}px)`
-    };
-  } else {
-    style = { top: `calc(${y}% - ${5}px`, left: `calc(${x}% - ${5}px` };
-  }
+  const style = {
+    top: `calc(${position.y}% - ${5}px`,
+    left: `calc(${position.x}% - ${5}px`
+  };
 
   const composedClassName = `marker ${className}`;
 

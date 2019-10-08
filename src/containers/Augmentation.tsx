@@ -4,14 +4,14 @@ import Augmentation, {
   ValueProps,
   FuncProps
 } from '../components/Augmentation';
-import getVisibleTagIDs from '../selectors/get-visible-tag-ids';
-import { State } from '../types';
+import getCurrentlyVisibleTagIDs from '../selectors/get-currentily-visible-tag-ids';
+import { State } from '~/state';
 import { actionCreator as mouseDownOnAugmentation } from '~/actions-reducers/ui-player-augmentation-mouse-down';
 import { actionCreator as mouseMoveOnAugmentation } from '~/actions-reducers/ui-player-augmentation-mouse-move';
 import { actionCreator as mouseUpOnAugmentation } from '~/actions-reducers/ui-player-augmentation-mouse-up';
 
 const mapStateToProps = (state: State): ValueProps => ({
-  tagIDs: getVisibleTagIDs(state)
+  tagIDs: getCurrentlyVisibleTagIDs(state)
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): FuncProps => ({

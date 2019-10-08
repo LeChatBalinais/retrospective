@@ -3,10 +3,10 @@ import { Dispatch } from 'redux';
 import Button, { ValueProps, FuncProps } from '../components/Button';
 import { State } from '../state';
 import { actionCreator as uiPlayButtonClicked } from '~/actions-reducers/ui-player-play-button-clicked';
-import { isVideoPlaying } from '~/selectors/selectors';
+import { isPlaying } from '~/selectors/common/player';
 
 const mapStateToProps = (state: State): ValueProps => ({
-  caption: isVideoPlaying(state) ? 'Pause' : 'Play'
+  caption: isPlaying(state) ? 'Pause' : 'Play'
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): FuncProps => ({

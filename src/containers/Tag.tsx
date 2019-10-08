@@ -3,18 +3,17 @@ import { connect } from 'react-redux';
 import Tag, {
   FuncProps as TagFuncProps,
   ValueProps as TagValueProps
-} from '../components/Tag';
-import makeGetTagInfo from '../selectors/get-tag-info';
-import isVideoPlaying from '../selectors/is-video-playing';
-import {
-  makeGetTagAppearsAt,
-  makeGetCurrentTagPosition
-} from '../selectors/tag-selectors';
-import { getCurrentTime } from '../selectors/selectors';
-import { State } from '../types';
-
+} from '~/components/Tag';
+import { State } from '~/state';
 import { actionCreator as mouseDownOnTag } from '~/actions-reducers/ui-player-augmentation-tag-mouse-down';
 import { actionCreator as mouseUpOnTag } from '~/actions-reducers/ui-player-augmentation-tag-mouse-up';
+import { isPlaying } from '~/selectors/common/player';
+import { isTagDragged } from '~/selectors/is-tag-dragged';
+import { isTagCurrent } from '~/selectors/is-tag-current';
+import { getTimeVideoAt } from '~/selectors/get-time-video-at';
+import { getPointTagAppearsAt } from '~/selectors/get-point-tag-appears-at';
+import { getTagPositionByTime } from '~/selectors/get-tag-position-by-time';
+import { getTagPath } from '~/selectors/common/tags';
 
 interface Props {
   ID: string;
@@ -22,29 +21,30 @@ interface Props {
 
 type MapStateToProps = (state: State, props: Props) => TagValueProps;
 
+const isAnimated = (state: State, ID: string): boolean => {
+  return isPlaying(state) && !isTagDragged(state, ID);
+};
+
+const getTimeTagAt = (state: State, ID: string): number => {
+  const { time } = getPointTagAppearsAt(state, ID);
+  return getTimeVideoAt(state) - time;
+};
+
+const getPosition = (state: State, ID: string): { x: number; y: number } => {
+  return isAnimated(state, ID)
+    ? getPointTagAppearsAt(state, ID)
+    : getTagPositionByTime(state, ID, getTimeTagAt(state, ID));
+};
+
 const makeMapStateToProps = (): MapStateToProps => {
-  const getTagInfo = makeGetTagInfo();
-  const getTagAppearsAt = makeGetTagAppearsAt();
-  const getCurrentTagPosition = makeGetCurrentTagPosition();
-
   return (state: State, { ID }: Props): TagValueProps => {
-    const { path, isEdited: dragged, isCurrent } = getTagInfo(state, ID);
-    const { time, x, y } = getTagAppearsAt(state, ID);
-    const { x: offsetX, y: offsetY } = getCurrentTagPosition(state, ID);
-    const currentTime = getCurrentTime(state) - time;
-    const playback = isVideoPlaying(state);
-
     return {
       className: 'Tag',
-      path,
-      x,
-      y,
-      dragged,
-      currentTime,
-      playback,
-      offsetX,
-      offsetY,
-      isCurrent
+      position: getPosition(state, ID),
+      path: getTagPath(state, ID),
+      timeAt: getTimeTagAt(state, ID),
+      isCurrent: isTagCurrent(state, ID),
+      isAnimated: isAnimated(state, ID)
     };
   };
 };

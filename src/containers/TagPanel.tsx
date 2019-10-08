@@ -3,13 +3,17 @@ import { connect } from 'react-redux';
 import TagPanel, {
   ValueProps as TagPanelValueProp,
   FuncProps as TagPanelFuncProp
-} from '../components/TagPanel';
-import { getCurrentTagID } from '../selectors/selectors';
-import makeGetTagInfo from '../selectors/get-tag-info';
-import { State } from '../types';
+} from '~/components/TagPanel';
+import { State } from '~/state';
 import { actionCreator as tagTraceVisibilityCheckboxToggled } from '~/actions-reducers/ui-current-tag-panel-trace-visibility-checkbox-toggled';
 import { actionCreator as tagAppearsAtEditBoxEdited } from '~/actions-reducers/ui-current-tag-panel-appears-at-edited';
 import { actionCreator as tagDisappearsAtEditBoxEdited } from '~/actions-reducers/ui-current-tag-panel-disappears-at-edited';
+import {
+  getCurrentTagID,
+  getVisibleTraceTagIDs
+} from '~/selectors/common/tag-editor';
+import { getPointTagAppearsAt } from '~/selectors/get-point-tag-appears-at';
+import { getPointTagDisappearsAt } from '~/selectors/get-point-tag-disappears-at';
 
 interface Props {
   ID: string;
@@ -21,6 +25,20 @@ type MapDispatchToProps = (
 ) => TagPanelFuncProp;
 
 type MapStateToProps = (state: State) => TagPanelValueProp;
+
+const getTimeTagAppearsAt = (state: State, ID: string): number => {
+  const { time } = getPointTagAppearsAt(state, ID);
+  return time;
+};
+
+const getTimeTagDisappearsAt = (state: State, ID: string): number => {
+  const { time } = getPointTagDisappearsAt(state, ID);
+  return time;
+};
+
+const isTagTraceVisible = (state: State, ID: string): boolean => {
+  return getVisibleTraceTagIDs(state).includes(ID);
+};
 
 const onTagTraceVisbileCheckboxInput = (
   dispatch: Dispatch,
@@ -50,17 +68,13 @@ const onDisappearsAtInput = (
 };
 
 const makeMapStateToProps = (): MapStateToProps => {
-  const getTagInfo = makeGetTagInfo();
-
   return (state: State): TagPanelValueProp => {
     const ID = getCurrentTagID(state);
-    const tag = getTagInfo(state, ID);
-
     return {
       name: ID,
-      start: tag.appearsAt,
-      end: tag.disapearsAt,
-      traceIsVisible: tag.traceIsVisible
+      start: getTimeTagAppearsAt(state, ID),
+      end: getTimeTagDisappearsAt(state, ID),
+      traceIsVisible: isTagTraceVisible(state, ID)
     };
   };
 };

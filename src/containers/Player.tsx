@@ -4,8 +4,11 @@ import Player, {
   ValueProps as PlayerValueProps,
   FuncProps as PlayerFuncProps
 } from '../components/Player';
-import { getCurrentTagID, isPlaceNewTagModeOn } from '../selectors/selectors';
-import { State } from '../types';
+import {
+  isPlaceNewTagModeOn,
+  getCurrentTagID
+} from '~/selectors/common/tag-editor';
+import { State } from '~/state';
 import { actionCreator as playerLoaded } from '~/actions-reducers/ui-player-loaded';
 
 const mapStateToProps = (state: State): PlayerValueProps => ({

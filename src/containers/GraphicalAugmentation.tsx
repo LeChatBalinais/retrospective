@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 import GraphicalAugmentation, {
   ValueProps
 } from '../components/GraphicalAugmentation';
-import { State } from '../types';
-import { getVisibleTraceTagIDs } from '../selectors/selectors';
+import { State } from '~/state';
+import { getVisibleTraceTagIDs } from '../selectors/common/tag-editor';
 
 const mapStateToProps = (state: State): ValueProps => {
   const result = {

@@ -1,17 +1,14 @@
 import { createSelector } from 'reselect';
-import {
-  getTags,
-  getCurrentTime,
-  getTagIDs,
-  getBeingEditedTagIDs
-} from './selectors';
-import { Tag } from '../types';
+import { TagsByID } from '~/state';
+import { getBeingEditedTagIDs } from './common/tag-editor';
+import { getTimeVideoAt } from './get-time-video-at';
+import { getTags, getTagIDs } from './common/tags';
 
-const getVisibleTagIDs = createSelector(
-  [getTagIDs, getTags, getCurrentTime, getBeingEditedTagIDs],
+const getCurrentlyVisibleTagIDs = createSelector(
+  [getTagIDs, getTags, getTimeVideoAt, getBeingEditedTagIDs],
   (
     tagIDs: string[],
-    byID: { [ID: string]: Tag },
+    byID: TagsByID,
     currentTime: number,
     tagIDsBeingEdited: string[]
   ): string[] => {
@@ -30,4 +27,4 @@ const getVisibleTagIDs = createSelector(
   }
 );
 
-export default getVisibleTagIDs;
+export default getCurrentlyVisibleTagIDs;

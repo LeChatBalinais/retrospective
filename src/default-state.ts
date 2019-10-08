@@ -4,7 +4,7 @@ import {
   VideoStatus,
   SeekingStatus,
   SeekbarStatus
-} from './types';
+} from '~/state';
 
 const DEFAULT_STATE: State = {
   entities: {
