@@ -1,11 +1,12 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
 import { State } from '~/state';
-import { getVideoDuration } from '~/selectors/selectors';
-import { setVideoDuration, setStageVideoAt } from '~/reducers/base';
+import { getVideoDuration } from '~/getters/footage';
+import { setStageVideoAt } from '~/setters/player';
+import { setVideoDuration } from '~/setters/footage';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
 import createReducer from '~/utils/create-reducer';
-import { getStageVideoAt } from '~/selectors/common';
+import { getStageVideoAt } from '~/getters/player';
 
 export type ActionID = 'UI_PLAYER_VIDEO_DURATION_CHANGED';
 export const ACTION_ID = 'UI_PLAYER_VIDEO_DURATION_CHANGED';

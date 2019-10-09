@@ -2,12 +2,12 @@ import { connect } from 'react-redux';
 import { State, SeekingStatus } from '~/state';
 import SeekBarSlider, {
   ValueProps as SeekBarSliderValueProps
-} from '../components/SeekBarSlider';
+} from '~/components/SeekBarSlider';
 import {
   getSeekingStatus,
   getLastRequestedStage,
   getStageVideoAt
-} from '~/selectors/common/player';
+} from '~/getters/player';
 
 const getSliderPosition = (state: State): number => {
   const normalizedPosition =

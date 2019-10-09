@@ -1,9 +1,9 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { State } from '~/state';
 import createReducer from '~/utils/create-reducer';
-import { setTagGlobalID } from '~/reducers/base';
+import { setTagGlobalID } from '~/setters/tags';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
-import { getTagGlobalID } from '~/selectors/common';
+import { getTagGlobalID } from '~/getters/tags';
 import { makeActionCreator } from '~/utils/make-action-creator';
 
 export type ActionID = 'SAGA_TAG_SAVING_CONFIRMED';

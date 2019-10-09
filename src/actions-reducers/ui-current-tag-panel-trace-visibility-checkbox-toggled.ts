@@ -3,8 +3,11 @@ import { makeActionCreator } from '~/utils/make-action-creator';
 import { State } from '~/state';
 import createReducer from '~/utils/create-reducer';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
-import { getVisibleTraceTagIDs } from '~/selectors/common';
-import { setVisibleTraceTagIDs, setTagTraceVisible } from '~/reducers/base';
+import { getVisibleTraceTagIDs } from '~/getters/tag-editor';
+import {
+  setVisibleTraceTagIDs,
+  setTagTraceVisible
+} from '~/setters/tag-editor';
 
 export type ActionID = 'TAG_TRACE_VISIBILITY_CHECKBOX_TOGGLED';
 export const ACTION_ID = 'TAG_TRACE_VISIBILITY_CHECKBOX_TOGGLED';

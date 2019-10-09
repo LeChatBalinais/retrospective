@@ -2,19 +2,17 @@ import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
 import { State, SeekingStatus, PlaneTimePoint } from '~/state';
 import createReducer from '~/utils/create-reducer';
-import { getCurrentTagID, getVideoDuration } from '~/selectors/selectors';
-import {
-  setCurrentTagID,
-  setLastRequestedStage,
-  setSeekingStatus
-} from '~/reducers/base';
+import { getCurrentTagID } from '~/getters/tag-editor';
+import { getVideoDuration } from '~/getters/footage';
+import { setCurrentTagID } from '~/setters/tag-editor';
+import { setLastRequestedStage, setSeekingStatus } from '~/setters/player';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
 import {
   getLastRequestedStage,
   getStageVideoAt,
-  getTagPath,
   getSeekingStatus
-} from '~/selectors/common';
+} from '~/getters/player';
+import { getTagPath } from '~/getters/tags';
 
 export type ActionID = 'TAG_ROW_CLICKED';
 export const ACTION_ID = 'TAG_ROW_CLICKED';

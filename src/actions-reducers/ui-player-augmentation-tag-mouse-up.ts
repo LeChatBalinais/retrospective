@@ -2,8 +2,8 @@ import { ActionTemplate } from '~/utils/action-template';
 import { State, PlaybackStatus } from '~/state';
 import createReducer from '~/utils/create-reducer';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
-import { getPlaybackStatus } from '~/selectors/common';
-import { setPlaybackStatus } from '~/reducers/base';
+import { getPlaybackStatus } from '~/getters/player';
+import { setPlaybackStatus } from '~/setters/player';
 import { makeActionCreator } from '~/utils/make-action-creator';
 
 export type ActionID = 'MOUSE_UP_ON_TAG';

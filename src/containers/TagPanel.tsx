@@ -11,7 +11,7 @@ import { actionCreator as tagDisappearsAtEditBoxEdited } from '~/actions-reducer
 import {
   getCurrentTagID,
   getVisibleTraceTagIDs
-} from '~/selectors/common/tag-editor';
+} from '~/getters/tag-editor';
 import { getPointTagAppearsAt } from '~/selectors/get-point-tag-appears-at';
 import { getPointTagDisappearsAt } from '~/selectors/get-point-tag-disappears-at';
 

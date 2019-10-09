@@ -7,13 +7,13 @@ import Tag, {
 import { State } from '~/state';
 import { actionCreator as mouseDownOnTag } from '~/actions-reducers/ui-player-augmentation-tag-mouse-down';
 import { actionCreator as mouseUpOnTag } from '~/actions-reducers/ui-player-augmentation-tag-mouse-up';
-import { isPlaying } from '~/selectors/common/player';
+import { isPlaying } from '~/getters/player';
 import { isTagDragged } from '~/selectors/is-tag-dragged';
 import { isTagCurrent } from '~/selectors/is-tag-current';
 import { getTimeVideoAt } from '~/selectors/get-time-video-at';
 import { getPointTagAppearsAt } from '~/selectors/get-point-tag-appears-at';
 import { getTagPositionByTime } from '~/selectors/get-tag-position-by-time';
-import { getTagPath } from '~/selectors/common/tags';
+import { getTagPath } from '~/getters/tags';
 
 interface Props {
   ID: string;

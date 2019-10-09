@@ -1,4 +1,4 @@
-import { getTag } from './common/tags';
+import { getTag } from '~/getters/tags';
 import { State } from '~/state';
 
 export const isTagLocal = (state: State, ID: string): boolean => {

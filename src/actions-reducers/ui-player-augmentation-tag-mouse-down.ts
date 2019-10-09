@@ -3,16 +3,10 @@ import { makeActionCreator } from '~/utils/make-action-creator';
 import { State, PlaybackStatus } from '~/state';
 import createReducer from '~/utils/create-reducer';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
-import {
-  getPlaybackStatus,
-  getTagBeingEditedID,
-  getCurrentTagID
-} from '~/selectors/common';
-import {
-  setPlaybackStatus,
-  setTagBeingEditedID,
-  setCurrentTagID
-} from '~/reducers/base';
+import { getTagBeingEditedID, getCurrentTagID } from '~/getters/tag-editor';
+import { getPlaybackStatus } from '~/getters/player';
+import { setPlaybackStatus } from '~/setters/player';
+import { setTagBeingEditedID, setCurrentTagID } from '~/setters/tag-editor';
 
 export type ActionID = 'MOUSE_DOWN_ON_TAG';
 export const ACTION_ID = 'MOUSE_DOWN_ON_TAG';

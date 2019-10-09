@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import Video, { ValueProps, FuncProps } from '../components/Video';
+import Video, { ValueProps, FuncProps } from '~/components/Video';
 import { State, VideoStatus, SeekingStatus, PlaybackStatus } from '~/state';
 import { actionCreator as videoPlayedToTime } from '~/actions-reducers/ui-player-video-played-to-time';
 import { actionCreator as videoSeeked } from '~/actions-reducers/ui-player-video-seeked';
@@ -11,8 +11,8 @@ import {
   getVideoStatus,
   getSeekingStatus,
   getPlaybackStatus
-} from '~/selectors/common/player';
-import { getVideoDuration, getVideoURL } from '~/selectors/common/footage';
+} from '~/getters/player';
+import { getVideoDuration, getVideoURL } from '~/getters/footage';
 
 const getTimeSeekTo = (state: State): number =>
   getLastRequestedStage(state) * getVideoDuration(state);

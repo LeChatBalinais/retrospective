@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import TagRow, { ValueProps, FuncProps } from '../components/TagRow';
+import TagRow, { ValueProps, FuncProps } from '~/components/TagRow';
 import { State } from '~/state';
 import { actionCreator as tagRowClicked } from '~/actions-reducers/ui-tag-list-row-clicked';
 import { isTagCurrent } from '~/selectors/is-tag-current';

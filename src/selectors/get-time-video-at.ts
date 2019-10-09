@@ -1,6 +1,6 @@
 import { State } from '~/state';
-import { getStageVideoAt } from './common/player';
-import { getVideoDuration } from './common/footage';
+import { getStageVideoAt } from '~/getters/player';
+import { getVideoDuration } from '~/getters/footage';
 
 export const getTimeVideoAt = (state: State): number =>
   getStageVideoAt(state) * getVideoDuration(state);

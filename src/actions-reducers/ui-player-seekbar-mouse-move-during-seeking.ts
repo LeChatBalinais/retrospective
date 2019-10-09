@@ -3,8 +3,8 @@ import { makeActionCreator } from '~/utils/make-action-creator';
 import { State } from '~/state';
 import createReducer from '~/utils/create-reducer';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
-import { getLastRequestedStage } from '~/selectors/common';
-import { setLastRequestedStage } from '~/reducers/base';
+import { getLastRequestedStage } from '~/getters/player';
+import { setLastRequestedStage } from '~/setters/player';
 
 export type ActionID = 'MOUSE_MOVE_DURING_SEEKBAR_SEEKING';
 export const ACTION_ID = 'MOUSE_MOVE_DURING_SEEKBAR_SEEKING';

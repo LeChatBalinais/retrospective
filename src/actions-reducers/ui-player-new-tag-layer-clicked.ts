@@ -3,17 +3,12 @@ import { makeActionCreator } from '~/utils/make-action-creator';
 import { State, PlaybackStatus } from '~/state';
 import createReducer from '~/utils/create-reducer';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
-import {
-  getPlaybackStatus,
-  getPlacingNewTagMode,
-  getStageVideoAt
-} from '~/selectors/common';
-import {
-  setPlaybackStatus,
-  setPlacingNewTagMode,
-  addNewTag
-} from '~/reducers/base';
-import { getVideoDuration } from '~/selectors/selectors';
+import { isPlaceNewTagModeOn } from '~/getters/tag-editor';
+import { getPlaybackStatus, getStageVideoAt } from '~/getters/player';
+import { setPlaybackStatus } from '~/setters/player';
+import { setPlacingNewTagMode } from '~/setters/tag-editor';
+import { addNewTag } from '~/setters/tags';
+import { getVideoDuration } from '~/getters/footage';
 
 export type ActionID = 'NEW_TAG_LAYER_CLICKED';
 export const ACTION_ID = 'NEW_TAG_LAYER_CLICKED';
@@ -51,7 +46,7 @@ const partialReducers = [
     calculatePlaybackStatus
   ),
   createPartialReducer(
-    getPlacingNewTagMode,
+    isPlaceNewTagModeOn,
     setPlacingNewTagMode,
     calculatePlacingNewTagMode
   ),

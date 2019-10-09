@@ -1,8 +1,9 @@
 import { State } from '~/state';
 
-export const getBeingEditedTagIDs = ({
+export const getTagBeingEditedID = ({
   tagEditor: { tagsBeingEdited }
-}: State): string[] => tagsBeingEdited;
+}: State): string =>
+  tagsBeingEdited.length === 0 ? undefined : tagsBeingEdited[0];
 
 export const getVisibleTraceTagIDs = ({
   tagEditor: { tagsWithVisibleTrace }

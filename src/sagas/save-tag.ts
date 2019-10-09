@@ -1,14 +1,12 @@
 import { SagaIterator } from '@redux-saga/core';
 import { put, call, takeEvery, select } from 'redux-saga/effects';
-import makeGetTag from '../selectors/get-tag';
+import { getTag } from '~/getters/tags';
 import {
   ACTION_ID as UI_TAG_LIST_ROW_SAVE_BUTTON_CLICKED,
   Action
 } from '~/actions-reducers/ui-tag-list-row-save-button-clicked';
 
 import { actionCreator as tagSavingConfirmed } from '~/actions-reducers/saga-tag-saving-confirmed';
-
-const getTag = makeGetTag();
 
 function* saveTag({ payload: { tagID } }: Action): SagaIterator {
   const tag = yield select(getTag, tagID);

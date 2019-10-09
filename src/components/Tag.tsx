@@ -4,7 +4,7 @@ import {
   AnimationProps,
   getUpdatedAnimation,
   getUpdatedAnimationProps
-} from '../interactivity/element-animation';
+} from '~/interactivity/element-animation';
 
 export interface ValueProps {
   position: { x: number; y: number };

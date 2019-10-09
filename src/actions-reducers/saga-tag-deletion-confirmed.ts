@@ -2,9 +2,10 @@ import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
 import { State } from '~/state';
 import createReducer from '~/utils/create-reducer';
-import { deleteTag, setCurrentTagID } from '~/reducers/base';
+import { setCurrentTagID } from '~/setters/tag-editor';
+import { deleteTag } from '~/setters/tags';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
-import { getCurrentTagID } from '~/selectors/common';
+import { getCurrentTagID } from '~/getters/tag-editor';
 
 type ActionID = 'SAGA_TAG_DELETION_CONFIRMED';
 export const ACTION_ID = 'SAGA_TAG_DELETION_CONFIRMED';

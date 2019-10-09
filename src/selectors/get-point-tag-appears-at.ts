@@ -1,4 +1,4 @@
-import { getTag } from '~/selectors/common/tags';
+import { getTag } from '~/getters/tags';
 import { State } from '~/state';
 
 export const getPointTagAppearsAt = (

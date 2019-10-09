@@ -1,5 +1,5 @@
 import React from 'react';
-import TagRowContainer from '../containers/TagRow';
+import TagRowContainer from '~/containers/TagRow';
 
 export interface ValueProps {
   IDs: string[];

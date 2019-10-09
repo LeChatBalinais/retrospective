@@ -1,10 +1,7 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import Augmentation, {
-  ValueProps,
-  FuncProps
-} from '../components/Augmentation';
-import getCurrentlyVisibleTagIDs from '../selectors/get-currentily-visible-tag-ids';
+import Augmentation, { ValueProps, FuncProps } from '~/components/Augmentation';
+import getCurrentlyVisibleTagIDs from '~/selectors/get-currentily-visible-tag-ids';
 import { State } from '~/state';
 import { actionCreator as mouseDownOnAugmentation } from '~/actions-reducers/ui-player-augmentation-mouse-down';
 import { actionCreator as mouseMoveOnAugmentation } from '~/actions-reducers/ui-player-augmentation-mouse-move';

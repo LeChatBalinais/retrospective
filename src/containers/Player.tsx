@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import Player, {
   ValueProps as PlayerValueProps,
   FuncProps as PlayerFuncProps
-} from '../components/Player';
+} from '~/components/Player';
 import {
   isPlaceNewTagModeOn,
   getCurrentTagID
-} from '~/selectors/common/tag-editor';
+} from '~/getters/tag-editor';
 import { State } from '~/state';
 import { actionCreator as playerLoaded } from '~/actions-reducers/ui-player-loaded';
 

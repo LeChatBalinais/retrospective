@@ -1,5 +1,5 @@
 import React from 'react';
-import TagExistanceStatusButton from '../containers/TagExistanceStatusButton';
+import TagExistanceStatusButton from '~/containers/TagExistanceStatusButton';
 
 export interface ValueProps {
   ID: string;

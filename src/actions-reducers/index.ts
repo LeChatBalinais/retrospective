@@ -1,5 +1,5 @@
 import { State } from '~/state';
-import DEFAULT_STATE from '../default-state';
+import DEFAULT_STATE from '~/default-state';
 import {
   Action as SagaTagDeletionConfirmed,
   reducer as sagaTagDeletionConfirmedReducer

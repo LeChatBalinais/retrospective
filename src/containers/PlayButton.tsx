@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import Button, { ValueProps, FuncProps } from '../components/Button';
-import { State } from '../state';
+import Button, { ValueProps, FuncProps } from '~/components/Button';
+import { State } from '~/state';
 import { actionCreator as uiPlayButtonClicked } from '~/actions-reducers/ui-player-play-button-clicked';
-import { isPlaying } from '~/selectors/common/player';
+import { isPlaying } from '~/getters/player';
 
 const mapStateToProps = (state: State): ValueProps => ({
   caption: isPlaying(state) ? 'Pause' : 'Play'

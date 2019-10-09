@@ -1,11 +1,11 @@
 import { createSelector } from 'reselect';
 import { TagsByID } from '~/state';
-import { getBeingEditedTagIDs } from './common/tag-editor';
+import { getTagBeingEditedIDs } from '~/getters/tag-editor';
 import { getTimeVideoAt } from './get-time-video-at';
-import { getTags, getTagIDs } from './common/tags';
+import { getTags, getTagIDs } from '~/getters/tags';
 
 const getCurrentlyVisibleTagIDs = createSelector(
-  [getTagIDs, getTags, getTimeVideoAt, getBeingEditedTagIDs],
+  [getTagIDs, getTags, getTimeVideoAt, getTagBeingEditedIDs],
   (
     tagIDs: string[],
     byID: TagsByID,

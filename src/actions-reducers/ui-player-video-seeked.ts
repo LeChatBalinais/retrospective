@@ -1,11 +1,6 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
-import {
-  VideoStatus,
-  SeekingStatus,
-  SeekbarStatus,
-  State
-} from '~/state';
+import { VideoStatus, SeekingStatus, SeekbarStatus, State } from '~/state';
 import createReducer from '~/utils/create-reducer';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
 import {
@@ -15,14 +10,14 @@ import {
   getSeekingStatus,
   getLastRequestedStage,
   getSeekbarStatus
-} from '~/selectors/common';
+} from '~/getters/player';
 import {
   setStageVideoAt,
   setSeekingStatus,
   setLastRequestedStage,
   setVideoStatus,
   setStageVideoSeekingTo
-} from '~/reducers/base';
+} from '~/setters/player';
 
 export type ActionID = 'UI_PLAYER_VIDEO_SEEKED';
 export const ACTION_ID = 'UI_PLAYER_VIDEO_SEEKED';

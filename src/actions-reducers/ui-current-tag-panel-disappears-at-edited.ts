@@ -3,8 +3,8 @@ import { makeActionCreator } from '~/utils/make-action-creator';
 import { State, TagsByID } from '~/state';
 import createReducer from '~/utils/create-reducer';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
-import { getTagsByID } from '~/selectors/common';
-import { setTagsByID } from '~/reducers/base';
+import { getTags } from '~/getters/tags';
+import { setTagsByID } from '~/setters/tags';
 
 export type ActionID = 'TAG_DISAPPEARS_AT_EDIT_BOX_EDITED';
 export const ACTION_ID = 'TAG_DISAPPEARS_AT_EDIT_BOX_EDITED';
@@ -66,10 +66,10 @@ const calculateTagsByID = (
 };
 
 const partialReducers = [
-  createPartialReducer(getTagsByID, setTagsByID, calculateTagsByID, [
+  createPartialReducer(getTags, setTagsByID, calculateTagsByID, [
     getTagID,
     getTime,
-    getTagsByID
+    getTags
   ])
 ];
 

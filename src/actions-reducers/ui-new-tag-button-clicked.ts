@@ -3,8 +3,8 @@ import { makeActionCreator } from '~/utils/make-action-creator';
 import { State } from '~/state';
 import createReducer from '~/utils/create-reducer';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
-import { getPlacingNewTagMode } from '~/selectors/common';
-import { setPlacingNewTagMode } from '~/reducers/base';
+import { isPlaceNewTagModeOn } from '~/getters/tag-editor';
+import { setPlacingNewTagMode } from '~/setters/tag-editor';
 
 export type ActionID = 'UI_NEW_TAG_BUTTON_CLICKED';
 
@@ -20,10 +20,10 @@ const calculateIsUserPlacingNewTag = (
 
 const partialReducers = [
   createPartialReducer(
-    getPlacingNewTagMode,
+    isPlaceNewTagModeOn,
     setPlacingNewTagMode,
     calculateIsUserPlacingNewTag,
-    [getPlacingNewTagMode]
+    [isPlaceNewTagModeOn]
   )
 ];
 

@@ -2,8 +2,8 @@ import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
 import { State } from '~/state';
 import createReducer from '~/utils/create-reducer';
-import { getCurrentTagID } from '~/selectors/selectors';
-import { setCurrentTagID } from '~/reducers/base';
+import { getCurrentTagID } from '~/getters/tag-editor';
+import { setCurrentTagID } from '~/setters/tag-editor';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
 
 export type ActionID = 'ACTIVE_TAG_LABEL_CLICKED';

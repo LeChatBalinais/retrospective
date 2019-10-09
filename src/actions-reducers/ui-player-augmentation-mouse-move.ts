@@ -2,12 +2,10 @@ import { ActionTemplate } from '~/utils/action-template';
 import { State, TagsByID } from '~/state';
 import createReducer from '~/utils/create-reducer';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
-import {
-  getTagsByID,
-  getTimeVideoAt,
-  getTagBeingEditedID
-} from '~/selectors/common';
-import { setTagsByID } from '~/reducers/base';
+import { getTags } from '~/getters/tags';
+import { getTagBeingEditedID } from '~/getters/tag-editor';
+import { getTimeVideoAt } from '~/selectors/get-time-video-at';
+import { setTagsByID } from '~/setters/tags';
 import { makeActionCreator } from '~/utils/make-action-creator';
 
 export type ActionID = 'MOUSE_MOVE_ON_AUGMENTATION';
@@ -78,11 +76,11 @@ const calculateTagsByID = (
 };
 
 const partialReducers = [
-  createPartialReducer(getTagsByID, setTagsByID, calculateTagsByID, [
+  createPartialReducer(getTags, setTagsByID, calculateTagsByID, [
     getTagBeingEditedID,
     getTimeVideoAt,
     getPosition,
-    getTagsByID
+    getTags
   ])
 ];
 

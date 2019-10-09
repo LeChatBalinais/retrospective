@@ -3,8 +3,8 @@ import { makeActionCreator } from '~/utils/make-action-creator';
 import { State } from '~/state';
 import createReducer from '~/utils/create-reducer';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
-import { getCurrentTagID } from '~/selectors/common';
-import { setCurrentTagID } from '~/reducers/base';
+import { getCurrentTagID } from '~/getters/tag-editor';
+import { setCurrentTagID } from '~/setters/tag-editor';
 
 export type ActionID = 'UI_PLAYER_AUGMENTATION_MOUSE_DOWN';
 export const ACTION_ID = 'UI_PLAYER_AUGMENTATION_MOUSE_DOWN';

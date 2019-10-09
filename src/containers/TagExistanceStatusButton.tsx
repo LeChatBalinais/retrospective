@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import Button, { ValueProps, FuncProps } from '../components/Button';
+import Button, { ValueProps, FuncProps } from '~/components/Button';
 import { State } from '~/state';
 import { actionCreator as saveTagButtonClicked } from '~/actions-reducers/ui-tag-list-row-save-button-clicked';
 import { actionCreator as deleteTagButtonClicked } from '~/actions-reducers/ui-tag-list-row-delete-button-clicked';

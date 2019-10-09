@@ -1,4 +1,10 @@
-import { State, SeekingStatus, VideoStatus, PlaybackStatus } from '~/state';
+import {
+  State,
+  SeekingStatus,
+  VideoStatus,
+  PlaybackStatus,
+  SeekbarStatus
+} from '~/state';
 
 export const getStageVideoAt = ({
   player: {
@@ -15,6 +21,12 @@ export const getSeekingStatus = ({
   player: { seekingStatus }
 }: State): SeekingStatus => seekingStatus;
 
+export const getSeekbarStatus = ({
+  player: {
+    seekbar: { status }
+  }
+}: State): SeekbarStatus => status;
+
 export const getPlaybackStatus = ({
   player: { playbackStatus }
 }: State): PlaybackStatus => playbackStatus;
@@ -28,3 +40,9 @@ export const getVideoStatus = ({
 export const getLastRequestedStage = ({
   player: { lastRequestedStage }
 }: State): number => lastRequestedStage;
+
+export const getStageVideoSeekingTo = ({
+  player: {
+    video: { stageSeekingTo }
+  }
+}: State): number => stageSeekingTo;

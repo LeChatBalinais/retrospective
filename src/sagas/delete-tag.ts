@@ -1,13 +1,11 @@
 import { SagaIterator } from '@redux-saga/core';
 import { put, call, takeEvery, select } from 'redux-saga/effects';
-import makeGetTag from '../selectors/get-tag';
+import { getTag } from '~/getters/tags';
 import {
   ACTION_ID as UI_TAG_LIST_ROW_DELETE_BUTTON_CLICKED,
   Action
 } from '~/actions-reducers/ui-tag-list-row-delete-button-clicked';
 import { actionCreator as tagDeletionConfirmed } from '~/actions-reducers/saga-tag-deletion-confirmed';
-
-const getTag = makeGetTag();
 
 function* deleteTagAsync({ payload: { tagID: ID } }: Action): SagaIterator {
   const { globalID } = yield select(getTag, ID);

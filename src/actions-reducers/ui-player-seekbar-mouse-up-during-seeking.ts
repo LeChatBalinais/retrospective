@@ -1,10 +1,5 @@
 import { ActionTemplate } from '~/utils/action-template';
-import {
-  SeekbarStatus,
-  SeekingStatus,
-  VideoStatus,
-  State
-} from '~/state';
+import { SeekbarStatus, SeekingStatus, VideoStatus, State } from '~/state';
 import createReducer from '~/utils/create-reducer';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
 import {
@@ -13,8 +8,8 @@ import {
   getVideoStatus,
   getLastRequestedStage,
   getStageVideoAt
-} from '~/selectors/common';
-import { setSeekingStatus, setSeekbarStatus } from '~/reducers/base';
+} from '~/getters/player';
+import { setSeekingStatus, setSeekbarStatus } from '~/setters/player';
 import { makeActionCreator } from '~/utils/make-action-creator';
 
 export type ActionID = 'MOUSE_UP_DURING_SEEKBAR_SEEKING';

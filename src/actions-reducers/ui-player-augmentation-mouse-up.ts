@@ -3,12 +3,11 @@ import { makeActionCreator } from '~/utils/make-action-creator';
 import { State, TagsByID } from '~/state';
 import createReducer from '~/utils/create-reducer';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
-import {
-  getTagsByID,
-  getTimeVideoAt,
-  getTagBeingEditedID
-} from '~/selectors/common';
-import { setTagsByID, setTagBeingEditedID } from '~/reducers/base';
+import { getTags } from '~/getters/tags';
+import { getTagBeingEditedID } from '~/getters/tag-editor';
+import { getTimeVideoAt } from '~/selectors/get-time-video-at';
+import { setTagBeingEditedID } from '~/setters/tag-editor';
+import { setTagsByID } from '~/setters/tags';
 
 export type ActionID = 'MOUSE_UP_ON_AUGMENTATION';
 export const ACTION_ID = 'MOUSE_UP_ON_AUGMENTATION';
@@ -85,11 +84,11 @@ const partialReducers = [
     setTagBeingEditedID,
     calculateTagBeingEditedID
   ),
-  createPartialReducer(getTagsByID, setTagsByID, calculateTagsByID, [
+  createPartialReducer(getTags, setTagsByID, calculateTagsByID, [
     getTagBeingEditedID,
     getTimeVideoAt,
     getPosition,
-    getTagsByID
+    getTags
   ])
 ];
 

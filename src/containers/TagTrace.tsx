@@ -3,7 +3,7 @@ import TagTrace, {
   ValueProps as TagTraceValueProps
 } from '~/components/TagTrace';
 import { State } from '~/state';
-import { getTag } from '~/selectors/common/tags';
+import { getTag } from '~/getters/tags';
 
 const getTagTracePoints = (state: State, ID: string): string => {
   const tag = getTag(state, ID);

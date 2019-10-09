@@ -3,8 +3,8 @@ import { makeActionCreator } from '~/utils/make-action-creator';
 import { PlaybackStatus, State } from '~/state';
 import createReducer from '~/utils/create-reducer';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
-import { getPlaybackStatus } from '~/selectors/common';
-import { setPlaybackStatus } from '~/reducers/base';
+import { getPlaybackStatus } from '~/getters/player';
+import { setPlaybackStatus } from '~/setters/player';
 
 export type ActionID = 'PLAY_BUTTON_CLICKED';
 export const ACTION_ID = 'PLAY_BUTTON_CLICKED';

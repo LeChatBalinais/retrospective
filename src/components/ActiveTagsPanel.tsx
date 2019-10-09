@@ -1,5 +1,5 @@
 import React from 'react';
-import ActiveTagLabel from '../containers/ActiveTagLabel';
+import ActiveTagLabel from '~/containers/ActiveTagLabel';
 
 export interface ValueProps {
   IDs: string[];

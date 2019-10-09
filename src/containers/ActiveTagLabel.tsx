@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import ActiveTagLabel, {
   ValueProps,
   FuncProps
-} from '../components/ActiveTagLabel';
+} from '~/components/ActiveTagLabel';
 import { State } from '~/state';
 import { actionCreator as activeTagLabelClicked } from '~/actions-reducers/ui-active-tag-panel-label-clicked';
 

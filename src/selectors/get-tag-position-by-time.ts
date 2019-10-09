@@ -1,4 +1,4 @@
-import { getTagPath } from '~/selectors/common/tags';
+import { getTagPath } from '~/getters/tags';
 import { State } from '~/state';
 
 export const getTagPositionByTime = (

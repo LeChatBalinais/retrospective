@@ -7,12 +7,12 @@ import {
   getLastRequestedStage,
   getSeekbarStatus,
   getSeekingStatus
-} from '~/selectors/common';
+} from '~/getters/player';
 import {
   setLastRequestedStage,
   setSeekingStatus,
   setSeekbarStatus
-} from '~/reducers/base';
+} from '~/setters/player';
 
 export type ActionID = 'MOUSE_DOWN_ON_SEEK_BAR';
 export const ACTION_ID = 'MOUSE_DOWN_ON_SEEK_BAR';

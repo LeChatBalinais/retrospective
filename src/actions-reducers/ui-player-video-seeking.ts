@@ -2,9 +2,9 @@ import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
 import { State, VideoStatus } from '~/state';
 import createReducer from '~/utils/create-reducer';
-import { getVideoStatus, getStageVideoSeekingTo } from '~/selectors/common';
-import { getVideoDuration } from '~/selectors/selectors';
-import { setVideoStatus, setStageVideoSeekingTo } from '~/reducers/base';
+import { getVideoStatus, getStageVideoSeekingTo } from '~/getters/player';
+import { getVideoDuration } from '~/getters/footage';
+import { setVideoStatus, setStageVideoSeekingTo } from '~/setters/player';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
 
 export type ActionID = 'UI_PLAYER_VIDEO_SEEKING';
