@@ -6,6 +6,7 @@ import ActiveTagLabel, {
 } from '~/components/ActiveTagLabel';
 import { State } from '~/state';
 import { actionCreator as activeTagLabelClicked } from '~/actions-reducers/ui-active-tag-panel-label-clicked';
+import { getTagCaption } from '~/selectors/get-tag-caption';
 
 interface Props {
   ID: string;
@@ -17,7 +18,9 @@ const mapDispatchToProps = (dispatch: Dispatch, { ID }: Props): FuncProps => ({
   }
 });
 
-const mapStateToProps = (state: State, { ID }: Props): ValueProps => ({ ID });
+const mapStateToProps = (state: State, { ID }: Props): ValueProps => ({
+  caption: getTagCaption(state, ID)
+});
 
 export default connect(
   mapStateToProps,

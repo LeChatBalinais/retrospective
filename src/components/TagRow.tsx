@@ -3,6 +3,7 @@ import TagExistanceStatusButton from '~/containers/TagExistanceStatusButton';
 
 export interface ValueProps {
   ID: string;
+  caption: string;
   isSaveButtonAvailable: boolean;
   isHighlighted: boolean;
 }
@@ -15,6 +16,7 @@ export type Props = ValueProps & FuncProps;
 
 const TagRow = ({
   ID,
+  caption,
   isSaveButtonAvailable: isLocal,
   isHighlighted: isCurrent,
   onClick
@@ -36,7 +38,7 @@ const TagRow = ({
         }
       }}
     >
-      <span>{ID} </span>
+      <span>{caption} </span>
       <TagExistanceStatusButton {...{ ID, isLocal }} />
     </div>
   );

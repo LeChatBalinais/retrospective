@@ -2,7 +2,10 @@ import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
 import { State, PlaybackStatus } from '~/state';
 import createReducer from '~/utils/create-reducer';
-import { createPartialReducer } from '~/utils/create-partial-reducer';
+import {
+  createPartialReducer,
+  getDefaultReducedVal
+} from '~/utils/create-partial-reducer';
 import { isPlaceNewTagModeOn } from '~/getters/tag-editor';
 import { getPlaybackStatus, getStageVideoAt } from '~/getters/player';
 import { setPlaybackStatus } from '~/setters/player';
@@ -50,12 +53,11 @@ const partialReducers = [
     setPlacingNewTagMode,
     calculatePlacingNewTagMode
   ),
-  createPartialReducer(
-    (): { time: number; x: number; y: number } => undefined,
-    addNewTag,
-    calculateTag,
-    [getStageVideoAt, getVideoDuration, getPosition]
-  )
+  createPartialReducer(getDefaultReducedVal, addNewTag, calculateTag, [
+    getStageVideoAt,
+    getVideoDuration,
+    getPosition
+  ])
 ];
 
 export const reducer = {

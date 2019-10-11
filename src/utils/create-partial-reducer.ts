@@ -77,3 +77,5 @@ export function createPartialReducer<S, V, P>(
     return setReducedVal(currentState, val, payload);
   };
 }
+
+export const getDefaultReducedVal = (): undefined => undefined;

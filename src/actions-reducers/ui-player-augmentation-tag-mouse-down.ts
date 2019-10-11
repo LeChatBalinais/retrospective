@@ -23,13 +23,17 @@ const getTagID = (state: State, { tagID }: Payload): string => tagID;
 
 const calculateCurrentTagID = (tagID: string): string => tagID;
 
-const calculateTagBeingEditedID = (tagID: string): string => tagID;
+const calculateTagBeingEditedID = (
+  tagID: string,
+  currentTagID: string
+): string => (tagID === currentTagID ? tagID : undefined);
 
 const calculatePlaybackStatus = (
   currentTagID: string,
-  prevPlaybackStatus: PlaybackStatus
+  prevPlaybackStatus: PlaybackStatus,
+  tagID: string
 ): PlaybackStatus =>
-  currentTagID === undefined ? prevPlaybackStatus : PlaybackStatus.Playing;
+  currentTagID !== tagID ? prevPlaybackStatus : PlaybackStatus.Playing;
 
 const partialReducers = [
   createPartialReducer(
@@ -42,13 +46,13 @@ const partialReducers = [
     getTagBeingEditedID,
     setTagBeingEditedID,
     calculateTagBeingEditedID,
-    [getTagID]
+    [getTagID, getCurrentTagID]
   ),
   createPartialReducer(
     getPlaybackStatus,
     setPlaybackStatus,
     calculatePlaybackStatus,
-    [getCurrentTagID, getPlaybackStatus]
+    [getCurrentTagID, getPlaybackStatus, getTagID]
   )
 ];
 

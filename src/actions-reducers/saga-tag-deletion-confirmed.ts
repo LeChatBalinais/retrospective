@@ -4,7 +4,10 @@ import { State } from '~/state';
 import createReducer from '~/utils/create-reducer';
 import { setCurrentTagID } from '~/setters/tag-editor';
 import { deleteTag } from '~/setters/tags';
-import { createPartialReducer } from '~/utils/create-partial-reducer';
+import {
+  createPartialReducer,
+  getDefaultReducedVal
+} from '~/utils/create-partial-reducer';
 import { getCurrentTagID } from '~/getters/tag-editor';
 
 type ActionID = 'SAGA_TAG_DELETION_CONFIRMED';
@@ -30,7 +33,7 @@ const calculateCurrentTagID = (
 
 const partialReducers = [
   createPartialReducer(
-    (): string => undefined,
+    getDefaultReducedVal,
     deleteTag,
     calculateTagIDToDelete,
     [getTagID]

@@ -5,6 +5,7 @@ import { State } from '~/state';
 import { actionCreator as tagRowClicked } from '~/actions-reducers/ui-tag-list-row-clicked';
 import { isTagCurrent } from '~/selectors/is-tag-current';
 import { isTagLocal } from '~/selectors/is-tag-local';
+import { getTagCaption } from '~/selectors/get-tag-caption';
 
 type MapStateToProps = (state: State, { ID }: Props) => ValueProps;
 
@@ -27,6 +28,7 @@ const makeMapStateToProps = (): MapStateToProps => (
   { ID }: Props
 ): ValueProps => ({
   ID,
+  caption: getTagCaption(state, ID),
   isSaveButtonAvailable: isSaveButtonAvailable(state, ID),
   isHighlighted: isTagRowHighlighted(state, ID)
 });
