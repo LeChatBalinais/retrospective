@@ -1,23 +1,25 @@
 import React from 'react';
-import TagExistanceStatusButton from '../containers/TagExistanceStatusButton';
+import TagExistanceStatusButton from '~/containers/TagExistanceStatusButton';
 
 export interface ValueProps {
   ID: string;
-  isLocal: boolean;
-  isCurrent: boolean;
+  caption: string;
+  isSaveButtonAvailable: boolean;
+  isHighlighted: boolean;
 }
 
 export interface FuncProps {
-  onMouseDown: () => void;
+  onClick: () => void;
 }
 
 export type Props = ValueProps & FuncProps;
 
 const TagRow = ({
   ID,
-  isLocal,
-  isCurrent,
-  onMouseDown
+  caption,
+  isSaveButtonAvailable: isLocal,
+  isHighlighted: isCurrent,
+  onClick
 }: Props): JSX.Element => {
   let className = 'box';
 
@@ -28,15 +30,15 @@ const TagRow = ({
     <div
       {...{
         className,
-        onMouseDown: (
+        onClick: (
           event: React.MouseEvent<HTMLDivElement, MouseEvent>
         ): void => {
           event.stopPropagation();
-          onMouseDown();
+          onClick();
         }
       }}
     >
-      <span>{ID} </span>
+      <span>{caption} </span>
       <TagExistanceStatusButton {...{ ID, isLocal }} />
     </div>
   );

@@ -1,73 +1,86 @@
-import { Dispatch } from 'react';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import TagPanel, {
   ValueProps as TagPanelValueProp,
   FuncProps as TagPanelFuncProp
-} from '../components/TagPanel';
-import { State } from '../types/state';
-import { getCurrentTagID } from '../selectors/selectors';
-import makeGetTagInfo from '../selectors/get-tag-info';
-import { Action } from '../types/types';
-import setTagTraceVisible from '../actions/set-tag-trace-visible';
-import setTimeTagAppearsAt from '../actions/set-time-tag-appears-at';
-import setTimeTagDisappearsAt from '../actions/set-time-tag-disappears-at';
+} from '~/components/TagPanel';
+import { State } from '~/state';
+import { actionCreator as tagTraceVisibilityCheckboxToggled } from '~/actions-reducers/ui-current-tag-panel-trace-visibility-checkbox-toggled';
+import { actionCreator as tagAppearsAtEditBoxEdited } from '~/actions-reducers/ui-current-tag-panel-appears-at-edited';
+import { actionCreator as tagDisappearsAtEditBoxEdited } from '~/actions-reducers/ui-current-tag-panel-disappears-at-edited';
+import {
+  getCurrentTagID,
+  getVisibleTraceTagIDs
+} from '~/getters/tag-editor';
+import { getPointTagAppearsAt } from '~/selectors/get-point-tag-appears-at';
+import { getPointTagDisappearsAt } from '~/selectors/get-point-tag-disappears-at';
 
 interface Props {
   ID: string;
 }
 
 type MapDispatchToProps = (
-  dispatch: Dispatch<Action>,
+  dispatch: Dispatch,
   { ID }: Props
 ) => TagPanelFuncProp;
 
 type MapStateToProps = (state: State) => TagPanelValueProp;
 
+const getTimeTagAppearsAt = (state: State, ID: string): number => {
+  const { time } = getPointTagAppearsAt(state, ID);
+  return time;
+};
+
+const getTimeTagDisappearsAt = (state: State, ID: string): number => {
+  const { time } = getPointTagDisappearsAt(state, ID);
+  return time;
+};
+
+const isTagTraceVisible = (state: State, ID: string): boolean => {
+  return getVisibleTraceTagIDs(state).includes(ID);
+};
+
 const onTagTraceVisbileCheckboxInput = (
-  dispatch: Dispatch<Action>,
+  dispatch: Dispatch,
   ID: string
 ): ((visible: boolean) => void) => {
   return (visible: boolean): void => {
-    dispatch(setTagTraceVisible({ ID, visible }));
+    dispatch(tagTraceVisibilityCheckboxToggled({ tagID: ID, visible }));
   };
 };
 
 const onAppearsAtInput = (
-  dispatch: Dispatch<Action>,
+  dispatch: Dispatch,
   ID: string
 ): ((visible: number) => void) => {
   return (time: number): void => {
-    dispatch(setTimeTagAppearsAt({ ID, time }));
+    dispatch(tagAppearsAtEditBoxEdited({ tagID: ID, time }));
   };
 };
 
 const onDisappearsAtInput = (
-  dispatch: Dispatch<Action>,
+  dispatch: Dispatch,
   ID: string
 ): ((visible: number) => void) => {
   return (time: number): void => {
-    dispatch(setTimeTagDisappearsAt({ ID, time }));
+    dispatch(tagDisappearsAtEditBoxEdited({ tagID: ID, time }));
   };
 };
 
 const makeMapStateToProps = (): MapStateToProps => {
-  const getTagInfo = makeGetTagInfo();
-
   return (state: State): TagPanelValueProp => {
     const ID = getCurrentTagID(state);
-    const tag = getTagInfo(state, ID);
-
     return {
       name: ID,
-      start: tag.appearsAt,
-      end: tag.disapearsAt,
-      traceIsVisible: tag.traceIsVisible
+      start: getTimeTagAppearsAt(state, ID),
+      end: getTimeTagDisappearsAt(state, ID),
+      traceIsVisible: isTagTraceVisible(state, ID)
     };
   };
 };
 
 const makeMapDispatchToProps = (): MapDispatchToProps => {
-  return (dispatch: Dispatch<Action>, { ID }: Props): TagPanelFuncProp => {
+  return (dispatch: Dispatch, { ID }: Props): TagPanelFuncProp => {
     return {
       onTagTraceVisbileCheckboxInput: onTagTraceVisbileCheckboxInput(
         dispatch,

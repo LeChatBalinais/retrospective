@@ -8,12 +8,15 @@ type OnDurationChangeFunc = (duration: number) => void;
 export interface ValueProps {
   url: string;
   playback: boolean;
-  currentTime: number;
+  seek: boolean;
+  timeSeekTo: number;
 }
 
 export interface FuncProps {
   onTimeUpdate: OnTimeUpdate;
   onDurationChange: OnDurationChangeFunc;
+  onSeeking: (time: number) => void;
+  onSeeked: () => void;
 }
 
 export type Props = ValueProps & FuncProps;
@@ -22,8 +25,11 @@ const Video = ({
   url: src,
   onDurationChange: onDurationChangeFunc,
   onTimeUpdate: onTimeUpdateFunc,
+  onSeeked,
+  onSeeking: onSeekingFunc,
   playback,
-  currentTime
+  timeSeekTo,
+  seek
 }: Props): JSX.Element => {
   const videoEl = useRef(null);
   const [tickOn, setTickOn] = useState(false);
@@ -43,15 +49,11 @@ const Video = ({
     onDurationChangeFunc(current.duration);
   };
 
-  const onTimeUpdate = (): void => {
-    if (playback) return;
-    const { current } = videoEl;
-    if (!current) return;
-    onTimeUpdateFunc(current.currentTime);
-  };
+  const onSeeking = useCallback((): void => {
+    if (seek) onSeekingFunc(timeSeekTo);
+  }, [seek, timeSeekTo, onSeekingFunc]);
 
   const { current } = videoEl;
-
   if (current) {
     if (playback) {
       current.play();
@@ -61,7 +63,9 @@ const Video = ({
       }
     } else {
       current.pause();
-      current.currentTime = currentTime;
+      if (seek && Math.abs(current.currentTime - timeSeekTo) > 0.001) {
+        current.currentTime = timeSeekTo;
+      }
       if (tickOn) {
         TweenMax.ticker.removeEventListener('tick', onTick);
         setTickOn(false);
@@ -71,8 +75,9 @@ const Video = ({
 
   return (
     <video
+      preload="auto"
       className="main-video"
-      {...{ onDurationChange, onTimeUpdate, src }}
+      {...{ onDurationChange, onSeeking, onSeeked, src }}
       ref={videoEl}
     />
   );

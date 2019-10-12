@@ -1,8 +1,9 @@
 import React, { useRef, useCallback } from 'react';
-import TagContainer from '../containers/Tag';
+import TagContainer from '~/containers/Tag';
 
 export interface ValueProps {
   tagIDs: string[];
+  reactOnMouseMove: boolean;
 }
 
 export interface FuncProps {
@@ -15,6 +16,7 @@ type Props = ValueProps & FuncProps;
 
 const Augmentation = ({
   tagIDs,
+  reactOnMouseMove,
   onMouseDown,
   onMouseMove,
   onMouseUp
@@ -23,7 +25,7 @@ const Augmentation = ({
 
   const onMouseMoveFunc = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
-      if (!onMouseMove) return;
+      if (!reactOnMouseMove || !onMouseMove) return;
 
       const area = divEl.current.getBoundingClientRect();
 
@@ -39,7 +41,7 @@ const Augmentation = ({
 
       onMouseMove(relativePositionX, relativePositionY);
     },
-    [onMouseMove]
+    [onMouseMove, reactOnMouseMove]
   );
 
   const onMouseUpFunc = useCallback(

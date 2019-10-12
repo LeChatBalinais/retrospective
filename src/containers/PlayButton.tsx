@@ -1,17 +1,17 @@
 import { connect } from 'react-redux';
-import Button, { ValueProps, FuncProps } from '../components/Button';
-import togglePlayback from '../thunks/toggle-playback';
-import { State } from '../types/state';
-import { getPlayback } from '../selectors/selectors';
-import { ThunkDispatch } from '../types/types';
+import { Dispatch } from 'redux';
+import Button, { ValueProps, FuncProps } from '~/components/Button';
+import { State } from '~/state';
+import { actionCreator as uiPlayButtonClicked } from '~/actions-reducers/ui-player-play-button-clicked';
+import { isPlaying } from '~/getters/player';
 
 const mapStateToProps = (state: State): ValueProps => ({
-  caption: getPlayback(state) ? 'Pause' : 'Play'
+  caption: isPlaying(state) ? 'Pause' : 'Play'
 });
 
-const mapDispatchToProps = (dispatch: ThunkDispatch): FuncProps => ({
+const mapDispatchToProps = (dispatch: Dispatch): FuncProps => ({
   onPress: (): void => {
-    dispatch(togglePlayback());
+    dispatch(uiPlayButtonClicked());
   }
 });
 

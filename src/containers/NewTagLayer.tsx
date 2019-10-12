@@ -1,28 +1,11 @@
-import { Dispatch } from 'react';
-import { v4 as uuid } from 'uuid';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import setPlayback, { SetPlaybackPayload } from '../actions/set-playback';
-import setPlaceNewTagMode, {
-  SetPlaceNewTagModePayload
-} from '../actions/set-place-new-tag-mode';
-import NewTagLayer, { FuncProps } from '../components/NewTagLayer';
-import { Action } from '../types/types';
-import addNewTag, { AddNewTagPayload } from '../actions/add-new-tag';
-import actionCombination from '../utils/action-combination';
+import NewTagLayer, { FuncProps } from '~/components/NewTagLayer';
+import { actionCreator as newTagLayerClicked } from '~/actions-reducers/ui-player-new-tag-layer-clicked';
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>): FuncProps => ({
+const mapDispatchToProps = (dispatch: Dispatch): FuncProps => ({
   onClick: (x: number, y: number): void => {
-    dispatch(
-      actionCombination<
-        SetPlaybackPayload & SetPlaceNewTagModePayload & AddNewTagPayload
-      >([setPlayback, setPlaceNewTagMode, addNewTag])({
-        ID: uuid(),
-        playback: false,
-        mode: false,
-        x,
-        y
-      })
-    );
+    dispatch(newTagLayerClicked({ x, y }));
   }
 });
 

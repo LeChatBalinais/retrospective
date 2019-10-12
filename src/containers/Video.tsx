@@ -1,26 +1,51 @@
 import { connect } from 'react-redux';
-import Video, { ValueProps, FuncProps } from '../components/Video';
-import setCurrentTime from '../thunks/set-current-time';
-import setDuration from '../actions/set-duration';
-import { State } from '../types/state';
-import isVideoPlaying from '../selectors/is-video-playing';
-import { getVideoURL, getAboutToBeCurrentTime } from '../selectors/selectors';
-import { ThunkDispatch } from '../types/types';
+import { Dispatch } from 'redux';
+import Video, { ValueProps, FuncProps } from '~/components/Video';
+import { State, VideoStatus, SeekingStatus, PlaybackStatus } from '~/state';
+import { actionCreator as videoPlayedToTime } from '~/actions-reducers/ui-player-video-played-to-time';
+import { actionCreator as videoSeeked } from '~/actions-reducers/ui-player-video-seeked';
+import { actionCreator as videoSeeking } from '~/actions-reducers/ui-player-video-seeking';
+import { actionCreator as videoDurationChanged } from '~/actions-reducers/ui-player-video-duration-changed';
+import {
+  getLastRequestedStage,
+  getVideoStatus,
+  getSeekingStatus,
+  getPlaybackStatus
+} from '~/getters/player';
+import { getVideoDuration, getVideoURL } from '~/getters/footage';
+
+const getTimeSeekTo = (state: State): number =>
+  getLastRequestedStage(state) * getVideoDuration(state);
+
+const shouldVideoSeek = (state: State): boolean =>
+  getVideoStatus(state) !== VideoStatus.Seeking &&
+  getSeekingStatus(state) !== SeekingStatus.NoSeeking;
+
+const shouldVideoPlayback = (state: State): boolean =>
+  getPlaybackStatus(state) === PlaybackStatus.Playing &&
+  getSeekingStatus(state) === SeekingStatus.NoSeeking;
 
 const mapStateToProps = (state: State): ValueProps => {
   return {
-    playback: isVideoPlaying(state),
+    playback: shouldVideoPlayback(state),
     url: getVideoURL(state),
-    currentTime: getAboutToBeCurrentTime(state)
+    seek: shouldVideoSeek(state),
+    timeSeekTo: getTimeSeekTo(state)
   };
 };
 
-const mapDispatchToProps = (dispatch: ThunkDispatch): FuncProps => ({
+const mapDispatchToProps = (dispatch: Dispatch): FuncProps => ({
   onTimeUpdate: (time: number): void => {
-    dispatch(setCurrentTime({ time }));
+    dispatch(videoPlayedToTime({ time }));
   },
   onDurationChange: (duration: number): void => {
-    dispatch(setDuration({ duration }));
+    dispatch(videoDurationChanged({ duration }));
+  },
+  onSeeking: (time: number): void => {
+    dispatch(videoSeeking({ time }));
+  },
+  onSeeked: (): void => {
+    dispatch(videoSeeked());
   }
 });
 

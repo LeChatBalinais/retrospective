@@ -1,6 +1,6 @@
 import React, { useRef, useCallback } from 'react';
-import SeekBarCurrentTimeSlider from '../containers/SeekBarCurrentTimeSlider';
-import newMouseListener from '../interactivity/track-pointer-on';
+import SeekBarCurrentTimeSlider from '~/containers/SeekBarCurrentTimeSlider';
+import newMouseListener from '~/interactivity/track-pointer-on';
 
 export interface FuncProps {
   onMouseDown: (relativePosition: number) => void;

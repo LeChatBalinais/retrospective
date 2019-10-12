@@ -1,35 +1,35 @@
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import Button, { ValueProps, FuncProps } from '../components/Button';
-import { ThunkDispatch } from '../types/types';
-import { State } from '../types/state';
-import deleteTag from '../actions/delete-tag';
-import saveTag from '../actions/save-tag';
+import Button, { ValueProps, FuncProps } from '~/components/Button';
+import { State } from '~/state';
+import { actionCreator as saveTagButtonClicked } from '~/actions-reducers/ui-tag-list-row-save-button-clicked';
+import { actionCreator as deleteTagButtonClicked } from '~/actions-reducers/ui-tag-list-row-delete-button-clicked';
 
 interface Props {
   ID: string;
   isLocal: boolean;
 }
 
-type MapDispatchToProps = (dispatch: ThunkDispatch, props: Props) => FuncProps;
+type MapDispatchToProps = (dispatch: Dispatch, props: Props) => FuncProps;
 
 const onPress = (
-  dispatch: ThunkDispatch,
+  dispatch: Dispatch,
   tagID: string,
   isLocal: boolean
 ): (() => void) => {
   if (isLocal)
     return (): void => {
-      dispatch(saveTag({ ID: tagID }));
+      dispatch(saveTagButtonClicked({ tagID }));
     };
 
   return (): void => {
-    dispatch(deleteTag({ ID: tagID }));
+    dispatch(deleteTagButtonClicked({ tagID }));
   };
 };
 
 const makeMapDispatchToProps = (): MapDispatchToProps => {
   return (
-    dispatch: ThunkDispatch,
+    dispatch: Dispatch,
     { ID, isLocal }: { ID: string; isLocal: boolean }
   ): { onPress: () => void } => ({ onPress: onPress(dispatch, ID, isLocal) });
 };

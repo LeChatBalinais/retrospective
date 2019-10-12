@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import ControlPanel from './ControlPanel';
-import VideoContainer from '../containers/Video';
-import NewTagLayerContainer from '../containers/NewTagLayer';
-import AugmentationContainer from '../containers/Augmentation';
-import SeekBar from '../containers/SeekBar';
-import ActiveTagsPanel from '../containers/ActiveTagsPanel';
-import TagPanelContainer from '../containers/TagPanel';
-import GraphicalAugmentation from '../containers/GraphicalAugmentation';
+import VideoContainer from '~/containers/Video';
+import NewTagLayerContainer from '~/containers/NewTagLayer';
+import AugmentationContainer from '~/containers/Augmentation';
+import SeekBar from '~/containers/SeekBar';
+import ActiveTagsPanel from '~/containers/ActiveTagsPanel';
+import TagPanelContainer from '~/containers/TagPanel';
+import GraphicalAugmentation from '~/containers/GraphicalAugmentation';
 
 export interface ValueProps {
   placeNewTagMode: boolean;

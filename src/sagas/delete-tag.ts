@@ -1,12 +1,13 @@
 import { SagaIterator } from '@redux-saga/core';
 import { put, call, takeEvery, select } from 'redux-saga/effects';
-import { DELETE_TAG, DeleteTag } from '../actions/delete-tag';
-import makeGetTag from '../selectors/get-tag';
-import removeTag from '../actions/remove-tag';
+import { getTag } from '~/getters/tags';
+import {
+  ACTION_ID as UI_TAG_LIST_ROW_DELETE_BUTTON_CLICKED,
+  Action
+} from '~/actions-reducers/ui-tag-list-row-delete-button-clicked';
+import { actionCreator as tagDeletionConfirmed } from '~/actions-reducers/saga-tag-deletion-confirmed';
 
-const getTag = makeGetTag();
-
-function* incrementAsync({ payload: { ID } }: DeleteTag): SagaIterator {
+function* deleteTagAsync({ payload: { tagID: ID } }: Action): SagaIterator {
   const { globalID } = yield select(getTag, ID);
 
   const response = yield call(fetch, `http://localhost:9000/deleteTag`, {
@@ -18,9 +19,9 @@ function* incrementAsync({ payload: { ID } }: DeleteTag): SagaIterator {
     body: JSON.stringify({ ID: globalID })
   });
 
-  if (response.ok) yield put(removeTag({ ID }));
+  if (response.ok) yield put(tagDeletionConfirmed({ tagID: ID }));
 }
 
 export default function* watchIncrementAsync(): SagaIterator {
-  yield takeEvery(DELETE_TAG, incrementAsync);
+  yield takeEvery(UI_TAG_LIST_ROW_DELETE_BUTTON_CLICKED, deleteTagAsync);
 }

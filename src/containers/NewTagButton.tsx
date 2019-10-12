@@ -1,17 +1,17 @@
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import Button, { ValueProps, FuncProps } from '../components/Button';
-import togglePlaceNewTagMode from '../thunks/toggle-place-new-tag-mode';
-import { State } from '../types/state';
-import { isPlaceNewTagModeOn } from '../selectors/selectors';
-import { ThunkDispatch } from '../types/types';
+import Button, { ValueProps, FuncProps } from '~/components/Button';
+import { isPlaceNewTagModeOn } from '~/getters/tag-editor';
+import { State } from '~/state';
+import { actionCreator as newTagButtonClicked } from '~/actions-reducers/ui-new-tag-button-clicked';
 
 const mapStateToProps = (state: State): ValueProps => ({
   caption: isPlaceNewTagModeOn(state) ? 'X' : 'Place New Tag'
 });
 
-const mapDispatchToProps = (dispatch: ThunkDispatch): FuncProps => ({
+const mapDispatchToProps = (dispatch: Dispatch): FuncProps => ({
   onPress: (): void => {
-    dispatch(togglePlaceNewTagMode());
+    dispatch(newTagButtonClicked());
   }
 });
 

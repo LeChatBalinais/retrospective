@@ -1,26 +1,19 @@
-import { Dispatch } from 'react';
 import { connect } from 'react-redux';
-import SeekBar, { FuncProps as SeekBarFuncProps } from '../components/SeekBar';
-import setRequestedTime, {
-  SetRequestedNormalizedTimePayload
-} from '../actions/set-requested-normalized-time';
-import { Action } from '../types/types';
-import setUserSeek, { SetUserSeekPayload } from '../actions/set-user-seek';
-import actionCombination from '../utils/action-combination';
+import { Dispatch } from 'redux';
+import SeekBar, { FuncProps as SeekBarFuncProps } from '~/components/SeekBar';
+import { actionCreator as mousePressedOnSeekBar } from '~/actions-reducers/ui-player-seekbar-mouse-down';
+import { actionCreator as mouseUpDuringSeekbarSeeking } from '~/actions-reducers/ui-player-seekbar-mouse-up-during-seeking';
+import { actionCreator as mouseMoveDuringSeekbarSeeking } from '~/actions-reducers/ui-player-seekbar-mouse-move-during-seeking';
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>): SeekBarFuncProps => ({
+const mapDispatchToProps = (dispatch: Dispatch): SeekBarFuncProps => ({
   onMouseDown: (relativePosition: number): void => {
-    dispatch(
-      actionCombination<SetUserSeekPayload & SetRequestedNormalizedTimePayload>(
-        [setUserSeek, setRequestedTime]
-      )({ mode: true, time: relativePosition / 100 })
-    );
+    dispatch(mousePressedOnSeekBar({ position: relativePosition }));
   },
   onMouseUp: (): void => {
-    dispatch(setUserSeek({ mode: false }));
+    dispatch(mouseUpDuringSeekbarSeeking());
   },
   onMouseMove: (relativePosition: number): void => {
-    dispatch(setRequestedTime({ time: relativePosition / 100 }));
+    dispatch(mouseMoveDuringSeekbarSeeking({ position: relativePosition }));
   }
 });
 

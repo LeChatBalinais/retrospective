@@ -1,66 +1,46 @@
 import { connect } from 'react-redux';
-import { Dispatch } from 'react';
-import TagRow, { ValueProps, FuncProps } from '../components/TagRow';
-import { State } from '../types/state';
-import { makeIsTagLocal } from '../selectors/tag-selectors';
-import { isTagCurrent } from '../selectors/selectors';
-import { Action, ThunkDispatch } from '../types/types';
-import setUserSeek, { SetUserSeekPayload } from '../actions/set-user-seek';
-import setCurrentTag, {
-  SetCurrentTagPayload
-} from '../actions/set-current-tag';
-import connectAction, {
-  mapStateToActionCreator
-} from '../utils/map-state-to-action';
-import {
-  setTagStartAsCurrentTime,
-  SetTagStartAsCurrentTimePayload
-} from '../thunks/set-tag-start-as-current-time';
+import { Dispatch } from 'redux';
+import TagRow, { ValueProps, FuncProps } from '~/components/TagRow';
+import { State } from '~/state';
+import { actionCreator as tagRowClicked } from '~/actions-reducers/ui-tag-list-row-clicked';
+import { isTagCurrent } from '~/selectors/is-tag-current';
+import { isTagLocal } from '~/selectors/is-tag-local';
+import { getTagCaption } from '~/selectors/get-tag-caption';
 
 type MapStateToProps = (state: State, { ID }: Props) => ValueProps;
 
-type OnMouseDownPayload = SetCurrentTagPayload &
-  SetUserSeekPayload &
-  SetTagStartAsCurrentTimePayload;
-
 type MapDispatchToProps = (
-  dispatch: Dispatch<Action>,
+  dispatch: Dispatch,
   { ID }: { ID: string }
 ) => FuncProps;
 
 interface Props {
   ID: string;
 }
+export const isTagRowHighlighted = (state: State, ID: string): boolean =>
+  isTagCurrent(state, ID);
 
-const makeMapStateToProps = (): MapStateToProps => {
-  const isTagLocal = makeIsTagLocal();
+export const isSaveButtonAvailable = (state: State, ID: string): boolean =>
+  isTagLocal(state, ID);
 
-  return (state: State, { ID }: Props): ValueProps => {
-    return {
-      ID,
-      isLocal: isTagLocal(state, ID),
-      isCurrent: isTagCurrent(state, ID)
-    };
-  };
-};
+const makeMapStateToProps = (): MapStateToProps => (
+  state: State,
+  { ID }: Props
+): ValueProps => ({
+  ID,
+  caption: getTagCaption(state, ID),
+  isSaveButtonAvailable: isSaveButtonAvailable(state, ID),
+  isHighlighted: isTagRowHighlighted(state, ID)
+});
 
-const makeMapDispatchToProps = (): MapDispatchToProps => {
-  return (dispatch: ThunkDispatch, { ID }: Props): FuncProps => ({
-    onMouseDown: (): void => {
-      dispatch(
-        connectAction<OnMouseDownPayload>([
-          mapStateToActionCreator(setCurrentTag),
-          mapStateToActionCreator(setUserSeek),
-          setTagStartAsCurrentTime
-        ])({ ID, mode: true })
-      );
-
-      setTimeout((): void => {
-        dispatch(setUserSeek({ mode: false }));
-      }, 50);
-    }
-  });
-};
+const makeMapDispatchToProps = (): MapDispatchToProps => (
+  dispatch: Dispatch,
+  { ID }: Props
+): FuncProps => ({
+  onClick: (): void => {
+    dispatch(tagRowClicked({ tagID: ID }));
+  }
+});
 
 export default connect(
   makeMapStateToProps,

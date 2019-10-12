@@ -1,7 +1,7 @@
 import React from 'react';
 
 export interface ValueProps {
-  ID: string;
+  caption: string;
 }
 export interface FuncProps {
   onMouseDown: () => void;
@@ -9,13 +9,13 @@ export interface FuncProps {
 
 type Props = ValueProps & FuncProps;
 
-const ActiveTagLabel = ({ ID, onMouseDown }: Props): JSX.Element => {
+const ActiveTagLabel = ({ caption, onMouseDown }: Props): JSX.Element => {
   return (
     /* eslint-disable-next-line */
-    <div
-      className="control"
+    <span
+      className="tag is-primary active-tag-label"
       {...{
-        onMouseDown: (
+        onClick: (
           event: React.MouseEvent<HTMLDivElement, MouseEvent>
         ): void => {
           event.stopPropagation();
@@ -23,8 +23,8 @@ const ActiveTagLabel = ({ ID, onMouseDown }: Props): JSX.Element => {
         }
       }}
     >
-      <span className="tag is-primary active-tag-label">{ID} </span>
-    </div>
+      {caption}{' '}
+    </span>
   );
 };
 

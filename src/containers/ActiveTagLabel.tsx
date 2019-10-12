@@ -1,27 +1,26 @@
-import { Dispatch } from 'react';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import ActiveTagLabel, {
   ValueProps,
   FuncProps
-} from '../components/ActiveTagLabel';
-import { State } from '../types/state';
-import { Action } from '../types/types';
-import setCurrentTag from '../actions/set-current-tag';
+} from '~/components/ActiveTagLabel';
+import { State } from '~/state';
+import { actionCreator as activeTagLabelClicked } from '~/actions-reducers/ui-active-tag-panel-label-clicked';
+import { getTagCaption } from '~/selectors/get-tag-caption';
 
 interface Props {
   ID: string;
 }
 
-const mapDispatchToProps = (
-  dispatch: Dispatch<Action>,
-  { ID }: Props
-): FuncProps => ({
+const mapDispatchToProps = (dispatch: Dispatch, { ID }: Props): FuncProps => ({
   onMouseDown: (): void => {
-    dispatch(setCurrentTag({ ID }));
+    dispatch(activeTagLabelClicked({ tagID: ID }));
   }
 });
 
-const mapStateToProps = (state: State, { ID }: Props): ValueProps => ({ ID });
+const mapStateToProps = (state: State, { ID }: Props): ValueProps => ({
+  caption: getTagCaption(state, ID)
+});
 
 export default connect(
   mapStateToProps,

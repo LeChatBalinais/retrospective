@@ -1,37 +1,27 @@
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import Augmentation, {
-  ValueProps,
-  FuncProps
-} from '../components/Augmentation';
-import { State } from '../types/state';
-import updateTagBeingEditedPath, {
-  createUpdateTagBeingEditedPath
-} from '../thunks/update-tag-being-edited-path';
-import connectAction from '../utils/map-state-to-action';
-
-import getVisibleTagIDs from '../selectors/get-visible-tag-ids';
-import { ThunkDispatch, Action } from '../types/types';
-import setDraggedTag from '../actions/set-dragged-tag';
-import setCurrentTag from '../actions/set-current-tag';
+import Augmentation, { ValueProps, FuncProps } from '~/components/Augmentation';
+import getCurrentlyVisibleTagIDs from '~/selectors/get-currentily-visible-tag-ids';
+import { State } from '~/state';
+import { actionCreator as mouseDownOnAugmentation } from '~/actions-reducers/ui-player-augmentation-mouse-down';
+import { actionCreator as mouseMoveOnAugmentation } from '~/actions-reducers/ui-player-augmentation-mouse-move';
+import { actionCreator as mouseUpOnAugmentation } from '~/actions-reducers/ui-player-augmentation-mouse-up';
+import { getTagBeingEditedID } from '~/getters/tag-editor';
 
 const mapStateToProps = (state: State): ValueProps => ({
-  tagIDs: getVisibleTagIDs(state)
+  tagIDs: getCurrentlyVisibleTagIDs(state),
+  reactOnMouseMove: getTagBeingEditedID(state) !== undefined
 });
 
-const mapDispatchToProps = (dispatch: ThunkDispatch): FuncProps => ({
+const mapDispatchToProps = (dispatch: Dispatch): FuncProps => ({
   onMouseDown: (): void => {
-    dispatch(setCurrentTag({ ID: undefined }));
+    dispatch(mouseDownOnAugmentation());
   },
   onMouseMove: (x: number, y: number): void => {
-    dispatch(updateTagBeingEditedPath({ x, y }));
+    dispatch(mouseMoveOnAugmentation({ x, y }));
   },
   onMouseUp: (x: number, y: number): void => {
-    dispatch(
-      connectAction([
-        createUpdateTagBeingEditedPath,
-        (): Action => setDraggedTag({ ID: undefined })
-      ])({ x, y })
-    );
+    dispatch(mouseUpOnAugmentation({ x, y }));
   }
 });
 

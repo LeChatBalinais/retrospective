@@ -1,21 +1,24 @@
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import Player, {
   ValueProps as PlayerValueProps,
   FuncProps as PlayerFuncProps
-} from '../components/Player';
-import { State } from '../types/state';
-import { getCurrentTagID, isPlaceNewTagModeOn } from '../selectors/selectors';
-import { ThunkDispatch } from '../types/types';
-import fetchTags from '../actions/fetch-tags';
+} from '~/components/Player';
+import {
+  isPlaceNewTagModeOn,
+  getCurrentTagID
+} from '~/getters/tag-editor';
+import { State } from '~/state';
+import { actionCreator as playerLoaded } from '~/actions-reducers/ui-player-loaded';
 
 const mapStateToProps = (state: State): PlayerValueProps => ({
   currentTag: getCurrentTagID(state),
   placeNewTagMode: isPlaceNewTagModeOn(state)
 });
 
-const mapDispatchToProps = (dispatch: ThunkDispatch): PlayerFuncProps => ({
+const mapDispatchToProps = (dispatch: Dispatch): PlayerFuncProps => ({
   onComponentDidMount: (): void => {
-    dispatch(fetchTags());
+    dispatch(playerLoaded());
   }
 });
 

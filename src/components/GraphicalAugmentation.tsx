@@ -1,5 +1,5 @@
 import React from 'react';
-import TagTrace from '../containers/TagTrace';
+import TagTrace from '~/containers/TagTrace';
 
 export interface ValueProps {
   tagIDs: string[];
