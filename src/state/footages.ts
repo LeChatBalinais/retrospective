@@ -1,4 +1,5 @@
 export interface Footage {
   readonly duration: number;
-  readonly url: string;
+  readonly videoURL: string;
+  readonly seekPreviewURL: string;
 }

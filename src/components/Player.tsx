@@ -7,6 +7,7 @@ import SeekBar from '~/containers/SeekBar';
 import ActiveTagsPanel from '~/containers/ActiveTagsPanel';
 import TagPanelContainer from '~/containers/TagPanel';
 import GraphicalAugmentation from '~/containers/GraphicalAugmentation';
+import SeekPreview from '~/containers/SeekPreview';
 
 export interface ValueProps {
   placeNewTagMode: boolean;
@@ -40,6 +41,7 @@ const Player = ({
       <div className="box video-box">
         <div className="augmented-video">
           <VideoContainer />
+          {/* <SeekPreview /> */}
           <GraphicalAugmentation />
           <AugmentationContainer />
           {newTagLayerComponent}

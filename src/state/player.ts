@@ -7,6 +7,11 @@ export interface Player {
     stageAt?: number;
     stageSeekingTo?: number;
   };
+  readonly seekPreview?: {
+    status: VideoStatus;
+    stageAt?: number;
+    stageSeekingTo?: number;
+  };
   readonly seekbar: {
     status: SeekbarStatus;
   };
