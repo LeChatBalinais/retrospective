@@ -33,7 +33,7 @@ const getTimeTagAt = (state: State, ID: string): number => {
 const getPosition = (state: State, ID: string): { x: number; y: number } => {
   return isAnimated(state, ID)
     ? getPointTagAppearsAt(state, ID)
-    : getTagPositionByTime(state, ID, getTimeTagAt(state, ID));
+    : getTagPositionByTime(state, ID, getTimeVideoAt(state));
 };
 
 const makeMapStateToProps = (): MapStateToProps => {

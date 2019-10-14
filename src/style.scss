@@ -52,10 +52,15 @@ body {
 }
 
 .marker {
+  content: url(./assets/tag-icon.png);
   cursor: pointer;
   position: absolute;
-  width: 10px;
-  height: 10px;
+  width: 25px;
+  height: 25px;
+}
+
+.marker.selected {
+  content: url(./assets//selected-tag-icon.png);
 }
 
 .markers-list {
@@ -97,11 +102,6 @@ body {
   top: 0%;
   width: 14px;
   height: 14px;
-}
-
-.tag-marker {
-  stroke: blue;
-  stroke-width: 3px;
 }
 
 .current-tag-row {

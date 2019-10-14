@@ -34,8 +34,8 @@ const Tag = ({
 }: Props): JSX.Element => {
   const divEl = useRef(null);
 
-  const width = 5;
-  const height = 5;
+  const width = 12.5;
+  const height = 12.5;
 
   const animationProps = useMemo<AnimationProps>(
     (): AnimationProps =>
@@ -58,15 +58,14 @@ const Tag = ({
   }, [animationProps]);
 
   const style = {
-    top: `calc(${position.y}% - ${5}px`,
-    left: `calc(${position.x}% - ${5}px`
+    top: `calc(${position.y}% - ${12.5}px`,
+    left: `calc(${position.x}% - ${12.5}px`
   };
 
-  const composedClassName = `marker ${className}`;
+  let composedClassName = '';
 
-  let tagMarkerClassName = '';
-
-  if (isCurrent) tagMarkerClassName = 'tag-marker';
+  if (isCurrent) composedClassName = `${className} marker selected`;
+  else composedClassName = `${className} marker`;
 
   return (
     /* eslint-disable-next-line */
@@ -83,16 +82,7 @@ const Tag = ({
       className={composedClassName}
       style={style}
       ref={divEl}
-    >
-      <svg width="10px" height="10px">
-        <rect
-          className={tagMarkerClassName}
-          width="10px"
-          height="10px"
-          fill="red"
-        />
-      </svg>
-    </div>
+    />
   );
 };
 
