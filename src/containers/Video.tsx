@@ -1,7 +1,13 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import Video, { ValueProps, FuncProps } from '~/components/Video';
-import { State, VideoStatus, SeekingStatus, PlaybackStatus } from '~/state';
+import {
+  State,
+  VideoStatus,
+  SeekingStatus,
+  PlaybackStatus,
+  SeekbarStatus
+} from '~/state';
 import { actionCreator as videoPlayedToTime } from '~/actions-reducers/ui-player-video-played-to-time';
 import { actionCreator as videoSeeked } from '~/actions-reducers/ui-player-video-seeked';
 import { actionCreator as videoSeeking } from '~/actions-reducers/ui-player-video-seeking';
@@ -10,7 +16,10 @@ import {
   getLastRequestedStage,
   getVideoStatus,
   getSeekingStatus,
-  getPlaybackStatus
+  getPlaybackStatus,
+  getSeekPreviewStatus,
+  getStageSeekPreviewAt,
+  getSeekbarStatus
 } from '~/getters/player';
 import { getVideoDuration, getVideoURL } from '~/getters/footage';
 
@@ -19,7 +28,10 @@ const getTimeSeekTo = (state: State): number =>
 
 const shouldVideoSeek = (state: State): boolean =>
   getVideoStatus(state) !== VideoStatus.Seeking &&
-  getSeekingStatus(state) !== SeekingStatus.NoSeeking;
+  getSeekingStatus(state) !== SeekingStatus.NoSeeking &&
+  getSeekPreviewStatus(state) !== VideoStatus.Seeking &&
+  getStageSeekPreviewAt(state) !== getLastRequestedStage(state) &&
+  getSeekbarStatus(state) !== SeekbarStatus.Seeking;
 
 const shouldVideoPlayback = (state: State): boolean =>
   getPlaybackStatus(state) === PlaybackStatus.Playing &&

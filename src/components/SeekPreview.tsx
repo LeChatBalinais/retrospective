@@ -8,6 +8,7 @@ export interface ValueProps {
   url: string;
   timeSeekTo: number;
   seek: boolean;
+  hidden: boolean;
 }
 
 export interface FuncProps {
@@ -21,6 +22,7 @@ const SeekPreview = ({
   url: src,
   timeSeekTo,
   seek,
+  hidden,
   onSeeked,
   onSeeking: onSeekingFunc
 }: Props): JSX.Element => {
@@ -41,7 +43,7 @@ const SeekPreview = ({
     <video
       preload="auto"
       className="seek-preview"
-      {...{ onSeeking, onSeeked, src }}
+      {...{ onSeeking, onSeeked, src, hidden }}
       ref={videoEl}
     />
   );

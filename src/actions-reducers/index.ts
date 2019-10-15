@@ -109,6 +109,15 @@ import {
   reducer as uiCurrentTagPanelTraceVisibilityCheckboxToggled
 } from './ui-current-tag-panel-trace-visibility-checkbox-toggled';
 
+import {
+  Action as UiPlayerSeekpreviewSeeking,
+  reducer as uiPlayerSeekpreviewSeeking
+} from './ui-player-seekpreview-seeking';
+import {
+  Action as UiPlayerSeekpreviewSeeked,
+  reducer as uiPlayerSeekpreviewSeeked
+} from './ui-player-seekpreview-seeked';
+
 export type Action =
   | SagaTagDeletionConfirmed
   | SagaTagSavingConfirmed
@@ -123,6 +132,8 @@ export type Action =
   | UiPlayerVideoDurationChanged
   | UiPlayerVideoSeeked
   | UiPlayerVideoPlayedToTime
+  | UiPlayerSeekpreviewSeeking
+  | UiPlayerSeekpreviewSeeked
   | UiPlayerAugmentationMouseDown
   | UiPlayerAugmentationMouseMove
   | UiPlayerAugmentationMouseUp
@@ -148,6 +159,8 @@ export const reducers = {
   ...uiPlayerVideoDurationChanged,
   ...uiPlayerVideoSeeked,
   ...uiPlayerVideoPlayedToTime,
+  ...uiPlayerSeekpreviewSeeking,
+  ...uiPlayerSeekpreviewSeeked,
   ...uiPlayerAugmentationMouseDown,
   ...uiPlayerAugmentationMouseMove,
   ...uiPlayerAugmentationMouseUp,

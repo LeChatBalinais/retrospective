@@ -41,7 +41,7 @@ const Player = ({
       <div className="box video-box">
         <div className="augmented-video">
           <VideoContainer />
-          {/* <SeekPreview /> */}
+          <SeekPreview />
           <GraphicalAugmentation />
           <AugmentationContainer />
           {newTagLayerComponent}
