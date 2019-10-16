@@ -14,7 +14,6 @@ import {
 import {
   setStageSeekPreviewAt,
   setSeekingStatus,
-  setLastRequestedStage,
   setSeekPreviewStatus,
   setStageSeekPreviewSeekingTo
 } from '~/setters/player';
@@ -40,14 +39,6 @@ const calculateSeekingStatus = (
     ? SeekingStatus.NoSeeking
     : prevSeekingStatus;
 
-const calculateLastRequestedStage = (
-  stageVideoSeekingTo: number,
-  prevLastRequestedStage: number
-): number =>
-  stageVideoSeekingTo === prevLastRequestedStage
-    ? undefined
-    : prevLastRequestedStage;
-
 const calculateSeekPreviewStatus = (): VideoStatus => VideoStatus.Paused;
 
 const calculateStageSeekPreviewSeekingTo = (): number => undefined;
@@ -62,12 +53,6 @@ const partialReducers = [
     getSeekPreviewStatus,
     setSeekPreviewStatus,
     calculateSeekPreviewStatus
-  ),
-  createPartialReducer(
-    getLastRequestedStage,
-    setLastRequestedStage,
-    calculateLastRequestedStage,
-    [getStageSeekPreviewSeekingTo, getLastRequestedStage]
   ),
   createPartialReducer(
     getSeekingStatus,

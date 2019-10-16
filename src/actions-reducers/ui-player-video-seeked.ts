@@ -9,14 +9,16 @@ import {
   getStageVideoSeekingTo,
   getSeekingStatus,
   getLastRequestedStage,
-  getSeekbarStatus
+  getSeekbarStatus,
+  getSeekVideo
 } from '~/getters/player';
 import {
   setStageVideoAt,
   setSeekingStatus,
   setLastRequestedStage,
   setVideoStatus,
-  setStageVideoSeekingTo
+  setStageVideoSeekingTo,
+  setSeekVideo
 } from '~/setters/player';
 
 export type ActionID = 'UI_PLAYER_VIDEO_SEEKED';
@@ -52,6 +54,8 @@ const calculateVideoStatus = (): VideoStatus => VideoStatus.Paused;
 
 const calculateStageVideoSeekingTo = (): number => undefined;
 
+const calculateSeekVideo = (): boolean => false;
+
 const partialReducers = [
   createPartialReducer(
     getStageVideoSeekingTo,
@@ -81,7 +85,8 @@ const partialReducers = [
     setStageVideoAt,
     calculateStageVideoAt,
     [getStageVideoSeekingTo]
-  )
+  ),
+  createPartialReducer(getSeekVideo, setSeekVideo, calculateSeekVideo)
 ];
 
 export const reducer = {

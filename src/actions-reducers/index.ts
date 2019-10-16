@@ -13,6 +13,10 @@ import {
   reducer as sagaTagsFetchingFetched
 } from './saga-tags-fetching-fetched';
 import {
+  Action as SagaVideoSeekDelayEnded,
+  reducer as sagaVideoSeekDelayEnded
+} from './saga-video-seek-delay-ended';
+import {
   Action as UiNewTabButtonClicked,
   reducer as uiNewTabButtonClicked
 } from './ui-new-tag-button-clicked';
@@ -122,6 +126,7 @@ export type Action =
   | SagaTagDeletionConfirmed
   | SagaTagSavingConfirmed
   | SagaTagsFetchingFetched
+  | SagaVideoSeekDelayEnded
   | UiNewTabButtonClicked
   | UiTagListRowDeleteButtonClicked
   | UiTagListRowSaveButtonClicked
@@ -152,6 +157,7 @@ export const reducers = {
   ...sagaTagDeletionConfirmedReducer,
   ...sagaTagSavingConfirmedReducer,
   ...sagaTagsFetchingFetched,
+  ...sagaVideoSeekDelayEnded,
   ...uiNewTabButtonClicked,
   ...uiTagListRowClicked,
   ...uiActiveTagPanelLabelClicked,

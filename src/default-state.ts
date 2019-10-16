@@ -26,6 +26,7 @@ const DEFAULT_STATE: State = {
     seekPreviewURL: 'http://localhost:9000/seekpreview'
   },
   player: {
+    seekVideo: false,
     playbackStatus: PlaybackStatus.Paused,
     seekingStatus: SeekingStatus.NoSeeking,
     lastRequestedStage: 0,

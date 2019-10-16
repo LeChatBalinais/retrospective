@@ -130,3 +130,11 @@ export const setLastRequestedStage = (
     lastRequestedStage
   }
 });
+
+export const setSeekVideo = (state: State, seekVideo: boolean): State => ({
+  ...state,
+  player: {
+    ...state.player,
+    seekVideo
+  }
+});

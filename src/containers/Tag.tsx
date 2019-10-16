@@ -10,10 +10,10 @@ import { actionCreator as mouseUpOnTag } from '~/actions-reducers/ui-player-augm
 import { isPlaying } from '~/getters/player';
 import { isTagDragged } from '~/selectors/is-tag-dragged';
 import { isTagCurrent } from '~/selectors/is-tag-current';
-import { getTimeVideoAt } from '~/selectors/get-time-video-at';
 import { getPointTagAppearsAt } from '~/selectors/get-point-tag-appears-at';
 import { getTagPositionByTime } from '~/selectors/get-tag-position-by-time';
 import { getTagPath } from '~/getters/tags';
+import { getTimePlayerAt } from '~/selectors/get-time-player-at';
 
 interface Props {
   ID: string;
@@ -27,13 +27,14 @@ const isAnimated = (state: State, ID: string): boolean => {
 
 const getTimeTagAt = (state: State, ID: string): number => {
   const { time } = getPointTagAppearsAt(state, ID);
-  return getTimeVideoAt(state) - time;
+  const a = getTimePlayerAt(state);
+  return a - time;
 };
 
 const getPosition = (state: State, ID: string): { x: number; y: number } => {
   return isAnimated(state, ID)
     ? getPointTagAppearsAt(state, ID)
-    : getTagPositionByTime(state, ID, getTimeVideoAt(state));
+    : getTagPositionByTime(state, ID, getTimePlayerAt(state));
 };
 
 const makeMapStateToProps = (): MapStateToProps => {

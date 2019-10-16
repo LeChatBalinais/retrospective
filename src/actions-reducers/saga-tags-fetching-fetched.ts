@@ -6,9 +6,9 @@ import { setTags } from '~/setters/entities';
 import { getTagsTable } from '~/getters/entities';
 import { makeActionCreator } from '~/utils/make-action-creator';
 
-export type ActionID = 'ACTION_ID';
+export type ActionID = 'SAGA_TAGS_FETCHED';
 
-export const ACTION_ID = 'ACTION_ID';
+export const ACTION_ID = 'SAGA_TAGS_FETCHED';
 
 export interface Payload {
   tags: Table<Tag>;

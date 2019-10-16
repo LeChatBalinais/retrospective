@@ -1,4 +1,5 @@
 export interface Player {
+  readonly seekVideo: boolean;
   readonly playbackStatus: PlaybackStatus;
   readonly seekingStatus: SeekingStatus;
   readonly lastRequestedStage: number;

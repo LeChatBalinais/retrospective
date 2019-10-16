@@ -64,3 +64,6 @@ export const getStageSeekPreviewSeekingTo = ({
     seekPreview: { stageSeekingTo }
   }
 }: State): number => stageSeekingTo;
+
+export const getSeekVideo = ({ player: { seekVideo } }: State): boolean =>
+  seekVideo;
