@@ -1,5 +1,5 @@
 import React, { useRef, useCallback } from 'react';
-import TagContainer from '~/containers/Tag';
+import TagContainer from '~/containers/tag';
 
 export interface ValueProps {
   tagIDs: string[];

@@ -17,6 +17,8 @@ export interface FuncProps {
   onDurationChange: OnDurationChangeFunc;
   onSeeking: (time: number) => void;
   onSeeked: () => void;
+  onPlaying: () => void;
+  onPause: () => void;
 }
 
 export type Props = ValueProps & FuncProps;
@@ -27,6 +29,8 @@ const Video = ({
   onTimeUpdate: onTimeUpdateFunc,
   onSeeked,
   onSeeking: onSeekingFunc,
+  onPlaying,
+  onPause,
   playback,
   timeSeekTo,
   seek
@@ -77,7 +81,7 @@ const Video = ({
     <video
       preload="auto"
       className="main-video"
-      {...{ onDurationChange, onSeeking, onSeeked, src }}
+      {...{ onDurationChange, onSeeking, onSeeked, onPlaying, onPause, src }}
       ref={videoEl}
     />
   );

@@ -6,6 +6,9 @@ import { actionCreator as videoPlayedToTime } from '~/actions-reducers/ui-player
 import { actionCreator as videoSeeked } from '~/actions-reducers/ui-player-video-seeked';
 import { actionCreator as videoSeeking } from '~/actions-reducers/ui-player-video-seeking';
 import { actionCreator as videoDurationChanged } from '~/actions-reducers/ui-player-video-duration-changed';
+import { actionCreator as videoPlaying } from '~/actions-reducers/ui-player-video-playing';
+import { actionCreator as videoPaused } from '~/actions-reducers/ui-player-video-paused';
+
 import {
   getVideoStatus,
   getSeekingStatus,
@@ -44,6 +47,12 @@ const mapDispatchToProps = (dispatch: Dispatch): FuncProps => ({
   },
   onSeeked: (): void => {
     dispatch(videoSeeked());
+  },
+  onPlaying: (): void => {
+    dispatch(videoPlaying());
+  },
+  onPause: (): void => {
+    dispatch(videoPaused());
   }
 });
 

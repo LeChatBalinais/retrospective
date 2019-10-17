@@ -13,18 +13,22 @@ import {
 import { getSeekPreviewURL } from '~/getters/footage';
 import { getLastRequestedTime } from '~/selectors/get-last-requested-time';
 
-const shouldVideoSeek = (state: State): boolean =>
+const shouldSeekpreviewSeek = (state: State): boolean =>
   getSeekPreviewStatus(state) !== VideoStatus.Seeking &&
   getSeekingStatus(state) !== SeekingStatus.NoSeeking;
 
-const seekPreviewIsVisible = (state: State): boolean =>
-  getLastRequestedStage(state) !== undefined &&
-  getStageVideoAt(state) !== getLastRequestedStage(state);
+const seekPreviewIsVisible = (state: State): boolean => {
+  return (
+    getSeekingStatus(state) !== SeekingStatus.NoSeeking &&
+    getLastRequestedStage(state) !== undefined &&
+    getStageVideoAt(state) !== getLastRequestedStage(state)
+  );
+};
 
 const mapStateToProps = (state: State): ValueProps => {
   return {
     url: getSeekPreviewURL(state),
-    seek: shouldVideoSeek(state),
+    seek: shouldSeekpreviewSeek(state),
     timeSeekTo: getLastRequestedTime(state),
     hidden: !seekPreviewIsVisible(state)
   };

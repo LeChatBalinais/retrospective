@@ -47,6 +47,14 @@ import {
   Action as UiPlayerVideoPlayedToTime,
   reducer as uiPlayerVideoPlayedToTime
 } from './ui-player-video-played-to-time';
+import {
+  Action as UiPlayerVideoPlaying,
+  reducer as uiPlayerVideoPlaying
+} from './ui-player-video-playing';
+import {
+  Action as UiPlayerVideoPaused,
+  reducer as uiPlayerVideoPaused
+} from './ui-player-video-paused';
 
 import {
   Action as UiPlayerAugmentationMouseDown,
@@ -139,6 +147,8 @@ export type Action =
   | UiPlayerVideoPlayedToTime
   | UiPlayerSeekpreviewSeeking
   | UiPlayerSeekpreviewSeeked
+  | UiPlayerVideoPlaying
+  | UiPlayerVideoPaused
   | UiPlayerAugmentationMouseDown
   | UiPlayerAugmentationMouseMove
   | UiPlayerAugmentationMouseUp
@@ -165,6 +175,8 @@ export const reducers = {
   ...uiPlayerVideoDurationChanged,
   ...uiPlayerVideoSeeked,
   ...uiPlayerVideoPlayedToTime,
+  ...uiPlayerVideoPlaying,
+  ...uiPlayerVideoPaused,
   ...uiPlayerSeekpreviewSeeking,
   ...uiPlayerSeekpreviewSeeked,
   ...uiPlayerAugmentationMouseDown,

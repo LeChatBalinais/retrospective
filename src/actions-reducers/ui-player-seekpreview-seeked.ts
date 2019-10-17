@@ -1,19 +1,15 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
-import { VideoStatus, SeekingStatus, SeekbarStatus, State } from '~/state';
+import { VideoStatus, State } from '~/state';
 import createReducer from '~/utils/create-reducer';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
 import {
   getSeekPreviewStatus,
   getStageSeekPreviewAt,
-  getStageSeekPreviewSeekingTo,
-  getSeekingStatus,
-  getLastRequestedStage,
-  getSeekbarStatus
+  getStageSeekPreviewSeekingTo
 } from '~/getters/player';
 import {
   setStageSeekPreviewAt,
-  setSeekingStatus,
   setSeekPreviewStatus,
   setStageSeekPreviewSeekingTo
 } from '~/setters/player';
@@ -27,17 +23,6 @@ export const actionCreator = makeActionCreator<ActionID>(ACTION_ID);
 
 const calculateStageSeekPreviewAt = (stageVideoSeekingTo: number): number =>
   stageVideoSeekingTo;
-
-const calculateSeekingStatus = (
-  stageVideoSeekingTo: number,
-  lastRequestedStage: number,
-  seekbarStatus: SeekbarStatus,
-  prevSeekingStatus: SeekingStatus
-): SeekingStatus =>
-  stageVideoSeekingTo === lastRequestedStage &&
-  seekbarStatus === SeekbarStatus.Idle
-    ? SeekingStatus.NoSeeking
-    : prevSeekingStatus;
 
 const calculateSeekPreviewStatus = (): VideoStatus => VideoStatus.Paused;
 
@@ -53,17 +38,6 @@ const partialReducers = [
     getSeekPreviewStatus,
     setSeekPreviewStatus,
     calculateSeekPreviewStatus
-  ),
-  createPartialReducer(
-    getSeekingStatus,
-    setSeekingStatus,
-    calculateSeekingStatus,
-    [
-      getStageSeekPreviewSeekingTo,
-      getLastRequestedStage,
-      getSeekbarStatus,
-      getSeekingStatus
-    ]
   ),
   createPartialReducer(
     getStageSeekPreviewAt,

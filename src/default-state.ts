@@ -29,7 +29,7 @@ const DEFAULT_STATE: State = {
     seekVideo: false,
     playbackStatus: PlaybackStatus.Paused,
     seekingStatus: SeekingStatus.NoSeeking,
-    lastRequestedStage: 0,
+    lastRequestedStage: undefined,
     video: {
       status: VideoStatus.Paused
     },

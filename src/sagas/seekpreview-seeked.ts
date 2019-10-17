@@ -11,7 +11,7 @@ import { VideoStatus } from '~/state';
 
 function* saga(): SagaIterator {
   const prevLastRequestedStage = yield select(getLastRequestedStage);
-  yield delay(50);
+  yield delay(100);
   const seekPreviewStatus = yield select(getSeekPreviewStatus);
   const lastRequestedStage = yield select(getLastRequestedStage);
   const stageSeekpreviewAt = yield select(getStageSeekPreviewAt);

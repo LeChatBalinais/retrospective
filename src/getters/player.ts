@@ -9,7 +9,8 @@ import {
 export const isPlaying = ({
   player: { playbackStatus, seekingStatus }
 }: State): boolean =>
-  playbackStatus && seekingStatus === SeekingStatus.NoSeeking;
+  playbackStatus === PlaybackStatus.Playing &&
+  seekingStatus === SeekingStatus.NoSeeking;
 
 export const getSeekingStatus = ({
   player: { seekingStatus }
