@@ -8,19 +8,20 @@ import {
   getStageSeekPreviewAt
 } from '~/getters/player';
 import { VideoStatus } from '~/state';
+import { timeIsCloseEnough } from '~/utils/time-is-close-enough';
 
 function* saga(): SagaIterator {
-  const prevLastRequestedStage = yield select(getLastRequestedStage);
-  yield delay(100);
+  const requestedStage = yield select(getLastRequestedStage);
+  yield delay(50);
   const seekPreviewStatus = yield select(getSeekPreviewStatus);
   const lastRequestedStage = yield select(getLastRequestedStage);
   const stageSeekpreviewAt = yield select(getStageSeekPreviewAt);
   if (
     seekPreviewStatus !== VideoStatus.Seeking &&
-    lastRequestedStage === stageSeekpreviewAt &&
-    prevLastRequestedStage === lastRequestedStage
+    timeIsCloseEnough(lastRequestedStage, stageSeekpreviewAt) &&
+    timeIsCloseEnough(requestedStage, lastRequestedStage)
   )
-    yield put(seekDelayEnded());
+    yield put(seekDelayEnded(requestedStage));
 }
 
 export default function* watchIncrementAsync(): SagaIterator {

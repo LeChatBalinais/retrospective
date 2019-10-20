@@ -6,12 +6,14 @@ import { createPartialReducer } from '~/utils/create-partial-reducer';
 import {
   getSeekPreviewStatus,
   getStageSeekPreviewAt,
-  getStageSeekPreviewSeekingTo
+  getStageSeekPreviewSeekingTo,
+  isDelayOn
 } from '~/getters/player';
 import {
   setStageSeekPreviewAt,
   setSeekPreviewStatus,
-  setStageSeekPreviewSeekingTo
+  setStageSeekPreviewSeekingTo,
+  setDelayOn
 } from '~/setters/player';
 
 export type ActionID = 'UI_PLAYER_SEEKPREVIEW_SEEKED';
@@ -28,7 +30,10 @@ const calculateSeekPreviewStatus = (): VideoStatus => VideoStatus.Paused;
 
 const calculateStageSeekPreviewSeekingTo = (): number => undefined;
 
+const calculateDelayOn = (): boolean => true;
+
 const partialReducers = [
+  createPartialReducer(isDelayOn, setDelayOn, calculateDelayOn),
   createPartialReducer(
     getStageSeekPreviewSeekingTo,
     setStageSeekPreviewSeekingTo,

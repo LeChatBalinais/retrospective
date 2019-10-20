@@ -138,3 +138,11 @@ export const setSeekVideo = (state: State, seekVideo: boolean): State => ({
     seekVideo
   }
 });
+
+export const setDelayOn = (state: State, delayOn: boolean): State => ({
+  ...state,
+  player: {
+    ...state.player,
+    delayOn
+  }
+});

@@ -11,6 +11,7 @@ import {
 } from '~/getters/player';
 import { setSeekingStatus, setSeekbarStatus } from '~/setters/player';
 import { makeActionCreator } from '~/utils/make-action-creator';
+import { timeIsCloseEnough } from '~/utils/time-is-close-enough';
 
 export type ActionID = 'MOUSE_UP_DURING_SEEKBAR_SEEKING';
 export const ACTION_ID = 'MOUSE_UP_DURING_SEEKBAR_SEEKING';
@@ -34,7 +35,8 @@ const calculateSeekingStatus = (
 
   if (
     videoStatus === VideoStatus.Seeking ||
-    (lastRequestedStage !== undefined && stageVideoAt !== lastRequestedStage)
+    (lastRequestedStage !== undefined &&
+      !timeIsCloseEnough(stageVideoAt, lastRequestedStage))
   )
     seekingStatus = SeekingStatus.SeekbarSeeking;
 

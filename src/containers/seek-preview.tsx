@@ -12,6 +12,7 @@ import {
 } from '~/getters/player';
 import { getSeekPreviewURL } from '~/getters/footage';
 import { getLastRequestedTime } from '~/selectors/get-last-requested-time';
+import { timeIsCloseEnough } from '~/utils/time-is-close-enough';
 
 const shouldSeekpreviewSeek = (state: State): boolean =>
   getSeekPreviewStatus(state) !== VideoStatus.Seeking &&
@@ -21,7 +22,7 @@ const seekPreviewIsVisible = (state: State): boolean => {
   return (
     getSeekingStatus(state) !== SeekingStatus.NoSeeking &&
     getLastRequestedStage(state) !== undefined &&
-    getStageVideoAt(state) !== getLastRequestedStage(state)
+    !timeIsCloseEnough(getStageVideoAt(state), getLastRequestedStage(state))
   );
 };
 

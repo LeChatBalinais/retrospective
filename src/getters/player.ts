@@ -68,3 +68,5 @@ export const getStageSeekPreviewSeekingTo = ({
 
 export const getSeekVideo = ({ player: { seekVideo } }: State): boolean =>
   seekVideo;
+
+export const isDelayOn = ({ player: { delayOn } }: State): boolean => delayOn;

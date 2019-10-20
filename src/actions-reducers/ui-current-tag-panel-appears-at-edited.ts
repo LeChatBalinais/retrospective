@@ -5,6 +5,7 @@ import createReducer from '~/utils/create-reducer';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
 import { getTags } from '~/getters/tags';
 import { setTagsByID } from '~/setters/tags';
+import { timeIsCloseEnough } from '~/utils/time-is-close-enough';
 
 export type ActionID = 'TAG_APPEARS_AT_EDIT_BOX_EDITED';
 export const ACTION_ID = 'TAG_APPEARS_AT_EDIT_BOX_EDITED';
@@ -33,7 +34,11 @@ const calculateTagsByID = (
 
   const { length } = path;
 
-  if (length === 0 || path[length - 1].time < time || path[0].time === time)
+  if (
+    length === 0 ||
+    path[length - 1].time < time ||
+    timeIsCloseEnough(path[0].time, time)
+  )
     return prevTagsByID;
 
   let newPath = path;
@@ -50,7 +55,8 @@ const calculateTagsByID = (
       }
     );
 
-    if (path[index].time === time) newPath = path.slice(index, path.length);
+    if (timeIsCloseEnough(path[index].time, time))
+      newPath = path.slice(index, path.length);
     else
       newPath = [
         {
