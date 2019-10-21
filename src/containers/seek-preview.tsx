@@ -4,6 +4,7 @@ import SeekPreview, { ValueProps, FuncProps } from '~/components/SeekPreview';
 import { State, VideoStatus, SeekingStatus } from '~/state';
 import { actionCreator as videoSeeked } from '~/actions-reducers/ui-player-seekpreview-seeked';
 import { actionCreator as videoSeeking } from '~/actions-reducers/ui-player-seekpreview-seeking';
+import { actionCreator as seekVideoAfterDelay } from '~/actions-reducers/saga-start-video-seek-delay';
 import {
   getLastRequestedStage,
   getSeekingStatus,

@@ -11,7 +11,7 @@ import {
 
 const getSliderPosition = (state: State): number => {
   const normalizedPosition =
-    getSeekingStatus(state) === SeekingStatus.SeekbarSeeking
+    getSeekingStatus(state) !== SeekingStatus.NoSeeking
       ? getLastRequestedStage(state)
       : getStageVideoAt(state);
   return normalizedPosition * 100;

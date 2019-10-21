@@ -1,5 +1,5 @@
 import { ActionTemplate } from '~/utils/action-template';
-import { State } from '~/state';
+import { State, VideoStatus } from '~/state';
 import createReducer from '~/utils/create-reducer';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
 import { makeActionCreator } from '~/utils/make-action-creator';
@@ -7,7 +7,9 @@ import {
   getSeekVideo,
   getStageVideoAt,
   getLastRequestedStage,
-  isDelayOn
+  isDelayOn,
+  getSeekPreviewStatus,
+  getStageSeekPreviewAt
 } from '~/getters/player';
 import {
   setSeekVideo,
@@ -33,14 +35,30 @@ const getRequestedStage = (state: State, { requestedStage }: Payload): number =>
 
 const calculateSeekVideo = (
   stageVideoAt: number,
-  prevLastRequestedStage: number
-): boolean => !timeIsCloseEnough(stageVideoAt, prevLastRequestedStage);
+  lastRequestedStage: number,
+  seekPreviewStatus: VideoStatus,
+  stageSeekpreviewAt: number,
+  requestedStage: number
+): boolean => {
+  return (
+    !timeIsCloseEnough(stageVideoAt, lastRequestedStage) &&
+    seekPreviewStatus !== VideoStatus.Seeking &&
+    timeIsCloseEnough(lastRequestedStage, stageSeekpreviewAt) &&
+    timeIsCloseEnough(requestedStage, lastRequestedStage)
+  );
+};
 
 const calculateLastRequestedStage = (
   stageVideoAt: number,
-  prevLastRequestedStage: number
+  prevLastRequestedStage: number,
+  seekPreviewStatus: VideoStatus,
+  stageSeekpreviewAt: number,
+  requestedStage: number
 ): number =>
-  timeIsCloseEnough(stageVideoAt, prevLastRequestedStage)
+  timeIsCloseEnough(stageVideoAt, prevLastRequestedStage) &&
+  seekPreviewStatus !== VideoStatus.Seeking &&
+  timeIsCloseEnough(prevLastRequestedStage, stageSeekpreviewAt) &&
+  timeIsCloseEnough(requestedStage, prevLastRequestedStage)
     ? undefined
     : prevLastRequestedStage;
 
@@ -49,13 +67,22 @@ const calculateDelayOn = (): boolean => false;
 const partialReducers = [
   createPartialReducer(getSeekVideo, setSeekVideo, calculateSeekVideo, [
     getStageVideoAt,
-    getLastRequestedStage
+    getLastRequestedStage,
+    getSeekPreviewStatus,
+    getStageSeekPreviewAt,
+    getRequestedStage
   ]),
   createPartialReducer(
     getLastRequestedStage,
     setLastRequestedStage,
     calculateLastRequestedStage,
-    [getStageVideoAt, getLastRequestedStage]
+    [
+      getStageVideoAt,
+      getLastRequestedStage,
+      getSeekPreviewStatus,
+      getStageSeekPreviewAt,
+      getRequestedStage
+    ]
   ),
   createPartialReducer(isDelayOn, setDelayOn, calculateDelayOn)
 ];

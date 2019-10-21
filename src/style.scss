@@ -52,7 +52,7 @@ body {
 }
 
 .marker {
-  content: url(./assets/tag-icon.png);
+  content: url(./assets/tag-icon.svg);
   cursor: pointer;
   position: absolute;
   width: 25px;
@@ -60,7 +60,7 @@ body {
 }
 
 .marker.selected {
-  content: url(./assets//selected-tag-icon.png);
+  content: url(./assets//selected-tag-icon.svg);
 }
 
 .markers-list {

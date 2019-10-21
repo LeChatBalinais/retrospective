@@ -4,10 +4,10 @@ import { CombinatorEffect } from '@redux-saga/types/index.d';
 import deleteTag from './delete-tag';
 import saveTag from './save-tag';
 import fetchTags from './fetch-tags';
-import seekpreviewSeeked from './seekpreview-seeked';
+import { watchSeekPreviewSeeked } from './seekpreview-seeked-delay';
 
 export default function* rootSaga(): IterableIterator<
   CombinatorEffect<'ALL', SagaIterator>
 > {
-  yield all([deleteTag(), saveTag(), fetchTags(), seekpreviewSeeked()]);
+  yield all([deleteTag(), saveTag(), fetchTags(), watchSeekPreviewSeeked()]);
 }
