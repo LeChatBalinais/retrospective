@@ -2,11 +2,11 @@ import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
 import { State } from '~/state';
 import { getVideoDuration } from '~/getters/footage';
-import { setStageVideoAt } from '~/setters/player';
+import { setStageVideoAt, setStageSeekPreviewAt } from '~/setters/player';
 import { setVideoDuration } from '~/setters/footage';
 import { createPartialReducer } from '~/utils/create-partial-reducer';
 import createReducer from '~/utils/create-reducer';
-import { getStageVideoAt } from '~/getters/player';
+import { getStageVideoAt, getStageSeekPreviewAt } from '~/getters/player';
 
 export type ActionID = 'UI_PLAYER_VIDEO_DURATION_CHANGED';
 export const ACTION_ID = 'UI_PLAYER_VIDEO_DURATION_CHANGED';
@@ -25,11 +25,18 @@ const calculateDuration = (duration: number): number => duration;
 
 const calculateStageVideoAt = (): number => 0;
 
+const calculateStageSeekPreviewAt = calculateStageVideoAt;
+
 const partialReducers = [
   createPartialReducer(getVideoDuration, setVideoDuration, calculateDuration, [
     getDuration
   ]),
-  createPartialReducer(getStageVideoAt, setStageVideoAt, calculateStageVideoAt)
+  createPartialReducer(getStageVideoAt, setStageVideoAt, calculateStageVideoAt),
+  createPartialReducer(
+    getStageSeekPreviewAt,
+    setStageSeekPreviewAt,
+    calculateStageSeekPreviewAt
+  )
 ];
 
 export const reducer = {

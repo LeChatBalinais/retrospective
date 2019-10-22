@@ -11,13 +11,14 @@ export interface ValueProps {
   path: { time: number; x: number; y: number }[];
   timeAt: number;
   className: string;
-  isCurrent: boolean;
   isAnimated: boolean;
 }
 
 export interface FuncProps {
   onMouseDown: () => void;
   onMouseUp: () => void;
+  onMouseEnter: () => void;
+  onMouseOut: () => void;
 }
 
 export type Props = ValueProps & FuncProps;
@@ -27,10 +28,11 @@ const Tag = ({
   path,
   timeAt,
   className,
-  isCurrent,
   isAnimated,
   onMouseDown,
-  onMouseUp
+  onMouseUp,
+  onMouseEnter,
+  onMouseOut
 }: Props): JSX.Element => {
   const divEl = useRef(null);
 
@@ -62,11 +64,6 @@ const Tag = ({
     left: `calc(${position.x}% - ${12.5}px`
   };
 
-  let composedClassName = '';
-
-  if (isCurrent) composedClassName = `${className} marker selected`;
-  else composedClassName = `${className} marker`;
-
   return (
     /* eslint-disable-next-line */
     <div
@@ -76,10 +73,7 @@ const Tag = ({
         event.stopPropagation();
         onMouseDown();
       }}
-      onMouseUp={(): void => {
-        onMouseUp();
-      }}
-      className={composedClassName}
+      {...{ onMouseUp, onMouseEnter, onMouseOut, className }}
       style={style}
       ref={divEl}
     />

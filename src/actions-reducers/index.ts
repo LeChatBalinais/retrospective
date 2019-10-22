@@ -82,6 +82,16 @@ import {
 } from './ui-player-augmentation-tag-mouse-up';
 
 import {
+  Action as UiPlayerAugmentationTagMouseEnter,
+  reducer as uiPlayerAugmentationTagMouseEnter
+} from './ui-tag-mouse-enter';
+
+import {
+  Action as UiPlayerAugmentationTagMouseOut,
+  reducer as uiPlayerAugmentationTagMouseOut
+} from './ui-tag-mouse-out';
+
+import {
   Action as UiPlayerControlsPlayButtonClicked,
   reducer as uiPlayerControlsPlayButtonClicked
 } from './ui-player-play-button-clicked';
@@ -154,6 +164,8 @@ export type Action =
   | UiPlayerAugmentationMouseUp
   | UiPlayerAugmentationTagMouseDown
   | UiPlayerAugmentationTagMouseUp
+  | UiPlayerAugmentationTagMouseEnter
+  | UiPlayerAugmentationTagMouseOut
   | UiPlayerControlsPlayButtonClicked
   | UiPlayerNewTagLayerClicked
   | UiPlayerSeekbarMouseDown
@@ -184,6 +196,8 @@ export const reducers = {
   ...uiPlayerAugmentationMouseUp,
   ...uiPlayerAugmentationTagMouseDown,
   ...uiPlayerAugmentationTagMouseUp,
+  ...uiPlayerAugmentationTagMouseEnter,
+  ...uiPlayerAugmentationTagMouseOut,
   ...uiPlayerControlsPlayButtonClicked,
   ...uiPlayerNewTagLayerClicked,
   ...uiPlayerSeekbarMouseDown,

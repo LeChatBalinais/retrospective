@@ -146,3 +146,11 @@ export const setDelayOn = (state: State, delayOn: boolean): State => ({
     delayOn
   }
 });
+
+export const setHighlightedTagID = (state: State, highlightedTagID: string): State => ({
+  ...state,
+  player: {
+    ...state.player,
+    highlightedTagID
+  }
+});

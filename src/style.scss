@@ -59,8 +59,16 @@ body {
   height: 25px;
 }
 
+.marker.highlighted {
+  content: url(./assets//tag-icon-hovered.svg);
+}
+
 .marker.selected {
   content: url(./assets//selected-tag-icon.svg);
+}
+
+.marker.selected.highlighted {
+  content: url(./assets//selected-tag-icon-hovered.svg);
 }
 
 .markers-list {
@@ -106,6 +114,10 @@ body {
 
 .current-tag-row {
   box-shadow: 0 2px 3px blue, 0 0 0 1px blue;
+}
+
+.hovered-tag-row {
+  background-color: coral;
 }
 
 .active-tags-panel {

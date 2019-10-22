@@ -1,4 +1,5 @@
 export interface Player {
+  readonly highlightedTagID?: string;
   readonly delayOn: boolean;
   readonly seekVideo: boolean;
   readonly playbackStatus: PlaybackStatus;

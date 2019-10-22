@@ -70,3 +70,12 @@ export const getSeekVideo = ({ player: { seekVideo } }: State): boolean =>
   seekVideo;
 
 export const isDelayOn = ({ player: { delayOn } }: State): boolean => delayOn;
+
+export const isTagHighlighted = (
+  { player: { highlightedTagID } }: State,
+  ID: string
+): boolean => ID !== undefined && ID === highlightedTagID;
+
+export const getHighlightedTagID = ({
+  player: { highlightedTagID }
+}: State): string => highlightedTagID;
