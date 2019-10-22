@@ -1,8 +1,16 @@
 export interface Player {
+  readonly highlightedTagID?: string;
+  readonly delayOn: boolean;
+  readonly seekVideo: boolean;
   readonly playbackStatus: PlaybackStatus;
   readonly seekingStatus: SeekingStatus;
   readonly lastRequestedStage: number;
   readonly video?: {
+    status: VideoStatus;
+    stageAt?: number;
+    stageSeekingTo?: number;
+  };
+  readonly seekPreview?: {
     status: VideoStatus;
     stageAt?: number;
     stageSeekingTo?: number;

@@ -9,15 +9,20 @@ import {
   getStageVideoSeekingTo,
   getSeekingStatus,
   getLastRequestedStage,
-  getSeekbarStatus
+  getSeekbarStatus,
+  getSeekVideo,
+  getSeekPreviewStatus,
+  isDelayOn
 } from '~/getters/player';
 import {
   setStageVideoAt,
   setSeekingStatus,
   setLastRequestedStage,
   setVideoStatus,
-  setStageVideoSeekingTo
+  setStageVideoSeekingTo,
+  setSeekVideo
 } from '~/setters/player';
+import { timeIsCloseEnough } from '~/utils/time-is-close-enough';
 
 export type ActionID = 'UI_PLAYER_VIDEO_SEEKED';
 export const ACTION_ID = 'UI_PLAYER_VIDEO_SEEKED';
@@ -35,7 +40,7 @@ const calculateSeekingStatus = (
   seekbarStatus: SeekbarStatus,
   prevSeekingStatus: SeekingStatus
 ): SeekingStatus =>
-  stageVideoSeekingTo === lastRequestedStage &&
+  timeIsCloseEnough(stageVideoSeekingTo, lastRequestedStage) &&
   seekbarStatus === SeekbarStatus.Idle
     ? SeekingStatus.NoSeeking
     : prevSeekingStatus;
@@ -44,13 +49,23 @@ const calculateLastRequestedStage = (
   stageVideoSeekingTo: number,
   prevLastRequestedStage: number
 ): number =>
-  stageVideoSeekingTo === prevLastRequestedStage
+  timeIsCloseEnough(stageVideoSeekingTo, prevLastRequestedStage)
     ? undefined
     : prevLastRequestedStage;
 
 const calculateVideoStatus = (): VideoStatus => VideoStatus.Paused;
 
 const calculateStageVideoSeekingTo = (): number => undefined;
+
+const calculateSeekVideo = (
+  stageVideoSeekingTo: number,
+  seekPreviewStatus: VideoStatus,
+  prevLastRequestedStage: number,
+  delayIsOn: boolean
+): boolean =>
+  !timeIsCloseEnough(stageVideoSeekingTo, prevLastRequestedStage) &&
+  seekPreviewStatus !== VideoStatus.Seeking &&
+  !delayIsOn;
 
 const partialReducers = [
   createPartialReducer(
@@ -81,7 +96,13 @@ const partialReducers = [
     setStageVideoAt,
     calculateStageVideoAt,
     [getStageVideoSeekingTo]
-  )
+  ),
+  createPartialReducer(getSeekVideo, setSeekVideo, calculateSeekVideo, [
+    getStageVideoSeekingTo,
+    getSeekPreviewStatus,
+    getLastRequestedStage,
+    isDelayOn
+  ])
 ];
 
 export const reducer = {

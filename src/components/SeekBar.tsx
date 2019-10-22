@@ -1,5 +1,5 @@
 import React, { useRef, useCallback } from 'react';
-import SeekBarCurrentTimeSlider from '~/containers/SeekBarCurrentTimeSlider';
+import SeekBarCurrentTimeSlider from '~/containers/seekbar-current-time-slider';
 import newMouseListener from '~/interactivity/track-pointer-on';
 
 export interface FuncProps {

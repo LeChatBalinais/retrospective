@@ -6,20 +6,21 @@ import { actionCreator as videoPlayedToTime } from '~/actions-reducers/ui-player
 import { actionCreator as videoSeeked } from '~/actions-reducers/ui-player-video-seeked';
 import { actionCreator as videoSeeking } from '~/actions-reducers/ui-player-video-seeking';
 import { actionCreator as videoDurationChanged } from '~/actions-reducers/ui-player-video-duration-changed';
+import { actionCreator as videoPlaying } from '~/actions-reducers/ui-player-video-playing';
+import { actionCreator as videoPaused } from '~/actions-reducers/ui-player-video-paused';
+
 import {
-  getLastRequestedStage,
   getVideoStatus,
   getSeekingStatus,
-  getPlaybackStatus
+  getPlaybackStatus,
+  getSeekVideo
 } from '~/getters/player';
-import { getVideoDuration, getVideoURL } from '~/getters/footage';
+import { getVideoURL } from '~/getters/footage';
+import { getLastRequestedTime } from '~/selectors/get-last-requested-time';
 
-const getTimeSeekTo = (state: State): number =>
-  getLastRequestedStage(state) * getVideoDuration(state);
-
-const shouldVideoSeek = (state: State): boolean =>
-  getVideoStatus(state) !== VideoStatus.Seeking &&
-  getSeekingStatus(state) !== SeekingStatus.NoSeeking;
+const shouldVideoSeek = (state: State): boolean => {
+  return getVideoStatus(state) !== VideoStatus.Seeking && getSeekVideo(state);
+};
 
 const shouldVideoPlayback = (state: State): boolean =>
   getPlaybackStatus(state) === PlaybackStatus.Playing &&
@@ -30,7 +31,7 @@ const mapStateToProps = (state: State): ValueProps => {
     playback: shouldVideoPlayback(state),
     url: getVideoURL(state),
     seek: shouldVideoSeek(state),
-    timeSeekTo: getTimeSeekTo(state)
+    timeSeekTo: getLastRequestedTime(state)
   };
 };
 
@@ -46,6 +47,12 @@ const mapDispatchToProps = (dispatch: Dispatch): FuncProps => ({
   },
   onSeeked: (): void => {
     dispatch(videoSeeked());
+  },
+  onPlaying: (): void => {
+    dispatch(videoPlaying());
+  },
+  onPause: (): void => {
+    dispatch(videoPaused());
   }
 });
 

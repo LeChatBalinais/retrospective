@@ -13,6 +13,7 @@ import {
   setSeekingStatus,
   setSeekbarStatus
 } from '~/setters/player';
+import { timeIsCloseEnough } from '~/utils/time-is-close-enough';
 
 export type ActionID = 'MOUSE_DOWN_ON_SEEK_BAR';
 export const ACTION_ID = 'MOUSE_DOWN_ON_SEEK_BAR';
@@ -34,7 +35,7 @@ const calculateLastRequestedStage = (
   prevLastRequestedStage: number
 ): number => {
   return seekbarStatus === SeekbarStatus.Seeking &&
-    prevLastRequestedStage === position &&
+    timeIsCloseEnough(prevLastRequestedStage, position) &&
     seekingStatus === SeekingStatus.SeekbarSeeking
     ? prevLastRequestedStage
     : position;
@@ -47,7 +48,7 @@ const calculateSeekingStatus = (
   prevSeekingStatus: SeekingStatus
 ): SeekingStatus => {
   return seekbarStatus === SeekbarStatus.Seeking &&
-    lastRequestedStage === position &&
+    timeIsCloseEnough(lastRequestedStage, position) &&
     prevSeekingStatus === SeekingStatus.SeekbarSeeking
     ? prevSeekingStatus
     : SeekingStatus.SeekbarSeeking;
@@ -60,7 +61,7 @@ const calculateSeekbarStatus = (
   prevSeekbarStatus: SeekbarStatus
 ): SeekbarStatus => {
   return prevSeekbarStatus === SeekbarStatus.Seeking &&
-    lastRequestedStage === position &&
+    timeIsCloseEnough(lastRequestedStage, position) &&
     seekingStatus === SeekingStatus.SeekbarSeeking
     ? prevSeekbarStatus
     : SeekbarStatus.Seeking;

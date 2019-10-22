@@ -11,13 +11,14 @@ export interface ValueProps {
   path: { time: number; x: number; y: number }[];
   timeAt: number;
   className: string;
-  isCurrent: boolean;
   isAnimated: boolean;
 }
 
 export interface FuncProps {
   onMouseDown: () => void;
   onMouseUp: () => void;
+  onMouseEnter: () => void;
+  onMouseOut: () => void;
 }
 
 export type Props = ValueProps & FuncProps;
@@ -27,15 +28,16 @@ const Tag = ({
   path,
   timeAt,
   className,
-  isCurrent,
   isAnimated,
   onMouseDown,
-  onMouseUp
+  onMouseUp,
+  onMouseEnter,
+  onMouseOut
 }: Props): JSX.Element => {
   const divEl = useRef(null);
 
-  const width = 5;
-  const height = 5;
+  const width = 12.5;
+  const height = 12.5;
 
   const animationProps = useMemo<AnimationProps>(
     (): AnimationProps =>
@@ -58,15 +60,9 @@ const Tag = ({
   }, [animationProps]);
 
   const style = {
-    top: `calc(${position.y}% - ${5}px`,
-    left: `calc(${position.x}% - ${5}px`
+    top: `calc(${position.y}% - ${12.5}px`,
+    left: `calc(${position.x}% - ${12.5}px`
   };
-
-  const composedClassName = `marker ${className}`;
-
-  let tagMarkerClassName = '';
-
-  if (isCurrent) tagMarkerClassName = 'tag-marker';
 
   return (
     /* eslint-disable-next-line */
@@ -77,22 +73,10 @@ const Tag = ({
         event.stopPropagation();
         onMouseDown();
       }}
-      onMouseUp={(): void => {
-        onMouseUp();
-      }}
-      className={composedClassName}
+      {...{ onMouseUp, onMouseEnter, onMouseOut, className }}
       style={style}
       ref={divEl}
-    >
-      <svg width="10px" height="10px">
-        <rect
-          className={tagMarkerClassName}
-          width="10px"
-          height="10px"
-          fill="red"
-        />
-      </svg>
-    </div>
+    />
   );
 };
 

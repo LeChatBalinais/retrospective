@@ -22,13 +22,19 @@ const DEFAULT_STATE: State = {
   },
   footage: {
     duration: 0,
-    url: 'http://localhost:9000/video'
+    videoURL: 'http://localhost:9000/video',
+    seekPreviewURL: 'http://localhost:9000/seekpreview'
   },
   player: {
+    delayOn: false,
+    seekVideo: false,
     playbackStatus: PlaybackStatus.Paused,
     seekingStatus: SeekingStatus.NoSeeking,
-    lastRequestedStage: 0,
+    lastRequestedStage: undefined,
     video: {
+      status: VideoStatus.Paused
+    },
+    seekPreview: {
       status: VideoStatus.Paused
     },
     seekbar: {

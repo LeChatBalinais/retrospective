@@ -13,6 +13,7 @@ import {
   getSeekingStatus
 } from '~/getters/player';
 import { getTagPath } from '~/getters/tags';
+import { timeIsCloseEnough } from '~/utils/time-is-close-enough';
 
 export type ActionID = 'TAG_ROW_CLICKED';
 export const ACTION_ID = 'TAG_ROW_CLICKED';
@@ -42,7 +43,7 @@ const calculateLastRequestedStage = (
 
   const lastRequestedStage = path[0].time / duration;
 
-  if (lastRequestedStage === stageVideoAt) return undefined;
+  if (timeIsCloseEnough(lastRequestedStage, stageVideoAt)) return undefined;
 
   return lastRequestedStage;
 };
@@ -56,7 +57,8 @@ const calculateSeekingStatus = (
   if (path.length === 0) return prevSeekingStatus;
   const lastRequestedStage = path[0].time / duration;
 
-  if (lastRequestedStage === stageVideoAt) return prevSeekingStatus;
+  if (timeIsCloseEnough(lastRequestedStage, stageVideoAt))
+    return prevSeekingStatus;
 
   return SeekingStatus.Seeking;
 };

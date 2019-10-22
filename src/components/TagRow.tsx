@@ -1,15 +1,17 @@
 import React from 'react';
-import TagExistanceStatusButton from '~/containers/TagExistanceStatusButton';
+import TagExistanceStatusButton from '~/containers/tag-existance-status-button';
 
 export interface ValueProps {
   ID: string;
   caption: string;
   isSaveButtonAvailable: boolean;
-  isHighlighted: boolean;
+  className: string;
 }
 
 export interface FuncProps {
   onClick: () => void;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
 }
 
 export type Props = ValueProps & FuncProps;
@@ -18,13 +20,11 @@ const TagRow = ({
   ID,
   caption,
   isSaveButtonAvailable: isLocal,
-  isHighlighted: isCurrent,
-  onClick
+  className,
+  onClick,
+  onMouseEnter,
+  onMouseLeave
 }: Props): JSX.Element => {
-  let className = 'box';
-
-  if (isCurrent) className = className.concat(' current-tag-row');
-
   return (
     /* eslint-disable-next-line */
     <div
@@ -35,7 +35,9 @@ const TagRow = ({
         ): void => {
           event.stopPropagation();
           onClick();
-        }
+        },
+        onMouseEnter,
+        onMouseLeave
       }}
     >
       <span>{caption} </span>

@@ -7,13 +7,15 @@ import Tag, {
 import { State } from '~/state';
 import { actionCreator as mouseDownOnTag } from '~/actions-reducers/ui-player-augmentation-tag-mouse-down';
 import { actionCreator as mouseUpOnTag } from '~/actions-reducers/ui-player-augmentation-tag-mouse-up';
-import { isPlaying } from '~/getters/player';
+import { actionCreator as mouseEnterTag } from '~/actions-reducers/ui-tag-mouse-enter';
+import { actionCreator as mouseOutTag } from '~/actions-reducers/ui-tag-mouse-out';
+import { isPlaying, isTagHighlighted } from '~/getters/player';
 import { isTagDragged } from '~/selectors/is-tag-dragged';
 import { isTagCurrent } from '~/selectors/is-tag-current';
-import { getTimeVideoAt } from '~/selectors/get-time-video-at';
 import { getPointTagAppearsAt } from '~/selectors/get-point-tag-appears-at';
 import { getTagPositionByTime } from '~/selectors/get-tag-position-by-time';
 import { getTagPath } from '~/getters/tags';
+import { getTimePlayerAt } from '~/selectors/get-time-player-at';
 
 interface Props {
   ID: string;
@@ -27,23 +29,30 @@ const isAnimated = (state: State, ID: string): boolean => {
 
 const getTimeTagAt = (state: State, ID: string): number => {
   const { time } = getPointTagAppearsAt(state, ID);
-  return getTimeVideoAt(state) - time;
+  const a = getTimePlayerAt(state);
+  return a - time;
 };
 
 const getPosition = (state: State, ID: string): { x: number; y: number } => {
   return isAnimated(state, ID)
     ? getPointTagAppearsAt(state, ID)
-    : getTagPositionByTime(state, ID, getTimeTagAt(state, ID));
+    : getTagPositionByTime(state, ID, getTimePlayerAt(state));
+};
+
+const getClassName = (state: State, ID: string): string => {
+  let result = 'Tag marker ';
+  if (isTagCurrent(state, ID)) result += 'selected ';
+  if (isTagHighlighted(state, ID)) result += 'highlighted';
+  return result;
 };
 
 const makeMapStateToProps = (): MapStateToProps => {
   return (state: State, { ID }: Props): TagValueProps => {
     return {
-      className: 'Tag',
+      className: getClassName(state, ID),
       position: getPosition(state, ID),
       path: getTagPath(state, ID),
       timeAt: getTimeTagAt(state, ID),
-      isCurrent: isTagCurrent(state, ID),
       isAnimated: isAnimated(state, ID)
     };
   };
@@ -58,6 +67,12 @@ const mapDispatchToProps = (
   },
   onMouseUp: (): void => {
     dispatch(mouseUpOnTag());
+  },
+  onMouseEnter: (): void => {
+    dispatch(mouseEnterTag({ tagID: ID }));
+  },
+  onMouseOut: (): void => {
+    dispatch(mouseOutTag({ tagID: ID }));
   }
 });
 

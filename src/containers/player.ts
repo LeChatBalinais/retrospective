@@ -4,10 +4,7 @@ import Player, {
   ValueProps as PlayerValueProps,
   FuncProps as PlayerFuncProps
 } from '~/components/Player';
-import {
-  isPlaceNewTagModeOn,
-  getCurrentTagID
-} from '~/getters/tag-editor';
+import { isPlaceNewTagModeOn, getCurrentTagID } from '~/getters/tag-editor';
 import { State } from '~/state';
 import { actionCreator as playerLoaded } from '~/actions-reducers/ui-player-loaded';
 

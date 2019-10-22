@@ -13,6 +13,10 @@ import {
   reducer as sagaTagsFetchingFetched
 } from './saga-tags-fetching-fetched';
 import {
+  Action as SagaVideoSeekDelayEnded,
+  reducer as sagaVideoSeekDelayEnded
+} from './saga-video-seek-delay-ended';
+import {
   Action as UiNewTabButtonClicked,
   reducer as uiNewTabButtonClicked
 } from './ui-new-tag-button-clicked';
@@ -43,6 +47,14 @@ import {
   Action as UiPlayerVideoPlayedToTime,
   reducer as uiPlayerVideoPlayedToTime
 } from './ui-player-video-played-to-time';
+import {
+  Action as UiPlayerVideoPlaying,
+  reducer as uiPlayerVideoPlaying
+} from './ui-player-video-playing';
+import {
+  Action as UiPlayerVideoPaused,
+  reducer as uiPlayerVideoPaused
+} from './ui-player-video-paused';
 
 import {
   Action as UiPlayerAugmentationMouseDown,
@@ -68,6 +80,16 @@ import {
   Action as UiPlayerAugmentationTagMouseUp,
   reducer as uiPlayerAugmentationTagMouseUp
 } from './ui-player-augmentation-tag-mouse-up';
+
+import {
+  Action as UiPlayerAugmentationTagMouseEnter,
+  reducer as uiPlayerAugmentationTagMouseEnter
+} from './ui-tag-mouse-enter';
+
+import {
+  Action as UiPlayerAugmentationTagMouseOut,
+  reducer as uiPlayerAugmentationTagMouseOut
+} from './ui-tag-mouse-out';
 
 import {
   Action as UiPlayerControlsPlayButtonClicked,
@@ -109,10 +131,20 @@ import {
   reducer as uiCurrentTagPanelTraceVisibilityCheckboxToggled
 } from './ui-current-tag-panel-trace-visibility-checkbox-toggled';
 
+import {
+  Action as UiPlayerSeekpreviewSeeking,
+  reducer as uiPlayerSeekpreviewSeeking
+} from './ui-player-seekpreview-seeking';
+import {
+  Action as UiPlayerSeekpreviewSeeked,
+  reducer as uiPlayerSeekpreviewSeeked
+} from './ui-player-seekpreview-seeked';
+
 export type Action =
   | SagaTagDeletionConfirmed
   | SagaTagSavingConfirmed
   | SagaTagsFetchingFetched
+  | SagaVideoSeekDelayEnded
   | UiNewTabButtonClicked
   | UiTagListRowDeleteButtonClicked
   | UiTagListRowSaveButtonClicked
@@ -123,11 +155,17 @@ export type Action =
   | UiPlayerVideoDurationChanged
   | UiPlayerVideoSeeked
   | UiPlayerVideoPlayedToTime
+  | UiPlayerSeekpreviewSeeking
+  | UiPlayerSeekpreviewSeeked
+  | UiPlayerVideoPlaying
+  | UiPlayerVideoPaused
   | UiPlayerAugmentationMouseDown
   | UiPlayerAugmentationMouseMove
   | UiPlayerAugmentationMouseUp
   | UiPlayerAugmentationTagMouseDown
   | UiPlayerAugmentationTagMouseUp
+  | UiPlayerAugmentationTagMouseEnter
+  | UiPlayerAugmentationTagMouseOut
   | UiPlayerControlsPlayButtonClicked
   | UiPlayerNewTagLayerClicked
   | UiPlayerSeekbarMouseDown
@@ -141,6 +179,7 @@ export const reducers = {
   ...sagaTagDeletionConfirmedReducer,
   ...sagaTagSavingConfirmedReducer,
   ...sagaTagsFetchingFetched,
+  ...sagaVideoSeekDelayEnded,
   ...uiNewTabButtonClicked,
   ...uiTagListRowClicked,
   ...uiActiveTagPanelLabelClicked,
@@ -148,11 +187,17 @@ export const reducers = {
   ...uiPlayerVideoDurationChanged,
   ...uiPlayerVideoSeeked,
   ...uiPlayerVideoPlayedToTime,
+  ...uiPlayerVideoPlaying,
+  ...uiPlayerVideoPaused,
+  ...uiPlayerSeekpreviewSeeking,
+  ...uiPlayerSeekpreviewSeeked,
   ...uiPlayerAugmentationMouseDown,
   ...uiPlayerAugmentationMouseMove,
   ...uiPlayerAugmentationMouseUp,
   ...uiPlayerAugmentationTagMouseDown,
   ...uiPlayerAugmentationTagMouseUp,
+  ...uiPlayerAugmentationTagMouseEnter,
+  ...uiPlayerAugmentationTagMouseOut,
   ...uiPlayerControlsPlayButtonClicked,
   ...uiPlayerNewTagLayerClicked,
   ...uiPlayerSeekbarMouseDown,
