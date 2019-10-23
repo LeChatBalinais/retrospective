@@ -4,7 +4,6 @@ import VideoContainer from '~/containers/video';
 import NewTagLayerContainer from '~/containers/new-tag-layer';
 import AugmentationContainer from '~/containers/augmentation';
 import SeekBar from '~/containers/seekbar';
-import ActiveTagsPanel from '~/containers/active-tags-panel';
 import TagPanelContainer from '~/containers/tag-panel';
 import GraphicalAugmentation from '~/containers/graphical-augmentation';
 import SeekPreview from '~/containers/seek-preview';
@@ -48,7 +47,6 @@ const Player = ({
         </div>
         <SeekBar />
         <ControlPanel />
-        <ActiveTagsPanel />
         {currentTagPanel}
       </div>
     </div>

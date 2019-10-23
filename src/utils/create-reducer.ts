@@ -11,7 +11,6 @@ export default function createReducer<T, S, P = {}>(
         reducer(state, intermediateState, payload),
       newState
     );
-
     return newState;
   };
 }
