@@ -59,15 +59,15 @@ export function createPartialReducer<S, V, P>(
   setReducedVal: (state: S, val: V, payload?: P) => S,
   calculateReducedVal: (...args: any[]) => V,
   selectors?: ((state?: S, payload?: P) => any)[]
-): (initialState: S, currentState: S, payload?: P) => S {
+): (initialState: S, currentState: S, payload: P) => S {
   return (initialState: S, currentState: S, payload?: P): S => {
     let val;
     if (!selectors) val = calculateReducedVal();
     else {
-      const args = [];
-      selectors.forEach((selector: (state: S, payload: P) => any): void => {
-        args.push(selector(initialState, payload));
-      });
+      const args = selectors.map(
+        (selector: (state: S, payload: P) => any): any =>
+          selector(initialState, payload)
+      );
 
       val = calculateReducedVal(...args);
     }

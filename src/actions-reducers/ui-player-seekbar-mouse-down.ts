@@ -41,6 +41,13 @@ const calculateLastRequestedStage = (
     : position;
 };
 
+const reduceLastRequestedStage = createPartialReducer(
+  getLastRequestedStage,
+  setLastRequestedStage,
+  calculateLastRequestedStage,
+  [getPosition, getSeekbarStatus, getSeekingStatus, getLastRequestedStage]
+);
+
 const calculateSeekingStatus = (
   position: number,
   seekbarStatus: SeekbarStatus,
@@ -53,6 +60,13 @@ const calculateSeekingStatus = (
     ? prevSeekingStatus
     : SeekingStatus.SeekbarSeeking;
 };
+
+const reduceSeekingStatus = createPartialReducer(
+  getSeekingStatus,
+  setSeekingStatus,
+  calculateSeekingStatus,
+  [getPosition, getSeekbarStatus, getLastRequestedStage, getSeekingStatus]
+);
 
 const calculateSeekbarStatus = (
   position: number,
@@ -67,25 +81,17 @@ const calculateSeekbarStatus = (
     : SeekbarStatus.Seeking;
 };
 
+const reduceSeekbarStatus = createPartialReducer(
+  getSeekbarStatus,
+  setSeekbarStatus,
+  calculateSeekbarStatus,
+  [getPosition, getLastRequestedStage, getSeekingStatus, getSeekbarStatus]
+);
+
 const partialReducers = [
-  createPartialReducer(
-    getLastRequestedStage,
-    setLastRequestedStage,
-    calculateLastRequestedStage,
-    [getPosition, getSeekbarStatus, getSeekingStatus, getLastRequestedStage]
-  ),
-  createPartialReducer(
-    getSeekingStatus,
-    setSeekingStatus,
-    calculateSeekingStatus,
-    [getPosition, getSeekbarStatus, getLastRequestedStage, getSeekingStatus]
-  ),
-  createPartialReducer(
-    getSeekbarStatus,
-    setSeekbarStatus,
-    calculateSeekbarStatus,
-    [getPosition, getLastRequestedStage, getSeekingStatus, getSeekbarStatus]
-  )
+  reduceLastRequestedStage,
+  reduceSeekingStatus,
+  reduceSeekbarStatus
 ];
 
 export const reducer = {
