@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Determiner } from './map-state-to-determiner';
 
 type Selector<S, P, A> = (state?: S, payload?: P) => A;
 
@@ -8,23 +8,19 @@ export type SubReducer<S, P = undefined> = (
   payload: P
 ) => S;
 
-export function createPartialReducer<S, V, P>(
+export function createPartialReducer<S, V>(
+  getReducedVal: (state: S) => V,
+  setReducedVal: (state: S, val: V) => S,
+  determiner: Determiner<S, V>
+): SubReducer<S>;
+
+export function createPartialReducer<S, V, P = undefined>(
   getReducedVal: (state: S, payload?: P) => V,
   setReducedVal: (state: S, val: V, payload?: P) => S,
-  calculateReducedVal: (...args: any[]) => V,
-  selectors?: ((state?: S, payload?: P) => any)[]
+  determiner: Determiner<S, V, P>
 ): SubReducer<S, P> {
   return (initialState: S, currentState: S, payload?: P): S => {
-    let val;
-    if (!selectors) val = calculateReducedVal();
-    else {
-      const args = selectors.map(
-        (selector: (state: S, payload: P) => any): any =>
-          selector(initialState, payload)
-      );
-
-      val = calculateReducedVal(...args);
-    }
+    const val = determiner(initialState, payload);
 
     if (getReducedVal(initialState, payload) === val) return currentState;
 

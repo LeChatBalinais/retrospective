@@ -1,12 +1,12 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { State, TagsByID } from '~/state';
-import createReducer from '~/utils/create-reducer';
-import { createPartialReducer } from '~/utils/create-partial-reducer';
+import { createReducer } from '~/utils/experimental/create-reducer';
 import { getTags } from '~/getters/tags';
 import { getTagBeingEditedID } from '~/getters/tag-editor';
 import { getTimeVideoAt } from '~/selectors/get-time-video-at';
 import { setTagsByID } from '~/setters/tags';
 import { makeActionCreator } from '~/utils/make-action-creator';
+import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
 
 export type ActionID = 'MOUSE_MOVE_ON_AUGMENTATION';
 export const ACTION_ID = 'MOUSE_MOVE_ON_AUGMENTATION';
@@ -25,7 +25,7 @@ const getPosition = (
   payload: Payload
 ): { x: number; y: number } => payload;
 
-const calculateTagsByID = (
+const getNewTagsByID = (
   tagBeingEditedID: string,
   time: number,
   { x, y }: { x: number; y: number },
@@ -75,15 +75,15 @@ const calculateTagsByID = (
   };
 };
 
-const partialReducers = [
-  createPartialReducer(getTags, setTagsByID, calculateTagsByID, [
-    getTagBeingEditedID,
-    getTimeVideoAt,
-    getPosition,
-    getTags
-  ])
-];
-
-export const reducer = {
-  [ACTION_ID]: createReducer<ActionID, State>(partialReducers)
-};
+export const reducer = createReducer(ACTION_ID, [
+  [
+    getTags,
+    setTagsByID,
+    mapStateToDeterminer(getNewTagsByID, [
+      getTagBeingEditedID,
+      getTimeVideoAt,
+      getPosition,
+      getTags
+    ])
+  ]
+]);

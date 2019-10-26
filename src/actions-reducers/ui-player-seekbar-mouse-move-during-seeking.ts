@@ -1,11 +1,11 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
 import { State } from '~/state';
-import createReducer from '~/utils/create-reducer';
-import { createPartialReducer } from '~/utils/create-partial-reducer';
+import { createReducer } from '~/utils/experimental/create-reducer';
 import { getLastRequestedStage, getStageVideoAt } from '~/getters/player';
 import { setLastRequestedStage } from '~/setters/player';
 import { timeIsCloseEnough } from '~/utils/time-is-close-enough';
+import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
 
 export type ActionID = 'MOUSE_MOVE_DURING_SEEKBAR_SEEKING';
 export const ACTION_ID = 'MOUSE_MOVE_DURING_SEEKBAR_SEEKING';
@@ -20,20 +20,18 @@ export const actionCreator = makeActionCreator<ActionID, Payload>(ACTION_ID);
 
 const getPosition = (state: State, { position }: Payload): number => position;
 
-const calculateLastRequestedStage = (
+const getNewLastRequestedStage = (
   position: number,
   stageVideoAt: number
 ): number => (timeIsCloseEnough(stageVideoAt, position) ? undefined : position);
 
-const partialReducers = [
-  createPartialReducer(
+export const reducer = createReducer(ACTION_ID, [
+  [
     getLastRequestedStage,
     setLastRequestedStage,
-    calculateLastRequestedStage,
-    [getPosition, getStageVideoAt]
-  )
-];
-
-export const reducer = {
-  [ACTION_ID]: createReducer<ActionID, State, Payload>(partialReducers)
-};
+    mapStateToDeterminer(getNewLastRequestedStage, [
+      getPosition,
+      getStageVideoAt
+    ])
+  ]
+]);

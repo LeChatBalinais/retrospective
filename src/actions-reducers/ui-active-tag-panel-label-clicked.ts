@@ -1,10 +1,10 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
 import { State } from '~/state';
-import createReducer from '~/utils/create-reducer';
+import { createReducer } from '~/utils/experimental/create-reducer';
 import { getCurrentTagID } from '~/getters/tag-editor';
 import { setCurrentTagID } from '~/setters/tag-editor';
-import { createPartialReducer } from '~/utils/create-partial-reducer';
+import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
 
 export type ActionID = 'ACTIVE_TAG_LABEL_CLICKED';
 export const ACTION_ID = 'ACTIVE_TAG_LABEL_CLICKED';
@@ -19,17 +19,12 @@ export const actionCreator = makeActionCreator<ActionID, Payload>(ACTION_ID);
 
 const getTagID = (state: State, { tagID }: Payload): string => tagID;
 
-const calculateCurrentTagID = (tagID: string): string => tagID;
+const getNewCurrentTagID = (tagID: string): string => tagID;
 
-const partialReducers = [
-  createPartialReducer(
+export const reducer = createReducer(ACTION_ID, [
+  [
     getCurrentTagID,
     setCurrentTagID,
-    calculateCurrentTagID,
-    [getTagID]
-  )
-];
-
-export const reducer = {
-  [ACTION_ID]: createReducer<ActionID, State, Payload>(partialReducers)
-};
+    mapStateToDeterminer(getNewCurrentTagID, [getTagID])
+  ]
+]);

@@ -1,7 +1,6 @@
 import { ActionTemplate } from '~/utils/action-template';
-import { SeekbarStatus, SeekingStatus, VideoStatus, State } from '~/state';
-import createReducer from '~/utils/create-reducer';
-import { createPartialReducer } from '~/utils/create-partial-reducer';
+import { SeekbarStatus, SeekingStatus, VideoStatus } from '~/state';
+import { createReducer } from '~/utils/experimental/create-reducer';
 import {
   getSeekingStatus,
   getSeekbarStatus,
@@ -12,6 +11,7 @@ import {
 import { setSeekingStatus, setSeekbarStatus } from '~/setters/player';
 import { makeActionCreator } from '~/utils/make-action-creator';
 import { timeIsCloseEnough } from '~/utils/time-is-close-enough';
+import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
 
 export type ActionID = 'MOUSE_UP_DURING_SEEKBAR_SEEKING';
 export const ACTION_ID = 'MOUSE_UP_DURING_SEEKBAR_SEEKING';
@@ -20,7 +20,7 @@ export type Action = ActionTemplate<ActionID>;
 
 export const actionCreator = makeActionCreator<ActionID>(ACTION_ID);
 
-const calculateSeekingStatus = (
+const getNewSeekingStatus = (
   seekbarStatus: SeekbarStatus,
   videoStatus: VideoStatus,
   lastRequestedStage: number,
@@ -43,28 +43,23 @@ const calculateSeekingStatus = (
   return seekingStatus;
 };
 
-const calculateSeekbarStatus = (): SeekbarStatus => SeekbarStatus.Idle;
+const getNewSeekbarStatus = (): SeekbarStatus => SeekbarStatus.Idle;
 
-const partialReducers = [
-  createPartialReducer(
+export const reducer = createReducer(ACTION_ID, [
+  [
     getSeekingStatus,
     setSeekingStatus,
-    calculateSeekingStatus,
-    [
+    mapStateToDeterminer(getNewSeekingStatus, [
       getSeekbarStatus,
       getVideoStatus,
       getLastRequestedStage,
       getStageVideoAt,
       getSeekingStatus
-    ]
-  ),
-  createPartialReducer(
+    ])
+  ],
+  [
     getSeekbarStatus,
     setSeekbarStatus,
-    calculateSeekbarStatus
-  )
-];
-
-export const reducer = {
-  [ACTION_ID]: createReducer<ActionID, State>(partialReducers)
-};
+    mapStateToDeterminer(getNewSeekbarStatus)
+  ]
+]);

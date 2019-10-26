@@ -1,8 +1,7 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
-import { VideoStatus, SeekingStatus, SeekbarStatus, State } from '~/state';
-import createReducer from '~/utils/create-reducer';
-import { createPartialReducer } from '~/utils/create-partial-reducer';
+import { VideoStatus, SeekingStatus, SeekbarStatus } from '~/state';
+import { createReducer } from '~/utils/experimental/create-reducer';
 import {
   getVideoStatus,
   getStageVideoAt,
@@ -23,6 +22,7 @@ import {
   setSeekVideo
 } from '~/setters/player';
 import { timeIsCloseEnough } from '~/utils/time-is-close-enough';
+import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
 
 export type ActionID = 'UI_PLAYER_VIDEO_SEEKED';
 export const ACTION_ID = 'UI_PLAYER_VIDEO_SEEKED';
@@ -31,10 +31,10 @@ export type Action = ActionTemplate<ActionID>;
 
 export const actionCreator = makeActionCreator<ActionID>(ACTION_ID);
 
-const calculateStageVideoAt = (stageVideoSeekingTo: number): number =>
+const getNewStageVideoAt = (stageVideoSeekingTo: number): number =>
   stageVideoSeekingTo;
 
-const calculateSeekingStatus = (
+const getNewSeekingStatus = (
   stageVideoSeekingTo: number,
   lastRequestedStage: number,
   seekbarStatus: SeekbarStatus,
@@ -45,7 +45,7 @@ const calculateSeekingStatus = (
     ? SeekingStatus.NoSeeking
     : prevSeekingStatus;
 
-const calculateLastRequestedStage = (
+const getNewLastRequestedStage = (
   stageVideoSeekingTo: number,
   prevLastRequestedStage: number
 ): number =>
@@ -53,11 +53,11 @@ const calculateLastRequestedStage = (
     ? undefined
     : prevLastRequestedStage;
 
-const calculateVideoStatus = (): VideoStatus => VideoStatus.Paused;
+const getNewVideoStatus = (): VideoStatus => VideoStatus.Paused;
 
-const calculateStageVideoSeekingTo = (): number => undefined;
+const getNewStageVideoSeekingTo = (): number => undefined;
 
-const calculateSeekVideo = (
+const getNewSeekVideo = (
   stageVideoSeekingTo: number,
   seekPreviewStatus: VideoStatus,
   prevLastRequestedStage: number,
@@ -67,44 +67,44 @@ const calculateSeekVideo = (
   seekPreviewStatus !== VideoStatus.Seeking &&
   !delayIsOn;
 
-const partialReducers = [
-  createPartialReducer(
+export const reducer = createReducer(ACTION_ID, [
+  [
     getStageVideoSeekingTo,
     setStageVideoSeekingTo,
-    calculateStageVideoSeekingTo
-  ),
-  createPartialReducer(getVideoStatus, setVideoStatus, calculateVideoStatus),
-  createPartialReducer(
+    mapStateToDeterminer(getNewStageVideoSeekingTo)
+  ],
+  [getVideoStatus, setVideoStatus, mapStateToDeterminer(getNewVideoStatus)],
+  [
     getLastRequestedStage,
     setLastRequestedStage,
-    calculateLastRequestedStage,
-    [getStageVideoSeekingTo, getLastRequestedStage]
-  ),
-  createPartialReducer(
+    mapStateToDeterminer(getNewLastRequestedStage, [
+      getStageVideoSeekingTo,
+      getLastRequestedStage
+    ])
+  ],
+  [
     getSeekingStatus,
     setSeekingStatus,
-    calculateSeekingStatus,
-    [
+    mapStateToDeterminer(getNewSeekingStatus, [
       getStageVideoSeekingTo,
       getLastRequestedStage,
       getSeekbarStatus,
       getSeekingStatus
-    ]
-  ),
-  createPartialReducer(
+    ])
+  ],
+  [
     getStageVideoAt,
     setStageVideoAt,
-    calculateStageVideoAt,
-    [getStageVideoSeekingTo]
-  ),
-  createPartialReducer(getSeekVideo, setSeekVideo, calculateSeekVideo, [
-    getStageVideoSeekingTo,
-    getSeekPreviewStatus,
-    getLastRequestedStage,
-    isDelayOn
-  ])
-];
-
-export const reducer = {
-  [ACTION_ID]: createReducer<ActionID, State>(partialReducers)
-};
+    mapStateToDeterminer(getNewStageVideoAt, [getStageVideoSeekingTo])
+  ],
+  [
+    getSeekVideo,
+    setSeekVideo,
+    mapStateToDeterminer(getNewSeekVideo, [
+      getStageVideoSeekingTo,
+      getSeekPreviewStatus,
+      getLastRequestedStage,
+      isDelayOn
+    ])
+  ]
+]);

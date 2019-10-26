@@ -1,11 +1,11 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
 import { State, TagsByID } from '~/state';
-import createReducer from '~/utils/create-reducer';
-import { createPartialReducer } from '~/utils/create-partial-reducer';
+import { createReducer } from '~/utils/experimental/create-reducer';
 import { getTags } from '~/getters/tags';
 import { setTagsByID } from '~/setters/tags';
 import { timeIsCloseEnough } from '~/utils/time-is-close-enough';
+import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
 
 export type ActionID = 'TAG_APPEARS_AT_EDIT_BOX_EDITED';
 export const ACTION_ID = 'TAG_APPEARS_AT_EDIT_BOX_EDITED';
@@ -23,7 +23,7 @@ const getTagID = (state: State, { tagID }: Payload): string => tagID;
 
 const getTime = (state: State, { time }: Payload): number => time;
 
-const calculateTagsByID = (
+const getNewTagsByID = (
   tagID: string,
   time: number,
   prevTagsByID: TagsByID
@@ -71,14 +71,10 @@ const calculateTagsByID = (
   return { ...prevTagsByID, [tagID]: { ...tag, path: newPath } };
 };
 
-const partialReducers = [
-  createPartialReducer(getTags, setTagsByID, calculateTagsByID, [
-    getTagID,
-    getTime,
-    getTags
-  ])
-];
-
-export const reducer = {
-  [ACTION_ID]: createReducer<ActionID, State, Payload>(partialReducers)
-};
+export const reducer = createReducer(ACTION_ID, [
+  [
+    getTags,
+    setTagsByID,
+    mapStateToDeterminer(getNewTagsByID, [getTagID, getTime, getTags])
+  ]
+]);

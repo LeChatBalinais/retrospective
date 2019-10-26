@@ -1,12 +1,11 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
 import { State, SeekingStatus, PlaneTimePoint } from '~/state';
-import createReducer from '~/utils/create-reducer';
+import { createReducer } from '~/utils/experimental/create-reducer';
 import { getCurrentTagID } from '~/getters/tag-editor';
 import { getVideoDuration } from '~/getters/footage';
 import { setCurrentTagID } from '~/setters/tag-editor';
 import { setLastRequestedStage, setSeekingStatus } from '~/setters/player';
-import { createPartialReducer } from '~/utils/create-partial-reducer';
 import {
   getLastRequestedStage,
   getStageVideoAt,
@@ -14,6 +13,7 @@ import {
 } from '~/getters/player';
 import { getTagPath } from '~/getters/tags';
 import { timeIsCloseEnough } from '~/utils/time-is-close-enough';
+import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
 
 export type ActionID = 'TAG_ROW_CLICKED';
 export const ACTION_ID = 'TAG_ROW_CLICKED';
@@ -31,9 +31,9 @@ const getTagID = (state: State, { tagID }: Payload): string => tagID;
 const getPath = (state: State, { tagID }: Payload): PlaneTimePoint[] =>
   getTagPath(state, tagID);
 
-const calculateCurrentTagID = (tagID: string): string => tagID;
+const getNewCurrentTagID = (tagID: string): string => tagID;
 
-const calculateLastRequestedStage = (
+const getNewLastRequestedStage = (
   stageVideoAt: number,
   path: PlaneTimePoint[],
   duration: number,
@@ -48,7 +48,7 @@ const calculateLastRequestedStage = (
   return lastRequestedStage;
 };
 
-const calculateSeekingStatus = (
+const getNewSeekingStatus = (
   stageVideoAt: number,
   path: PlaneTimePoint[],
   duration: number,
@@ -63,27 +63,30 @@ const calculateSeekingStatus = (
   return SeekingStatus.Seeking;
 };
 
-const partialReducers = [
-  createPartialReducer(
+export const reducer = createReducer(ACTION_ID, [
+  [
     getCurrentTagID,
     setCurrentTagID,
-    calculateCurrentTagID,
-    [getTagID]
-  ),
-  createPartialReducer(
+    mapStateToDeterminer(getNewCurrentTagID, [getTagID])
+  ],
+  [
     getLastRequestedStage,
     setLastRequestedStage,
-    calculateLastRequestedStage,
-    [getStageVideoAt, getPath, getVideoDuration, getLastRequestedStage]
-  ),
-  createPartialReducer(
+    mapStateToDeterminer(getNewLastRequestedStage, [
+      getStageVideoAt,
+      getPath,
+      getVideoDuration,
+      getLastRequestedStage
+    ])
+  ],
+  [
     getSeekingStatus,
     setSeekingStatus,
-    calculateSeekingStatus,
-    [getStageVideoAt, getPath, getVideoDuration, getSeekingStatus]
-  )
-];
-
-export const reducer = {
-  [ACTION_ID]: createReducer<ActionID, State, Payload>(partialReducers)
-};
+    mapStateToDeterminer(getNewSeekingStatus, [
+      getStageVideoAt,
+      getPath,
+      getVideoDuration,
+      getSeekingStatus
+    ])
+  ]
+]);

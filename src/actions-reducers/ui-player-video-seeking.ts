@@ -1,11 +1,11 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
 import { State, VideoStatus } from '~/state';
-import createReducer from '~/utils/create-reducer';
+import { createReducer } from '~/utils/experimental/create-reducer';
 import { getVideoStatus, getStageVideoSeekingTo } from '~/getters/player';
 import { getVideoDuration } from '~/getters/footage';
 import { setVideoStatus, setStageVideoSeekingTo } from '~/setters/player';
-import { createPartialReducer } from '~/utils/create-partial-reducer';
+import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
 
 export type ActionID = 'UI_PLAYER_VIDEO_SEEKING';
 export const ACTION_ID: ActionID = 'UI_PLAYER_VIDEO_SEEKING';
@@ -20,23 +20,19 @@ export const actionCreator = makeActionCreator<ActionID, Payload>(ACTION_ID);
 
 const getToTime = (state: State, { time }: Payload): number => time;
 
-const calculateVideoStatus = (): VideoStatus => VideoStatus.Seeking;
+const getNewVideoStatus = (): VideoStatus => VideoStatus.Seeking;
 
-const calculateStageVideoSeekingTo = (
-  duration: number,
-  toTime: number
-): number => toTime / duration;
+const getNewStageVideoSeekingTo = (duration: number, toTime: number): number =>
+  toTime / duration;
 
-const partialReducers = [
-  createPartialReducer(getVideoStatus, setVideoStatus, calculateVideoStatus),
-  createPartialReducer(
+export const reducer = createReducer(ACTION_ID, [
+  [getVideoStatus, setVideoStatus, mapStateToDeterminer(getNewVideoStatus)],
+  [
     getStageVideoSeekingTo,
     setStageVideoSeekingTo,
-    calculateStageVideoSeekingTo,
-    [getVideoDuration, getToTime]
-  )
-];
-
-export const reducer = {
-  [ACTION_ID]: createReducer<ActionID, State, Payload>(partialReducers)
-};
+    mapStateToDeterminer(getNewStageVideoSeekingTo, [
+      getVideoDuration,
+      getToTime
+    ])
+  ]
+]);

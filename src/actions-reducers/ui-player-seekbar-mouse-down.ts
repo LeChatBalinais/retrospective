@@ -1,8 +1,8 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
 import { State, SeekbarStatus, SeekingStatus } from '~/state';
-import createReducer from '~/utils/create-reducer';
-import { createPartialReducer } from '~/utils/create-partial-reducer';
+import { createReducer } from '~/utils/experimental/create-reducer';
+import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
 import {
   getLastRequestedStage,
   getSeekbarStatus,
@@ -28,7 +28,7 @@ export const actionCreator = makeActionCreator<ActionID, Payload>(ACTION_ID);
 
 const getPosition = (state: State, { position }: Payload): number => position;
 
-const calculateLastRequestedStage = (
+const getNewLastRequestedStage = (
   position: number,
   seekbarStatus: SeekbarStatus,
   seekingStatus: SeekingStatus,
@@ -41,14 +41,7 @@ const calculateLastRequestedStage = (
     : position;
 };
 
-const reduceLastRequestedStage = createPartialReducer(
-  getLastRequestedStage,
-  setLastRequestedStage,
-  calculateLastRequestedStage,
-  [getPosition, getSeekbarStatus, getSeekingStatus, getLastRequestedStage]
-);
-
-const calculateSeekingStatus = (
+const getNewSeekingStatus = (
   position: number,
   seekbarStatus: SeekbarStatus,
   lastRequestedStage: number,
@@ -61,14 +54,7 @@ const calculateSeekingStatus = (
     : SeekingStatus.SeekbarSeeking;
 };
 
-const reduceSeekingStatus = createPartialReducer(
-  getSeekingStatus,
-  setSeekingStatus,
-  calculateSeekingStatus,
-  [getPosition, getSeekbarStatus, getLastRequestedStage, getSeekingStatus]
-);
-
-const calculateSeekbarStatus = (
+const getNewSeekbarStatus = (
   position: number,
   lastRequestedStage: number,
   seekingStatus: SeekingStatus,
@@ -81,19 +67,35 @@ const calculateSeekbarStatus = (
     : SeekbarStatus.Seeking;
 };
 
-const reduceSeekbarStatus = createPartialReducer(
-  getSeekbarStatus,
-  setSeekbarStatus,
-  calculateSeekbarStatus,
-  [getPosition, getLastRequestedStage, getSeekingStatus, getSeekbarStatus]
-);
-
-const partialReducers = [
-  reduceLastRequestedStage,
-  reduceSeekingStatus,
-  reduceSeekbarStatus
-];
-
-export const reducer = {
-  [ACTION_ID]: createReducer<ActionID, State, Payload>(partialReducers)
-};
+export const reducer = createReducer(ACTION_ID, [
+  [
+    getLastRequestedStage,
+    setLastRequestedStage,
+    mapStateToDeterminer(getNewLastRequestedStage, [
+      getPosition,
+      getSeekbarStatus,
+      getSeekingStatus,
+      getLastRequestedStage
+    ])
+  ],
+  [
+    getSeekingStatus,
+    setSeekingStatus,
+    mapStateToDeterminer(getNewSeekingStatus, [
+      getPosition,
+      getSeekbarStatus,
+      getLastRequestedStage,
+      getSeekingStatus
+    ])
+  ],
+  [
+    getSeekbarStatus,
+    setSeekbarStatus,
+    mapStateToDeterminer(getNewSeekbarStatus, [
+      getPosition,
+      getLastRequestedStage,
+      getSeekingStatus,
+      getSeekbarStatus
+    ])
+  ]
+]);

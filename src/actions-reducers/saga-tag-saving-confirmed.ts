@@ -1,10 +1,10 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { State } from '~/state';
-import createReducer from '~/utils/create-reducer';
+import { createReducer } from '~/utils/experimental/create-reducer';
 import { setTagGlobalID } from '~/setters/tags';
-import { createPartialReducer } from '~/utils/create-partial-reducer';
 import { getTagGlobalID } from '~/getters/tags';
 import { makeActionCreator } from '~/utils/make-action-creator';
+import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
 
 export type ActionID = 'SAGA_TAG_SAVING_CONFIRMED';
 export const ACTION_ID = 'SAGA_TAG_SAVING_CONFIRMED';
@@ -32,15 +32,10 @@ const setNewTagGlobalID = (
 
 const calculateTagGlobalID = (globalID: string): string => globalID;
 
-const partialReducers = [
-  createPartialReducer(
+export const reducer = createReducer(ACTION_ID, [
+  [
     getPrevTagGlobalID,
     setNewTagGlobalID,
-    calculateTagGlobalID,
-    [getNewTagGlobalID]
-  )
-];
-
-export const reducer = {
-  [ACTION_ID]: createReducer<ActionID, State, Payload>(partialReducers)
-};
+    mapStateToDeterminer(calculateTagGlobalID, [getNewTagGlobalID])
+  ]
+]);

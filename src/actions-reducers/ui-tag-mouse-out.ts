@@ -1,8 +1,8 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
+import { createReducer } from '~/utils/experimental/create-reducer';
+import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
 import { State } from '~/state';
-import createReducer from '~/utils/create-reducer';
-import { createPartialReducer } from '~/utils/create-partial-reducer';
 import { setHighlightedTagID } from '~/setters/player';
 import { getHighlightedTagID } from '~/getters/player';
 
@@ -19,21 +19,19 @@ export const actionCreator = makeActionCreator<ActionID, Payload>(ACTION_ID);
 
 const getTagID = (state: State, { tagID }: Payload): string => tagID;
 
-const calculateHighlightedTagID = (
+const getNewHighlightedTagID = (
   tagID: string,
   prevHighlightedTagID: string
 ): string =>
   tagID === prevHighlightedTagID ? undefined : prevHighlightedTagID;
 
-const partialReducers = [
-  createPartialReducer(
+export const reducer = createReducer(ACTION_ID, [
+  [
     getHighlightedTagID,
     setHighlightedTagID,
-    calculateHighlightedTagID,
-    [getTagID, getHighlightedTagID]
-  )
-];
-
-export const reducer = {
-  [ACTION_ID]: createReducer<ActionID, State>(partialReducers)
-};
+    mapStateToDeterminer(getNewHighlightedTagID, [
+      getTagID,
+      getHighlightedTagID
+    ])
+  ]
+]);

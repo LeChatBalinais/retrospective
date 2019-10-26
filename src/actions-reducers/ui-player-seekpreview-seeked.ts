@@ -1,8 +1,7 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
-import { VideoStatus, State } from '~/state';
-import createReducer from '~/utils/create-reducer';
-import { createPartialReducer } from '~/utils/create-partial-reducer';
+import { VideoStatus } from '~/state';
+import { createReducer } from '~/utils/experimental/create-reducer';
 import {
   getSeekPreviewStatus,
   getStageSeekPreviewAt,
@@ -15,6 +14,7 @@ import {
   setStageSeekPreviewSeekingTo,
   setDelayOn
 } from '~/setters/player';
+import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
 
 export type ActionID = 'UI_PLAYER_SEEKPREVIEW_SEEKED';
 export const ACTION_ID = 'UI_PLAYER_SEEKPREVIEW_SEEKED';
@@ -23,35 +23,32 @@ export type Action = ActionTemplate<ActionID>;
 
 export const actionCreator = makeActionCreator<ActionID>(ACTION_ID);
 
-const calculateStageSeekPreviewAt = (stageVideoSeekingTo: number): number =>
+const getNewStageSeekPreviewAt = (stageVideoSeekingTo: number): number =>
   stageVideoSeekingTo;
 
-const calculateSeekPreviewStatus = (): VideoStatus => VideoStatus.Paused;
+const getNewSeekPreviewStatus = (): VideoStatus => VideoStatus.Paused;
 
-const calculateStageSeekPreviewSeekingTo = (): number => undefined;
+const getNewStageSeekPreviewSeekingTo = (): number => undefined;
 
-const calculateDelayOn = (): boolean => true;
+const getNewDelayOn = (): boolean => true;
 
-const partialReducers = [
-  createPartialReducer(isDelayOn, setDelayOn, calculateDelayOn),
-  createPartialReducer(
+export const reducer = createReducer(ACTION_ID, [
+  [isDelayOn, setDelayOn, mapStateToDeterminer(getNewDelayOn)],
+  [
     getStageSeekPreviewSeekingTo,
     setStageSeekPreviewSeekingTo,
-    calculateStageSeekPreviewSeekingTo
-  ),
-  createPartialReducer(
+    mapStateToDeterminer(getNewStageSeekPreviewSeekingTo)
+  ],
+  [
     getSeekPreviewStatus,
     setSeekPreviewStatus,
-    calculateSeekPreviewStatus
-  ),
-  createPartialReducer(
+    mapStateToDeterminer(getNewSeekPreviewStatus)
+  ],
+  [
     getStageSeekPreviewAt,
     setStageSeekPreviewAt,
-    calculateStageSeekPreviewAt,
-    [getStageSeekPreviewSeekingTo]
-  )
-];
-
-export const reducer = {
-  [ACTION_ID]: createReducer<ActionID, State>(partialReducers)
-};
+    mapStateToDeterminer(getNewStageSeekPreviewAt, [
+      getStageSeekPreviewSeekingTo
+    ])
+  ]
+]);

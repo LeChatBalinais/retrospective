@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-export type Determiner<V, S, P = undefined> = (
+export type Determiner<S, V, P = undefined> = (
   initialState: S,
   payload: P
 ) => V;
@@ -12,22 +12,22 @@ export function mapStateToDeterminer<S, V>(
 ): Determiner<S, V>;
 
 export function mapStateToDeterminer<S, V, P, A1>(
-  determineValue: () => V,
+  determineValue: (arg1: A1) => V,
   selectors: [Selector<S, P, A1>]
 ): Determiner<S, V, P>;
 
 export function mapStateToDeterminer<S, V, P, A1, A2>(
-  determineValue: () => V,
+  determineValue: (arg1: A1, arg2: A2) => V,
   selectors: [Selector<S, P, A1>, Selector<S, P, A2>]
 ): Determiner<S, V, P>;
 
 export function mapStateToDeterminer<S, V, P, A1, A2, A3>(
-  determineValue: () => V,
+  determineValue: (arg1: A1, arg2: A2, arg3: A3) => V,
   selectors: [Selector<S, P, A1>, Selector<S, P, A2>, Selector<S, P, A3>]
 ): Determiner<S, V, P>;
 
 export function mapStateToDeterminer<S, V, P, A1, A2, A3, A4>(
-  determineValue: () => V,
+  determineValue: (arg1: A1, arg2: A2, arg3: A3, arg4: A4) => V,
   selectors: [
     Selector<S, P, A1>,
     Selector<S, P, A2>,
@@ -37,7 +37,7 @@ export function mapStateToDeterminer<S, V, P, A1, A2, A3, A4>(
 ): Determiner<S, V, P>;
 
 export function mapStateToDeterminer<S, V, P, A1, A2, A3, A4, A5>(
-  determineValue: () => V,
+  determineValue: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5) => V,
   selectors: [
     Selector<S, P, A1>,
     Selector<S, P, A2>,

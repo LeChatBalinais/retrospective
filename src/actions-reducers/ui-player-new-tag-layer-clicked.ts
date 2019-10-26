@@ -1,17 +1,15 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
 import { State, PlaybackStatus } from '~/state';
-import createReducer from '~/utils/create-reducer';
-import {
-  createPartialReducer,
-  getDefaultReducedVal
-} from '~/utils/create-partial-reducer';
+import { createReducer } from '~/utils/experimental/create-reducer';
+import { getDefaultReducedVal } from '~/utils/create-partial-reducer';
 import { isPlaceNewTagModeOn } from '~/getters/tag-editor';
 import { getPlaybackStatus, getStageVideoAt } from '~/getters/player';
 import { setPlaybackStatus } from '~/setters/player';
 import { setPlacingNewTagMode } from '~/setters/tag-editor';
 import { addNewTag } from '~/setters/tags';
 import { getVideoDuration } from '~/getters/footage';
+import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
 
 export type ActionID = 'NEW_TAG_LAYER_CLICKED';
 export const ACTION_ID = 'NEW_TAG_LAYER_CLICKED';
@@ -30,11 +28,11 @@ const getPosition = (
   { x, y }: Payload
 ): { x: number; y: number } => ({ x, y });
 
-const calculatePlaybackStatus = (): PlaybackStatus => PlaybackStatus.Paused;
+const getNewPlaybackStatus = (): PlaybackStatus => PlaybackStatus.Paused;
 
-const calculatePlacingNewTagMode = (): boolean => false;
+const getNewPlacingNewTagMode = (): boolean => false;
 
-const calculateTag = (
+const getNewTag = (
   stage: number,
   duration: number,
   { x, y }: { x: number; y: number }
@@ -42,24 +40,25 @@ const calculateTag = (
   return { time: stage * duration, x, y };
 };
 
-const partialReducers = [
-  createPartialReducer(
+export const reducer = createReducer(ACTION_ID, [
+  [
     getPlaybackStatus,
     setPlaybackStatus,
-    calculatePlaybackStatus
-  ),
-  createPartialReducer(
+    mapStateToDeterminer(getNewPlaybackStatus)
+  ],
+  [
     isPlaceNewTagModeOn,
     setPlacingNewTagMode,
-    calculatePlacingNewTagMode
-  ),
-  createPartialReducer(getDefaultReducedVal, addNewTag, calculateTag, [
-    getStageVideoAt,
-    getVideoDuration,
-    getPosition
-  ])
-];
+    mapStateToDeterminer(getNewPlacingNewTagMode)
+  ],
 
-export const reducer = {
-  [ACTION_ID]: createReducer<ActionID, State, Payload>(partialReducers)
-};
+  [
+    getDefaultReducedVal,
+    addNewTag,
+    mapStateToDeterminer(getNewTag, [
+      getStageVideoAt,
+      getVideoDuration,
+      getPosition
+    ])
+  ]
+]);

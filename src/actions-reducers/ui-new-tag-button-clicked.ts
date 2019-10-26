@@ -1,10 +1,9 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
-import { State } from '~/state';
-import createReducer from '~/utils/create-reducer';
-import { createPartialReducer } from '~/utils/create-partial-reducer';
+import { createReducer } from '~/utils/experimental/create-reducer';
 import { isPlaceNewTagModeOn } from '~/getters/tag-editor';
 import { setPlacingNewTagMode } from '~/setters/tag-editor';
+import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
 
 export type ActionID = 'UI_NEW_TAG_BUTTON_CLICKED';
 
@@ -14,19 +13,14 @@ export type Action = ActionTemplate<ActionID>;
 
 export const actionCreator = makeActionCreator<ActionID>(ACTION_ID);
 
-const calculateIsUserPlacingNewTag = (
+const getNewIsUserPlacingNewTag = (
   prevIsUserPlacingNewTagMode: boolean
 ): boolean => !prevIsUserPlacingNewTagMode;
 
-const partialReducers = [
-  createPartialReducer(
+export const reducer = createReducer(ACTION_ID, [
+  [
     isPlaceNewTagModeOn,
     setPlacingNewTagMode,
-    calculateIsUserPlacingNewTag,
-    [isPlaceNewTagModeOn]
-  )
-];
-
-export const reducer = {
-  [ACTION_ID]: createReducer<ActionID, State>(partialReducers)
-};
+    mapStateToDeterminer(getNewIsUserPlacingNewTag, [isPlaceNewTagModeOn])
+  ]
+]);
