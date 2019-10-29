@@ -1,5 +1,5 @@
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import { Dispatch } from '~/utils/experimental/dispatch';
 import Button, { ValueProps, FuncProps } from '~/components/Button';
 import { State } from '~/state';
 import { actionCreator as saveTagButtonClicked } from '~/actions-reducers/ui-tag-list-row-save-button-clicked';

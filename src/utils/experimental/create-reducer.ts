@@ -2,7 +2,7 @@
 import { SubReducer, createPartialReducer } from './create-partial-reducer';
 import { Determiner } from './map-state-to-determiner';
 
-type Reducer<T, S, P> = (state: S, action: { type: T; payload: P }) => S;
+export type Reducer<T, S, P> = (state: S, action: { type: T; payload: P }) => S;
 
 type ReducerComponents<S, V, P = undefined> = [
   (state: S, payload?: P) => V,
@@ -24,9 +24,13 @@ function createReducerPrivate<T, S, P = undefined>(
   };
 }
 
+export function createReducer<T extends string, S, P>(
+  ACTION_ID: T
+): Record<T, Reducer<T, S, P>>;
+
 export function createReducer<T extends string, S, P, V1>(
   ACTION_ID: T,
-  reducersComponents: [ReducerComponents<S, P, V1>]
+  reducersComponents: [ReducerComponents<S, V1, P>]
 ): Record<T, Reducer<T, S, P>>;
 
 export function createReducer<T extends string, S, P, V1, V2>(
@@ -128,16 +132,19 @@ export function createReducer<
 
 export function createReducer<T extends string, S, P>(
   ACTION_ID: T,
-  reducersComponents: ReducerComponents<S, any, P>[]
+  reducersComponents?: ReducerComponents<S, any, P>[]
 ): Record<T, Reducer<T, S, P>> {
-  const subreducers = reducersComponents.map(
-    (reducerComponents: ReducerComponents<S, any, P>): SubReducer<S, P> =>
-      createPartialReducer(
-        reducerComponents[0],
-        reducerComponents[1],
-        reducerComponents[2]
-      )
-  );
+  let subreducers = [];
+
+  if (reducersComponents !== undefined)
+    subreducers = reducersComponents.map(
+      (reducerComponents: ReducerComponents<S, any, P>): SubReducer<S, P> =>
+        createPartialReducer(
+          reducerComponents[0],
+          reducerComponents[1],
+          reducerComponents[2]
+        )
+    );
 
   const result: Record<string, Reducer<T, S, P>> = {
     [ACTION_ID]: createReducerPrivate(subreducers)

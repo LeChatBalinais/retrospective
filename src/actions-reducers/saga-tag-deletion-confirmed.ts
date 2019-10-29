@@ -8,7 +8,7 @@ import { getDefaultReducedVal } from '~/utils/create-partial-reducer';
 import { getCurrentTagID } from '~/getters/tag-editor';
 import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
 
-type ActionID = 'SAGA_TAG_DELETION_CONFIRMED';
+export type ActionID = 'SAGA_TAG_DELETION_CONFIRMED';
 export const ACTION_ID = 'SAGA_TAG_DELETION_CONFIRMED';
 
 interface Payload {

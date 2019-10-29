@@ -1,5 +1,5 @@
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import { Dispatch } from '~/utils/experimental/dispatch';
 import Player, {
   ValueProps as PlayerValueProps,
   FuncProps as PlayerFuncProps

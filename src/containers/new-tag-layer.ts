@@ -1,5 +1,5 @@
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import { Dispatch } from '~/utils/experimental/dispatch';
 import NewTagLayer, { FuncProps } from '~/components/NewTagLayer';
 import { actionCreator as newTagLayerClicked } from '~/actions-reducers/ui-player-new-tag-layer-clicked';
 

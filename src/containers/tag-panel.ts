@@ -1,5 +1,5 @@
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import { Dispatch } from '~/utils/experimental/dispatch';
 import TagPanel, {
   ValueProps as TagPanelValueProp,
   FuncProps as TagPanelFuncProp
@@ -8,10 +8,7 @@ import { State } from '~/state';
 import { actionCreator as tagTraceVisibilityCheckboxToggled } from '~/actions-reducers/ui-current-tag-panel-trace-visibility-checkbox-toggled';
 import { actionCreator as tagAppearsAtEditBoxEdited } from '~/actions-reducers/ui-current-tag-panel-appears-at-edited';
 import { actionCreator as tagDisappearsAtEditBoxEdited } from '~/actions-reducers/ui-current-tag-panel-disappears-at-edited';
-import {
-  getCurrentTagID,
-  getVisibleTraceTagIDs
-} from '~/getters/tag-editor';
+import { getCurrentTagID, getVisibleTraceTagIDs } from '~/getters/tag-editor';
 import { getPointTagAppearsAt } from '~/selectors/get-point-tag-appears-at';
 import { getPointTagDisappearsAt } from '~/selectors/get-point-tag-disappears-at';
 

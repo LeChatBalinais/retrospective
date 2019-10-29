@@ -1,5 +1,5 @@
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import { Dispatch } from '~/utils/experimental/dispatch';
 import Button, { ValueProps, FuncProps } from '~/components/Button';
 import { isPlaceNewTagModeOn } from '~/getters/tag-editor';
 import { State } from '~/state';
