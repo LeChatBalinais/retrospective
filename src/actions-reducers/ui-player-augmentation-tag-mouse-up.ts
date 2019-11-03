@@ -9,6 +9,8 @@ import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determin
 export type ActionID = 'MOUSE_UP_ON_TAG';
 export const ACTION_ID = 'MOUSE_UP_ON_TAG';
 
+export type Payload = undefined;
+
 export type Action = ActionTemplate<ActionID>;
 
 export const actionCreator = makeActionCreator<ActionID>(ACTION_ID);

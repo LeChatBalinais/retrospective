@@ -27,6 +27,7 @@ import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determin
 export type ActionID = 'UI_PLAYER_VIDEO_SEEKED';
 export const ACTION_ID = 'UI_PLAYER_VIDEO_SEEKED';
 
+export type Payload = undefined;
 export type Action = ActionTemplate<ActionID>;
 
 export const actionCreator = makeActionCreator<ActionID>(ACTION_ID);

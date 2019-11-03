@@ -8,6 +8,8 @@ import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determin
 export type ActionID = 'UI_PLAYER_AUGMENTATION_MOUSE_DOWN';
 export const ACTION_ID = 'UI_PLAYER_AUGMENTATION_MOUSE_DOWN';
 
+export type Payload = undefined;
+
 export type Action = ActionTemplate<ActionID>;
 
 export const actionCreator = makeActionCreator<ActionID>(ACTION_ID);

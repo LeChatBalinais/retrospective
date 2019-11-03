@@ -11,7 +11,7 @@ import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determin
 export type ActionID = 'SAGA_TAG_DELETION_CONFIRMED';
 export const ACTION_ID = 'SAGA_TAG_DELETION_CONFIRMED';
 
-interface Payload {
+export interface Payload {
   tagID: string;
 }
 

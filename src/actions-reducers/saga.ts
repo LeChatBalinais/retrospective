@@ -5,17 +5,33 @@ import * as tagSavingConfirmed from './saga-tag-saving-confirmed';
 import * as tagsFetchingFetched from './saga-tags-fetching-fetched';
 import * as videoSeekDelayEnded from './saga-video-seek-delay-ended';
 
-export type SagaAction =
+export type Action =
   | tagDeletionConfirmed.Action
   | tagSavingConfirmed.Action
   | tagsFetchingFetched.Action
   | videoSeekDelayEnded.Action;
 
-type SagaReducersRegister = {
-  [P in SagaAction['type']]: Reducer<P, State, SagaAction['payload']>;
+export type ActionID =
+  | tagDeletionConfirmed.ActionID
+  | tagSavingConfirmed.ActionID
+  | tagsFetchingFetched.ActionID
+  | videoSeekDelayEnded.ActionID;
+
+export type Payload<T> = T extends tagDeletionConfirmed.ActionID
+  ? tagDeletionConfirmed.Payload
+  : T extends tagSavingConfirmed.ActionID
+  ? tagSavingConfirmed.Payload
+  : T extends tagsFetchingFetched.ActionID
+  ? tagsFetchingFetched.Payload
+  : T extends videoSeekDelayEnded.ActionID
+  ? videoSeekDelayEnded.Payload
+  : undefined;
+
+type ReducersRegister = {
+  [P in ActionID]: Reducer<P, State, Payload<P>>;
 };
 
-export const sagaReducersRegister: SagaReducersRegister = {
+export const reducersRegister: ReducersRegister = {
   ...tagDeletionConfirmed.reducer,
   ...tagSavingConfirmed.reducer,
   ...tagsFetchingFetched.reducer,

@@ -11,6 +11,8 @@ export const ACTION_ID: ActionID = 'UI_PLAYER_VIDEO_PAUSED';
 
 export type Action = ActionTemplate<ActionID>;
 
+export type Payload = undefined;
+
 export const actionCreator = makeActionCreator<ActionID>(ACTION_ID);
 
 const getNewVideoStatus = (): VideoStatus => VideoStatus.Paused;
