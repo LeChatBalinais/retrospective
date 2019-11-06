@@ -3,7 +3,7 @@ import { Dispatch } from '~/utils/experimental/dispatch';
 import Button, { ValueProps, FuncProps } from '~/components/Button';
 import { isPlaceNewTagModeOn } from '~/getters/tag-editor';
 import { State } from '~/state';
-import { actionCreator as newTagButtonClicked } from '~/actions-reducers/ui-new-tag-button-clicked';
+import { actionCreator as newTagButtonClicked } from '~/actions-reducers/ui-tag-editor-new-tag-button-clicked';
 
 const mapStateToProps = (state: State): ValueProps => ({
   caption: isPlaceNewTagModeOn(state) ? 'X' : 'Place New Tag'

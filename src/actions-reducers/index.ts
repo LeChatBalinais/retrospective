@@ -3,33 +3,24 @@ import DEFAULT_STATE from '~/default-state';
 import { Reducer } from '~/utils/experimental/create-reducer';
 import * as saga from './saga';
 import * as ui from './ui';
-import * as uiNewTabButtonClicked from './ui-new-tag-button-clicked';
-import * as uiPlayerControlsPlayButtonClicked from './ui-player-play-button-clicked';
-import * as uiPlayerNewTagLayerClicked from './ui-player-new-tag-layer-clicked';
 
-export type Action =
-  | saga.Action
-  | ui.Action
-  | uiNewTabButtonClicked.Action
-  | uiPlayerControlsPlayButtonClicked.Action
-  | uiPlayerNewTagLayerClicked.Action;
+export type Action = saga.Action | ui.Action;
 
-type Payload<T extends Action['type']> = T extends ui.ActionID
+export type ActionID = saga.ActionID | ui.ActionID;
+
+type Payload<T extends ActionID> = T extends ui.ActionID
   ? ui.Payload<T>
   : T extends saga.ActionID
   ? saga.Payload<T>
-  : Action['payload'];
+  : undefined;
 
 type ReducersRegister = {
-  [P in Action['type']]: Reducer<P, State, Payload<P>>;
+  [P in ActionID]: Reducer<P, State, Payload<P>>;
 };
 
 export const reducersRegister: ReducersRegister = {
   ...saga.reducersRegister,
-  ...ui.reducersRegister,
-  ...uiNewTabButtonClicked.reducer,
-  ...uiPlayerControlsPlayButtonClicked.reducer,
-  ...uiPlayerNewTagLayerClicked.reducer
+  ...ui.reducersRegister
 };
 
 const getReducerFromRegister = <T extends Action>(

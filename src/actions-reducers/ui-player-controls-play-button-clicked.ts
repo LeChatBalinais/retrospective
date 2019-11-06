@@ -8,6 +8,7 @@ import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determin
 
 export type ActionID = 'PLAY_BUTTON_CLICKED';
 export const ACTION_ID = 'PLAY_BUTTON_CLICKED';
+export type Payload = undefined;
 
 export type Action = ActionTemplate<ActionID>;
 
