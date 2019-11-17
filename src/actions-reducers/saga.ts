@@ -1,5 +1,5 @@
 import { State } from '~/state';
-import { Reducer } from '~/utils/experimental/create-reducer';
+import { Reducer } from '~/utils/create-reducer';
 import * as tagDeletionConfirmed from './saga-tag-deletion-confirmed';
 import * as tagSavingConfirmed from './saga-tag-saving-confirmed';
 import * as tagsFetchingFetched from './saga-tags-fetching-fetched';

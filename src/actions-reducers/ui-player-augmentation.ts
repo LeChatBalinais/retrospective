@@ -1,5 +1,5 @@
 import { State } from '~/state';
-import { Reducer } from '~/utils/experimental/create-reducer';
+import { Reducer } from '~/utils/create-reducer';
 import * as mouseDown from './ui-player-augmentation-mouse-down';
 import * as mouseMove from './ui-player-augmentation-mouse-move';
 import * as mouseUp from './ui-player-augmentation-mouse-up';

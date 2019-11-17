@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { Dispatch } from '~/utils/experimental/dispatch';
+import { Dispatch } from '~/utils/dispatch';
 import SeekBar, { FuncProps as SeekBarFuncProps } from '~/components/SeekBar';
 import { actionCreator as mousePressedOnSeekBar } from '~/actions-reducers/ui-player-seekbar-mouse-down';
 import { actionCreator as mouseUpDuringSeekbarSeeking } from '~/actions-reducers/ui-player-seekbar-mouse-up-during-seeking';

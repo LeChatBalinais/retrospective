@@ -1,5 +1,5 @@
 import { State } from '~/state';
-import { Reducer } from '~/utils/experimental/create-reducer';
+import { Reducer } from '~/utils/create-reducer';
 import * as newTagButtonClicked from './ui-tag-editor-new-tag-button-clicked';
 import * as newTagLayerClicked from './ui-tag-editor-new-tag-layer-clicked';
 

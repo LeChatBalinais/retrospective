@@ -1,7 +1,7 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
 import { State, SeekingStatus, PlaneTimePoint } from '~/state';
-import { createReducer } from '~/utils/experimental/create-reducer';
+import { createReducer } from '~/utils/create-reducer';
 import { getCurrentTagID } from '~/getters/tag-editor';
 import { getVideoDuration } from '~/getters/footage';
 import { setCurrentTagID } from '~/setters/tag-editor';
@@ -13,7 +13,7 @@ import {
 } from '~/getters/player';
 import { getTagPath } from '~/getters/tags';
 import { timeIsCloseEnough } from '~/utils/time-is-close-enough';
-import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
+import { mapStateToDeterminer } from '~/utils/map-state-to-determiner';
 
 export type ActionID = 'TAG_ROW_CLICKED';
 export const ACTION_ID = 'TAG_ROW_CLICKED';

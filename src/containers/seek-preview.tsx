@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { Dispatch } from '~/utils/experimental/dispatch';
+import { Dispatch } from '~/utils/dispatch';
 import SeekPreview, { ValueProps, FuncProps } from '~/components/SeekPreview';
 import { State, VideoStatus, SeekingStatus } from '~/state';
 import { actionCreator as videoSeeked } from '~/actions-reducers/ui-player-seekpreview-seeked';

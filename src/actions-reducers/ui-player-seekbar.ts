@@ -1,5 +1,5 @@
 import { State } from '~/state';
-import { Reducer } from '~/utils/experimental/create-reducer';
+import { Reducer } from '~/utils/create-reducer';
 import * as mouseDown from './ui-player-seekbar-mouse-down';
 import * as mouseMoveDuringSeeking from './ui-player-seekbar-mouse-move-during-seeking';
 import * as mouseUpDuringSeeking from './ui-player-seekbar-mouse-up-during-seeking';

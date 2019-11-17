@@ -1,9 +1,9 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
-import { createReducer } from '~/utils/experimental/create-reducer';
+import { createReducer } from '~/utils/create-reducer';
 import { isPlaceNewTagModeOn } from '~/getters/tag-editor';
 import { setPlacingNewTagMode } from '~/setters/tag-editor';
-import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
+import { mapStateToDeterminer } from '~/utils/map-state-to-determiner';
 
 export type ActionID = 'UI_NEW_TAG_BUTTON_CLICKED';
 

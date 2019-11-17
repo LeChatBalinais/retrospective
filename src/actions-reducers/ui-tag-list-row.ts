@@ -1,5 +1,5 @@
 import { State } from '~/state';
-import { Reducer } from '~/utils/experimental/create-reducer';
+import { Reducer } from '~/utils/create-reducer';
 import * as rowClicked from './ui-tag-list-row-clicked';
 import * as deleteButtonClicked from './ui-tag-list-row-delete-button-clicked';
 import * as saveButtonClicked from './ui-tag-list-row-save-button-clicked';

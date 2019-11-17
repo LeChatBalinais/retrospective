@@ -1,10 +1,10 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { PlaybackStatus } from '~/state';
-import { createReducer } from '~/utils/experimental/create-reducer';
+import { createReducer } from '~/utils/create-reducer';
 import { getPlaybackStatus } from '~/getters/player';
 import { setPlaybackStatus } from '~/setters/player';
 import { makeActionCreator } from '~/utils/make-action-creator';
-import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
+import { mapStateToDeterminer } from '~/utils/map-state-to-determiner';
 
 export type ActionID = 'MOUSE_UP_ON_TAG';
 export const ACTION_ID = 'MOUSE_UP_ON_TAG';

@@ -1,12 +1,12 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { State, TagsByID } from '~/state';
-import { createReducer } from '~/utils/experimental/create-reducer';
+import { createReducer } from '~/utils/create-reducer';
 import { getTags } from '~/getters/tags';
 import { getTagBeingEditedID } from '~/getters/tag-editor';
 import { getTimeVideoAt } from '~/selectors/get-time-video-at';
 import { setTagsByID } from '~/setters/tags';
 import { makeActionCreator } from '~/utils/make-action-creator';
-import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
+import { mapStateToDeterminer } from '~/utils/map-state-to-determiner';
 
 export type ActionID = 'MOUSE_MOVE_ON_AUGMENTATION';
 export const ACTION_ID = 'MOUSE_MOVE_ON_AUGMENTATION';

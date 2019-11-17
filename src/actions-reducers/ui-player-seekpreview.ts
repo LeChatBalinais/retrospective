@@ -1,5 +1,5 @@
 import { State } from '~/state';
-import { Reducer } from '~/utils/experimental/create-reducer';
+import { Reducer } from '~/utils/create-reducer';
 import * as seeked from './ui-player-seekpreview-seeked';
 import * as seeking from './ui-player-seekpreview-seeking';
 

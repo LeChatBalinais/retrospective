@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { Dispatch } from '~/utils/experimental/dispatch';
+import { Dispatch } from '~/utils/dispatch';
 import TagPanel, {
   ValueProps as TagPanelValueProp,
   FuncProps as TagPanelFuncProp

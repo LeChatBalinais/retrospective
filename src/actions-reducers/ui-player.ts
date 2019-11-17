@@ -1,5 +1,5 @@
 import { State } from '~/state';
-import { Reducer } from '~/utils/experimental/create-reducer';
+import { Reducer } from '~/utils/create-reducer';
 import * as video from './ui-player-video';
 import * as seekpreview from './ui-player-seekpreview';
 import * as seekbar from './ui-player-seekbar';

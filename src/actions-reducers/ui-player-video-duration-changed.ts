@@ -4,9 +4,9 @@ import { State } from '~/state';
 import { getVideoDuration } from '~/getters/footage';
 import { setStageVideoAt, setStageSeekPreviewAt } from '~/setters/player';
 import { setVideoDuration } from '~/setters/footage';
-import { createReducer } from '~/utils/experimental/create-reducer';
+import { createReducer } from '~/utils/create-reducer';
 import { getStageVideoAt, getStageSeekPreviewAt } from '~/getters/player';
-import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
+import { mapStateToDeterminer } from '~/utils/map-state-to-determiner';
 
 export type ActionID = 'UI_PLAYER_VIDEO_DURATION_CHANGED';
 export const ACTION_ID = 'UI_PLAYER_VIDEO_DURATION_CHANGED';

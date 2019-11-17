@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { Dispatch } from '~/utils/experimental/dispatch';
+import { Dispatch } from '~/utils/dispatch';
 import Video, { ValueProps, FuncProps } from '~/components/Video';
 import { State, VideoStatus, SeekingStatus, PlaybackStatus } from '~/state';
 import { actionCreator as videoPlayedToTime } from '~/actions-reducers/ui-player-video-played-to-time';

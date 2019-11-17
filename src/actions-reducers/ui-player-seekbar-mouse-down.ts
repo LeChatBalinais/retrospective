@@ -1,8 +1,8 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
 import { State, SeekbarStatus, SeekingStatus } from '~/state';
-import { createReducer } from '~/utils/experimental/create-reducer';
-import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
+import { createReducer } from '~/utils/create-reducer';
+import { mapStateToDeterminer } from '~/utils/map-state-to-determiner';
 import {
   getLastRequestedStage,
   getSeekbarStatus,

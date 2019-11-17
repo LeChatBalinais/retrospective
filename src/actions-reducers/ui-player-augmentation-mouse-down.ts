@@ -1,9 +1,9 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
-import { createReducer } from '~/utils/experimental/create-reducer';
+import { createReducer } from '~/utils/create-reducer';
 import { getCurrentTagID } from '~/getters/tag-editor';
 import { setCurrentTagID } from '~/setters/tag-editor';
-import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
+import { mapStateToDeterminer } from '~/utils/map-state-to-determiner';
 
 export type ActionID = 'UI_PLAYER_AUGMENTATION_MOUSE_DOWN';
 export const ACTION_ID = 'UI_PLAYER_AUGMENTATION_MOUSE_DOWN';

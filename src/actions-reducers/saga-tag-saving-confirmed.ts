@@ -1,10 +1,10 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { State } from '~/state';
-import { createReducer } from '~/utils/experimental/create-reducer';
+import { createReducer } from '~/utils/create-reducer';
 import { setTagGlobalID } from '~/setters/tags';
 import { getTagGlobalID } from '~/getters/tags';
 import { makeActionCreator } from '~/utils/make-action-creator';
-import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
+import { mapStateToDeterminer } from '~/utils/map-state-to-determiner';
 
 export type ActionID = 'SAGA_TAG_SAVING_CONFIRMED';
 export const ACTION_ID = 'SAGA_TAG_SAVING_CONFIRMED';

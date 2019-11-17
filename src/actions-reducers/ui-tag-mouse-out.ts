@@ -1,7 +1,7 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
-import { createReducer } from '~/utils/experimental/create-reducer';
-import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
+import { createReducer } from '~/utils/create-reducer';
+import { mapStateToDeterminer } from '~/utils/map-state-to-determiner';
 import { State } from '~/state';
 import { setHighlightedTagID } from '~/setters/player';
 import { getHighlightedTagID } from '~/getters/player';

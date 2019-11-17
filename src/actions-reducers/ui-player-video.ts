@@ -1,5 +1,5 @@
 import { State } from '~/state';
-import { Reducer } from '~/utils/experimental/create-reducer';
+import { Reducer } from '~/utils/create-reducer';
 import * as durationChanged from './ui-player-video-duration-changed';
 import * as paused from './ui-player-video-paused';
 import * as playedToTime from './ui-player-video-played-to-time';

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { Dispatch } from '~/utils/experimental/dispatch';
+import { Dispatch } from '~/utils/dispatch';
 import Augmentation, { ValueProps, FuncProps } from '~/components/Augmentation';
 import getCurrentlyVisibleTagIDs from '~/selectors/get-currentily-visible-tag-ids';
 import { State } from '~/state';

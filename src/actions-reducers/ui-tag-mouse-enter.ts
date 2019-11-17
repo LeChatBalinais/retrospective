@@ -1,10 +1,10 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
 import { State } from '~/state';
-import { createReducer } from '~/utils/experimental/create-reducer';
+import { createReducer } from '~/utils/create-reducer';
 import { setHighlightedTagID } from '~/setters/player';
 import { getHighlightedTagID } from '~/getters/player';
-import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
+import { mapStateToDeterminer } from '~/utils/map-state-to-determiner';
 
 export type ActionID = 'UI_PLAYER_AUGMENTATION_TAG_MOUSE_ENTER';
 export const ACTION_ID = 'UI_PLAYER_AUGMENTATION_TAG_MOUSE_ENTER';

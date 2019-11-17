@@ -1,7 +1,7 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
 import { State, VideoStatus } from '~/state';
-import { createReducer } from '~/utils/experimental/create-reducer';
+import { createReducer } from '~/utils/create-reducer';
 import {
   getSeekPreviewStatus,
   getStageSeekPreviewSeekingTo
@@ -11,7 +11,7 @@ import {
   setSeekPreviewStatus,
   setStageSeekPreviewSeekingTo
 } from '~/setters/player';
-import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
+import { mapStateToDeterminer } from '~/utils/map-state-to-determiner';
 
 export type ActionID = 'UI_PLAYER_SEEKPREVIEW_SEEKING';
 export const ACTION_ID: ActionID = 'UI_PLAYER_SEEKPREVIEW_SEEKING';

@@ -1,7 +1,7 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
 import { VideoStatus, SeekingStatus, SeekbarStatus } from '~/state';
-import { createReducer } from '~/utils/experimental/create-reducer';
+import { createReducer } from '~/utils/create-reducer';
 import {
   getVideoStatus,
   getStageVideoAt,
@@ -22,7 +22,7 @@ import {
   setSeekVideo
 } from '~/setters/player';
 import { timeIsCloseEnough } from '~/utils/time-is-close-enough';
-import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
+import { mapStateToDeterminer } from '~/utils/map-state-to-determiner';
 
 export type ActionID = 'UI_PLAYER_VIDEO_SEEKED';
 export const ACTION_ID = 'UI_PLAYER_VIDEO_SEEKED';

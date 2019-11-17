@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { Dispatch } from '~/utils/experimental/dispatch';
+import { Dispatch } from '~/utils/dispatch';
 import Tag, {
   FuncProps as TagFuncProps,
   ValueProps as TagValueProps
@@ -34,9 +34,11 @@ const getTimeTagAt = (state: State, ID: string): number => {
 };
 
 const getPosition = (state: State, ID: string): { x: number; y: number } => {
-  return isAnimated(state, ID)
+  const { x, y } = isAnimated(state, ID)
     ? getPointTagAppearsAt(state, ID)
     : getTagPositionByTime(state, ID, getTimePlayerAt(state));
+
+  return { x, y };
 };
 
 const getClassName = (state: State, ID: string): string => {

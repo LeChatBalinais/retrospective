@@ -1,12 +1,12 @@
 import { State } from '~/state';
 import DEFAULT_STATE from '~/default-state';
-import { Reducer } from '~/utils/experimental/create-reducer';
+import { Reducer } from '~/utils/create-reducer';
 import * as saga from './saga';
 import * as ui from './ui';
 
 export type Action = saga.Action | ui.Action;
 
-export type ActionID = saga.ActionID | ui.ActionID;
+type ActionID = saga.ActionID | ui.ActionID;
 
 type Payload<T extends ActionID> = T extends ui.ActionID
   ? ui.Payload<T>
@@ -18,7 +18,7 @@ type ReducersRegister = {
   [P in ActionID]: Reducer<P, State, Payload<P>>;
 };
 
-export const reducersRegister: ReducersRegister = {
+const reducersRegister: ReducersRegister = {
   ...saga.reducersRegister,
   ...ui.reducersRegister
 };

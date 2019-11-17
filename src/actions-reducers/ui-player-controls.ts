@@ -1,5 +1,5 @@
 import { State } from '~/state';
-import { Reducer } from '~/utils/experimental/create-reducer';
+import { Reducer } from '~/utils/create-reducer';
 import * as playButtonClicked from './ui-player-controls-play-button-clicked';
 
 export type Action = playButtonClicked.Action;

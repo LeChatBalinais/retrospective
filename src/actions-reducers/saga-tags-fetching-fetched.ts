@@ -1,10 +1,10 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { State, Tags, Table, Tag } from '~/state';
-import { createReducer } from '~/utils/experimental/create-reducer';
+import { createReducer } from '~/utils/create-reducer';
 import { setTags } from '~/setters/entities';
 import { getTagsTable } from '~/getters/entities';
 import { makeActionCreator } from '~/utils/make-action-creator';
-import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
+import { mapStateToDeterminer } from '~/utils/map-state-to-determiner';
 
 export type ActionID = 'SAGA_TAGS_FETCHED';
 

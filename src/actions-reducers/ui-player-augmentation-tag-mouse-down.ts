@@ -1,12 +1,12 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
 import { State, PlaybackStatus } from '~/state';
-import { createReducer } from '~/utils/experimental/create-reducer';
+import { createReducer } from '~/utils/create-reducer';
 import { getTagBeingEditedID, getCurrentTagID } from '~/getters/tag-editor';
 import { getPlaybackStatus } from '~/getters/player';
 import { setPlaybackStatus } from '~/setters/player';
 import { setTagBeingEditedID, setCurrentTagID } from '~/setters/tag-editor';
-import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
+import { mapStateToDeterminer } from '~/utils/map-state-to-determiner';
 
 export type ActionID = 'MOUSE_DOWN_ON_TAG';
 export const ACTION_ID = 'MOUSE_DOWN_ON_TAG';

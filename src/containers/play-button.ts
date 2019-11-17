@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { Dispatch } from '~/utils/experimental/dispatch';
+import { Dispatch } from '~/utils/dispatch';
 import Button, { ValueProps, FuncProps } from '~/components/Button';
 import { State } from '~/state';
 import { actionCreator as uiPlayButtonClicked } from '~/actions-reducers/ui-player-controls-play-button-clicked';

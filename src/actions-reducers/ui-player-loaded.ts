@@ -1,6 +1,6 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
-import { createReducer } from '~/utils/experimental/create-reducer';
+import { createReducer } from '~/utils/create-reducer';
 import { State } from '~/state';
 
 export type ActionID = 'PLAYER_LOADED';

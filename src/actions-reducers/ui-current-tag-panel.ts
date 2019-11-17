@@ -1,5 +1,5 @@
 import { State } from '~/state';
-import { Reducer } from '~/utils/experimental/create-reducer';
+import { Reducer } from '~/utils/create-reducer';
 import * as appearsAtEdited from './ui-current-tag-panel-appears-at-edited';
 import * as disappearsAtEdited from './ui-current-tag-panel-disappears-at-edited';
 import * as traceVisibilityCheckboxToggled from './ui-current-tag-panel-trace-visibility-checkbox-toggled';

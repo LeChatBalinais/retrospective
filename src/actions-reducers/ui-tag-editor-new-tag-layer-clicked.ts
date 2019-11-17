@@ -1,15 +1,15 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
 import { State, PlaybackStatus } from '~/state';
-import { createReducer } from '~/utils/experimental/create-reducer';
-import { getDefaultReducedVal } from '~/utils/create-partial-reducer';
+import { createReducer } from '~/utils/create-reducer';
+import { getDefaultReducedVal } from '~/utils/get-default-reduced-val';
 import { isPlaceNewTagModeOn } from '~/getters/tag-editor';
 import { getPlaybackStatus, getStageVideoAt } from '~/getters/player';
 import { setPlaybackStatus } from '~/setters/player';
 import { setPlacingNewTagMode } from '~/setters/tag-editor';
 import { addNewTag } from '~/setters/tags';
 import { getVideoDuration } from '~/getters/footage';
-import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
+import { mapStateToDeterminer } from '~/utils/map-state-to-determiner';
 
 export type ActionID = 'NEW_TAG_LAYER_CLICKED';
 export const ACTION_ID = 'NEW_TAG_LAYER_CLICKED';

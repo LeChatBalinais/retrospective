@@ -1,5 +1,5 @@
 import { State } from '~/state';
-import { Reducer } from '~/utils/experimental/create-reducer';
+import { Reducer } from '~/utils/create-reducer';
 import * as player from './ui-player';
 import * as tagListRow from './ui-tag-list-row';
 import * as currentTagPanel from './ui-current-tag-panel';

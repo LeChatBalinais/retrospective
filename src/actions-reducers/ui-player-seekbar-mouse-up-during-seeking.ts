@@ -1,6 +1,6 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { SeekbarStatus, SeekingStatus, VideoStatus } from '~/state';
-import { createReducer } from '~/utils/experimental/create-reducer';
+import { createReducer } from '~/utils/create-reducer';
 import {
   getSeekingStatus,
   getSeekbarStatus,
@@ -11,7 +11,7 @@ import {
 import { setSeekingStatus, setSeekbarStatus } from '~/setters/player';
 import { makeActionCreator } from '~/utils/make-action-creator';
 import { timeIsCloseEnough } from '~/utils/time-is-close-enough';
-import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
+import { mapStateToDeterminer } from '~/utils/map-state-to-determiner';
 
 export type ActionID = 'MOUSE_UP_DURING_SEEKBAR_SEEKING';
 export const ACTION_ID = 'MOUSE_UP_DURING_SEEKBAR_SEEKING';

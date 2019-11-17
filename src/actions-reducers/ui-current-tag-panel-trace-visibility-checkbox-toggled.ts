@@ -1,13 +1,13 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
 import { State } from '~/state';
-import { createReducer } from '~/utils/experimental/create-reducer';
+import { createReducer } from '~/utils/create-reducer';
 import { getVisibleTraceTagIDs } from '~/getters/tag-editor';
 import {
   setVisibleTraceTagIDs,
   setTagTraceVisible
 } from '~/setters/tag-editor';
-import { mapStateToDeterminer } from '~/utils/experimental/map-state-to-determiner';
+import { mapStateToDeterminer } from '~/utils/map-state-to-determiner';
 
 export type ActionID = 'TAG_TRACE_VISIBILITY_CHECKBOX_TOGGLED';
 export const ACTION_ID = 'TAG_TRACE_VISIBILITY_CHECKBOX_TOGGLED';

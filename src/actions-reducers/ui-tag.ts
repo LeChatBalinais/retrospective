@@ -1,5 +1,5 @@
 import { State } from '~/state';
-import { Reducer } from '~/utils/experimental/create-reducer';
+import { Reducer } from '~/utils/create-reducer';
 import * as mouseEnter from './ui-tag-mouse-enter';
 import * as mouseOut from './ui-tag-mouse-out';
 
