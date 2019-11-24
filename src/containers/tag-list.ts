@@ -52,10 +52,7 @@ const getDistributedAndSortedTagIDs = (
   return { beforeExposed, exposed, afterExposed };
 };
 
-const mapStateToProps = (state: State): TagTableValueProps => {
-  return {
-    ...getDistributedAndSortedTagIDs(state)
-  };
-};
+const mapStateToProps = (state: State): TagTableValueProps =>
+  getDistributedAndSortedTagIDs(state);
 
 export default connect(mapStateToProps)(TagTable);

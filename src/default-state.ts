@@ -11,6 +11,10 @@ const DEFAULT_STATE: State = {
     tags: {
       byID: {},
       allIDs: []
+    },
+    videos: {
+      byID: {},
+      allIDs: []
     }
   },
   tagEditor: {
