@@ -15,6 +15,10 @@ const DEFAULT_STATE: State = {
     videos: {
       byID: {},
       allIDs: []
+    },
+    players: {
+      byID: {},
+      allIDs: []
     }
   },
   tagEditor: {
@@ -25,11 +29,12 @@ const DEFAULT_STATE: State = {
     tagsWithVisibleTrace: []
   },
   footage: {
-    duration: 0,
-    videoURL: 'http://localhost:9000/video',
-    seekPreviewURL: 'http://localhost:9000/seekpreview'
+    videoURL: 'http://localhost:9000/video/08b1ab98-ef70-415c-b533-5b07f34c4f18',
+    seekPreviewURL: 'http://localhost:9000/seekpreview/08b1ab98-ef70-415c-b533-5b07f34c4f18'
   },
   player: {
+    videoID: "",
+    duration: 0,
     delayOn: false,
     seekVideo: false,
     playbackStatus: PlaybackStatus.Paused,

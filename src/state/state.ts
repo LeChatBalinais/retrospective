@@ -1,4 +1,4 @@
-import { Player } from './player';
+import { Player } from './players';
 import { Entities } from './entities';
 import { Footage } from './footages';
 import { TagEditor } from './tag-editor';

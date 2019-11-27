@@ -1,5 +1,8 @@
+import { Table, ElementsByID } from './table';
+
 export interface Player {
-  readonly highlightedTagID?: string;
+  readonly videoID: string;
+  readonly duration: number;
   readonly delayOn: boolean;
   readonly seekVideo: boolean;
   readonly playbackStatus: PlaybackStatus;
@@ -41,3 +44,7 @@ export enum SeekbarStatus {
   Idle,
   Seeking
 }
+
+export type Players = Table<Player>;
+
+export type PlayersByID = ElementsByID<Player>;

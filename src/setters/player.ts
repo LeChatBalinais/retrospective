@@ -149,8 +149,8 @@ export const setDelayOn = (state: State, delayOn: boolean): State => ({
 
 export const setHighlightedTagID = (state: State, highlightedTagID: string): State => ({
   ...state,
-  player: {
-    ...state.player,
+  tagEditor: {
+    ...state.tagEditor,
     highlightedTagID
   }
 });
