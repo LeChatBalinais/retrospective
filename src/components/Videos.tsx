@@ -1,15 +1,24 @@
-import React from 'react';
-import { Link } from '@reach/router';
+import React, { useEffect } from 'react';
 
 export interface ValueProps {
-  videoIDs: string[];
+  videos: { globalID: string, name: string }[]
 }
 
-type Props = ValueProps;
+export interface FuncProps {
+  onComponentDidMount?: () => void;
+}
 
-const TagTable = ({ videoIDs }: Props): JSX.Element => {
-  const videoIDsLinks = videoIDs.map(
-    (ID: string): JSX.Element => <Link {...{ to: ID, ID }}>{ID}</Link>
+
+type Props = ValueProps & FuncProps;
+
+const TagTable = ({ videos, onComponentDidMount }: Props): JSX.Element => {
+
+  useEffect((): void => {
+    onComponentDidMount();
+  }, [onComponentDidMount]);
+
+  const videoIDsLinks = videos.map(
+    ({ globalID, name }: { globalID: string, name: string }): JSX.Element => <div {...{ key: globalID }} className="box">{name} </div>
   );
 
   return (

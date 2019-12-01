@@ -1,9 +1,17 @@
 import { connect } from 'react-redux';
-import Videos, { ValueProps as VideosValueProps } from '~/components/Videos';
+import { Dispatch } from '~/utils/dispatch';
+import Videos, { ValueProps as VideosValueProps, FuncProps as VideosFuncProps } from '~/components/Videos';
 import { State } from '~/state';
+import { actionCreator as playerLoaded } from '~/actions-reducers/ui-player-loaded';
 
-const mapStateToProps = (state: State): VideosValueProps => ({
-  videoIDs: []
+const mapStateToProps = ({ entities: { videos: { allIDs, byID } } }: State): VideosValueProps => ({
+  videos: allIDs.map((ID: string): { globalID: string, name: string } => byID[ID])
 });
 
-export default connect(mapStateToProps)(Videos);
+const mapDispatchToProps = (dispatch: Dispatch): VideosFuncProps => ({
+  onComponentDidMount: (): void => {
+    dispatch(playerLoaded());
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Videos);

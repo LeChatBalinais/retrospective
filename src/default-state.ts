@@ -7,6 +7,7 @@ import {
 } from '~/state';
 
 const DEFAULT_STATE: State = {
+  page: "Home",
   entities: {
     tags: {
       byID: {},
