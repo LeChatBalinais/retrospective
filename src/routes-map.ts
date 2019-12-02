@@ -2,8 +2,8 @@ import { RoutesMap } from "redux-first-router";
 
 
 const routesMap: RoutesMap = {
-    HOME: '/',
-    REFERENCE_EDITOR: '/reference-editor'
+    ROUTE_HOME: '/',
+    ROUTE_REFERENCE_EDITOR: '/reference-editor/:videoID'
 }
 
 export default routesMap;

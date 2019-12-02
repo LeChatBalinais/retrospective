@@ -2,6 +2,7 @@ import { Table, ElementsByID } from './table';
 
 export interface Tag {
   readonly globalID: string;
+  readonly videoID: string;
   readonly path: PlaneTimePoint[];
 }
 

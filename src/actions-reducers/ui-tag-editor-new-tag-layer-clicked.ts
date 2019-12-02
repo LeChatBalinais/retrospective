@@ -28,16 +28,19 @@ const getPosition = (
   { x, y }: Payload
 ): { x: number; y: number } => ({ x, y });
 
+const getCurrentVideoID = ({ location: { payload: { videoID } } }: State): string => videoID
+
 const getNewPlaybackStatus = (): PlaybackStatus => PlaybackStatus.Paused;
 
 const getNewPlacingNewTagMode = (): boolean => false;
 
 const getNewTag = (
+  videoID: string,
   stage: number,
   duration: number,
   { x, y }: { x: number; y: number }
-): { time: number; x: number; y: number } => {
-  return { time: stage * duration, x, y };
+): { videoID: string, time: number; x: number; y: number } => {
+  return { videoID, time: stage * duration, x, y };
 };
 
 export const reducer = createReducer(ACTION_ID, [
@@ -56,6 +59,7 @@ export const reducer = createReducer(ACTION_ID, [
     getDefaultReducedVal,
     addNewTag,
     mapStateToDeterminer(getNewTag, [
+      getCurrentVideoID,
       getStageVideoAt,
       getVideoDuration,
       getPosition

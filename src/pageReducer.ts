@@ -3,8 +3,8 @@ import { NOT_FOUND } from 'redux-first-router'
 import { Action } from './actions-reducers'
 
 const components = {
-    HOME: 'Home',
-    REFERENCE_EDITOR: 'ReferenceEditor',
+    ROUTE_HOME: 'Home',
+    ROUTE_REFERENCE_EDITOR: 'ReferenceEditor',
     [NOT_FOUND]: 'NotFound'
 }
 

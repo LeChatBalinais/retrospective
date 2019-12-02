@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import Link from 'redux-first-router-link';
+import { actionCreator } from '../actions-reducers/route-reference-editor';
 
 export interface ValueProps {
   videos: { globalID: string, name: string }[]
@@ -6,6 +8,7 @@ export interface ValueProps {
 
 export interface FuncProps {
   onComponentDidMount?: () => void;
+
 }
 
 
@@ -18,7 +21,7 @@ const TagTable = ({ videos, onComponentDidMount }: Props): JSX.Element => {
   }, [onComponentDidMount]);
 
   const videoIDsLinks = videos.map(
-    ({ globalID, name }: { globalID: string, name: string }): JSX.Element => <div {...{ key: globalID }} className="box">{name} </div>
+    ({ globalID, name }: { globalID: string, name: string }): JSX.Element => <div {...{ key: globalID }} className="box"><Link to={actionCreator({ videoID: globalID })}>{name}</Link></div>
   );
 
   return (
