@@ -2,6 +2,7 @@ import { getPointTagAppearsAt } from '~/selectors/get-point-tag-appears-at';
 import { getTagIDs } from '~/getters/tags';
 import { State } from '~/state';
 import { getPointTagDisappearsAt } from './get-point-tag-disappears-at';
+import { getIDofVideoInReferenceEditor } from '~/getters/location';
 
 function compareTagsOnTimeLine(
   state: State,
@@ -30,6 +31,10 @@ function compareTagsOnTimeLine(
 }
 
 export const getTagIDsSortedByTime = (state: State): string[] =>
-  getTagIDs(state).sort((firstID: string, secondID: string): number =>
+  getTagIDs(state).filter((tagID: string): boolean => {
+    const { entities: { tags: { byID: { [tagID]: { videoID } } } } } = state;
+    return videoID === getIDofVideoInReferenceEditor(state);
+
+  }).sort((firstID: string, secondID: string): number =>
     compareTagsOnTimeLine(state, firstID, secondID)
   );

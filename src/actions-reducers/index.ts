@@ -3,7 +3,7 @@ import DEFAULT_STATE from '~/default-state';
 import { Reducer } from '~/utils/create-reducer';
 import * as saga from './saga';
 import * as ui from './ui';
-import * as route from './route'
+import * as route from './route';
 
 export type Action = saga.Action | ui.Action | route.Action;
 

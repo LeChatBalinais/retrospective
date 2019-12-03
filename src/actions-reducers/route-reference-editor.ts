@@ -6,7 +6,9 @@ import { State } from '~/state';
 export type ActionID = 'ROUTE_REFERENCE_EDITOR';
 export const ACTION_ID = 'ROUTE_REFERENCE_EDITOR';
 
-export interface Payload { videoID: string };
+export interface Payload {
+  videoID: string;
+}
 
 export type Action = ActionTemplate<ActionID, Payload>;
 

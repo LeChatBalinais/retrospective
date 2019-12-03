@@ -7,7 +7,7 @@ import {
 } from '~/state';
 
 const DEFAULT_STATE: State = {
-  page: "Home",
+  page: 'Home',
   entities: {
     tags: {
       byID: {},
@@ -29,12 +29,8 @@ const DEFAULT_STATE: State = {
     selectedTags: [],
     tagsWithVisibleTrace: []
   },
-  footage: {
-    videoURL: 'http://localhost:9000/video/08b1ab98-ef70-415c-b533-5b07f34c4f18',
-    seekPreviewURL: 'http://localhost:9000/seekpreview/08b1ab98-ef70-415c-b533-5b07f34c4f18'
-  },
   player: {
-    videoID: "",
+    videoID: '',
     duration: 0,
     delayOn: false,
     seekVideo: false,

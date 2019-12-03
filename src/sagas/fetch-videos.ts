@@ -1,7 +1,7 @@
 import { SagaIterator } from '@redux-saga/core';
 import { v4 as uuid } from 'uuid';
 import { put, call, takeEvery } from 'redux-saga/effects';
-import { ACTION_ID as UI_PLAYER_LOADED } from '~/actions-reducers/ui-player-loaded';
+import { ACTION_ID as ROUTE_HOME } from '~/actions-reducers/ui-player-loaded';
 import { actionCreator as videosFetched } from '~/actions-reducers/saga-videos-fetching-fetched';
 import { Videos } from '~/state/videos';
 
@@ -26,5 +26,5 @@ function* fetchVideos(): SagaIterator {
 }
 
 export default function* watchFetchTags(): SagaIterator {
-  yield takeEvery(UI_PLAYER_LOADED, fetchVideos);
+  yield takeEvery(ROUTE_HOME, fetchVideos);
 }

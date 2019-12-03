@@ -1,15 +1,20 @@
 import { State } from '~/state';
 import { Reducer } from '~/utils/create-reducer';
-import * as home from './saga-tag-deletion-confirmed';
+import * as home from './route-home'
+import * as referenceEditor from './route-reference-editor'
 
 export type Action =
-    | home.Action;
+    | home.Action
+    | referenceEditor.Action;
 
 export type ActionID =
-    | home.ActionID;
+    | home.ActionID
+    | referenceEditor.ActionID;
 
 export type Payload<T> = T extends home.ActionID
     ? home.Payload
+    : T extends referenceEditor.ActionID
+    ? referenceEditor.Payload
     : undefined;
 
 type ReducersRegister = {
@@ -17,5 +22,6 @@ type ReducersRegister = {
 };
 
 export const reducersRegister: ReducersRegister = {
-    ...home.reducer
+    ...home.reducer,
+    ...referenceEditor.reducer
 };
