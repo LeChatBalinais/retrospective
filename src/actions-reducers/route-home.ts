@@ -3,8 +3,8 @@ import { makeActionCreator } from '~/utils/make-action-creator';
 import { createReducer } from '~/utils/create-reducer';
 import { State } from '~/state';
 
-export type ActionID = 'PLAYER_LOADED';
-export const ACTION_ID = 'PLAYER_LOADED';
+export type ActionID = 'ROUTE_HOME';
+export const ACTION_ID = 'ROUTE_HOME';
 
 export type Payload = undefined;
 

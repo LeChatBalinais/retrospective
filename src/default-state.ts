@@ -7,8 +7,17 @@ import {
 } from '~/state';
 
 const DEFAULT_STATE: State = {
+  page: 'Home',
   entities: {
     tags: {
+      byID: {},
+      allIDs: []
+    },
+    videos: {
+      byID: {},
+      allIDs: []
+    },
+    players: {
       byID: {},
       allIDs: []
     }
@@ -20,12 +29,9 @@ const DEFAULT_STATE: State = {
     selectedTags: [],
     tagsWithVisibleTrace: []
   },
-  footage: {
-    duration: 0,
-    videoURL: 'http://localhost:9000/video',
-    seekPreviewURL: 'http://localhost:9000/seekpreview'
-  },
   player: {
+    videoID: '',
+    duration: 0,
     delayOn: false,
     seekVideo: false,
     playbackStatus: PlaybackStatus.Paused,

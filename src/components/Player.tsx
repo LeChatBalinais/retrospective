@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import ControlPanel from './ControlPanel';
 import VideoContainer from '~/containers/video';
 import NewTagLayerContainer from '~/containers/new-tag-layer';
@@ -13,20 +13,13 @@ export interface ValueProps {
   currentTag: string;
 }
 
-export interface FuncProps {
-  onComponentDidMount?: () => void;
-}
 
-type Props = ValueProps & FuncProps;
+type Props = ValueProps;
 
 const Player = ({
   placeNewTagMode,
-  currentTag,
-  onComponentDidMount
+  currentTag
 }: Props): JSX.Element => {
-  useEffect((): void => {
-    onComponentDidMount();
-  }, [onComponentDidMount]);
 
   let newTagLayerComponent = null;
   if (placeNewTagMode) newTagLayerComponent = <NewTagLayerContainer />;

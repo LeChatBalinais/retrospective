@@ -4,6 +4,8 @@ import { CombinatorEffect } from '@redux-saga/types/index.d';
 import deleteTag from './delete-tag';
 import saveTag from './save-tag';
 import fetchTags from './fetch-tags';
+import fetchTagsForVideoOfID from './fetch-tags-for-video-of-id';
+import fetchVideos from './fetch-videos';
 import {
   watchSeekPreviewSeeked,
   watchUIListRowClicked,
@@ -19,6 +21,8 @@ export default function* rootSaga(): IterableIterator<
     fetchTags(),
     watchSeekPreviewSeeked(),
     watchUIListRowClicked(),
-    watchUIPlayerSeekbarMouseDown()
+    watchUIPlayerSeekbarMouseDown(),
+    fetchVideos(),
+    fetchTagsForVideoOfID()
   ]);
 }

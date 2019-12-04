@@ -3,15 +3,18 @@ import DEFAULT_STATE from '~/default-state';
 import { Reducer } from '~/utils/create-reducer';
 import * as saga from './saga';
 import * as ui from './ui';
+import * as route from './route';
 
-export type Action = saga.Action | ui.Action;
+export type Action = saga.Action | ui.Action | route.Action;
 
-type ActionID = saga.ActionID | ui.ActionID;
+export type ActionID = saga.ActionID | ui.ActionID | route.ActionID;
 
 type Payload<T extends ActionID> = T extends ui.ActionID
   ? ui.Payload<T>
   : T extends saga.ActionID
   ? saga.Payload<T>
+  : T extends route.ActionID
+  ? route.Payload<T>
   : undefined;
 
 type ReducersRegister = {
@@ -20,7 +23,8 @@ type ReducersRegister = {
 
 const reducersRegister: ReducersRegister = {
   ...saga.reducersRegister,
-  ...ui.reducersRegister
+  ...ui.reducersRegister,
+  ...route.reducersRegister
 };
 
 const getReducerFromRegister = <T extends Action>(

@@ -8,12 +8,13 @@ import { getTag } from '~/getters/tags';
 
 export const addNewTag = (
   state: State,
-  { time, x, y }: { time: number; x: number; y: number }
+  { videoID, time, x, y }: { videoID: string, time: number; x: number; y: number }
 ): State => ({
   ...state,
   entities: {
     ...state.entities,
     tags: addElementToTable<Tag>(state.entities.tags, {
+      videoID,
       globalID: undefined,
       path: [{ time, x, y }]
     })
@@ -31,6 +32,7 @@ export const deleteTag = (state: State, tagID: string): State => ({
 export const updateTag = (
   state: State,
   tagID: string,
+  videoID: string,
   globalID: string,
   path: PlaneTimePoint[]
 ): State => ({
@@ -38,6 +40,7 @@ export const updateTag = (
   entities: {
     ...state.entities,
     tags: updateElementInTable<Tag>(state.entities.tags, tagID, {
+      videoID,
       globalID,
       path
     })
@@ -50,7 +53,7 @@ export const setTagGlobalID = (
   globalID: string
 ): State => {
   const tag = getTag(state, tagID);
-  return updateTag(state, tagID, globalID, tag.path);
+  return updateTag(state, tagID, tag.videoID, globalID, tag.path);
 };
 
 export const setTagsByID = (state: State, byID: TagsByID): State => ({

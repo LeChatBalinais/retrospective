@@ -4,7 +4,10 @@
   "appPort": 8080,
   "extensions": [
     "dbaeumer.vscode-eslint",
-    "prettier.prettier"
+    "prettier.prettier",
+    "2gua.rainbow-brackets",
+    "ms-vsliveshare.vsliveshare",
+    "esbenp.prettier-vscode"
   ],
   "postCreateCommand": "yarn install"
 }

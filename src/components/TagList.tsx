@@ -24,15 +24,20 @@ const TagTable = ({
     (ID: string): JSX.Element => <TagRowContainer {...{ key: ID, ID }} />
   );
 
+  let exposedTags;
+
+  if (sortedIDsOfExposedTags.length !== 0)
+    exposedTags = <div
+      className="box"
+      {...{ style: { boxShadow: '0 2px 3px red, 0 0 0 1px red' } }}
+    >
+      {sortedIDsOfExposedTags}
+    </div>
+
   return (
     <div className="box markers-list">
       <div>{sortedIDsOfTagsBeforeExposed}</div>
-      <div
-        className="box"
-        {...{ style: { boxShadow: '0 2px 3px red, 0 0 0 1px red' } }}
-      >
-        {sortedIDsOfExposedTags}
-      </div>
+      {exposedTags}
       <div>{sortedIDsOfTagsAfterExposed}</div>
     </div>
   );

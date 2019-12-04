@@ -1,21 +1,49 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import createSagaMiddleware from '@redux-saga/core';
+import { connectRoutes } from 'redux-first-router';
 import { reducer } from './actions-reducers';
 import rootSaga from './sagas/root-saga';
+import routesMap from './routing/routes-map';
+import pageReducer from './routing/pageReducer';
+import { Action } from './actions-reducers/saga-tag-deletion-confirmed';
+import { State } from './state';
 
 const sagaMiddleware = createSagaMiddleware();
+
+const {
+  reducer: locationReducer,
+  middleware: routerMiddleware,
+  enhancer: routerEnhancer,
+  initialDispatch
+} = connectRoutes(routesMap, {
+  initialDispatch: false
+});
+
+const rootReducer = (state: State, action: Action): State => {
+  const newState = reducer(state, action);
+  return {
+    ...newState,
+    page: pageReducer(newState.page, action),
+    location: locationReducer(newState.location, action)
+  };
+};
 
 /* eslint-disable dot-notation */
 /* eslint-disable no-underscore-dangle */
 const composeEnhancers =
   (window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] as typeof compose) || compose;
 const store = createStore(
-  reducer,
-  composeEnhancers(applyMiddleware(sagaMiddleware))
+  rootReducer,
+  composeEnhancers(
+    routerEnhancer,
+    applyMiddleware(sagaMiddleware, routerMiddleware)
+  )
 );
 /* eslint-enable */
 /* eslint-enable */
 
 sagaMiddleware.run(rootSaga);
+
+initialDispatch();
 
 export default store;

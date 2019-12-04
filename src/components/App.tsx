@@ -1,23 +1,21 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+import { Provider, connect } from 'react-redux';
 import store from '~/store';
-import Player from '~/containers/player';
-import TagTableContainer from '~/containers/tag-list';
-import NewTagButton from '~/containers/new-tag-button';
+import { State } from '~/state';
+import components from '~/routing/components-map';
+
+const App2 = ({ page }: { page: string }): JSX.Element => {
+  const Component = components[page];
+  return Component;
+};
+
+const mapStateToProps = ({ page }: State): { page: string } => ({ page });
+
+const App2Container = connect(mapStateToProps)(App2);
 
 const App = (): JSX.Element => (
   <Provider store={store}>
-    <div className="section main-section">
-      <div className="columns">
-        <div className="column is-8">
-          <Player />
-        </div>
-        <div className="column is-4">
-          <NewTagButton />
-          <TagTableContainer />
-        </div>
-      </div>
-    </div>
+    <App2Container />
   </Provider>
 );
 

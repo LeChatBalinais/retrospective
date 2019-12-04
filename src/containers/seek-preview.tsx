@@ -10,7 +10,7 @@ import {
   getSeekPreviewStatus,
   getStageVideoAt
 } from '~/getters/player';
-import { getSeekPreviewURL } from '~/getters/footage';
+import { getSeekPreviewURL } from '~/getters/location';
 import { getLastRequestedTime } from '~/selectors/get-last-requested-time';
 import { timeIsCloseEnough } from '~/utils/time-is-close-enough';
 
