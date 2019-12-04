@@ -4,9 +4,9 @@ import { State, VideoStatus } from '~/state';
 import { createReducer } from '~/utils/create-reducer';
 import {
   getSeekPreviewStatus,
-  getStageSeekPreviewSeekingTo
+  getStageSeekPreviewSeekingTo,
+  getVideoDuration
 } from '~/getters/player';
-import { getVideoDuration } from '~/getters/footage';
 import {
   setSeekPreviewStatus,
   setStageSeekPreviewSeekingTo

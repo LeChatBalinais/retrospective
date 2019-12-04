@@ -2,8 +2,11 @@ import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
 import { State, VideoStatus } from '~/state';
 import { createReducer } from '~/utils/create-reducer';
-import { getVideoStatus, getStageVideoSeekingTo } from '~/getters/player';
-import { getVideoDuration } from '~/getters/footage';
+import {
+  getVideoStatus,
+  getStageVideoSeekingTo,
+  getVideoDuration
+} from '~/getters/player';
 import { setVideoStatus, setStageVideoSeekingTo } from '~/setters/player';
 import { mapStateToDeterminer } from '~/utils/map-state-to-determiner';
 

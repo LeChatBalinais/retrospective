@@ -4,11 +4,14 @@ import { State, PlaybackStatus } from '~/state';
 import { createReducer } from '~/utils/create-reducer';
 import { getDefaultReducedVal } from '~/utils/get-default-reduced-val';
 import { isPlaceNewTagModeOn } from '~/getters/tag-editor';
-import { getPlaybackStatus, getStageVideoAt } from '~/getters/player';
+import {
+  getPlaybackStatus,
+  getStageVideoAt,
+  getVideoDuration
+} from '~/getters/player';
 import { setPlaybackStatus } from '~/setters/player';
 import { setPlacingNewTagMode } from '~/setters/tag-editor';
 import { addNewTag } from '~/setters/tags';
-import { getVideoDuration } from '~/getters/footage';
 import { mapStateToDeterminer } from '~/utils/map-state-to-determiner';
 
 export type ActionID = 'NEW_TAG_LAYER_CLICKED';
@@ -28,7 +31,11 @@ const getPosition = (
   { x, y }: Payload
 ): { x: number; y: number } => ({ x, y });
 
-const getCurrentVideoID = ({ location: { payload: { videoID } } }: State): string => videoID
+const getCurrentVideoID = ({
+  location: {
+    payload: { videoID }
+  }
+}: State): string => videoID;
 
 const getNewPlaybackStatus = (): PlaybackStatus => PlaybackStatus.Paused;
 
@@ -39,7 +46,7 @@ const getNewTag = (
   stage: number,
   duration: number,
   { x, y }: { x: number; y: number }
-): { videoID: string, time: number; x: number; y: number } => {
+): { videoID: string; time: number; x: number; y: number } => {
   return { videoID, time: stage * duration, x, y };
 };
 

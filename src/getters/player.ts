@@ -79,3 +79,6 @@ export const isTagHighlighted = (
 export const getHighlightedTagID = ({
   tagEditor: { highlightedTagID }
 }: State): string => highlightedTagID;
+
+export const getVideoDuration = ({ player: { duration } }: State): number =>
+  duration;

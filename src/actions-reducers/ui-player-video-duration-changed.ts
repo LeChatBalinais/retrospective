@@ -1,11 +1,17 @@
 import { ActionTemplate } from '~/utils/action-template';
 import { makeActionCreator } from '~/utils/make-action-creator';
 import { State } from '~/state';
-import { getVideoDuration } from '~/getters/footage';
-import { setStageVideoAt, setStageSeekPreviewAt } from '~/setters/player';
-import { setVideoDuration } from '~/setters/footage';
+import {
+  setStageVideoAt,
+  setStageSeekPreviewAt,
+  setVideoDuration
+} from '~/setters/player';
 import { createReducer } from '~/utils/create-reducer';
-import { getStageVideoAt, getStageSeekPreviewAt } from '~/getters/player';
+import {
+  getStageVideoAt,
+  getStageSeekPreviewAt,
+  getVideoDuration
+} from '~/getters/player';
 import { mapStateToDeterminer } from '~/utils/map-state-to-determiner';
 
 export type ActionID = 'UI_PLAYER_VIDEO_DURATION_CHANGED';

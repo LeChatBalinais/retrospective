@@ -3,8 +3,7 @@ import { makeActionCreator } from '~/utils/make-action-creator';
 import { State } from '~/state';
 import { createReducer } from '~/utils/create-reducer';
 import { setStageVideoAt } from '~/setters/player';
-import { getStageVideoAt } from '~/getters/player';
-import { getVideoDuration } from '~/getters/footage';
+import { getStageVideoAt, getVideoDuration } from '~/getters/player';
 import { mapStateToDeterminer } from '~/utils/map-state-to-determiner';
 
 export type ActionID = 'UI_PLAYER_VIDEO_PLAYED_TO_TIME';

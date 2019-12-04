@@ -1,22 +1,15 @@
 import React from 'react';
-import Videos from '../containers/videos';
-import Player from '../containers/player';
-import NewTagButton from '../containers/new-tag-button';
-import TagListContainer from '../containers/tag-list';
+import Videos from '~/containers/videos';
+import ReferenceEditor from '~/components/ReferenceEditor'
+import PageNotFound from '~/components/PageNotFound'
+import { Page, HOME_PAGE, REFERENCE_EDITOR_PAGE, NOT_FOUND_PAGE } from './pages';
 
-const Home = <Videos />;
-const ReferenceEditor = (
-  <div className="section main-section">
-    <div className="columns">
-      <div className="column is-8">
-        <Player />
-      </div>
-      <div className="column is-4">
-        <NewTagButton />
-        <TagListContainer />
-      </div>
-    </div>
-  </div>
-);
+type PagesToComponents = { [P in Page]: JSX.Element }
 
-export default { Home, ReferenceEditor };
+const pagesToComponents: PagesToComponents = {
+  [HOME_PAGE]: <Videos />,
+  [REFERENCE_EDITOR_PAGE]: <ReferenceEditor />,
+  [NOT_FOUND_PAGE]: <PageNotFound />
+}
+
+export default pagesToComponents;

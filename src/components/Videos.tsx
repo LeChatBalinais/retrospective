@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Link from 'redux-first-router-link';
 import { actionCreator } from '../actions-reducers/route-reference-editor';
 
@@ -6,16 +6,11 @@ export interface ValueProps {
   videos: { globalID: string; name: string }[];
 }
 
-export interface FuncProps {
-  onComponentDidMount?: () => void;
-}
 
-type Props = ValueProps & FuncProps;
 
-const TagTable = ({ videos, onComponentDidMount }: Props): JSX.Element => {
-  useEffect((): void => {
-    onComponentDidMount();
-  }, [onComponentDidMount]);
+type Props = ValueProps;
+
+const TagTable = ({ videos }: Props): JSX.Element => {
 
   const videoIDsLinks = videos.map(
     ({ globalID, name }: { globalID: string; name: string }): JSX.Element => (

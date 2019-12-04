@@ -7,7 +7,7 @@ import * as route from './route';
 
 export type Action = saga.Action | ui.Action | route.Action;
 
-type ActionID = saga.ActionID | ui.ActionID | route.ActionID;
+export type ActionID = saga.ActionID | ui.ActionID | route.ActionID;
 
 type Payload<T extends ActionID> = T extends ui.ActionID
   ? ui.Payload<T>

@@ -15,7 +15,7 @@ import {
   getPlaybackStatus,
   getSeekVideo
 } from '~/getters/player';
-import { getVideoURL } from '~/getters/footage';
+import { getVideoURL } from '~/getters/location';
 import { getLastRequestedTime } from '~/selectors/get-last-requested-time';
 
 const shouldVideoSeek = (state: State): boolean => {

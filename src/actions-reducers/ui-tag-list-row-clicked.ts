@@ -3,13 +3,13 @@ import { makeActionCreator } from '~/utils/make-action-creator';
 import { State, SeekingStatus, PlaneTimePoint } from '~/state';
 import { createReducer } from '~/utils/create-reducer';
 import { getCurrentTagID } from '~/getters/tag-editor';
-import { getVideoDuration } from '~/getters/footage';
 import { setCurrentTagID } from '~/setters/tag-editor';
 import { setLastRequestedStage, setSeekingStatus } from '~/setters/player';
 import {
   getLastRequestedStage,
   getStageVideoAt,
-  getSeekingStatus
+  getSeekingStatus,
+  getVideoDuration
 } from '~/getters/player';
 import { getTagPath } from '~/getters/tags';
 import { timeIsCloseEnough } from '~/utils/time-is-close-enough';

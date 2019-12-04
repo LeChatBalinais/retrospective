@@ -5,8 +5,7 @@ import * as seekpreview from './ui-player-seekpreview';
 import * as seekbar from './ui-player-seekbar';
 import * as augmentation from './ui-player-augmentation';
 import * as controls from './ui-player-controls';
-import * as loaded from './ui-player-loaded';
-import * as createdForVideoOfID from './ui-player-created-for-video-of-id'
+import * as createdForVideoOfID from './ui-player-created-for-video-of-id';
 
 export type Action =
   | video.Action
@@ -14,7 +13,6 @@ export type Action =
   | seekbar.Action
   | augmentation.Action
   | controls.Action
-  | loaded.Action
   | createdForVideoOfID.Action;
 
 export type ActionID =
@@ -23,7 +21,6 @@ export type ActionID =
   | seekbar.ActionID
   | augmentation.ActionID
   | controls.ActionID
-  | loaded.ActionID
   | createdForVideoOfID.ActionID;
 
 export type Payload<T> = T extends video.ActionID
@@ -36,8 +33,6 @@ export type Payload<T> = T extends video.ActionID
   ? augmentation.Payload<T>
   : T extends controls.ActionID
   ? controls.Payload<T>
-  : T extends loaded.ActionID
-  ? loaded.Payload
   : T extends createdForVideoOfID.ActionID
   ? createdForVideoOfID.Payload
   : undefined;
@@ -52,6 +47,5 @@ export const reducersRegister: ReducersRegister = {
   ...seekbar.reducersRegister,
   ...augmentation.reducersRegister,
   ...controls.reducersRegister,
-  ...loaded.reducer,
   ...createdForVideoOfID.reducer
 };
