@@ -1,6 +1,6 @@
 import { Tags } from './tags';
 import { Videos } from './videos';
-import { Players } from './players';
+import { Players } from './experimental/players';
 import { FormalCompositions } from './formal-compositions';
 
 export interface Entities {

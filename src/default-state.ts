@@ -29,7 +29,7 @@ const DEFAULT_STATE: State = {
           globalID: 'e91342d8-7d4a-4c66-a724-e63a874c53cd',
           firstFormalReferenceID: 'e91342d8-7d4a-4c66-a724-e63a874c53cd',
           firstFormalReferenceKind: FormalReferenceKind.Anchor,
-          secondFormalReferenceID: 'f9929575-8381-468b-b5ec-90a83c4ba4a6',
+          secondFormalReferenceID: '3de2ce05-7faf-4190-bfda-27649d2c1008',
           secondFormalReferenceKind: FormalReferenceKind.Anchor
         }
       },

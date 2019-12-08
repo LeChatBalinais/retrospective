@@ -1,25 +1,40 @@
 import React from 'react';
 
-import VideoContainer from '~/containers/video';
-import SeekPreview from '~/containers/seek-preview';
+import VideoSegmentContainer from '~/containers/video-segment';
+
+interface TimeInterval {
+  from: number;
+  to: number;
+}
+
+interface ReelSegment {
+  videoID: string;
+  refID: string;
+  interval: TimeInterval;
+}
+
+interface Reel {
+  segments: ReelSegment[];
+}
 
 export interface ValueProps {
-  compositionID: string;
+  reel: Reel;
 }
 
 type Props = ValueProps;
 
-const CompositionPlayer = ({ compositionID }: Props): JSX.Element => {
-  return (
-    <div>
-      <div className="box video-box">
+const CompositionPlayer = ({ reel }: Props): JSX.Element => {
+  const videos = reel.segments.map(
+    ({ videoID, refID }: ReelSegment): JSX.Element => (
+      <div className="box video-box" {...{ key: refID }}>
         <div className="augmented-video">
-          <VideoContainer />
-          <SeekPreview />
+          <VideoSegmentContainer {...{ videoID }} />
         </div>
       </div>
-    </div>
+    )
   );
+
+  return <div>{videos}</div>;
 };
 
 export default CompositionPlayer;
