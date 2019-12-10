@@ -1,8 +1,22 @@
 import { v4 as uuid } from 'uuid';
 import { Table } from '~/state';
 
-export function addElementToTable<T>(table: Table<T>, instance: T): Table<T> {
-  const ID = uuid();
+export function addElementToTable<T>(table: Table<T>, instance: T): Table<T>;
+
+export function addElementToTable<T>(
+  table: Table<T>,
+  instance: T,
+  globalID: string
+): Table<T>;
+
+export function addElementToTable<T>(
+  table: Table<T>,
+  instance: T,
+  globalID?: string
+): Table<T> {
+  let ID = globalID;
+
+  if (ID === undefined) ID = uuid();
 
   return {
     byID: {

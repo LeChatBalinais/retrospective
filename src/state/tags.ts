@@ -1,7 +1,7 @@
-import { Table, ElementsByID } from './table';
+import { ElementsByID } from './table';
+import { GlobalEntityTable } from './global-entity-table';
 
 export interface Tag {
-  readonly globalID: string;
   readonly videoID: string;
   readonly path: PlaneTimePoint[];
 }
@@ -11,6 +11,6 @@ export interface PlaneTimePoint {
   x: number;
   y: number;
 }
-export type Tags = Table<Tag>;
+export type Tags = GlobalEntityTable<Tag>;
 
 export type TagsByID = ElementsByID<Tag>;

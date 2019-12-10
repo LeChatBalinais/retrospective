@@ -16,8 +16,6 @@ interface Props {
 }
 
 const mapStateToProps = (state: State, { videoID }: Props): ValueProps => {
-  console.log(getVideoURL(state, videoID));
-
   return {
     playback: false,
     url: getVideoURL(state, videoID),

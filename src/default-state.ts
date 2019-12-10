@@ -13,7 +13,8 @@ const DEFAULT_STATE: State = {
   entities: {
     tags: {
       byID: {},
-      allIDs: []
+      allIDs: [],
+      localOnly: []
     },
     videos: {
       byID: {},

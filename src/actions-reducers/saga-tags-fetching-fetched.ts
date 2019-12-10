@@ -1,5 +1,5 @@
 import { ActionTemplate } from '~/utils/action-template';
-import { State, Tags, Table, Tag } from '~/state';
+import { State, Tags, Tag, GlobalEntityTable } from '~/state';
 import { createReducer } from '~/utils/create-reducer';
 import { setTags } from '~/setters/entities';
 import { getTagsTable } from '~/getters/entities';
@@ -11,7 +11,7 @@ export type ActionID = 'SAGA_TAGS_FETCHED';
 export const ACTION_ID = 'SAGA_TAGS_FETCHED';
 
 export interface Payload {
-  tags: Table<Tag>;
+  tags: GlobalEntityTable<Tag>;
 }
 
 export type Action = ActionTemplate<ActionID, Payload>;
