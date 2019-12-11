@@ -1,7 +1,6 @@
 import { Table, ElementsByID } from './table';
 
 export interface FormalComposition {
-  readonly globalID: string;
   readonly firstFormalReferenceID: string;
   readonly firstFormalReferenceKind: FormalReferenceKind;
   readonly secondFormalReferenceID: string;

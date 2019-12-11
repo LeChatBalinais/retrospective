@@ -1,6 +1,5 @@
 import { SagaIterator } from '@redux-saga/core';
-import { put, call, takeEvery, select } from 'redux-saga/effects';
-import { getTag } from '~/getters/tags';
+import { put, call, takeEvery } from 'redux-saga/effects';
 import {
   ACTION_ID as UI_TAG_LIST_ROW_DELETE_BUTTON_CLICKED,
   Action
@@ -8,15 +7,13 @@ import {
 import { actionCreator as tagDeletionConfirmed } from '~/actions-reducers/saga-tag-deletion-confirmed';
 
 function* deleteTagAsync({ payload: { tagID: ID } }: Action): SagaIterator {
-  const { globalID } = yield select(getTag, ID);
-
   const response = yield call(fetch, `http://localhost:9000/deleteTag`, {
     method: 'post',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ ID: globalID })
+    body: JSON.stringify({ ID })
   });
 
   if (response.ok) yield put(tagDeletionConfirmed({ tagID: ID }));

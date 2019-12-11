@@ -18,7 +18,8 @@ const DEFAULT_STATE: State = {
     },
     videos: {
       byID: {},
-      allIDs: []
+      allIDs: [],
+      localOnly: []
     },
     players: {
       byID: {},
@@ -27,7 +28,6 @@ const DEFAULT_STATE: State = {
     formalCompositions: {
       byID: {
         'b12c49bf-af6d-49ce-82fc-f82b811c750e': {
-          globalID: 'e91342d8-7d4a-4c66-a724-e63a874c53cd',
           firstFormalReferenceID: 'e91342d8-7d4a-4c66-a724-e63a874c53cd',
           firstFormalReferenceKind: FormalReferenceKind.Anchor,
           secondFormalReferenceID: '3de2ce05-7faf-4190-bfda-27649d2c1008',
@@ -41,7 +41,6 @@ const DEFAULT_STATE: State = {
     userIsPlacingNewTag: false,
     tagsBeingEdited: [],
     currentTag: undefined,
-    selectedTags: [],
     tagsWithVisibleTrace: []
   },
   player: {

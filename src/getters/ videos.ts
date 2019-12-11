@@ -10,7 +10,5 @@ export const getVideoURL = (
 ): string => {
   const { [videoID]: video } = videosByID;
 
-  return video !== undefined
-    ? `http://localhost:9000/video/${video.globalID}`
-    : '';
+  return video !== undefined ? `http://localhost:9000/video/${videoID}` : '';
 };

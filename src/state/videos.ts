@@ -1,10 +1,10 @@
-import { Table, ElementsByID } from './table';
+import { ElementsByID } from './table';
+import { GlobalEntityTable } from './global-entity-table';
 
 export interface Video {
-  readonly globalID: string;
   readonly name: string;
 }
 
-export type Videos = Table<Video>;
+export type Videos = GlobalEntityTable<Video>;
 
 export type VideosByID = ElementsByID<Video>;

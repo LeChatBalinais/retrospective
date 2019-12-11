@@ -18,7 +18,7 @@ const mapStateToProps = ({
 
   const {
     tags: { byID: tagsByID, allIDs: allTagIDs },
-    videos: { byID: videosByID, allIDs: allVideoIDs }
+    videos: { allIDs: allVideoIDs }
   } = entities;
 
   if (allTagIDs === undefined)
@@ -55,7 +55,7 @@ const mapStateToProps = ({
     };
 
   const firstVideoID: string = allVideoIDs.find(
-    (id: string): boolean => videosByID[id].globalID === firstRef.videoID
+    (id: string): boolean => id === firstRef.videoID
   );
 
   if (firstVideoID === undefined)
@@ -66,7 +66,7 @@ const mapStateToProps = ({
     };
 
   const secondVideoID: string = allVideoIDs.find(
-    (id: string): boolean => videosByID[id].globalID === secondRef.videoID
+    (id: string): boolean => id === secondRef.videoID
   );
 
   if (secondVideoID === undefined)

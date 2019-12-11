@@ -4,6 +4,17 @@ import * as table from './table';
 
 export function addElementToTable<T>(
   globalEntityTable: GlobalEntityTable<T>,
+  instance: T
+): GlobalEntityTable<T>;
+
+export function addElementToTable<T>(
+  globalEntityTable: GlobalEntityTable<T>,
+  instance: T,
+  ID: string
+): GlobalEntityTable<T>;
+
+export function addElementToTable<T>(
+  globalEntityTable: GlobalEntityTable<T>,
   instance: T,
   ID?: string
 ): GlobalEntityTable<T> {

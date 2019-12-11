@@ -7,9 +7,10 @@ const mapStateToProps = ({
     videos: { allIDs, byID }
   }
 }: State): VideosValueProps => ({
-  videos: allIDs.map(
-    (ID: string): { globalID: string; name: string } => byID[ID]
-  )
+  videos: allIDs.map((ID: string): { videoID: string; name: string } => ({
+    videoID: ID,
+    name: byID[ID].name
+  }))
 });
 
 export default connect(mapStateToProps)(Videos);
