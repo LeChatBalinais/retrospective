@@ -9,7 +9,7 @@ export type Action = saga.Action | ui.Action | route.Action;
 
 export type ActionID = saga.ActionID | ui.ActionID | route.ActionID;
 
-type Payload<T extends ActionID> = T extends ui.ActionID
+export type Payload<T extends ActionID> = T extends ui.ActionID
   ? ui.Payload<T>
   : T extends saga.ActionID
   ? saga.Payload<T>
