@@ -43,7 +43,10 @@ const SeekPreview = ({
     <video
       preload="auto"
       className="seek-preview"
-      {...{ onSeeking, onSeeked, src, hidden }}
+      onSeeking={onSeeking}
+      onSeeked={onSeeked}
+      src={src}
+      hidden={hidden}
       ref={videoEl}
     />
   );

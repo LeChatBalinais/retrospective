@@ -28,20 +28,16 @@ const TagRow = ({
   return (
     /* eslint-disable-next-line */
     <div
-      {...{
-        className,
-        onClick: (
-          event: React.MouseEvent<HTMLDivElement, MouseEvent>
-        ): void => {
-          event.stopPropagation();
-          onClick();
-        },
-        onMouseEnter,
-        onMouseLeave
+      className={className}
+      onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
+        event.stopPropagation();
+        onClick();
       }}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       <span>{caption} </span>
-      <TagExistanceStatusButton {...{ ID, isLocal }} />
+      <TagExistanceStatusButton ID={ID} isLocal={isLocal} />
     </div>
   );
 };

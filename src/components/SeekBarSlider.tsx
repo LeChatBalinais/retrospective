@@ -16,7 +16,7 @@ const SeekBarSlider = (props: ValueProps): JSX.Element => {
     left: `calc(${position}% - 7px`
   };
 
-  return <div {...{ className }} style={style} />;
+  return <div className={className} style={style} />;
 };
 
 export default SeekBarSlider;

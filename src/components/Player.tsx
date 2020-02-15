@@ -13,20 +13,14 @@ export interface ValueProps {
   currentTag: string;
 }
 
-
 type Props = ValueProps;
 
-const Player = ({
-  placeNewTagMode,
-  currentTag
-}: Props): JSX.Element => {
-
+const Player = ({ placeNewTagMode, currentTag }: Props): JSX.Element => {
   let newTagLayerComponent = null;
   if (placeNewTagMode) newTagLayerComponent = <NewTagLayerContainer />;
 
   let currentTagPanel = null;
-  if (currentTag)
-    currentTagPanel = <TagPanelContainer {...{ ID: currentTag }} />;
+  if (currentTag) currentTagPanel = <TagPanelContainer ID={currentTag} />;
 
   return (
     <div>

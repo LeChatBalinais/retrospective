@@ -16,11 +16,7 @@ type PagesToComponents = { [P in Page]: JSX.Element };
 const pagesToComponents: PagesToComponents = {
   [HOME_PAGE]: <Videos />,
   [REFERENCE_EDITOR_PAGE]: <ReferenceEditor />,
-  [COMPOSITION_PLAYER_PAGE]: (
-    <CompositionPlayer
-      {...{ compositionID: 'b12c49bf-af6d-49ce-82fc-f82b811c750e' }}
-    />
-  ),
+  [COMPOSITION_PLAYER_PAGE]: <CompositionPlayer />,
   [NOT_FOUND_PAGE]: <PageNotFound />
 };
 

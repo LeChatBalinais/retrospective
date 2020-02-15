@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import React, { useRef, useState, useCallback } from 'react';
-import { TweenMax } from 'gsap';
+import { gsap } from 'gsap';
 
 type OnTimeUpdate = (currentTime: number) => void;
 type OnDurationChangeFunc = (duration: number) => void;
@@ -62,7 +62,7 @@ const Video = ({
     if (playback) {
       current.play();
       if (!tickOn) {
-        TweenMax.ticker.addEventListener('tick', onTick);
+        gsap.ticker.add(onTick);
         setTickOn(true);
       }
     } else {
@@ -71,7 +71,7 @@ const Video = ({
         current.currentTime = timeSeekTo;
       }
       if (tickOn) {
-        TweenMax.ticker.removeEventListener('tick', onTick);
+        gsap.ticker.remove(onTick);
         setTickOn(false);
       }
     }
@@ -81,7 +81,12 @@ const Video = ({
     <video
       preload="auto"
       className="main-video"
-      {...{ onDurationChange, onSeeking, onSeeked, onPlaying, onPause, src }}
+      onDurationChange={onDurationChange}
+      onSeeking={onSeeking}
+      onSeeked={onSeeked}
+      onPlaying={onPlaying}
+      onPause={onPause}
+      src={src}
       ref={videoEl}
     />
   );

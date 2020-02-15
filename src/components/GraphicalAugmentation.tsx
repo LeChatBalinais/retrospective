@@ -9,7 +9,7 @@ type Props = ValueProps;
 
 const GraphicalAugmentation = ({ tagIDs }: Props): JSX.Element => {
   const tagTraceContainers = tagIDs.map(
-    (tagID: string): React.ReactNode => <TagTrace {...{ key: tagID, tagID }} />
+    (tagID: string): React.ReactNode => <TagTrace key={tagID} tagID={tagID} />
   );
   return (
     <div className="augmentation">

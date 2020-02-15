@@ -11,7 +11,7 @@ type Props = ValueProps;
 const TagTable = ({ videos }: Props): JSX.Element => {
   const videoIDsLinks = videos.map(
     ({ videoID, name }: { videoID: string; name: string }): JSX.Element => (
-      <div {...{ key: videoID }} className="box">
+      <div key={videoID} className="box">
         <Link to={actionCreator({ videoID })}>{name}</Link>
       </div>
     )

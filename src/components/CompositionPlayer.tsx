@@ -26,9 +26,9 @@ type Props = ValueProps;
 const CompositionPlayer = ({ reel }: Props): JSX.Element => {
   const videos = reel.segments.map(
     ({ videoID, refID }: ReelSegment): JSX.Element => (
-      <div className="box video-box" {...{ key: refID }}>
+      <div className="box video-box" key={refID}>
         <div className="augmented-video">
-          <VideoSegmentContainer {...{ videoID }} />
+          <VideoSegmentContainer videoID={videoID} />
         </div>
       </div>
     )

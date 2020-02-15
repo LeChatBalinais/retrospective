@@ -15,24 +15,26 @@ const TagTable = ({
   afterExposed
 }: Props): JSX.Element => {
   const sortedIDsOfTagsBeforeExposed = beforeExposed.map(
-    (ID: string): JSX.Element => <TagRowContainer {...{ key: ID, ID }} />
+    (ID: string): JSX.Element => <TagRowContainer key={ID} ID={ID} />
   );
   const sortedIDsOfExposedTags = exposed.map(
-    (ID: string): JSX.Element => <TagRowContainer {...{ key: ID, ID }} />
+    (ID: string): JSX.Element => <TagRowContainer key={ID} ID={ID} />
   );
   const sortedIDsOfTagsAfterExposed = afterExposed.map(
-    (ID: string): JSX.Element => <TagRowContainer {...{ key: ID, ID }} />
+    (ID: string): JSX.Element => <TagRowContainer key={ID} ID={ID} />
   );
 
   let exposedTags;
 
   if (sortedIDsOfExposedTags.length !== 0)
-    exposedTags = <div
-      className="box"
-      {...{ style: { boxShadow: '0 2px 3px red, 0 0 0 1px red' } }}
-    >
-      {sortedIDsOfExposedTags}
-    </div>
+    exposedTags = (
+      <div
+        className="box"
+        style={{ boxShadow: '0 2px 3px red, 0 0 0 1px red' }}
+      >
+        {sortedIDsOfExposedTags}
+      </div>
+    );
 
   return (
     <div className="box markers-list">

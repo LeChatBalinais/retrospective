@@ -1,6 +1,4 @@
 import { all } from 'redux-saga/effects';
-import { SagaIterator } from '@redux-saga/core';
-import { CombinatorEffect } from '@redux-saga/types/index.d';
 import deleteTag from './delete-tag';
 import saveTag from './save-tag';
 import fetchTags from './fetch-tags';
@@ -18,9 +16,7 @@ import { ACTION_ID as ROUTE_HOME } from '~/actions-reducers/route-home';
 import { ACTION_ID as UI_TAG_LIST_ROW_DELETE_BUTTON_CLICKED } from '~/actions-reducers/ui-tag-list-row-delete-button-clicked';
 import { watchAction } from './watch-action';
 
-export default function* rootSaga(): IterableIterator<
-  CombinatorEffect<'ALL', SagaIterator>
-> {
+export default function* rootSaga(): IterableIterator<any> {
   yield all([
     watchAction(UI_TAG_LIST_ROW_DELETE_BUTTON_CLICKED, deleteTag),
     saveTag(),

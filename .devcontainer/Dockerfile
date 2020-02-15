@@ -3,7 +3,7 @@
 # Licensed under the MIT License. See LICENSE in the project root for license information.
 #-----------------------------------------------------------------------------------------
 
-FROM node:10
+FROM node:12
 
 # Configure apt
 ENV DEBIAN_FRONTEND=noninteractive

@@ -30,18 +30,12 @@ const onPress = (
 const makeMapDispatchToProps = (): MapDispatchToProps => {
   return (
     dispatch: Dispatch,
-    { ID, isLocal }: { ID: string; isLocal: boolean }
+    { ID, isLocal }: Props
   ): { onPress: () => void } => ({ onPress: onPress(dispatch, ID, isLocal) });
 };
 
-const mapStateToProps = (
-  state: State,
-  { isLocal }: { isLocal: boolean }
-): ValueProps => {
+const mapStateToProps = (state: State, { isLocal }: Props): ValueProps => {
   return { caption: isLocal ? 'Save' : 'Delete' };
 };
 
-export default connect(
-  mapStateToProps,
-  makeMapDispatchToProps
-)(Button);
+export default connect(mapStateToProps, makeMapDispatchToProps)(Button);

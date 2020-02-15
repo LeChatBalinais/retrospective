@@ -66,9 +66,7 @@ const Augmentation = ({
   );
 
   const tagContainers = tagIDs.map(
-    (tagID: string): React.ReactNode => (
-      <TagContainer {...{ key: tagID, ID: tagID }} />
-    )
+    (tagID: string): React.ReactNode => <TagContainer key={tagID} ID={tagID} />
   );
 
   return (
@@ -76,11 +74,9 @@ const Augmentation = ({
     <div
       className="augmentation"
       ref={divEl}
-      {...{
-        onMouseDown,
-        onMouseMove: onMouseMoveFunc,
-        onMouseUp: onMouseUpFunc
-      }}
+      onMouseDown={onMouseDown}
+      onMouseMove={onMouseMoveFunc}
+      onMouseUp={onMouseUpFunc}
     >
       {tagContainers}
     </div>

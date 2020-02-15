@@ -73,7 +73,10 @@ const Tag = ({
         event.stopPropagation();
         onMouseDown();
       }}
-      {...{ onMouseUp, onMouseEnter, onMouseOut, className }}
+      onMouseUp={onMouseUp}
+      onMouseEnter={onMouseEnter}
+      onMouseOut={onMouseOut}
+      className={className}
       style={style}
       ref={divEl}
     />

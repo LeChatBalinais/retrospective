@@ -41,5 +41,5 @@ const components: ActionIDToPage = {
   [NOT_FOUND]: 'NotFound'
 };
 
-export default (state: string = 'Home', action: Action): string =>
+export default (state = 'Home', action: Action): string =>
   components[action.type] || state;

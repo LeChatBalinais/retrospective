@@ -56,7 +56,8 @@ const TagPanel = ({
         <span>
           <input
             type="checkbox"
-            {...{ checked: traceIsVisible, value: 'Trace Is Visible' }}
+            checked={traceIsVisible}
+            value="Trace Is Visible"
             onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
               onTagTraceVisbileCheckboxInput(event.target.checked);
             }}

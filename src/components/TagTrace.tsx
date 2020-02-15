@@ -9,7 +9,7 @@ type Props = ValueProps;
 const TagTrace = ({ points }: Props): JSX.Element => (
   <polyline
     className="tag-trace"
-    {...{ points }}
+    points={points}
     vectorEffect="non-scaling-stroke"
   />
 );
