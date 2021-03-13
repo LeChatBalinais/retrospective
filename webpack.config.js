@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
@@ -27,16 +28,10 @@ module.exports = {
     publicPath: '/'
   },
 
-  devtool: 'cheap-eval-source-map',
+  devtool: 'eval-cheap-source-map',
 
   module: {
     rules: [
-      {
-        enforce: 'pre',
-        test: /\.(t|j)sx?$/,
-        loader: 'eslint-loader',
-        exclude: [/node_modules/, /public/]
-      },
       {
         test: /\.(ts|tsx|js|jsx)?$/,
         loader: 'babel-loader',
@@ -44,7 +39,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader'
+        use: ['style-loader','css-loader']
       },
       {
         test: /\.scss$/,
@@ -69,10 +64,10 @@ module.exports = {
   },
 
   plugins: [
+    new ESLintPlugin(),
     new HtmlWebpackPlugin({
       template: 'src/index.html'
     }),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin()
+    new webpack.HotModuleReplacementPlugin()
   ]
 };

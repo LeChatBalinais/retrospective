@@ -1,13 +1,12 @@
 {
-  "name": "Retrospective",
+  "name": "Frontend-Base-Project",
   "dockerFile": "Dockerfile",
   "appPort": 8080,
   "extensions": [
     "dbaeumer.vscode-eslint",
-    "prettier.prettier",
     "2gua.rainbow-brackets",
-    "ms-vsliveshare.vsliveshare",
+    "prettier.prettier",
     "esbenp.prettier-vscode"
   ],
-  "postCreateCommand": "yarn install"
+  "postCreateCommand": "npm install"
 }
